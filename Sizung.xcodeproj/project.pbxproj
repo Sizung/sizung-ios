@@ -15,6 +15,7 @@
 		5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E991CD7A96000FB3DEB /* LaunchScreen.storyboard */; };
 		5A653EA61CD7A96000FB3DEB /* SizungTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653EA51CD7A96000FB3DEB /* SizungTests.swift */; };
 		5A653EB11CD7A96000FB3DEB /* SizungUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */; };
+		5A653EBF1CD7AB0000FB3DEB /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653EBE1CD7AB0000FB3DEB /* ThirdViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		5A653EAC1CD7A96000FB3DEB /* SizungUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SizungUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizungUITests.swift; sourceTree = "<group>"; };
 		5A653EB21CD7A96000FB3DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A653EBE1CD7AB0000FB3DEB /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				5A653E8E1CD7A96000FB3DEB /* AppDelegate.swift */,
 				5A653E901CD7A96000FB3DEB /* FirstViewController.swift */,
 				5A653E921CD7A96000FB3DEB /* SecondViewController.swift */,
+				5A653EBE1CD7AB0000FB3DEB /* ThirdViewController.swift */,
 				5A653E941CD7A96000FB3DEB /* Main.storyboard */,
 				5A653E971CD7A96000FB3DEB /* Assets.xcassets */,
 				5A653E991CD7A96000FB3DEB /* LaunchScreen.storyboard */,
@@ -261,6 +264,7 @@
 			files = (
 				5A653E931CD7A96000FB3DEB /* SecondViewController.swift in Sources */,
 				5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */,
+				5A653EBF1CD7AB0000FB3DEB /* ThirdViewController.swift in Sources */,
 				5A653E911CD7A96000FB3DEB /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -488,6 +492,7 @@
 				5A653EB71CD7A96000FB3DEB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5A653EB81CD7A96000FB3DEB /* Build configuration list for PBXNativeTarget "SizungTests" */ = {
 			isa = XCConfigurationList;
@@ -496,6 +501,7 @@
 				5A653EBA1CD7A96000FB3DEB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5A653EBB1CD7A96000FB3DEB /* Build configuration list for PBXNativeTarget "SizungUITests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +510,7 @@
 				5A653EBD1CD7A96000FB3DEB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
