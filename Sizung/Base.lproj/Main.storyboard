@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -104,7 +104,7 @@
         <!--Login-->
         <scene sceneID="TqZ-3k-19s">
             <objects>
-                <viewController storyboardIdentifier="Login" title="Login" id="png-Ij-0gc" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" title="Login" id="png-Ij-0gc" customClass="LoginViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pjg-YE-p4u"/>
                         <viewControllerLayoutGuide type="bottom" id="97z-39-7M9"/>
@@ -113,23 +113,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJH-cT-LjZ">
-                                <rect key="frame" x="281" y="285" width="38" height="30"/>
-                                <state key="normal" title="Login"/>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name@mail.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xmx-Tv-Yfp">
                                 <rect key="frame" x="200" y="195" width="200" height="30"/>
+                                <accessibility key="accessibilityConfiguration" identifier="email"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="4Cy-ez-pdQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="png-Ij-0gc" id="seS-Nr-dg1"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="is8-il-l7v">
                                 <rect key="frame" x="200" y="247" width="200" height="30"/>
+                                <accessibility key="accessibilityConfiguration" identifier="password"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="png-Ij-0gc" id="Zj3-bW-x35"/>
+                                </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJH-cT-LjZ">
+                                <rect key="frame" x="281" y="285" width="38" height="30"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="login:" destination="png-Ij-0gc" eventType="touchUpInside" id="cAQ-A8-QgZ"/>
+                                    <segue destination="49e-Tb-3d3" kind="show" identifier="dismissLogin" id="UsE-g2-PCK"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8VB-DL-91q">
+                                <rect key="frame" x="291" y="289" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -137,12 +152,20 @@
                             <constraint firstItem="is8-il-l7v" firstAttribute="centerX" secondItem="ULQ-ng-aOd" secondAttribute="centerX" id="Hzs-cs-jXF"/>
                             <constraint firstItem="Xmx-Tv-Yfp" firstAttribute="leading" secondItem="is8-il-l7v" secondAttribute="leading" id="Ip2-3Z-33n"/>
                             <constraint firstItem="MJH-cT-LjZ" firstAttribute="centerY" secondItem="ULQ-ng-aOd" secondAttribute="centerY" id="JCT-Ct-hnb"/>
+                            <constraint firstItem="8VB-DL-91q" firstAttribute="centerY" secondItem="ULQ-ng-aOd" secondAttribute="centerY" id="Rso-HW-Ozg"/>
                             <constraint firstItem="Xmx-Tv-Yfp" firstAttribute="centerX" secondItem="ULQ-ng-aOd" secondAttribute="centerX" id="TvT-5I-V4x"/>
                             <constraint firstItem="is8-il-l7v" firstAttribute="top" secondItem="Xmx-Tv-Yfp" secondAttribute="bottom" constant="22" id="XYW-Xe-EJd"/>
                             <constraint firstItem="MJH-cT-LjZ" firstAttribute="top" secondItem="is8-il-l7v" secondAttribute="bottom" constant="8" symbolic="YES" id="aCA-vl-HoK"/>
                             <constraint firstItem="MJH-cT-LjZ" firstAttribute="centerX" secondItem="ULQ-ng-aOd" secondAttribute="centerX" id="dgK-F6-WVS"/>
+                            <constraint firstItem="8VB-DL-91q" firstAttribute="centerX" secondItem="ULQ-ng-aOd" secondAttribute="centerX" id="y6i-w1-lhe"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="8VB-DL-91q" id="Leu-Mj-dsT"/>
+                        <outlet property="emailTextField" destination="Xmx-Tv-Yfp" id="PH4-Ve-vXA"/>
+                        <outlet property="loginButton" destination="MJH-cT-LjZ" id="dYc-4w-jJr"/>
+                        <outlet property="passwordTextField" destination="is8-il-l7v" id="Jl8-1c-iKu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5l1-ZI-cO1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

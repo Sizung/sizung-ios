@@ -7,15 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A35A52B1CDCDDE8005E5B1B /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35A52A1CDCDDE8005E5B1B /* Test.swift */; };
+		5A39F26A1CE47D6D003E20CE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */; };
+		5A5DC1221CE493BD00576AF5 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A39F2821CE48C54003E20CE /* Alamofire.framework */; };
+		5A5DC1231CE493BD00576AF5 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A39F2821CE48C54003E20CE /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5A5DC1241CE493BD00576AF5 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A39F27D1CE4813A003E20CE /* Quick.framework */; };
+		5A5DC1251CE493BD00576AF5 /* Quick.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A39F27D1CE4813A003E20CE /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5A5DC1261CE493BD00576AF5 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A39F2791CE48119003E20CE /* Nimble.framework */; };
+		5A5DC1271CE493BD00576AF5 /* Nimble.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A39F2791CE48119003E20CE /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5A5DC1281CE493C300576AF5 /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A39F2971CE49250003E20CE /* OHHTTPStubs.framework */; };
+		5A5DC1291CE493C300576AF5 /* OHHTTPStubs.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5A39F2971CE49250003E20CE /* OHHTTPStubs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653E8E1CD7A96000FB3DEB /* AppDelegate.swift */; };
 		5A653E911CD7A96000FB3DEB /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653E901CD7A96000FB3DEB /* FirstViewController.swift */; };
 		5A653E931CD7A96000FB3DEB /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653E921CD7A96000FB3DEB /* SecondViewController.swift */; };
 		5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E941CD7A96000FB3DEB /* Main.storyboard */; };
 		5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E971CD7A96000FB3DEB /* Assets.xcassets */; };
 		5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E991CD7A96000FB3DEB /* LaunchScreen.storyboard */; };
-		5A653EA61CD7A96000FB3DEB /* SizungTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653EA51CD7A96000FB3DEB /* SizungTests.swift */; };
 		5A653EB11CD7A96000FB3DEB /* SizungUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */; };
 		5A653EBF1CD7AB0000FB3DEB /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653EBE1CD7AB0000FB3DEB /* ThirdViewController.swift */; };
+		5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A86B1281CE4BB64001C2E7A /* Configurations.plist */; };
+		5A86B12C1CE4BC04001C2E7A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B12B1CE4BC04001C2E7A /* Configuration.swift */; };
+		5A86B12E1CE5CF19001C2E7A /* AlamofireManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B12D1CE5CF19001C2E7A /* AlamofireManagerExtension.swift */; };
+		5A86B1311CE5D035001C2E7A /* SizungHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B1301CE5D035001C2E7A /* SizungHttpClient.swift */; };
+		5A86B1351CE5E2FC001C2E7A /* KeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B1341CE5E2FC001C2E7A /* KeychainWrapper.m */; };
+		5AB8F2F81CDCADD900F4423F /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8F2F71CDCADD900F4423F /* LoginTests.swift */; };
+		5AB8F2FA1CDCAF2A00F4423F /* UITestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */; };
+		5ABE8E351CDB5AC9004537C6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +52,29 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5A5DC1211CE493B500576AF5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5A5DC1231CE493BD00576AF5 /* Alamofire.framework in Embed Frameworks */,
+				5A5DC1291CE493C300576AF5 /* OHHTTPStubs.framework in Embed Frameworks */,
+				5A5DC1251CE493BD00576AF5 /* Quick.framework in Embed Frameworks */,
+				5A5DC1271CE493BD00576AF5 /* Nimble.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		5A35A52A1CDCDDE8005E5B1B /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		5A39F2791CE48119003E20CE /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Nimble.framework; sourceTree = "<group>"; };
+		5A39F27D1CE4813A003E20CE /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Quick.framework; sourceTree = "<group>"; };
+		5A39F2821CE48C54003E20CE /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
+		5A39F2971CE49250003E20CE /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OHHTTPStubs.framework; sourceTree = "<group>"; };
 		5A653E8B1CD7A96000FB3DEB /* Sizung.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sizung.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A653E8E1CD7A96000FB3DEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A653E901CD7A96000FB3DEB /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -45,12 +84,21 @@
 		5A653E9A1CD7A96000FB3DEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A653E9C1CD7A96000FB3DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A653EA11CD7A96000FB3DEB /* SizungTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SizungTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A653EA51CD7A96000FB3DEB /* SizungTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizungTests.swift; sourceTree = "<group>"; };
 		5A653EA71CD7A96000FB3DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A653EAC1CD7A96000FB3DEB /* SizungUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SizungUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizungUITests.swift; sourceTree = "<group>"; };
 		5A653EB21CD7A96000FB3DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A653EBE1CD7AB0000FB3DEB /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
+		5A86B1281CE4BB64001C2E7A /* Configurations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configurations.plist; sourceTree = "<group>"; };
+		5A86B12B1CE4BC04001C2E7A /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		5A86B12D1CE5CF19001C2E7A /* AlamofireManagerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireManagerExtension.swift; sourceTree = "<group>"; };
+		5A86B1301CE5D035001C2E7A /* SizungHttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungHttpClient.swift; sourceTree = "<group>"; };
+		5A86B1321CE5E2FC001C2E7A /* Sizung-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sizung-Bridging-Header.h"; sourceTree = "<group>"; };
+		5A86B1331CE5E2FC001C2E7A /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainWrapper.h; sourceTree = "<group>"; };
+		5A86B1341CE5E2FC001C2E7A /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWrapper.m; sourceTree = "<group>"; };
+		5AB8F2F71CDCADD900F4423F /* LoginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
+		5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestHelper.swift; sourceTree = "<group>"; };
+		5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +106,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5DC1261CE493BD00576AF5 /* Nimble.framework in Frameworks */,
+				5A5DC1281CE493C300576AF5 /* OHHTTPStubs.framework in Frameworks */,
+				5A5DC1241CE493BD00576AF5 /* Quick.framework in Frameworks */,
+				5A5DC1221CE493BD00576AF5 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,9 +130,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A39F27C1CE48123003E20CE /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				5A39F2971CE49250003E20CE /* OHHTTPStubs.framework */,
+				5A39F2821CE48C54003E20CE /* Alamofire.framework */,
+				5A39F27D1CE4813A003E20CE /* Quick.framework */,
+				5A39F2791CE48119003E20CE /* Nimble.framework */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		5A39F2811CE48B39003E20CE /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5A3B4F751CE4696B00086338 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5AB8F2F71CDCADD900F4423F /* LoginTests.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
 		5A653E821CD7A96000FB3DEB = {
 			isa = PBXGroup;
 			children = (
+				5A39F27C1CE48123003E20CE /* Libraries */,
 				5A653E8D1CD7A96000FB3DEB /* Sizung */,
 				5A653EA41CD7A96000FB3DEB /* SizungTests */,
 				5A653EAF1CD7A96000FB3DEB /* SizungUITests */,
@@ -101,6 +181,8 @@
 		5A653E8D1CD7A96000FB3DEB /* Sizung */ = {
 			isa = PBXGroup;
 			children = (
+				5A86B12A1CE4BBF3001C2E7A /* Support */,
+				5A39F2811CE48B39003E20CE /* ViewControllers */,
 				5A653E8E1CD7A96000FB3DEB /* AppDelegate.swift */,
 				5A653E901CD7A96000FB3DEB /* FirstViewController.swift */,
 				5A653E921CD7A96000FB3DEB /* SecondViewController.swift */,
@@ -109,6 +191,7 @@
 				5A653E971CD7A96000FB3DEB /* Assets.xcassets */,
 				5A653E991CD7A96000FB3DEB /* LaunchScreen.storyboard */,
 				5A653E9C1CD7A96000FB3DEB /* Info.plist */,
+				5A86B1281CE4BB64001C2E7A /* Configurations.plist */,
 			);
 			path = Sizung;
 			sourceTree = "<group>";
@@ -116,7 +199,6 @@
 		5A653EA41CD7A96000FB3DEB /* SizungTests */ = {
 			isa = PBXGroup;
 			children = (
-				5A653EA51CD7A96000FB3DEB /* SizungTests.swift */,
 				5A653EA71CD7A96000FB3DEB /* Info.plist */,
 			);
 			path = SizungTests;
@@ -125,10 +207,34 @@
 		5A653EAF1CD7A96000FB3DEB /* SizungUITests */ = {
 			isa = PBXGroup;
 			children = (
+				5A3B4F751CE4696B00086338 /* ViewController */,
 				5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */,
 				5A653EB21CD7A96000FB3DEB /* Info.plist */,
+				5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */,
+				5A35A52A1CDCDDE8005E5B1B /* Test.swift */,
 			);
 			path = SizungUITests;
+			sourceTree = "<group>";
+		};
+		5A86B12A1CE4BBF3001C2E7A /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				5A86B1331CE5E2FC001C2E7A /* KeychainWrapper.h */,
+				5A86B1341CE5E2FC001C2E7A /* KeychainWrapper.m */,
+				5A86B12F1CE5D025001C2E7A /* network */,
+				5A86B12B1CE4BC04001C2E7A /* Configuration.swift */,
+				5A86B12D1CE5CF19001C2E7A /* AlamofireManagerExtension.swift */,
+				5A86B1321CE5E2FC001C2E7A /* Sizung-Bridging-Header.h */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+		5A86B12F1CE5D025001C2E7A /* network */ = {
+			isa = PBXGroup;
+			children = (
+				5A86B1301CE5D035001C2E7A /* SizungHttpClient.swift */,
+			);
+			name = network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +247,7 @@
 				5A653E871CD7A96000FB3DEB /* Sources */,
 				5A653E881CD7A96000FB3DEB /* Frameworks */,
 				5A653E891CD7A96000FB3DEB /* Resources */,
+				5A5DC1211CE493B500576AF5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -236,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */,
+				5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */,
 				5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */,
 				5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */,
 			);
@@ -262,9 +370,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A86B1351CE5E2FC001C2E7A /* KeychainWrapper.m in Sources */,
+				5A86B12C1CE4BC04001C2E7A /* Configuration.swift in Sources */,
 				5A653E931CD7A96000FB3DEB /* SecondViewController.swift in Sources */,
 				5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */,
 				5A653EBF1CD7AB0000FB3DEB /* ThirdViewController.swift in Sources */,
+				5ABE8E351CDB5AC9004537C6 /* LoginViewController.swift in Sources */,
+				5A86B12E1CE5CF19001C2E7A /* AlamofireManagerExtension.swift in Sources */,
+				5A86B1311CE5D035001C2E7A /* SizungHttpClient.swift in Sources */,
 				5A653E911CD7A96000FB3DEB /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,7 +386,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A653EA61CD7A96000FB3DEB /* SizungTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +393,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AB8F2FA1CDCAF2A00F4423F /* UITestHelper.swift in Sources */,
+				5A35A52B1CDCDDE8005E5B1B /* Test.swift in Sources */,
 				5A653EB11CD7A96000FB3DEB /* SizungUITests.swift in Sources */,
+				5A39F26A1CE47D6D003E20CE /* LoginViewController.swift in Sources */,
+				5AB8F2F81CDCADD900F4423F /* LoginTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +457,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -387,6 +504,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -409,10 +527,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Sizung/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sizung.ios.Sizung;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sizung/Sizung-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -420,10 +546,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Sizung/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DRELEASE_VERSION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sizung.ios.Sizung;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Sizung/Sizung-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -431,6 +565,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SizungTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sizung.ios.SizungTests;
@@ -443,6 +581,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SizungTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sizung.ios.SizungTests;
@@ -454,6 +596,10 @@
 		5A653EBC1CD7A96000FB3DEB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SizungUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sizung.ios.SizungUITests;
@@ -465,6 +611,10 @@
 		5A653EBD1CD7A96000FB3DEB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SizungUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sizung.ios.SizungUITests;

@@ -31,11 +31,14 @@ class SizungUITests: XCTestCase {
     }
     
     func testInitialLoginView() {
-        XCTAssertEqual(app.textFields.count, 2)
-        XCTAssert(app.textFields["name@mail.com"].exists)
-        XCTAssert(app.textFields["password"].exists)
+        let mailTextField = app.textFields["email"]
+        let passwordTextField = app.textFields["password"]
+        let loginButton = app.buttons["Login"]
         
-        XCTAssert(app.buttons["Login"].exists)
+        XCTAssertEqual(app.textFields.count, 2)
+        XCTAssert(mailTextField.exists)
+        XCTAssert(passwordTextField.exists)
+        
+        XCTAssert(loginButton.exists)
     }
-    
 }
