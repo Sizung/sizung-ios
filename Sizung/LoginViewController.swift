@@ -49,7 +49,6 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
           
           let keychainWrapper = KeychainWrapper()
           keychainWrapper.mySetObject(token, forKey:kSecValueData)
-          keychainWrapper.writeToKeychain()
           
           self.performSegueWithIdentifier("dismissLogin", sender: self)
         case .Failure

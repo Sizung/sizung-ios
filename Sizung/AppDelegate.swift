@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Spine
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,13 +18,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
-    let hasToken : Bool = KeychainWrapper().myObjectForKey(kSecValueData) != nil
+    let token = KeychainWrapper().myObjectForKey(kSecValueData)
     
-    if (!hasToken) {
+    if (token == nil) {
       let loginViewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("LoginViewController")
       self.window!.rootViewController = loginViewController;
+    } else {
+      
+      self.initSpine(token as! String)
     }
     return true
+  }
+  
+  func initSpine(token: String) {
+    let baseURL = NSURL(string: Configuration.APIEndpoint())
+    let spine = Spine(baseURL: baseURL!)
+    
+    (spine.networkClient as! HTTPClient).setHeader("Authorization", to: "Bearer \(token)")
+    (spine.networkClient as! HTTPClient).setHeader("Accept", to: "application/json")
+    
+    spine.registerResource(Organization)
+    
+    Spine.setLogLevel(.Debug, forDomain: .Spine)
+    Spine.setLogLevel(.Debug, forDomain: .Networking)
+    Spine.setLogLevel(.Debug, forDomain: .Serializing)
+    
+    spine.findAll(Organization)
+      
+      .onSuccess { (resources, meta, jsonapi) in
+        print("Fetched resource collection: \(resources)")
+      }
+      .onFailure { (error) in
+        print(error)
+        self.window?.rootViewController?.performSegueWithIdentifier("showLogin", sender: nil)
+    }
   }
   
   func applicationWillResignActive(application: UIApplication) {

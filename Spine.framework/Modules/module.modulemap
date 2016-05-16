@@ -1,0 +1,10 @@
+framework module Spine {
+  umbrella header "Spine.h"
+
+  export *
+  module * { export * }
+}
+
+module Spine.Swift {
+    header "Spine-Swift.h"
+}

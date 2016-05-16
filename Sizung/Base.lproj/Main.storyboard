@@ -139,19 +139,20 @@
                                 <state key="normal" title="Login"/>
                                 <connections>
                                     <action selector="login:" destination="png-Ij-0gc" eventType="touchUpInside" id="cAQ-A8-QgZ"/>
-                                    <segue destination="49e-Tb-3d3" kind="show" identifier="dismissLogin" id="UsE-g2-PCK"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8VB-DL-91q">
-                                <rect key="frame" x="291" y="289" width="20" height="20"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8VB-DL-91q">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="8VB-DL-91q" firstAttribute="centerX" secondItem="ULQ-ng-aOd" secondAttribute="centerX" id="0hJ-Eg-C2a"/>
                             <constraint firstItem="is8-il-l7v" firstAttribute="width" secondItem="Xmx-Tv-Yfp" secondAttribute="width" id="983-28-wpi"/>
                             <constraint firstItem="is8-il-l7v" firstAttribute="centerX" secondItem="ULQ-ng-aOd" secondAttribute="centerX" id="Hzs-cs-jXF"/>
                             <constraint firstItem="Xmx-Tv-Yfp" firstAttribute="leading" secondItem="is8-il-l7v" secondAttribute="leading" id="Ip2-3Z-33n"/>
                             <constraint firstItem="MJH-cT-LjZ" firstAttribute="centerY" secondItem="ULQ-ng-aOd" secondAttribute="centerY" id="JCT-Ct-hnb"/>
+                            <constraint firstItem="8VB-DL-91q" firstAttribute="centerY" secondItem="ULQ-ng-aOd" secondAttribute="centerY" id="Jj7-rP-DRE"/>
                             <constraint firstItem="8VB-DL-91q" firstAttribute="centerY" secondItem="ULQ-ng-aOd" secondAttribute="centerY" id="Rso-HW-Ozg"/>
                             <constraint firstItem="Xmx-Tv-Yfp" firstAttribute="centerX" secondItem="ULQ-ng-aOd" secondAttribute="centerX" id="TvT-5I-V4x"/>
                             <constraint firstItem="is8-il-l7v" firstAttribute="top" secondItem="Xmx-Tv-Yfp" secondAttribute="bottom" constant="22" id="XYW-Xe-EJd"/>
@@ -165,6 +166,7 @@
                         <outlet property="emailTextField" destination="Xmx-Tv-Yfp" id="PH4-Ve-vXA"/>
                         <outlet property="loginButton" destination="MJH-cT-LjZ" id="dYc-4w-jJr"/>
                         <outlet property="passwordTextField" destination="is8-il-l7v" id="Jl8-1c-iKu"/>
+                        <segue destination="49e-Tb-3d3" kind="show" identifier="dismissLogin" id="fT5-Cq-B6a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5l1-ZI-cO1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -185,6 +187,7 @@
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
                         <segue destination="Bxa-Ma-MI3" kind="relationship" relationship="viewControllers" id="zGt-qE-ivz"/>
+                        <segue destination="png-Ij-0gc" kind="show" identifier="showLogin" id="QjA-yc-CBD"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>

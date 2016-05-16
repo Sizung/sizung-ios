@@ -40,7 +40,6 @@ enum Router: URLRequestConvertible {
     let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
     mutableURLRequest.HTTPMethod = method.rawValue
     mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Accept")
-//    mutableURLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     
     switch self {
     case .Login(let email, let password):
