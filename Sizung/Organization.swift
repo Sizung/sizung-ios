@@ -12,6 +12,9 @@ import Spine
 // Resource class
 class Organization: Resource {
   var name: String?
+  var conversations: LinkedResourceCollection?
+  var owner: User?
+  var organization_members: LinkedResourceCollection?
   
   override class var resourceType: ResourceType {
     return "organizations"
@@ -20,6 +23,9 @@ class Organization: Resource {
   override class var fields: [Field] {
     return fieldsFromDictionary([
       "name": Attribute(),
+      "conversations": ToManyRelationship(Conversation),
+      "organization_members": ToManyRelationship(OrganizationMember),
+      "owner": ToOneRelationship(User)
       ])
   }
 }

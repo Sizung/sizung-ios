@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-import Spine
+import SwiftKeychainWrapper
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,39 +18,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
-    let token = KeychainWrapper().myObjectForKey(kSecValueData)
+    let authToken = KeychainWrapper.standardKeychainAccess().stringForKey(Configuration.Settings.AUTH_TOKEN)
     
-    if (token == nil) {
-      let loginViewController = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("LoginViewController")
-      self.window!.rootViewController = loginViewController;
-    } else {
-      
-      self.initSpine(token as! String)
-    }
+    checkLogin(authToken)
+    
     return true
   }
   
-  func initSpine(token: String) {
-    let baseURL = NSURL(string: Configuration.APIEndpoint())
-    let spine = Spine(baseURL: baseURL!)
-    
-    (spine.networkClient as! HTTPClient).setHeader("Authorization", to: "Bearer \(token)")
-    (spine.networkClient as! HTTPClient).setHeader("Accept", to: "application/json")
-    
-    spine.registerResource(Organization)
-    
-    Spine.setLogLevel(.Debug, forDomain: .Spine)
-    Spine.setLogLevel(.Debug, forDomain: .Networking)
-    Spine.setLogLevel(.Debug, forDomain: .Serializing)
-    
-    spine.findAll(Organization)
-      
-      .onSuccess { (resources, meta, jsonapi) in
-        print("Fetched resource collection: \(resources)")
-      }
-      .onFailure { (error) in
-        print(error)
-        self.window?.rootViewController?.performSegueWithIdentifier("showLogin", sender: nil)
+  func checkLogin(authToken: String?) {
+    let token = AuthToken(data: authToken)
+    token.validate()
+      .onSuccess { _ in
+        print("Logged in")
+      }.onFailure { error in
+        if let navigationViewController = self.window?.rootViewController {
+          navigationViewController.performSegueWithIdentifier("showLogin", sender: navigationViewController)
+        }
     }
   }
   

@@ -31,7 +31,6 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
       return
     }
     
-    
     UIView.animateWithDuration(0.5,
                                animations: {
                                 self.loginButton.alpha = 0
@@ -43,14 +42,18 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
       .responseJSON { response in
         switch response.result {
         case .Success(let JSON)
-          where JSON.objectForKey("token") != nil:
+          where JSON.objectForKey("token") is String:
           
-          let token = JSON.objectForKey("token")!
+          let token = AuthToken(data: JSON["token"] as? String)
           
-          let keychainWrapper = KeychainWrapper()
-          keychainWrapper.mySetObject(token, forKey:kSecValueData)
+          token.validateAndStore()
+            .onSuccess() { _ in
+              self.performSegueWithIdentifier("dismissLogin", sender: self)
+            }.onFailure() { error in
+              print(error)
+              self.showAlert("Something went wrong. Please try again")
+          }
           
-          self.performSegueWithIdentifier("dismissLogin", sender: self)
         case .Failure
           where response.response?.statusCode == 401:
           self.showAlert("username/password")
