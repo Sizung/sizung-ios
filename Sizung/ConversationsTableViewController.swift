@@ -19,7 +19,6 @@ class ConversationsTableViewController: BasicTableViewController {
       apiClient.getConversations(organizationId)
         .onSuccess() { conversations in
           self.modelList = conversations
-          self.tableView.reloadData()
         }.onFailure() { error in
           print(error)
           switch error {
@@ -34,13 +33,14 @@ class ConversationsTableViewController: BasicTableViewController {
           }
         }.onComplete() { _ in
           self.refreshControl?.endRefreshing()
+          self.tableView.reloadData()
       }
     }
   }
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  // MARK: - Navigation
+  
+  // In a storyboard-based application, you will often want to do a little preparation before navigation
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "showTimeline" {
       let timelineTableViewController = segue.destinationViewController as! TimelineTableViewController
       
@@ -53,7 +53,7 @@ class ConversationsTableViewController: BasicTableViewController {
         }
       }
     }
-   }
- 
+  }
+  
   
 }

@@ -20,7 +20,7 @@ class BasicTableViewController: UITableViewController {
     
     //    init refresh control
     let refreshControl = UIRefreshControl()
-    refreshControl.attributedTitle = NSAttributedString(string: "Refreshing")
+//    refreshControl.attributedTitle = NSAttributedString(string: "Refreshing")
     self.tableView?.addSubview(refreshControl)
     refreshControl.addTarget(self, action: #selector(self.updateData(_:)), forControlEvents: UIControlEvents.ValueChanged)
     refreshControl.beginRefreshing()
@@ -57,7 +57,7 @@ class BasicTableViewController: UITableViewController {
       
       let messageLabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height))
       
-      messageLabel.text = "No data is currently available. Please pull down to refresh.";
+      messageLabel.text = "No data is currently available.\nPlease pull down to refresh.";
       messageLabel.textColor = UIColor.blackColor()
       messageLabel.numberOfLines = 0;
       messageLabel.textAlignment = NSTextAlignment.Center;

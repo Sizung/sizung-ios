@@ -13,6 +13,20 @@ class TimelineTableViewController: BasicTableViewController {
   
   var conversation: Conversation?
   
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    self.navigationController?.setToolbarHidden(false, animated: true)
+  }
+  
+  override func viewWillDisappear(animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    self.navigationController?.setToolbarHidden(true, animated: true)
+  }
+  
+
+  
   override func updateData(sender:AnyObject){
     
     if let conversationId = conversation?.id {
@@ -20,7 +34,6 @@ class TimelineTableViewController: BasicTableViewController {
       apiClient.getConversationObjects(conversationId)
         .onSuccess() { conversationObjects in
           self.modelList = conversationObjects as [TableViewCellDisplayable]
-          self.tableView.reloadData()
         }.onFailure() { error in
           print(error)
           switch error {
@@ -35,18 +48,29 @@ class TimelineTableViewController: BasicTableViewController {
           }
         }.onComplete() { _ in
           self.refreshControl?.endRefreshing()
+          self.tableView.reloadData()
       }
     }
   }
   
-  /*
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
+  
+  // MARK: - Navigation
+  
+  // In a storyboard-based application, you will often want to do a little preparation before navigation
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    switch segue.identifier {
+    case "showAgendas"?:
+      let destinationViewController = segue.destinationViewController as! AgendaItemsTableViewController
+      destinationViewController.conversation = conversation
+      
+    case "showDeliverables"?:
+      let destinationViewController = segue.destinationViewController as! DeliverablesTableViewController
+      destinationViewController.conversation = conversation
+    default:
+      fatalError("unknown segue identifier \(segue.identifier) in TimelineTableViewController")
+      
+    }
+  }
+  
   
 }

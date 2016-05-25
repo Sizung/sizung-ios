@@ -37,6 +37,8 @@
 		5AA890F91CF45D4800ED391B /* BasicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890F81CF45D4800ED391B /* BasicTableViewController.swift */; };
 		5AA890FC1CF4D1B900ED391B /* TableViewCellDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FB1CF4D1B900ED391B /* TableViewCellDisplayable.swift */; };
 		5AA890FE1CF5A0F400ED391B /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FD1CF5A0F400ED391B /* BaseModel.swift */; };
+		5AA891001CF5A63A00ED391B /* AgendaItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */; };
+		5AA891021CF5A6AE00ED391B /* DeliverablesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */; };
 		5AB8F2F81CDCADD900F4423F /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8F2F71CDCADD900F4423F /* LoginTests.swift */; };
 		5AB8F2FA1CDCAF2A00F4423F /* UITestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */; };
 		5ABE8E351CDB5AC9004537C6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */; };
@@ -123,6 +125,8 @@
 		5AA890F81CF45D4800ED391B /* BasicTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicTableViewController.swift; sourceTree = "<group>"; };
 		5AA890FB1CF4D1B900ED391B /* TableViewCellDisplayable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellDisplayable.swift; sourceTree = "<group>"; };
 		5AA890FD1CF5A0F400ED391B /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
+		5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemsTableViewController.swift; sourceTree = "<group>"; };
+		5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverablesTableViewController.swift; sourceTree = "<group>"; };
 		5AB8F2F71CDCADD900F4423F /* LoginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 		5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestHelper.swift; sourceTree = "<group>"; };
 		5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -335,6 +339,8 @@
 				5AC0E5E31CF0628200BBEF45 /* ConversationsTableViewController.swift */,
 				5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */,
 				5AA890F81CF45D4800ED391B /* BasicTableViewController.swift */,
+				5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */,
+				5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -484,9 +490,11 @@
 				5AD9F1B31CE9C09200455D98 /* Conversation.swift in Sources */,
 				5AC0E5E11CF04D8D00BBEF45 /* OrganizationsTableViewController.swift in Sources */,
 				5ABE8E351CDB5AC9004537C6 /* LoginViewController.swift in Sources */,
+				5AA891001CF5A63A00ED391B /* AgendaItemsTableViewController.swift in Sources */,
 				5A86B12E1CE5CF19001C2E7A /* AlamofireManagerExtension.swift in Sources */,
 				5AD9F1BB1CE9D5E600455D98 /* AgendaItem.swift in Sources */,
 				5AA890F91CF45D4800ED391B /* BasicTableViewController.swift in Sources */,
+				5AA891021CF5A6AE00ED391B /* DeliverablesTableViewController.swift in Sources */,
 				5AD9F1B51CE9D03000455D98 /* User.swift in Sources */,
 				5AD9F1BD1CE9D63300455D98 /* Deliverable.swift in Sources */,
 				5A86B1311CE5D035001C2E7A /* SizungHttpClient.swift in Sources */,

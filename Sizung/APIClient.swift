@@ -97,17 +97,16 @@ class APIClient {
     return promise.future
   }
   
-  func getConversationObjects(conversationId: String) -> Future<[BaseModel], APIError> {
-    let promise = Promise<[BaseModel], APIError>()
+  func getAgendaItems(conversationId: String) -> Future<[AgendaItem], APIError> {
+    let promise = Promise<[AgendaItem], APIError>()
     
-    let query = Query(resourceType: Conversation.self, path: "api/conversations/\(conversationId)/conversation_objects")
-    spine.find(query)
-      .onSuccess { (resources, meta, jsonapi) in
-        let conversationObjects = resources.resources as! [BaseModel]
-        promise.success(conversationObjects)
+    spine.findOne(conversationId, ofType: Conversation.self)
+      .onSuccess { (conversation, meta, jsonapi) in
+        let agendaItems = conversation.agenda_items!.resources as! [AgendaItem]
+        promise.success(agendaItems)
       }
       .onFailure { (error) in
-        print("getConversations error: \(error)")
+        print("getAgendaItems error: \(error)")
         //        TODO: use real error handling
         switch error._code {
         case 401:
@@ -120,6 +119,50 @@ class APIClient {
     return promise.future
   }
   
+  func getDeliverables(conversationId: String) -> Future<[Deliverable], APIError> {
+    let promise = Promise<[Deliverable], APIError>()
+    
+    spine.findOne(conversationId, ofType: Conversation.self)
+      .onSuccess { (conversation, meta, jsonapi) in
+        let deliverables = conversation.deliverables!.resources as! [Deliverable]
+        promise.success(deliverables)
+      }
+      .onFailure { (error) in
+        print("getDeliverables error: \(error)")
+        //        TODO: use real error handling
+        switch error._code {
+        case 401:
+          promise.failure(APIError.Unauthorized)
+        default:
+          promise.failure(APIError.Unauthorized)
+        }
+    }
+    
+    return promise.future
+  }
+  
+  func getConversationObjects(conversationId: String) -> Future<[BaseModel], APIError> {
+    let promise = Promise<[BaseModel], APIError>()
+    
+    let query = Query(resourceType: Conversation.self, path: "api/conversations/\(conversationId)/conversation_objects")
+    spine.find(query)
+      .onSuccess { (resources, meta, jsonapi) in
+        let conversationObjects = resources.resources as! [BaseModel]
+        promise.success(conversationObjects)
+      }
+      .onFailure { (error) in
+        print("getConversationObjects error: \(error)")
+        //        TODO: use real error handling
+        switch error._code {
+        case 401:
+          promise.failure(APIError.Unauthorized)
+        default:
+          promise.failure(APIError.Unauthorized)
+        }
+    }
+    
+    return promise.future
+  }
 
   
 //  func getOrganization(organizationId: String) -> Future<Organization, APIError> {

@@ -15,7 +15,6 @@ class OrganizationsTableViewController: BasicTableViewController {
     apiClient.getOrganizations()
       .onSuccess() { organizations in
         self.modelList = organizations
-        self.tableView.reloadData()
       }.onFailure() { error in
         print(error)
         switch error {
@@ -30,6 +29,7 @@ class OrganizationsTableViewController: BasicTableViewController {
         }
       }.onComplete() { _ in
         self.refreshControl?.endRefreshing()
+        self.tableView.reloadData()
     }
 
   }
@@ -51,6 +51,4 @@ class OrganizationsTableViewController: BasicTableViewController {
       }
     }
   }
-  
-  
 }
