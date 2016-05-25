@@ -9,26 +9,17 @@
 import UIKit
 import Spine
 
-class TimelineTableViewController: UITableViewController {
+class TimelineTableViewController: BasicTableViewController {
   
   var conversation: Conversation?
-  var conversationObjects = [Resource]()
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    //  initial fetch
-    self.updateData(self)
-    self.refreshControl?.addTarget(self, action: #selector(TimelineTableViewController.updateData(_:)), forControlEvents: UIControlEvents.ValueChanged)
-  }
-  
-  func updateData(sender:AnyObject){
+  override func updateData(sender:AnyObject){
     
     if let conversationId = conversation?.id {
       let apiClient = APIClient()
       apiClient.getConversationObjects(conversationId)
         .onSuccess() { conversationObjects in
-          self.conversationObjects = conversationObjects
+          self.modelList = conversationObjects as [TableViewCellDisplayable]
           self.tableView.reloadData()
         }.onFailure() { error in
           print(error)
@@ -47,79 +38,6 @@ class TimelineTableViewController: UITableViewController {
       }
     }
   }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-  
-  // MARK: - Table view data source
-  
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return 1
-  }
-  
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return conversationObjects.count
-  }
-  
-  
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cellIdentifier = "SizungTableViewCell"
-    let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! SizungTableViewCell
-    
-    let conversationObject = conversationObjects[indexPath.row]
-    var labelText:String
-    switch (conversationObject){
-    case let agendaItem as AgendaItem:
-      labelText = "AgendaItem: \(agendaItem.title!)"
-    case let deliverable as Deliverable:
-      labelText = "Deliverable: \(deliverable.title!)"
-    case let comment as Comment:
-      labelText = comment.body!
-    default:
-      labelText = conversationObject.dynamicType.description()
-    }
-    cell.textLabel!.text = labelText
-    
-    return cell
-  }
- 
-  
-  /*
-   // Override to support conditional editing of the table view.
-   override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-   // Return false if you do not want the specified item to be editable.
-   return true
-   }
-   */
-  
-  /*
-   // Override to support editing the table view.
-   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-   if editingStyle == .Delete {
-   // Delete the row from the data source
-   tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-   } else if editingStyle == .Insert {
-   // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-   }
-   }
-   */
-  
-  /*
-   // Override to support rearranging the table view.
-   override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-   
-   }
-   */
-  
-  /*
-   // Override to support conditional rearranging of the table view.
-   override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-   // Return false if you do not want the item to be re-orderable.
-   return true
-   }
-   */
   
   /*
    // MARK: - Navigation

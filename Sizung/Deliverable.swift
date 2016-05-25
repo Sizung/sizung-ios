@@ -9,7 +9,7 @@
 import Foundation
 import Spine
 
-class Deliverable: Resource {
+class Deliverable: BaseModel {
   var title: String?
   var conversation: Conversation?
   
@@ -21,6 +21,11 @@ class Deliverable: Resource {
     return fieldsFromDictionary([
       "title": Attribute(),
       "conversation": ToOneRelationship(Conversation)
-      ])
+      ]
+    )
+  }
+  
+  override func getTableViewCellTitle() -> String {
+    return title!
   }
 }

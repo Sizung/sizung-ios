@@ -9,7 +9,7 @@
 import Foundation
 import Spine
 
-class User: Resource {
+class User: BaseModel {
   var name: String?
   var organization: LinkedResourceCollection?
   var organization_member: LinkedResourceCollection?
@@ -26,5 +26,9 @@ class User: Resource {
       "organization_member": ToManyRelationship(OrganizationMember),
       "conversation_member": ToManyRelationship(ConversationMember)
       ])
+  }
+  
+  override func getTableViewCellTitle() -> String {
+    return name!
   }
 }

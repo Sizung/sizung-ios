@@ -97,13 +97,13 @@ class APIClient {
     return promise.future
   }
   
-  func getConversationObjects(conversationId: String) -> Future<[Resource], APIError> {
-    let promise = Promise<[Resource], APIError>()
+  func getConversationObjects(conversationId: String) -> Future<[BaseModel], APIError> {
+    let promise = Promise<[BaseModel], APIError>()
     
     let query = Query(resourceType: Conversation.self, path: "api/conversations/\(conversationId)/conversation_objects")
     spine.find(query)
       .onSuccess { (resources, meta, jsonapi) in
-        let conversationObjects = resources.resources
+        let conversationObjects = resources.resources as! [BaseModel]
         promise.success(conversationObjects)
       }
       .onFailure { (error) in

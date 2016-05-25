@@ -9,7 +9,7 @@
 import Foundation
 import Spine
 
-class Comment: Resource {
+class Comment: BaseModel {
   var author: User?
   var body: String?
   
@@ -22,5 +22,9 @@ class Comment: Resource {
       "author": ToOneRelationship(User),
       "body": Attribute()
       ])
+  }
+  
+  override func getTableViewCellTitle() -> String {
+    return body!
   }
 }

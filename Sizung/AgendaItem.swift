@@ -9,7 +9,7 @@
 import Foundation
 import Spine
 
-class AgendaItem: Resource {
+class AgendaItem: BaseModel {
   var title: String?
   var conversation: Conversation?
   
@@ -22,5 +22,9 @@ class AgendaItem: Resource {
       "title": Attribute(),
       "conversation": ToOneRelationship(Conversation)
       ])
+  }
+  
+  override func getTableViewCellTitle() -> String {
+    return title!
   }
 }

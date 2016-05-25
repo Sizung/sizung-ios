@@ -9,7 +9,7 @@
 import Foundation
 import Spine
 
-class Conversation: Resource {
+class Conversation: BaseModel {
   var title: String?
   var archived: NSNumber?
   var organization: Organization?
@@ -34,5 +34,9 @@ class Conversation: Resource {
       "conversation_members": ToManyRelationship(ConversationMember),
       "members": ToManyRelationship(User)
       ])
+  }
+  
+  override func getTableViewCellTitle() -> String {
+    return title!
   }
 }
