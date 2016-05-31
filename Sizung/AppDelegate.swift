@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     Fabric.with([Crashlytics.self])
     
+    self.registerNotifications()
+    
     let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN)
     
     let token = AuthToken(data: authToken)
@@ -35,12 +37,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
   
+  func registerNotifications(){
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.showLogin), name: Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+
+  }
+  
   func loadInitialViewController() {
-    guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
-      let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsTableViewController")
-      self.window?.rootViewController?.presentViewController(organizationViewController, animated: false, completion: nil)
-      return
-    }
+//    guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
+//      let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsTableViewController")
+//      self.window?.rootViewController?.presentViewController(organizationViewController, animated: false, completion: nil)
+//      return
+//    }
   }
   
   func showLogin(){

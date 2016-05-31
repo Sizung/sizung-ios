@@ -29,6 +29,7 @@
 		5AA890FE1CF5A0F400ED391B /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FD1CF5A0F400ED391B /* BaseModel.swift */; };
 		5AA891001CF5A63A00ED391B /* AgendaItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */; };
 		5AA891021CF5A6AE00ED391B /* DeliverablesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */; };
+		5AB781411CFD79D00024DFE9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB781401CFD79D00024DFE9 /* AccountViewController.swift */; };
 		5AB8F2F81CDCADD900F4423F /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8F2F71CDCADD900F4423F /* LoginTests.swift */; };
 		5AB8F2FA1CDCAF2A00F4423F /* UITestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */; };
 		5ABE8E351CDB5AC9004537C6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */; };
@@ -96,6 +97,7 @@
 		5AA890FD1CF5A0F400ED391B /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemsTableViewController.swift; sourceTree = "<group>"; };
 		5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverablesTableViewController.swift; sourceTree = "<group>"; };
+		5AB781401CFD79D00024DFE9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		5AB8F2F71CDCADD900F4423F /* LoginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 		5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestHelper.swift; sourceTree = "<group>"; };
 		5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 		5AC0E5E21CF0531100BBEF45 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */,
 				5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */,
 				5AC0E5E01CF04D8D00BBEF45 /* OrganizationsTableViewController.swift */,
 				5AC0E5E31CF0628200BBEF45 /* ConversationsTableViewController.swift */,
@@ -315,7 +318,7 @@
 				5AA890F81CF45D4800ED391B /* BasicTableViewController.swift */,
 				5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */,
 				5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */,
-				5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */,
+				5AB781401CFD79D00024DFE9 /* AccountViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 			files = (
 				5A86B12C1CE4BC04001C2E7A /* Configuration.swift in Sources */,
 				5AD9F1BF1CE9D65900455D98 /* AgendaItemDeliverables.swift in Sources */,
+				5AB781411CFD79D00024DFE9 /* AccountViewController.swift in Sources */,
 				5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */,
 				5AD9F1B91CE9D3D700455D98 /* ConversationMember.swift in Sources */,
 				5A504B091CEF1347001BEFA3 /* APIClient.swift in Sources */,
@@ -792,6 +796,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Sizung/Sizung.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
