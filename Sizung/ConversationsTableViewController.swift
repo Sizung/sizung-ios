@@ -7,14 +7,13 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class ConversationsTableViewController: BasicTableViewController {
   
-  var organization : Organization?
-  
   override func updateData(sender:AnyObject){
     
-    if let organizationId = organization?.id {
+    if let organizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
       let apiClient = APIClient()
       apiClient.getConversations(organizationId)
         .onSuccess() { conversations in
@@ -23,7 +22,8 @@ class ConversationsTableViewController: BasicTableViewController {
           print(error)
           switch error {
           case .Unauthorized:
-            self.navigationController?.performSegueWithIdentifier("showLogin", sender: self)
+            print("unauthorized")
+//            self.navigationController?.performSegueWithIdentifier("showLogin", sender: self)
           default:
             let alertController = UIAlertController(title: "Unkown error occured!", message:
               "Please try again!", preferredStyle: UIAlertControllerStyle.Alert)

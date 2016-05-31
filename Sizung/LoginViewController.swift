@@ -13,8 +13,8 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
   
   @IBOutlet weak var emailTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
-  @IBOutlet weak var loginButton: UIButton!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+  @IBOutlet weak var loginButton: UIButton!
   
   
   @IBAction func login(sender: AnyObject) {
@@ -48,7 +48,7 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
           
           token.validateAndStore()
             .onSuccess() { _ in
-              self.performSegueWithIdentifier("dismissLogin", sender: self)
+              self.dismissViewControllerAnimated(true, completion: nil)
             }.onFailure() { error in
               print(error)
               self.showAlert("Something went wrong. Please try again")

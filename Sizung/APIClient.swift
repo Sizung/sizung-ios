@@ -32,7 +32,7 @@ class APIClient {
     Spine.setLogLevel(.Debug, forDomain: .Serializing)
     
     //  get auth token and set it
-    if let authToken = KeychainWrapper.standardKeychainAccess().stringForKey(Configuration.Settings.AUTH_TOKEN) {
+    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
       (spine.networkClient as! HTTPClient).setHeader("Authorization", to: "Bearer \(authToken)")
     }
     
