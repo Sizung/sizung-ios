@@ -6,9 +6,11 @@ target 'Sizung' do
   use_frameworks!
 
 # Pods for Sizung
-  pod 'AlamofireObjectMapper', '~> 3.0'
+  pod 'Alamofire', '~> 3.4'
+  pod 'ObjectMapper', '~> 1.3'
   pod 'BrightFutures', '~> 4.0'
-  pod 'SwiftKeychainWrapper', '~> 1.0'  
+  pod 'SwiftKeychainWrapper', '~> 1.0'
+  pod 'Bond', '~> 4.0'
 
   pod 'Fabric', '~> 1.6'
   pod 'Crashlytics', '~> 3.7'

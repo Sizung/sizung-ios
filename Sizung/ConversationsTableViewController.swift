@@ -13,29 +13,29 @@ class ConversationsTableViewController: BasicTableViewController {
   
   override func updateData(sender:AnyObject){
     
-    if let organizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
-      let apiClient = APIClient()
-      apiClient.getConversations(organizationId)
-        .onSuccess() { conversations in
-          self.modelList = conversations
-        }.onFailure() { error in
-          print(error)
-          switch error {
-          case .Unauthorized:
-            print("unauthorized")
-//            self.navigationController?.performSegueWithIdentifier("showLogin", sender: self)
-          default:
-            let alertController = UIAlertController(title: "Unkown error occured!", message:
-              "Please try again!", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-            
-            self.presentViewController(alertController, animated: true, completion: nil)
-          }
-        }.onComplete() { _ in
-          self.refreshControl?.endRefreshing()
-          self.tableView.reloadData()
-      }
-    }
+//    if let organizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
+//      let apiClient = APIClient()
+//      apiClient.getConversations(organizationId)
+//        .onSuccess() { conversations in
+//          self.modelList = conversations
+//        }.onFailure() { error in
+//          print(error)
+//          switch error {
+//          case .Unauthorized:
+//            print("unauthorized")
+////            self.navigationController?.performSegueWithIdentifier("showLogin", sender: self)
+//          default:
+//            let alertController = UIAlertController(title: "Unkown error occured!", message:
+//              "Please try again!", preferredStyle: UIAlertControllerStyle.Alert)
+//            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+//            
+//            self.presentViewController(alertController, animated: true, completion: nil)
+//          }
+//        }.onComplete() { _ in
+//          self.refreshControl?.endRefreshing()
+//          self.tableView.reloadData()
+//      }
+//    }
   }
   // MARK: - Navigation
   

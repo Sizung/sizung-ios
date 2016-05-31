@@ -7,36 +7,27 @@
 //
 
 import Foundation
-import Spine
+import ObjectMapper
 
-class Conversation: BaseModel {
-  var title: String?
-  var archived: NSNumber?
-  var organization: Organization?
-  var agenda_items: LinkedResourceCollection?
-  var deliverables: LinkedResourceCollection?
-  var agenda_item_deliverables: LinkedResourceCollection?
-  var conversation_members: LinkedResourceCollection?
-  var members: LinkedResourceCollection?
+class Conversation: Mappable {
+  var id: String!
+  var title: String!
+  var archived: Bool!
+  var organization: Organization!
+  var agenda_items: [AgendaItem]?
+  var deliverables: [Deliverable]?
+  var agenda_item_deliverables: [AgendaItemDeliverable]?
+  var conversation_members: [ConversationMember]?
   
-  override class var resourceType: ResourceType {
-    return "conversations"
+  required init?(_ map: Map){
+    
   }
   
-  override class var fields: [Field] {
-    return fieldsFromDictionary([
-      "title": Attribute(),
-      "archived": Attribute(),
-      "organization": ToOneRelationship(Organization),
-      "agenda_items": ToManyRelationship(AgendaItem),
-      "deliverables": ToManyRelationship(Deliverable),
-      "agenda_item_deliverables": ToManyRelationship(AgendaItemDeliverable),
-      "conversation_members": ToManyRelationship(ConversationMember),
-      "members": ToManyRelationship(User)
-      ])
+  func mapping(map: Map) {
+    title <- map["title"]
+    archived <- map["archived"]
+    archived <- map["archived"]
+    organization <- map["organization"]
   }
   
-  override func getTableViewCellTitle() -> String {
-    return title!
-  }
 }

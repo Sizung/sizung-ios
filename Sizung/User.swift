@@ -6,29 +6,21 @@
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
-import Foundation
-import Spine
+import ObjectMapper
 
-class User: BaseModel {
-  var name: String?
-  var organization: LinkedResourceCollection?
-  var organization_member: LinkedResourceCollection?
-  var conversation_member: LinkedResourceCollection?
+class User: Mappable {
+  var id: String!
+  var name: String!
+  var organization: [Organization]?
+  var organization_member: [OrganizationMember]?
+  var conversation_member: [ConversationMember]?
   
-  override class var resourceType: ResourceType {
-    return "users"
+  required init?(_ map: Map) {
+    
   }
   
-  override class var fields: [Field] {
-    return fieldsFromDictionary([
-      "name": Attribute(),
-      "organization": ToManyRelationship(Organization),
-      "organization_member": ToManyRelationship(OrganizationMember),
-      "conversation_member": ToManyRelationship(ConversationMember)
-      ])
-  }
-  
-  override func getTableViewCellTitle() -> String {
-    return name!
+  func mapping(map: Map) {
+    name     <- map["name"]
+    organization  <- map["organization"]
   }
 }

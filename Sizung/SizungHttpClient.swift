@@ -8,10 +8,12 @@
 
 import Foundation
 import Alamofire
+import SwiftKeychainWrapper
 
 enum Router: URLRequestConvertible {
   
   case Login(email: String, password: String)
+  case Organizations()
   case Logout()
   
   
@@ -21,6 +23,8 @@ enum Router: URLRequestConvertible {
       return .POST
     case .Logout:
       return .DELETE
+    default:
+      return .GET
     }
   }
   
@@ -29,6 +33,8 @@ enum Router: URLRequestConvertible {
     case .Login,
          .Logout:
       return "/session_tokens"
+    case .Organizations:
+      return "/organizations"
     }
   }
   
@@ -40,6 +46,9 @@ enum Router: URLRequestConvertible {
     let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
     mutableURLRequest.HTTPMethod = method.rawValue
     mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Accept")
+    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+      mutableURLRequest.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+    }
     
     switch self {
     case .Login(let email, let password):
