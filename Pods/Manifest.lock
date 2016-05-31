@@ -1,0 +1,45 @@
+PODS:
+  - Alamofire (3.4.0)
+  - BrightFutures (4.0.1):
+    - Result (~> 2.0)
+  - Crashlytics (3.7.0):
+    - Fabric (~> 1.6.3)
+  - Fabric (1.6.7)
+  - Result (2.0.0)
+  - Spine (0.3):
+    - BrightFutures (~> 4.0)
+    - SwiftyJSON (~> 2.3)
+  - SwiftKeychainWrapper (1.0.11)
+  - SwiftyJSON (2.3.2)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.4)
+  - BrightFutures (~> 4.0)
+  - Crashlytics
+  - Fabric
+  - Spine (from `https://github.com/wvteijlingen/Spine`, commit `4ea429e`)
+  - SwiftKeychainWrapper (~> 1.0)
+
+EXTERNAL SOURCES:
+  Spine:
+    :commit: 4ea429e
+    :git: https://github.com/wvteijlingen/Spine
+
+CHECKOUT OPTIONS:
+  Spine:
+    :commit: 4ea429e
+    :git: https://github.com/wvteijlingen/Spine
+
+SPEC CHECKSUMS:
+  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
+  BrightFutures: 786ff7d16e620eb777cf802e545ef7d6237d77f6
+  Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
+  Fabric: caf7580c725e64db144f610ac65cd60956911dc7
+  Result: 9e75e1111c774c6ac594e14907b15057053a7959
+  Spine: c7c400cdd44a0a313969fe623698d47460da1c09
+  SwiftKeychainWrapper: 011a6946923948ffa49708014dd691164d7621d1
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+
+PODFILE CHECKSUM: 57058c685111c7e781cdc2fee67e46bbcf7cbd5f
+
+COCOAPODS: 1.0.0

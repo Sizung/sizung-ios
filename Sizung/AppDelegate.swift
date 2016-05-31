@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 import SwiftKeychainWrapper
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,23 +20,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
-    let authToken = KeychainWrapper.standardKeychainAccess().stringForKey(Configuration.Settings.AUTH_TOKEN)
+    Fabric.with([Crashlytics.self])
     
-    checkLogin(authToken)
+    let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN)
     
-    return true
-  }
-  
-  func checkLogin(authToken: String?) {
     let token = AuthToken(data: authToken)
     token.validate()
       .onSuccess { _ in
-        print("Logged in")
+        self.loadInitialViewController()
       }.onFailure { error in
-        if let navigationViewController = self.window?.rootViewController {
-          navigationViewController.performSegueWithIdentifier("showLogin", sender: navigationViewController)
-        }
+        self.showLogin()
     }
+
+    return true
+  }
+  
+  func loadInitialViewController() {
+    guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
+      let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsTableViewController")
+      self.window?.rootViewController?.presentViewController(organizationViewController, animated: false, completion: nil)
+      return
+    }
+  }
+  
+  func showLogin(){
+    let modalViewController = LoginViewController(nibName: "Login", bundle: nil)
+    modalViewController.modalPresentationStyle = .OverCurrentContext
+    self.window?.rootViewController?.presentViewController(modalViewController, animated: true, completion: nil)
   }
   
   func applicationWillResignActive(application: UIApplication) {

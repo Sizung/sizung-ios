@@ -22,7 +22,8 @@ class AgendaItemsTableViewController: BasicTableViewController {
           print(error)
           switch error {
           case .Unauthorized:
-            self.navigationController?.performSegueWithIdentifier("showLogin", sender: self)
+            print("unauthorized")
+//            self.navigationController?.performSegueWithIdentifier("showLogin", sender: self)
           default:
             let alertController = UIAlertController(title: "Unkown error occured!", message:
               "Please try again!", preferredStyle: UIAlertControllerStyle.Alert)

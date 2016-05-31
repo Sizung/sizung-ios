@@ -1,0 +1,6 @@
+framework module Pods_Sizung {
+  umbrella header "Pods-Sizung-umbrella.h"
+
+  export *
+  module * { export * }
+}

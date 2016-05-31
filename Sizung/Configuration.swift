@@ -24,5 +24,6 @@ class Configuration: NSObject {
   
   struct Settings {
     static let AUTH_TOKEN = "AUTH_TOKEN"
+    static let SELECTED_ORGANIZATION = "SELECTED_ORGANIZATION"
   }
 }
