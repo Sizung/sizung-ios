@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import JWT
 import BrightFutures
 import Result
 import SwiftKeychainWrapper
@@ -47,7 +46,7 @@ class AuthToken {
 
       self.validate()
         .onSuccess() { payload in
-          KeychainWrapper.standardKeychainAccess().setString(self.data!, forKey: Configuration.Settings.AUTH_TOKEN)
+          KeychainWrapper.setString(self.data!, forKey: Configuration.Settings.AUTH_TOKEN)
           promise.success(payload)
         }.onFailure() { error in
           promise.failure(error)

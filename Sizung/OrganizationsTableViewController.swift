@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class OrganizationsTableViewController: BasicTableViewController {
   
@@ -19,7 +20,8 @@ class OrganizationsTableViewController: BasicTableViewController {
         print(error)
         switch error {
         case .Unauthorized:
-          self.navigationController?.performSegueWithIdentifier("showLogin", sender: self)
+          print("unauthorized")
+//          self.navigationController?.performSegueWithIdentifier("showLogin", sender: self)
         default:
           let alertController = UIAlertController(title: "Unkown error occured!", message:
             "Please try again!", preferredStyle: UIAlertControllerStyle.Alert)
@@ -39,14 +41,13 @@ class OrganizationsTableViewController: BasicTableViewController {
   // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "showOrganization" {
-      let conversationsViewController = segue.destinationViewController as! ConversationsTableViewController
       
       // Get the cell that generated this segue.
       if let selectedCell = sender as? SizungTableViewCell {
         let indexPath = tableView.indexPathForCell(selectedCell)!
         if let selectedOrganization = self.modelList[indexPath.row] as? Organization {
-          conversationsViewController.organization = selectedOrganization
-          conversationsViewController.navigationItem.title = selectedOrganization.name
+          KeychainWrapper.setString(selectedOrganization.id!, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+          self.dismissViewControllerAnimated(true, completion: nil)
         }
       }
     }
