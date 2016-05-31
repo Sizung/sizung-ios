@@ -5,10 +5,9 @@ target 'Sizung' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Sizung
-  pod 'Alamofire', '~> 3.4'
+# Pods for Sizung
+  pod 'AlamofireObjectMapper', '~> 3.0'
   pod 'BrightFutures', '~> 4.0'
-  pod 'Spine', git: 'https://github.com/wvteijlingen/Spine', commit: '4ea429e'
   pod 'SwiftKeychainWrapper', '~> 1.0'  
 
   pod 'Fabric', '~> 1.6'
