@@ -25,8 +25,8 @@ class OrganizationsTableViewController: UITableViewController {
     
     let storageManager = StorageManager.sharedInstance
     
-    Property(storageManager.isLoading).observe { isLoading in
-      if isLoading.element! {
+    storageManager.isLoading.observeNext { isLoading in
+      if isLoading {
         self.refreshControl?.beginRefreshing()
       } else {
         self.refreshControl?.endRefreshing()

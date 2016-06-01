@@ -268,7 +268,7 @@
                                     <barButtonItem title="Organization" id="Oa9-zB-dmH"/>
                                 </items>
                             </toolbar>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="xkS-SO-3oW">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="xkS-SO-3oW">
                                 <rect key="frame" x="179" y="84" width="242" height="29"/>
                                 <segments>
                                     <segment title="To Discuss"/>
@@ -279,7 +279,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5VD-Py-3iJ">
                                 <rect key="frame" x="0.0" y="120" width="600" height="480"/>
                                 <connections>
-                                    <segue destination="mo9-0P-tvR" kind="embed" id="q3D-Sc-D89"/>
+                                    <segue destination="mo9-0P-tvR" kind="embed" identifier="embed" id="q3D-Sc-D89"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -304,6 +304,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="segmentedControl" destination="xkS-SO-3oW" id="Oid-yQ-ynW"/>
                         <outlet property="titleBarButtonItem" destination="Oa9-zB-dmH" id="IRm-Ad-plS"/>
                     </connections>
                 </viewController>

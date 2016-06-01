@@ -60,7 +60,6 @@ class StorageManager {
           if let organizationResponse = Mapper<OrganizationResponse>().map(JSON) {
             self.organizations.replace([organizationResponse.data], performDiff: true)
             self.conversations.replace(organizationResponse.meta.conversations.data, performDiff: true)
-            print(self.conversations.collection)
           }
         case .Failure
           where response.response?.statusCode == 401:
