@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 import ObjectMapper
-import Bond
+import ReactiveKit
 
 class StorageManager {
   //  singleton
@@ -17,20 +17,28 @@ class StorageManager {
   private init() {}
   
   var isInitialized = false
-  var isLoading = false
-  var organizations: ObservableArray<Organization> = []
-  var conversations: ObservableArray<Conversation> = []
+  var isLoading = Property(false)
+  let organizations: CollectionProperty <[Organization]> = CollectionProperty([]);
+  let conversations: CollectionProperty <[Conversation]> = CollectionProperty([]);
+  
+  func getOrganization(id: String) -> Organization? {
+    let foundOrganizations = organizations.collection.filter { organization in
+      organization.id == id
+    }
+    
+    return foundOrganizations.first
+  }
   
   func updateOrganizations() {
     
-    self.isLoading = true
+    self.isLoading.value = true
     Alamofire.request(SizungHttpRouter.Organizations())
       .validate()
       .responseJSON { response in
         switch response.result {
         case .Success(let JSON):
           if let organizationResponse = Mapper<OrganizationsResponse>().map(JSON) {
-            self.organizations.diffInPlace(organizationResponse.data)
+            self.organizations.replace(organizationResponse.data, performDiff: true)
           }
         case .Failure
           where response.response?.statusCode == 401:
@@ -38,20 +46,21 @@ class StorageManager {
         default:
           print(response.response)
         }
-        self.isLoading = false
+        self.isLoading.value = false
     }
   }
   
   func updateOrganization(organizationId: String) {
-    self.isLoading = true
+    self.isLoading.value = true
     Alamofire.request(SizungHttpRouter.Organization(id: organizationId))
       .validate()
       .responseJSON { response in
         switch response.result {
         case .Success(let JSON):
           if let organizationResponse = Mapper<OrganizationResponse>().map(JSON) {
-            self.conversations.diffInPlace(organizationResponse.meta.conversations.data)
-            print(organizationResponse)
+            self.organizations.replace([organizationResponse.data], performDiff: true)
+            self.conversations.replace(organizationResponse.meta.conversations.data, performDiff: true)
+            print(self.conversations.collection)
           }
         case .Failure
           where response.response?.statusCode == 401:
@@ -59,7 +68,7 @@ class StorageManager {
         default:
           print("error \(response.result)")
         }
-        self.isLoading = false
+        self.isLoading.value = false
     }
   }
 }

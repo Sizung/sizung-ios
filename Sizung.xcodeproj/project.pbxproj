@@ -34,6 +34,7 @@
 		5ABA4FB91CFEB78B00110030 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4FB81CFEB78B00110030 /* BaseModel.swift */; };
 		5ABA4FBB1CFEBE3500110030 /* OrganizationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4FBA1CFEBE3500110030 /* OrganizationResponse.swift */; };
 		5ABA4FBD1CFEBF1600110030 /* ConversationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4FBC1CFEBF1600110030 /* ConversationsResponse.swift */; };
+		5ABA4FBF1CFEC3B600110030 /* OrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */; };
 		5ABE8E351CDB5AC9004537C6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */; };
 		5AC0E5DF1CF04D0000BBEF45 /* SizungTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0E5DE1CF04D0000BBEF45 /* SizungTableViewCell.swift */; };
 		5AC0E5E11CF04D8D00BBEF45 /* OrganizationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0E5E01CF04D8D00BBEF45 /* OrganizationsTableViewController.swift */; };
@@ -104,6 +105,7 @@
 		5ABA4FB81CFEB78B00110030 /* BaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		5ABA4FBA1CFEBE3500110030 /* OrganizationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationResponse.swift; sourceTree = "<group>"; };
 		5ABA4FBC1CFEBF1600110030 /* ConversationsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsResponse.swift; sourceTree = "<group>"; };
+		5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationViewController.swift; sourceTree = "<group>"; };
 		5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5AC0E5DE1CF04D0000BBEF45 /* SizungTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungTableViewCell.swift; sourceTree = "<group>"; };
 		5AC0E5E01CF04D8D00BBEF45 /* OrganizationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsTableViewController.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */,
 				5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */,
 				5AB781401CFD79D00024DFE9 /* AccountViewController.swift */,
+				5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -654,6 +657,7 @@
 				5AD9F1BD1CE9D63300455D98 /* Deliverable.swift in Sources */,
 				5A86B1311CE5D035001C2E7A /* SizungHttpRouter.swift in Sources */,
 				5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */,
+				5ABA4FBF1CFEC3B600110030 /* OrganizationViewController.swift in Sources */,
 				5AA890FC1CF4D1B900ED391B /* TableViewCellDisplayable.swift in Sources */,
 				5AC0E5E81CF33C8300BBEF45 /* Comment.swift in Sources */,
 				5A504B071CEF0FDC001BEFA3 /* StorageManager.swift in Sources */,

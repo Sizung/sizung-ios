@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import Bond
+import ReactiveKit
+import ReactiveUIKit
 import SwiftKeychainWrapper
 
 class ConversationsTableViewController: UITableViewController {
@@ -24,17 +25,17 @@ class ConversationsTableViewController: UITableViewController {
     
     let storageManager = StorageManager.sharedInstance
     
-    Observable(storageManager.isLoading).observe { isLoading in
+    storageManager.isLoading.observeNext { isLoading in
       if isLoading {
         self.refreshControl?.beginRefreshing()
       } else {
         self.refreshControl?.endRefreshing()
       }
-    }
+    }.disposeIn(rBag)
     
-    storageManager.conversations.lift().bindTo(self.tableView) { indexPath, dataSource, tableView in
+    storageManager.conversations.bindTo(self.tableView) { indexPath, conversations, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
-      let conversation = dataSource[indexPath.section][indexPath.row]
+      let conversation = conversations[indexPath.row]
       cell.textLabel!.text = conversation.attributes.title
       return cell
     }

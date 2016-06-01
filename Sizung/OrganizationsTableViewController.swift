@@ -8,7 +8,8 @@
 
 import UIKit
 import SwiftKeychainWrapper
-import Bond
+import ReactiveKit
+import ReactiveUIKit
 
 class OrganizationsTableViewController: UITableViewController {
   
@@ -24,17 +25,17 @@ class OrganizationsTableViewController: UITableViewController {
     
     let storageManager = StorageManager.sharedInstance
     
-    Observable(storageManager.isLoading).observe { isLoading in
-      if isLoading {
+    Property(storageManager.isLoading).observe { isLoading in
+      if isLoading.element! {
         self.refreshControl?.beginRefreshing()
       } else {
         self.refreshControl?.endRefreshing()
       }
-    }
+    }.disposeIn(rBag)
     
-    storageManager.organizations.lift().bindTo(self.tableView) { indexPath, dataSource, tableView in
+    storageManager.organizations.bindTo(self.tableView) { indexPath, organizations, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
-      let organization = dataSource[indexPath.section][indexPath.row]
+      let organization = organizations[indexPath.row]
       cell.textLabel!.text = organization.attributes.name
       return cell
     }

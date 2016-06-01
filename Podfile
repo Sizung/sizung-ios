@@ -10,7 +10,8 @@ target 'Sizung' do
   pod 'ObjectMapper', '~> 1.3'
   pod 'BrightFutures', '~> 4.0'
   pod 'SwiftKeychainWrapper', '~> 1.0'
-  pod 'Bond', '~> 4.0'
+  pod 'ReactiveKit', '~> 2.0'
+  pod 'ReactiveUIKit', '~> 2.0'
 
   pod 'Fabric', '~> 1.6'
   pod 'Crashlytics', '~> 3.7'

@@ -250,10 +250,10 @@
             </objects>
             <point key="canvasLocation" x="-1347" y="-1245"/>
         </scene>
-        <!--View Controller-->
+        <!--Organization View Controller-->
         <scene sceneID="Dsu-hr-xhu">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" id="jC2-I1-SwL" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="jC2-I1-SwL" customClass="OrganizationViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MbN-Vi-sHB"/>
                         <viewControllerLayoutGuide type="bottom" id="4yd-0w-Lcl"/>
@@ -303,6 +303,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="titleBarButtonItem" destination="Oa9-zB-dmH" id="IRm-Ad-plS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zbj-sK-a1Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
