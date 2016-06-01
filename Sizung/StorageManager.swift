@@ -54,6 +54,7 @@ class StorageManager {
   }
   
   func updateOrganization(organizationId: String) {
+    
     self.isLoading.value = true
     Alamofire.request(SizungHttpRouter.Organization(id: organizationId))
       .validate()
@@ -64,7 +65,9 @@ class StorageManager {
             self.organizations.replace([organizationResponse.data], performDiff: true)
             self.conversations.replace(organizationResponse.meta.conversations.data, performDiff: true)
             self.agendaItems.replace(organizationResponse.meta.agendaItems.data, performDiff: true)
-            self.deliverables.replace(organizationResponse.meta.deliverables.data, performDiff: true)
+            
+            let newDeliverables = organizationResponse.meta.deliverables.data + organizationResponse.meta.conversationDeliverables.data
+            self.deliverables.replace(newDeliverables, performDiff: true)
           }
         case .Failure
           where response.response?.statusCode == 401:
@@ -73,6 +76,7 @@ class StorageManager {
           print("error \(response.result)")
         }
         self.isLoading.value = false
+        self.isInitialized = true
     }
   }
 }

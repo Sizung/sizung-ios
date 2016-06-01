@@ -25,7 +25,6 @@ class BaseModel: Mappable, Equatable, Hashable {
   }
 }
 
-
 func ==(lhs: BaseModel, rhs: BaseModel) -> Bool {
   return lhs.id == rhs.id
 }
