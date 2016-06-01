@@ -19,11 +19,12 @@ class StorageManager {
   var isInitialized = false
   var isLoading = false
   var organizations: ObservableArray<Organization> = []
+  var conversations: ObservableArray<Conversation> = []
   
   func updateOrganizations() {
     
     self.isLoading = true
-    Alamofire.request(Router.Organizations())
+    Alamofire.request(SizungHttpRouter.Organizations())
       .validate()
       .responseJSON { response in
         switch response.result {
@@ -41,10 +42,24 @@ class StorageManager {
     }
   }
   
-  
-  func getOrganization(id: String) -> Organization? {
-    return organizations.filter { (organization) -> Bool in
-      organization.id == id
-      }.first
+  func updateOrganization(organizationId: String) {
+    self.isLoading = true
+    Alamofire.request(SizungHttpRouter.Organization(id: organizationId))
+      .validate()
+      .responseJSON { response in
+        switch response.result {
+        case .Success(let JSON):
+          if let organizationResponse = Mapper<OrganizationResponse>().map(JSON) {
+            self.conversations.diffInPlace(organizationResponse.meta.conversations.data)
+            print(organizationResponse)
+          }
+        case .Failure
+          where response.response?.statusCode == 401:
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+        default:
+          print("error \(response.result)")
+        }
+        self.isLoading = false
+    }
   }
 }

@@ -8,20 +8,11 @@
 
 import ObjectMapper
 
-class Organization: Mappable, Equatable, Hashable {
-  var id: String!
+class Organization: BaseModel {
   var attributes: OrganizationAttributes!
   
-  var hashValue: Int {
-    return id.hashValue
-  }
-  
-  required init?(_ map: Map) {
-    
-  }
-  
-  func mapping(map: Map) {
-    id <- map["id"]
+  override func mapping(map: Map) {
+    super.mapping(map)
     attributes <- map["attributes"]
   }
   
@@ -39,8 +30,4 @@ class Organization: Mappable, Equatable, Hashable {
       name     <- map["name"]
     }
   }
-}
-
-func ==(lhs: Organization, rhs: Organization) -> Bool {
-  return lhs.id == rhs.id
 }

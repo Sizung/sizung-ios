@@ -6,15 +6,15 @@
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
-import Foundation
 import Alamofire
 import SwiftKeychainWrapper
 
-enum Router: URLRequestConvertible {
+enum SizungHttpRouter: URLRequestConvertible {
   
   case Login(email: String, password: String)
-  case Organizations()
   case Logout()
+  case Organizations()
+  case Organization(id: String)
   
   
   var method: Alamofire.Method {
@@ -35,6 +35,8 @@ enum Router: URLRequestConvertible {
       return "/session_tokens"
     case .Organizations:
       return "/organizations"
+    case .Organization(let id):
+      return "/organizations/\(id)"
     }
   }
   
