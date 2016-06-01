@@ -25,6 +25,8 @@ class OrganizationResponse: Mappable {
   class OrganizationMeta: Mappable {
     
     var conversations: ConversationsResponse!
+    var agendaItems: AgendaItemsResponse!
+    var deliverables: DeliverablesResponse!
     
     required init?(_ map: Map) {
       
@@ -32,6 +34,8 @@ class OrganizationResponse: Mappable {
   
     func mapping(map: Map) {
       conversations <- map["conversations"]
+      agendaItems <- map["agenda_items"]
+      deliverables <- map["deliverables"]
     }
   }
 }

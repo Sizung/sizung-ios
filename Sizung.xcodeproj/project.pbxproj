@@ -23,6 +23,8 @@
 		5A86B12E1CE5CF19001C2E7A /* AlamofireManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B12D1CE5CF19001C2E7A /* AlamofireManagerExtension.swift */; };
 		5A86B1311CE5D035001C2E7A /* SizungHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B1301CE5D035001C2E7A /* SizungHttpRouter.swift */; };
 		5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B13A1CE60634001C2E7A /* Organization.swift */; };
+		5A8F79071CFF0E6B00953495 /* AgendaItemsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F79061CFF0E6B00953495 /* AgendaItemsResponse.swift */; };
+		5A8F79091CFF14BF00953495 /* DeliverablesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F79081CFF14BF00953495 /* DeliverablesResponse.swift */; };
 		5AA890F91CF45D4800ED391B /* BasicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890F81CF45D4800ED391B /* BasicTableViewController.swift */; };
 		5AA890FC1CF4D1B900ED391B /* TableViewCellDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FB1CF4D1B900ED391B /* TableViewCellDisplayable.swift */; };
 		5AA891001CF5A63A00ED391B /* AgendaItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */; };
@@ -94,6 +96,8 @@
 		5A86B1301CE5D035001C2E7A /* SizungHttpRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungHttpRouter.swift; sourceTree = "<group>"; };
 		5A86B1321CE5E2FC001C2E7A /* Sizung-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sizung-Bridging-Header.h"; sourceTree = "<group>"; };
 		5A86B13A1CE60634001C2E7A /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
+		5A8F79061CFF0E6B00953495 /* AgendaItemsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemsResponse.swift; sourceTree = "<group>"; };
+		5A8F79081CFF14BF00953495 /* DeliverablesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverablesResponse.swift; sourceTree = "<group>"; };
 		5AA890F81CF45D4800ED391B /* BasicTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicTableViewController.swift; sourceTree = "<group>"; };
 		5AA890FB1CF4D1B900ED391B /* TableViewCellDisplayable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellDisplayable.swift; sourceTree = "<group>"; };
 		5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemsTableViewController.swift; sourceTree = "<group>"; };
@@ -285,10 +289,10 @@
 			children = (
 				5A86B13A1CE60634001C2E7A /* Organization.swift */,
 				5AD9F1B21CE9C09200455D98 /* Conversation.swift */,
-				5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverables.swift */,
-				5AD9F1B41CE9D03000455D98 /* User.swift */,
 				5AD9F1BA1CE9D5E600455D98 /* AgendaItem.swift */,
+				5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverables.swift */,
 				5AD9F1BC1CE9D63300455D98 /* Deliverable.swift */,
+				5AD9F1B41CE9D03000455D98 /* User.swift */,
 				5AD9F1B61CE9D0A100455D98 /* OrganzationMember.swift */,
 				5AD9F1B81CE9D3D700455D98 /* ConversationMember.swift */,
 				5AC0E5E71CF33C8300BBEF45 /* Comment.swift */,
@@ -311,6 +315,8 @@
 				5ABA4FB51CFDCD7C00110030 /* OrganizationsResponse.swift */,
 				5ABA4FBA1CFEBE3500110030 /* OrganizationResponse.swift */,
 				5ABA4FBC1CFEBF1600110030 /* ConversationsResponse.swift */,
+				5A8F79061CFF0E6B00953495 /* AgendaItemsResponse.swift */,
+				5A8F79081CFF14BF00953495 /* DeliverablesResponse.swift */,
 			);
 			name = responses;
 			sourceTree = "<group>";
@@ -638,6 +644,8 @@
 				5ABA4FB91CFEB78B00110030 /* BaseModel.swift in Sources */,
 				5ABA4FBD1CFEBF1600110030 /* ConversationsResponse.swift in Sources */,
 				5AD9F1BF1CE9D65900455D98 /* AgendaItemDeliverables.swift in Sources */,
+				5A8F79091CFF14BF00953495 /* DeliverablesResponse.swift in Sources */,
+				5A8F79071CFF0E6B00953495 /* AgendaItemsResponse.swift in Sources */,
 				5AB781411CFD79D00024DFE9 /* AccountViewController.swift in Sources */,
 				5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */,
 				5ABA4FBB1CFEBE3500110030 /* OrganizationResponse.swift in Sources */,

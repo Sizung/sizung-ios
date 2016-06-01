@@ -18,8 +18,11 @@ class StorageManager {
   
   var isInitialized = false
   var isLoading = Property(false)
-  let organizations: CollectionProperty <[Organization]> = CollectionProperty([]);
-  let conversations: CollectionProperty <[Conversation]> = CollectionProperty([]);
+  
+  let organizations: CollectionProperty <[Organization]> = CollectionProperty([])
+  let conversations: CollectionProperty <[Conversation]> = CollectionProperty([])
+  let agendaItems: CollectionProperty <[AgendaItem]> = CollectionProperty([])
+  let deliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
   
   func getOrganization(id: String) -> Organization? {
     let foundOrganizations = organizations.collection.filter { organization in
@@ -60,6 +63,8 @@ class StorageManager {
           if let organizationResponse = Mapper<OrganizationResponse>().map(JSON) {
             self.organizations.replace([organizationResponse.data], performDiff: true)
             self.conversations.replace(organizationResponse.meta.conversations.data, performDiff: true)
+            self.agendaItems.replace(organizationResponse.meta.agendaItems.data, performDiff: true)
+            self.deliverables.replace(organizationResponse.meta.deliverables.data, performDiff: true)
           }
         case .Failure
           where response.response?.statusCode == 401:
