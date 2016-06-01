@@ -20,7 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
-    Fabric.with([Crashlytics.self])
+    #if RELEASE_VERSION
+      Fabric.with([Crashlytics.self])
+    #endif
     
     self.registerNotifications()
     
@@ -33,27 +35,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }.onFailure { error in
         self.showLogin()
     }
-
+    
     return true
   }
   
   func registerNotifications(){
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.showLogin), name: Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
-
+    
   }
   
   func loadInitialViewController() {
-//    guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
-//      let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsTableViewController")
-//      self.window?.rootViewController?.presentViewController(organizationViewController, animated: false, completion: nil)
-//      return
-//    }
+    guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
+      let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsTableViewController")
+      self.window?.rootViewController?.presentViewController(organizationViewController, animated: false, completion: nil)
+      return
+    }
   }
   
   func showLogin(){
-    let modalViewController = LoginViewController(nibName: "Login", bundle: nil)
-    modalViewController.modalPresentationStyle = .OverCurrentContext
-    self.window?.rootViewController?.presentViewController(modalViewController, animated: true, completion: nil)
+//  dismiss any currently presented view controller  
+    if let presentedViewController = self.window?.rootViewController?.presentedViewController {
+      presentedViewController.dismissViewControllerAnimated(true, completion: nil)
+    }
+    let loginViewController = LoginViewController(nibName: "Login", bundle: nil)
+    //    modalViewController.modalPresentationStyle = .OverCurrentContext
+    self.window?.rootViewController?.presentViewController(loginViewController, animated: true, completion: nil)
   }
   
   func applicationWillResignActive(application: UIApplication) {

@@ -6,21 +6,19 @@
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
-import Foundation
-import Spine
+import ObjectMapper
 
-class OrganizationMember: Resource {
+class OrganizationMember: Mappable {
+  var id: String!
   var user: User?
   var organization: Organization?
   
-  override class var resourceType: ResourceType {
-    return "organization_members"
+  required init?(_ map: Map) {
+  
   }
   
-  override class var fields: [Field] {
-    return fieldsFromDictionary([
-      "user": ToOneRelationship(User),
-      "organization": ToOneRelationship(Organization)
-      ])
+  func mapping(map: Map) {
+    user     <- map["user"]
+    organization     <- map["organization"]
   }
 }

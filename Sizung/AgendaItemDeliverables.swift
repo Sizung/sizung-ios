@@ -6,25 +6,20 @@
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
-import Foundation
-import Spine
+import ObjectMapper
 
-class AgendaItemDeliverable: BaseModel {
+class AgendaItemDeliverable: Mappable {
+  var id: String!
   var name: String?
   var conversation: Conversation?
   
-  override class var resourceType: ResourceType {
-    return "agenda_item_deliverables"
+  required init?(_ map: Map) {
+    
   }
   
-  override class var fields: [Field] {
-    return fieldsFromDictionary([
-      "name": Attribute(),
-      "conversation": ToOneRelationship(Conversation)
-      ])
+  func mapping(map: Map) {
+    name    <- map["name"]
   }
   
-  override func getTableViewCellTitle() -> String {
-    return name!
-  }
+  
 }

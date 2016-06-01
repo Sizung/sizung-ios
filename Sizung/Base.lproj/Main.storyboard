@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="60j-uB-VEk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jC2-I1-SwL">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -42,6 +42,9 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Organizations" id="AVR-LH-Her"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="EOp-iv-Tm7">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2hp-S3-QUM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -219,7 +222,7 @@
         <!--Account View Controller-->
         <scene sceneID="Fgc-2u-S05">
             <objects>
-                <viewController id="60j-uB-VEk" customClass="AccountViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AccountViewController" id="60j-uB-VEk" customClass="AccountViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zam-WZ-pgD"/>
                         <viewControllerLayoutGuide type="bottom" id="HVF-Hw-ybt"/>
@@ -247,10 +250,10 @@
             </objects>
             <point key="canvasLocation" x="-1347" y="-1245"/>
         </scene>
-        <!--View Controller-->
+        <!--Organization View Controller-->
         <scene sceneID="Dsu-hr-xhu">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" id="jC2-I1-SwL" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" id="jC2-I1-SwL" customClass="OrganizationViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MbN-Vi-sHB"/>
                         <viewControllerLayoutGuide type="bottom" id="4yd-0w-Lcl"/>
@@ -265,7 +268,7 @@
                                     <barButtonItem title="Organization" id="Oa9-zB-dmH"/>
                                 </items>
                             </toolbar>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="xkS-SO-3oW">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="xkS-SO-3oW">
                                 <rect key="frame" x="179" y="84" width="242" height="29"/>
                                 <segments>
                                     <segment title="To Discuss"/>
@@ -276,7 +279,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5VD-Py-3iJ">
                                 <rect key="frame" x="0.0" y="120" width="600" height="480"/>
                                 <connections>
-                                    <segue destination="mo9-0P-tvR" kind="embed" id="q3D-Sc-D89"/>
+                                    <segue destination="mo9-0P-tvR" kind="embed" identifier="embed" id="q3D-Sc-D89"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -300,6 +303,10 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="segmentedControl" destination="xkS-SO-3oW" id="Oid-yQ-ynW"/>
+                        <outlet property="titleBarButtonItem" destination="Oa9-zB-dmH" id="IRm-Ad-plS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zbj-sK-a1Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -7,36 +7,54 @@
 //
 
 import UIKit
+import ReactiveKit
+import ReactiveUIKit
 import SwiftKeychainWrapper
 
-class ConversationsTableViewController: BasicTableViewController {
+class ConversationsTableViewController: UITableViewController {
   
-  override func updateData(sender:AnyObject){
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
-    if let organizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
-      let apiClient = APIClient()
-      apiClient.getConversations(organizationId)
-        .onSuccess() { conversations in
-          self.modelList = conversations
-        }.onFailure() { error in
-          print(error)
-          switch error {
-          case .Unauthorized:
-            print("unauthorized")
-//            self.navigationController?.performSegueWithIdentifier("showLogin", sender: self)
-          default:
-            let alertController = UIAlertController(title: "Unkown error occured!", message:
-              "Please try again!", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-            
-            self.presentViewController(alertController, animated: true, completion: nil)
-          }
-        }.onComplete() { _ in
-          self.refreshControl?.endRefreshing()
-          self.tableView.reloadData()
+    self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
+    
+    self.initData()
+  }
+  
+  func initData(){
+    
+    let storageManager = StorageManager.sharedInstance
+    
+    storageManager.isLoading.observeNext { isLoading in
+      if isLoading {
+        self.refreshControl?.beginRefreshing()
+      } else {
+        self.refreshControl?.endRefreshing()
       }
+    }.disposeIn(rBag)
+    
+    storageManager.conversations.bindTo(self.tableView) { indexPath, conversations, tableView in
+      let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
+      let conversation = conversations[indexPath.row]
+      cell.textLabel!.text = conversation.attributes.title
+      return cell
     }
   }
+  
+  override func viewDidAppear(animated: Bool) {
+    if !StorageManager.sharedInstance.isInitialized {
+      self.updateData()
+    }
+  }
+  
+  func updateData(){
+    if let organizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
+      StorageManager.sharedInstance.updateOrganization(organizationId)
+    } else {
+      fatalError("no organization selected in \(self)")
+    }
+  }
+  
   // MARK: - Navigation
   
   // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -47,13 +65,10 @@ class ConversationsTableViewController: BasicTableViewController {
       // Get the cell that generated this segue.
       if let selectedCell = sender as? SizungTableViewCell {
         let indexPath = tableView.indexPathForCell(selectedCell)!
-        if let selectedConversation = modelList[indexPath.row] as? Conversation {
-          timelineTableViewController.conversation = selectedConversation
-          timelineTableViewController.navigationItem.title = selectedConversation.title
-        }
+        let selectedConversation = StorageManager.sharedInstance.conversations[indexPath.row]
+        timelineTableViewController.conversation = selectedConversation
+        timelineTableViewController.navigationItem.title = selectedConversation.attributes.title
       }
     }
   }
-  
-  
 }
