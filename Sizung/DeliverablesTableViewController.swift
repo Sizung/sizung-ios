@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import ReactiveKit
 
 class DeliverablesTableViewController: UITableViewController {
   
@@ -21,11 +22,18 @@ class DeliverablesTableViewController: UITableViewController {
     self.initData()
   }
   
+  func bindData() {
+    StorageManager.sharedInstance.deliverables.bindTo(self.tableView) { indexPath, agendaItems, tableView in
+      let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
+      let agendaItem = agendaItems[indexPath.row]
+      cell.textLabel!.text = agendaItem.attributes.title
+      return cell
+    }
+  }
+  
   func initData(){
     
-    let storageManager = StorageManager.sharedInstance
-    
-    storageManager.isLoading.observeNext { isLoading in
+    StorageManager.sharedInstance.isLoading.observeNext { isLoading in
       if isLoading {
         self.refreshControl?.beginRefreshing()
       } else {
@@ -33,12 +41,7 @@ class DeliverablesTableViewController: UITableViewController {
       }
       }.disposeIn(rBag)
     
-    storageManager.deliverables.bindTo(self.tableView) { indexPath, agendaItems, tableView in
-        let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
-        let agendaItem = agendaItems[indexPath.row]
-        cell.textLabel!.text = agendaItem.attributes.title
-        return cell
-    }
+    bindData()
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -71,5 +74,22 @@ class DeliverablesTableViewController: UITableViewController {
       }
     }
   }
-  
+}
+
+class UserDeliverablesTableViewController: DeliverablesTableViewController {
+  override func bindData() {
+    
+    let token = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
+    let userId = token.getUserId()
+    
+    StorageManager.sharedInstance.deliverables.filter { deliverable in
+      deliverable.relationships.owner.data.id == userId!
+      }.bindTo(self.tableView) { indexPath, agendaItems, tableView in
+        let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
+        let agendaItem = agendaItems[indexPath.row]
+        cell.textLabel!.text = agendaItem.attributes.title
+        return cell
+    }
+    
+  }
 }

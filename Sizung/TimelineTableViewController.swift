@@ -65,7 +65,6 @@ class TimelineTableViewController: BasicTableViewController {
       
     case "showDeliverables"?:
       let destinationViewController = segue.destinationViewController as! DeliverablesTableViewController
-      destinationViewController.conversation = conversation
     default:
       fatalError("unknown segue identifier \(segue.identifier) in TimelineTableViewController")
       

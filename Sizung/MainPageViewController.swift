@@ -27,7 +27,7 @@ class MainPageViewController: UIPageViewController, UIPageViewControllerDataSour
   private(set) lazy var orderedViewControllers: [UIViewController] = {
     return [self.loadControllerNamed("AgendaItemsTableViewController"),
             self.loadControllerNamed("CenterViewController"),
-            self.loadControllerNamed("DeliverablesTableViewController")]
+            self.loadControllerNamed("UserDeliverablesTableViewController")]
   }()
   
   private func loadControllerNamed(name: String) -> UIViewController {

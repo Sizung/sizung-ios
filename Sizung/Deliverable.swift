@@ -38,7 +38,7 @@ class Deliverable: BaseModel {
   
   class DeliverableRelationships: Mappable {
     //    var conversation: Conversation!
-    var owner: User!
+    var owner: UserResponse!
     //    var deliverables: Deliverable!
     
     required init?(_ map: Map) {
