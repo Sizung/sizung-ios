@@ -31,7 +31,7 @@ class OrganizationsTableViewController: UITableViewController {
       } else {
         self.refreshControl?.endRefreshing()
       }
-    }.disposeIn(rBag)
+      }.disposeIn(rBag)
     
     storageManager.organizations.bindTo(self.tableView) { indexPath, organizations, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
@@ -42,30 +42,28 @@ class OrganizationsTableViewController: UITableViewController {
   }
   
   override func viewDidAppear(animated: Bool) {
-    let storageManager = StorageManager.sharedInstance
-    if !storageManager.isInitialized {
-      storageManager.updateOrganizations()
-    }
+    updateData()
   }
   
   func updateData(){
     StorageManager.sharedInstance.updateOrganizations()
   }
   
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    print(indexPath)
+    
+    let selectedOrganization = StorageManager.sharedInstance.organizations[indexPath.row]
+    
+    // reset storage
+    StorageManager.sharedInstance.reset()
+    
+    KeychainWrapper.setString(selectedOrganization.id!, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
   // MARK: - Navigation
   
   // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "showOrganization" {
-      
-      // Get the cell that generated this segue.
-      if let selectedCell = sender as? SizungTableViewCell {
-        let indexPath = tableView.indexPathForCell(selectedCell)!
-        let selectedOrganization = StorageManager.sharedInstance.organizations[indexPath.row]
-        
-        KeychainWrapper.setString(selectedOrganization.id!, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
-        self.dismissViewControllerAnimated(true, completion: nil)
-      }
-    }
   }
 }

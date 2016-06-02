@@ -24,6 +24,15 @@ class StorageManager {
   let agendaItems: CollectionProperty <[AgendaItem]> = CollectionProperty([])
   let deliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
   
+  func reset() {
+    isInitialized = false
+    isLoading.value = false
+    organizations.removeAll()
+    conversations.removeAll()
+    agendaItems.removeAll()
+    deliverables.removeAll()
+  }
+  
   func getOrganization(id: String) -> Organization? {
     let foundOrganizations = organizations.collection.filter { organization in
       organization.id == id
