@@ -26,12 +26,9 @@ class AuthToken {
   
   func validate() -> Future<String, TokenError> {
     let promise = Promise<String, TokenError>()
-    do {
-      let jwt = try decode(self.data!)
-      promise.success(jwt.claim("user_id")!)
-    }
-    catch let error as NSError {
-      print(error)
+    if let userId = self.getUserId() {
+      promise.success(userId)
+    } else {
       promise.failure(TokenError.InvalidToken)
     }
     return promise.future
@@ -51,15 +48,14 @@ class AuthToken {
     return promise.future
   }
   
-  func getUserId()  -> Future<String, TokenError> {
-    let promise = Promise<String, TokenError>()
-    self.validate()
-      .onSuccess() { userId in
-        promise.success(userId)
-      }.onFailure() { error in
-        promise.failure(error)
+  func getUserId() -> String? {
+    do {
+    let jwt = try decode(self.data!)
+      return jwt.claim("user_id")
     }
-    
-    return promise.future
+    catch let error as NSError {
+      print(error)
+      return nil
+    }
   }
 }
