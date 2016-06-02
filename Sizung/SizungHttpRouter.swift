@@ -48,9 +48,6 @@ enum SizungHttpRouter: URLRequestConvertible {
     let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
     mutableURLRequest.HTTPMethod = method.rawValue
     mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Accept")
-    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
-      mutableURLRequest.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-    }
     
     switch self {
     case .Login(let email, let password):
@@ -62,6 +59,9 @@ enum SizungHttpRouter: URLRequestConvertible {
       ]
       return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
     default:
+      if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+        mutableURLRequest.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+      }
       return mutableURLRequest
     }
   }
