@@ -47,19 +47,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func loadInitialViewController() {
     guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
       let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsTableViewController")
-      self.window?.rootViewController?.presentViewController(organizationViewController, animated: false, completion: nil)
+      organizationViewController.modalPresentationStyle = .OverCurrentContext
+      organizationViewController.modalTransitionStyle = .CoverVertical
+      self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
       return
     }
   }
   
   func showLogin(){
-//  dismiss any currently presented view controller  
-    if let presentedViewController = self.window?.rootViewController?.presentedViewController {
-      presentedViewController.dismissViewControllerAnimated(true, completion: nil)
-    }
     let loginViewController = LoginViewController(nibName: "Login", bundle: nil)
-    //    modalViewController.modalPresentationStyle = .OverCurrentContext
-    self.window?.rootViewController?.presentViewController(loginViewController, animated: true, completion: nil)
+    loginViewController.modalPresentationStyle = .OverCurrentContext
+    loginViewController.modalTransitionStyle = .CoverVertical
+    self.window?.rootViewController?.showViewController(loginViewController, sender: nil)
   }
   
   func applicationWillResignActive(application: UIApplication) {
