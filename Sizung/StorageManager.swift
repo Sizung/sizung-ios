@@ -53,7 +53,7 @@ class StorageManager {
         switch response.result {
         case .Success(let JSON):
           if let organizationResponse = Mapper<OrganizationsResponse>().map(JSON) {
-            self.organizations.replace(organizationResponse.data, performDiff: true)
+            self.organizations.replace(organizationResponse.organizations, performDiff: true)
           }
         case .Failure
           where response.response?.statusCode == 401:
