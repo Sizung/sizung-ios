@@ -12,7 +12,7 @@ import SwiftKeychainWrapper
 class OrganizationViewController: UIViewController, MainPageViewControllerDelegate {
   
   @IBOutlet weak var titleBarButtonItem: UIBarButtonItem!
-  @IBOutlet weak var segmentedControl: UISegmentedControl!
+  @IBOutlet weak var segmentedControl: SizungSegmentedControl!
   
   var mainPageViewController: MainPageViewController!
   
@@ -27,12 +27,15 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
       }
       }.disposeIn(rBag)
     
+    segmentedControl.items = ["To Discuss", "Teams", "To Do"]
+    segmentedControl.thumbColors = [Color.TODISCUSS, Color.TEAM, Color.TODO]
+    segmentedControl.selectedIndex = 1
     segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged);
   }
   
-  func segmentedControlDidChange(sender: UISegmentedControl){
+  func segmentedControlDidChange(sender: SizungSegmentedControl){
     
-    let selectedIndex = sender.selectedSegmentIndex
+    let selectedIndex = sender.selectedIndex
     
     self.mainPageViewController.setSelectedIndex(selectedIndex)
   }
@@ -49,6 +52,6 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
   }
   
   func mainpageViewController(mainPageViewController: MainPageViewController, didSwitchToIndex index: Int) {
-    segmentedControl.selectedSegmentIndex = index
+    segmentedControl.selectedIndex = index
   }
 }
