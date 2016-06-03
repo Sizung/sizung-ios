@@ -139,8 +139,9 @@ import UIKit
   }
   
   func displayNewSelectedIndex(){
-    for label in labels {
-      label.textColor = unselectedLabelColor
+    
+    labels.forEach { label in
+      label.textColor = self.unselectedLabelColor
     }
     
     let label = labels[selectedIndex]
