@@ -34,11 +34,11 @@ class AgendaItemsTableViewController: UITableViewController {
       }.disposeIn(rBag)
     
     storageManager.agendaItems.filter { agendaItem in
-      agendaItem.relationships.conversation.id == self.conversation?.id
+      agendaItem.conversation.id == self.conversation?.id
     }.bindTo(self.tableView) { indexPath, agendaItems, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
       let agendaItem = agendaItems[indexPath.row]
-      cell.textLabel!.text = agendaItem.attributes.title
+      cell.textLabel!.text = agendaItem.title
       return cell
     }
   }
@@ -69,7 +69,7 @@ class AgendaItemsTableViewController: UITableViewController {
         let indexPath = tableView.indexPathForCell(selectedCell)!
         let selectedConversation = StorageManager.sharedInstance.conversations[indexPath.row]
         timelineTableViewController.conversation = selectedConversation
-        timelineTableViewController.navigationItem.title = selectedConversation.attributes.title
+        timelineTableViewController.navigationItem.title = selectedConversation.title
       }
     }
   }

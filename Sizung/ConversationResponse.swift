@@ -10,13 +10,13 @@ import ObjectMapper
 
 class ConversationResponse: Mappable {
   
-  var data: Conversation!
+  var conversation: Conversation!
   
   required init?(_ map: Map) {
     
   }
   
   func mapping(map: Map) {
-    data <- map["data"]
+    conversation <- map["data"]
   }
 }

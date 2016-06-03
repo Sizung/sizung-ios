@@ -10,34 +10,21 @@ import ObjectMapper
 
 class OrganizationResponse: Mappable {
   
-  var data: Organization!
-  var meta: OrganizationMeta!
+  var organization: Organization!
+  var conversationsResponse: ConversationsResponse!
+  var agendaItemsResponse: AgendaItemsResponse!
+  var deliverablesResponse: DeliverablesResponse!
+  var conversationDeliverablesResponse: DeliverablesResponse!
   
   required init?(_ map: Map) {
     
   }
   
   func mapping(map: Map) {
-    data <- map["data"]
-    meta <- map["meta"]
-  }
-  
-  class OrganizationMeta: Mappable {
-    
-    var conversations: ConversationsResponse!
-    var agendaItems: AgendaItemsResponse!
-    var deliverables: DeliverablesResponse!
-    var conversationDeliverables: DeliverablesResponse!
-    
-    required init?(_ map: Map) {
-      
-    }
-  
-    func mapping(map: Map) {
-      conversations <- map["conversations"]
-      agendaItems <- map["agenda_items"]
-      deliverables <- map["deliverables"]
-      conversationDeliverables <- map["conversation_deliverables"]
-    }
+    organization <- map["data"]
+    conversationsResponse <- map["meta.conversations"]
+    agendaItemsResponse <- map["meta.agenda_items"]
+    deliverablesResponse <- map["meta.deliverables"]
+    conversationDeliverablesResponse <- map["meta.conversation_deliverables"]
   }
 }

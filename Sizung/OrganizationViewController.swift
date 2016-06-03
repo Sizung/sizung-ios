@@ -22,7 +22,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     storageManager.isLoading.observeNext { isLoading in
       if let selectedOrganizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
         if let selectedOrganization = storageManager.getOrganization(selectedOrganizationId) {
-          self.titleBarButtonItem.title = selectedOrganization.attributes.name
+          self.titleBarButtonItem.title = selectedOrganization.name
         }
       }
       }.disposeIn(rBag)

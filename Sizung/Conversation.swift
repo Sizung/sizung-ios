@@ -9,33 +9,19 @@
 import ObjectMapper
 
 class Conversation: BaseModel {
-  var attributes: ConversationAttributes!
+  var title: String!
+  var archived: Bool!
+  var organization: Organization!
+  var agenda_items: [AgendaItem]?
+  var deliverables: [Deliverable]?
+  var agenda_item_deliverables: [AgendaItemDeliverable]?
+  var conversation_members: [ConversationMember]?
   
   override func mapping(map: Map) {
     super.mapping(map)
-    attributes <- map["attributes"]
+    title <- map["attributes.title"]
+    archived <- map["attributes.archived"]
+    archived <- map["attributes.archived"]
+    organization <- map["attributes.organization"]
   }
-  
-  class ConversationAttributes: Mappable {
-    var title: String!
-    var archived: Bool!
-    var organization: Organization!
-    var agenda_items: [AgendaItem]?
-    var deliverables: [Deliverable]?
-    var agenda_item_deliverables: [AgendaItemDeliverable]?
-    var conversation_members: [ConversationMember]?
-    
-    required init?(_ map: Map) {
-      
-    }
-    
-    func mapping(map: Map) {
-      title <- map["title"]
-      archived <- map["archived"]
-      archived <- map["archived"]
-      organization <- map["organization"]
-    }
-  }
-
-  
 }

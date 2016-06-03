@@ -10,7 +10,7 @@ import ObjectMapper
 
 class OrganizationsResponse: Mappable {
   
-  var data: [Organization]!
+  var organizations: [Organization]!
   
   required init?(_ map: Map) {
     
@@ -18,6 +18,6 @@ class OrganizationsResponse: Mappable {
   
   // Mappable
   func mapping(map: Map) {
-    data <- map["data"]
+    organizations <- map["data"]
   }
 }

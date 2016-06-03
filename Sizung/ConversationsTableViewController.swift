@@ -36,7 +36,7 @@ class ConversationsTableViewController: UITableViewController {
     storageManager.conversations.bindTo(self.tableView) { indexPath, conversations, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
       let conversation = conversations[indexPath.row]
-      cell.textLabel!.text = conversation.attributes.title
+      cell.textLabel!.text = conversation.title
       return cell
     }
   }

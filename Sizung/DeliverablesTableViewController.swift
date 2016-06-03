@@ -24,7 +24,7 @@ class DeliverablesTableViewController: UITableViewController {
     StorageManager.sharedInstance.deliverables.bindTo(self.tableView) { indexPath, agendaItems, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
       let agendaItem = agendaItems[indexPath.row]
-      cell.textLabel!.text = agendaItem.attributes.title
+      cell.textLabel!.text = agendaItem.title
       return cell
     }
   }
@@ -68,7 +68,7 @@ class DeliverablesTableViewController: UITableViewController {
         let indexPath = tableView.indexPathForCell(selectedCell)!
         let selectedConversation = StorageManager.sharedInstance.conversations[indexPath.row]
         timelineTableViewController.conversation = selectedConversation
-        timelineTableViewController.navigationItem.title = selectedConversation.attributes.title
+        timelineTableViewController.navigationItem.title = selectedConversation.title
       }
     }
   }
@@ -81,11 +81,11 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
     let userId = token.getUserId()
     
     StorageManager.sharedInstance.deliverables.filter { deliverable in
-      deliverable.relationships.owner.data.id == userId!
+      deliverable.owner.id == userId!
       }.bindTo(self.tableView) { indexPath, deliverables, tableView in
         let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
         let deliverable = deliverables[indexPath.row]
-        cell.textLabel!.text = deliverable.attributes.title
+        cell.textLabel!.text = deliverable.title
         return cell
     }
     
@@ -99,11 +99,11 @@ class ConversationDeliverablesTableViewController: DeliverablesTableViewControll
   override func bindData() {
     
     StorageManager.sharedInstance.deliverables.filter { deliverable in
-      deliverable.relationships.conversation.data.id == self.conversation.id
+      deliverable.conversation.id == self.conversation.id
       }.bindTo(self.tableView) { indexPath, agendaItems, tableView in
         let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
         let agendaItem = agendaItems[indexPath.row]
-        cell.textLabel!.text = agendaItem.attributes.title
+        cell.textLabel!.text = agendaItem.title
         return cell
     }
     
