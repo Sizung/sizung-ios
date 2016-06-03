@@ -12,10 +12,10 @@ class Conversation: BaseModel {
   var title: String!
   var archived: Bool!
   var organization: Organization!
-  var agenda_items: [AgendaItem]?
-  var deliverables: [Deliverable]?
-  var agenda_item_deliverables: [AgendaItemDeliverable]?
-  var conversation_members: [ConversationMember]?
+  var agenda_items: [AgendaItem]!
+  var deliverables: [Deliverable]!
+  var agenda_item_deliverables: [AgendaItemDeliverable]!
+  var conversation_members: [ConversationMember]!
   
   override func mapping(map: Map) {
     super.mapping(map)

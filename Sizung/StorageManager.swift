@@ -23,7 +23,6 @@ class StorageManager {
   let conversations: CollectionProperty <[Conversation]> = CollectionProperty([])
   let agendaItems: CollectionProperty <[AgendaItem]> = CollectionProperty([])
   
-  let deliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
   let organizationDeliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
   let conversationDeliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
   
@@ -33,7 +32,8 @@ class StorageManager {
     organizations.removeAll()
     conversations.removeAll()
     agendaItems.removeAll()
-    deliverables.removeAll()
+    organizationDeliverables.removeAll()
+    conversationDeliverables.removeAll()
   }
   
   func getOrganization(id: String) -> Organization? {
@@ -100,7 +100,7 @@ class StorageManager {
         case .Success(let JSON):
           if let conversationResponse = Mapper<ConversationResponse>().map(JSON) {
             
-//            self.conversationDeliverables.replace(newDeliverables, performDiff: true)
+            self.conversationDeliverables.replace(conversationResponse.conversation.deliverables, performDiff: true)
           }
         case .Failure
           where response.response?.statusCode == 401:

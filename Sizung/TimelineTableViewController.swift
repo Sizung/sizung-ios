@@ -58,18 +58,6 @@ class TimelineTableViewController: BasicTableViewController {
   
   // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    switch segue.identifier {
-    case "showAgendas"?:
-      let destinationViewController = segue.destinationViewController as! AgendaItemsTableViewController
-      destinationViewController.conversation = conversation
-      
-    case "showDeliverables"?:
-      let destinationViewController = segue.destinationViewController as! DeliverablesTableViewController
-    default:
-      fatalError("unknown segue identifier \(segue.identifier) in TimelineTableViewController")
-      
-    }
+   
   }
-  
-  
 }
