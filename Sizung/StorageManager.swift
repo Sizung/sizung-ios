@@ -74,11 +74,10 @@ class StorageManager {
         switch response.result {
         case .Success(let JSON):
           if let organizationResponse = Mapper<OrganizationResponse>().map(JSON) {
-            self.organizations.replace([organizationResponse.data], performDiff: true)
-            self.conversations.replace(organizationResponse.meta.conversations.data, performDiff: true)
-            self.agendaItems.replace(organizationResponse.meta.agendaItems.data, performDiff: true)
+            self.conversations.replace(organizationResponse.conversationsResponse.conversations, performDiff: true)
+            self.agendaItems.replace(organizationResponse.agendaItemsResponse.agendaItems, performDiff: true)
             
-            let newDeliverables = organizationResponse.meta.deliverables.data + organizationResponse.meta.conversationDeliverables.data
+            let newDeliverables = organizationResponse.deliverablesResponse.deliverables + organizationResponse.conversationDeliverablesResponse.deliverables
             self.organizationDeliverables.replace(newDeliverables, performDiff: true)
           }
         case .Failure

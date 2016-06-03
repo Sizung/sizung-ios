@@ -36,7 +36,7 @@ class OrganizationsTableViewController: UITableViewController {
     storageManager.organizations.bindTo(self.tableView) { indexPath, organizations, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
       let organization = organizations[indexPath.row]
-      cell.textLabel!.text = organization.attributes.name
+      cell.textLabel!.text = organization.name
       return cell
     }
   }

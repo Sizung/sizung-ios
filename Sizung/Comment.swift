@@ -8,17 +8,14 @@
 
 import ObjectMapper
 
-class Comment: Mappable {
-  var id: String!
-  var author: User?
+class Comment: BaseModel {
   var body: String?
+  var author: User?
   
-  required init?(_ map: Map) {
-    
-  }
   
-  func mapping(map: Map) {
-    author     <- map["author"]
-    body  <- map["body"]
+  override func mapping(map: Map) {
+    super.mapping(map)
+    body <- map["body"]
+    author <- map["relationships.author.data"]
   }
 }

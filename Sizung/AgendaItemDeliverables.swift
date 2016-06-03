@@ -8,17 +8,14 @@
 
 import ObjectMapper
 
-class AgendaItemDeliverable: Mappable {
-  var id: String!
+class AgendaItemDeliverable: BaseModel {
   var name: String?
-  var conversation: Conversation?
+  var agendaItem: AgendaItem?
   
-  required init?(_ map: Map) {
-    
-  }
-  
-  func mapping(map: Map) {
+  override func mapping(map: Map) {
+    super.mapping(map)
     name    <- map["name"]
+    agendaItem <- map["relationships.parent.data"]
   }
   
   

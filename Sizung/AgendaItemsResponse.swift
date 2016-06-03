@@ -10,7 +10,7 @@ import ObjectMapper
 
 class AgendaItemsResponse: Mappable {
   
-  var data: [AgendaItem]!
+  var agendaItems: [AgendaItem]!
   
   required init?(_ map: Map) {
     
@@ -18,6 +18,6 @@ class AgendaItemsResponse: Mappable {
   
   // Mappable
   func mapping(map: Map) {
-    data <- map["data"]
+    agendaItems <- map["data"]
   }
 }
