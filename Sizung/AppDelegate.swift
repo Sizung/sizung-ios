@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func loadInitialViewController() {
     guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
-      let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsTableViewController")
+      let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsViewController")
       organizationViewController.modalPresentationStyle = .OverCurrentContext
       organizationViewController.modalTransitionStyle = .CoverVertical
       self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
