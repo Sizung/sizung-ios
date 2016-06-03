@@ -50,8 +50,6 @@ class OrganizationsTableViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    print(indexPath)
-    
     let selectedOrganization = StorageManager.sharedInstance.organizations[indexPath.row]
     
     // reset storage

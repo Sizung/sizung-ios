@@ -22,7 +22,10 @@ class StorageManager {
   let organizations: CollectionProperty <[Organization]> = CollectionProperty([])
   let conversations: CollectionProperty <[Conversation]> = CollectionProperty([])
   let agendaItems: CollectionProperty <[AgendaItem]> = CollectionProperty([])
+  
   let deliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
+  let organizationDeliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
+  let conversationDeliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
   
   func reset() {
     isInitialized = false
@@ -76,7 +79,29 @@ class StorageManager {
             self.agendaItems.replace(organizationResponse.meta.agendaItems.data, performDiff: true)
             
             let newDeliverables = organizationResponse.meta.deliverables.data + organizationResponse.meta.conversationDeliverables.data
-            self.deliverables.replace(newDeliverables, performDiff: true)
+            self.organizationDeliverables.replace(newDeliverables, performDiff: true)
+          }
+        case .Failure
+          where response.response?.statusCode == 401:
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+        default:
+          print("error \(response.result)")
+        }
+        self.isLoading.value = false
+        self.isInitialized = true
+    }
+  }
+  
+  func updateConversation(conversationId: String) {
+    self.isLoading.value = true
+    Alamofire.request(SizungHttpRouter.Conversation(id: conversationId))
+      .validate()
+      .responseJSON { response in
+        switch response.result {
+        case .Success(let JSON):
+          if let conversationResponse = Mapper<ConversationResponse>().map(JSON) {
+            
+//            self.conversationDeliverables.replace(newDeliverables, performDiff: true)
           }
         case .Failure
           where response.response?.statusCode == 401:

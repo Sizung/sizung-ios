@@ -12,8 +12,6 @@ import ReactiveKit
 
 class DeliverablesTableViewController: UITableViewController {
   
-  var conversation: Conversation?
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -84,6 +82,24 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
     
     StorageManager.sharedInstance.deliverables.filter { deliverable in
       deliverable.relationships.owner.data.id == userId!
+      }.bindTo(self.tableView) { indexPath, deliverables, tableView in
+        let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
+        let deliverable = deliverables[indexPath.row]
+        cell.textLabel!.text = deliverable.attributes.title
+        return cell
+    }
+    
+  }
+}
+
+class ConversationDeliverablesTableViewController: DeliverablesTableViewController {
+  
+  var conversation: Conversation!
+  
+  override func bindData() {
+    
+    StorageManager.sharedInstance.deliverables.filter { deliverable in
+      deliverable.relationships.conversation.data.id == self.conversation.id
       }.bindTo(self.tableView) { indexPath, agendaItems, tableView in
         let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
         let agendaItem = agendaItems[indexPath.row]
@@ -93,3 +109,4 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
     
   }
 }
+

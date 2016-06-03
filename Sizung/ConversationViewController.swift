@@ -1,20 +1,22 @@
 //
-//  OrganizationViewController.swift
+//  ConversationViewController.swift
 //  Sizung
 //
-//  Created by Markus Klepp on 01/06/16.
+//  Created by Markus Klepp on 02/06/16.
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
 import UIKit
 import SwiftKeychainWrapper
 
-class OrganizationViewController: UIViewController, MainPageViewControllerDelegate {
+class ConversationViewController: UIViewController, MainPageViewControllerDelegate {
   
   @IBOutlet weak var titleBarButtonItem: UIBarButtonItem!
   @IBOutlet weak var segmentedControl: UISegmentedControl!
   
   var mainPageViewController: MainPageViewController!
+  
+  var conversation: Conversation!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -42,10 +44,9 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
       self.mainPageViewController = segue.destinationViewController as! MainPageViewController
       self.mainPageViewController.mainPageViewControllerDelegate = self
       self.mainPageViewController.loadViewControllersNamed("AgendaItemsTableViewController",
-                                                           "ConversationsTableViewController",
-                                                           "UserDeliverablesTableViewController")
+                                                      "TimelineTableViewController",
+                                                      "ConversationDeliverablesTableViewController")
     }
-    
   }
   
   func mainpageViewController(mainPageViewController: MainPageViewController, didSwitchToIndex index: Int) {

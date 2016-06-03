@@ -24,15 +24,17 @@ class MainPageViewController: UIPageViewController, UIPageViewControllerDataSour
     setSelectedIndex(nextIndex)
   }
   
-  private(set) lazy var orderedViewControllers: [UIViewController] = {
-    return [self.loadControllerNamed("AgendaItemsTableViewController"),
-            self.loadControllerNamed("CenterViewController"),
-            self.loadControllerNamed("UserDeliverablesTableViewController")]
-  }()
+  var orderedViewControllers: [UIViewController] = []
   
   private func loadControllerNamed(name: String) -> UIViewController {
     return UIStoryboard(name: "Main", bundle: nil) .
       instantiateViewControllerWithIdentifier(name)
+  }
+  
+  func loadViewControllersNamed(viewControllerNames: String...){
+    for viewControllerName in viewControllerNames {
+      self.orderedViewControllers.append(self.loadControllerNamed(viewControllerName))
+    }
   }
   
   func setSelectedIndex(index: Int) {

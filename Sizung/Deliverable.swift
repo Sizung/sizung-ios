@@ -37,7 +37,7 @@ class Deliverable: BaseModel {
   }
   
   class DeliverableRelationships: Mappable {
-    //    var conversation: Conversation!
+    var conversation: ConversationResponse!
     var owner: UserResponse!
     //    var deliverables: Deliverable!
     
@@ -46,7 +46,7 @@ class Deliverable: BaseModel {
     }
     
     func mapping(map: Map) {
-      //      conversation <- map["conversation"]
+      conversation <- map["conversation"]
       owner <- map["owner"]
       //      deliverables <- map["deliverables"]
     }

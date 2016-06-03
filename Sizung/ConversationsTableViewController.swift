@@ -57,17 +57,21 @@ class ConversationsTableViewController: UITableViewController {
   
   // MARK: - Navigation
   
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let cell = tableView.cellForRowAtIndexPath(indexPath)
+    self.performSegueWithIdentifier("showConversation", sender: cell)
+  }
+  
   // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "showTimeline" {
-      let timelineTableViewController = segue.destinationViewController as! TimelineTableViewController
+    if segue.identifier == "showConversation" {
+      let conversationViewController = segue.destinationViewController as! ConversationViewController
       
       // Get the cell that generated this segue.
       if let selectedCell = sender as? SizungTableViewCell {
         let indexPath = tableView.indexPathForCell(selectedCell)!
         let selectedConversation = StorageManager.sharedInstance.conversations[indexPath.row]
-        timelineTableViewController.conversation = selectedConversation
-        timelineTableViewController.navigationItem.title = selectedConversation.attributes.title
+        conversationViewController.conversation = selectedConversation
       }
     }
   }
