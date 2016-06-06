@@ -78,9 +78,15 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
     StorageManager.sharedInstance.organizationDeliverables.filter { deliverable in
       deliverable.owner.id == userId!
       }.bindTo(self.tableView) { indexPath, deliverables, tableView in
-        let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
         let deliverable = deliverables[indexPath.row]
-        cell.textLabel!.text = deliverable.title
+        cell.titleLabel.text = deliverable.title
+        cell.conversationLabel.text = deliverable.conversation?.title
+        cell.statusLabel.text = deliverable.status
+        
+        // TODO: Real unread status
+        cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
+        
         return cell
     }
     
@@ -95,10 +101,15 @@ class ConversationDeliverablesTableViewController: DeliverablesTableViewControll
     
     StorageManager.sharedInstance.conversationDeliverables.filter { deliverable in
       deliverable.conversation.id == self.conversation.id
-      }.bindTo(self.tableView) { indexPath, agendaItems, tableView in
-        let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
-        let agendaItem = agendaItems[indexPath.row]
-        cell.textLabel!.text = agendaItem.title
+      }.bindTo(self.tableView) { indexPath, deliverables, tableView in
+        let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
+        let deliverable = deliverables[indexPath.row]
+        cell.titleLabel.text = deliverable.title
+        cell.conversationLabel.text = deliverable.conversation?.title
+        cell.statusLabel.text = deliverable.status
+        
+        // TODO: Real unread status
+        cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
         return cell
     }
     

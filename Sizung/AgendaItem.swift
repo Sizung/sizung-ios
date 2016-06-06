@@ -19,6 +19,6 @@ class AgendaItem: BaseModel {
     title <- map["attributes.title"]
     status <- map["attributes.status"]
     archived <- map["attributes.archived"]
-    conversation <- map["relationships.conversation"]
+    conversation <- map["relationships.conversation.data"]
   }
 }

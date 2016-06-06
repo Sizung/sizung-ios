@@ -23,6 +23,7 @@
 		5A7329F91D05B1FC006531A5 /* Brandon_bld.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5A7329F61D05B1FC006531A5 /* Brandon_bld.otf */; };
 		5A7329FA1D05B1FC006531A5 /* Brandon_med.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5A7329F71D05B1FC006531A5 /* Brandon_med.otf */; };
 		5A7329FD1D05FEB2006531A5 /* AgendaItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7329FB1D05FEB2006531A5 /* AgendaItemTableViewCell.swift */; };
+		5A732A011D06060C006531A5 /* DeliverableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A732A001D06060C006531A5 /* DeliverableTableViewCell.swift */; };
 		5A7B95A41CF8E58B00FE36CB /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */; };
 		5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A86B1281CE4BB64001C2E7A /* Configurations.plist */; };
 		5A86B12C1CE4BC04001C2E7A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B12B1CE4BC04001C2E7A /* Configuration.swift */; };
@@ -105,6 +106,7 @@
 		5A7329F61D05B1FC006531A5 /* Brandon_bld.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_bld.otf; sourceTree = "<group>"; };
 		5A7329F71D05B1FC006531A5 /* Brandon_med.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_med.otf; sourceTree = "<group>"; };
 		5A7329FB1D05FEB2006531A5 /* AgendaItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemTableViewCell.swift; sourceTree = "<group>"; };
+		5A732A001D06060C006531A5 /* DeliverableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverableTableViewCell.swift; sourceTree = "<group>"; };
 		5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		5A7B95A51CF8FC9700FE36CB /* Sizung.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Sizung.entitlements; sourceTree = "<group>"; };
 		5A86B1281CE4BB64001C2E7A /* Configurations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configurations.plist; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				5AC0E5DE1CF04D0000BBEF45 /* SizungTableViewCell.swift */,
 				5A7329ED1D058574006531A5 /* ConversationsTableViewCell.swift */,
 				5A7329FB1D05FEB2006531A5 /* AgendaItemTableViewCell.swift */,
+				5A732A001D06060C006531A5 /* DeliverableTableViewCell.swift */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -715,6 +718,7 @@
 				5A7329F01D05877D006531A5 /* CardView.swift in Sources */,
 				5AD9F1B91CE9D3D700455D98 /* ConversationMember.swift in Sources */,
 				5A7329EE1D058574006531A5 /* ConversationsTableViewCell.swift in Sources */,
+				5A732A011D06060C006531A5 /* DeliverableTableViewCell.swift in Sources */,
 				5AC0E5DF1CF04D0000BBEF45 /* SizungTableViewCell.swift in Sources */,
 				5A7329FD1D05FEB2006531A5 /* AgendaItemTableViewCell.swift in Sources */,
 				5AC0E5E41CF0628200BBEF45 /* ConversationsTableViewController.swift in Sources */,

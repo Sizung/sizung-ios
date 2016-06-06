@@ -14,9 +14,8 @@ class Deliverable: BaseModel {
   var title: String!
   var status: String!
   var archived: Bool!
-  
-  
   var conversation: Conversation!
+  
   var owner: User!
   
   override func mapping(map: Map) {
