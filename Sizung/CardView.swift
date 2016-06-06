@@ -13,7 +13,7 @@ class CardView: UIView {
   @IBInspectable var borderColor: UIColor? {
     didSet {
       layer.borderColor = borderColor?.CGColor
-      layer.borderWidth = 1
+      layer.borderWidth = 0.5
     }
   }
   
