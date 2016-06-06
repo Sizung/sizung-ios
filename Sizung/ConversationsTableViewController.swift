@@ -50,6 +50,9 @@ class ConversationsTableViewController: UITableViewController {
   func updateData(){
     if let organizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
       StorageManager.sharedInstance.updateOrganization(organizationId)
+      
+//      fetch organizations
+      StorageManager.sharedInstance.updateOrganizations()
     } else {
       fatalError("no organization selected in \(self)")
     }
