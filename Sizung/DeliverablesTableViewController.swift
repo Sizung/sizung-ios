@@ -21,12 +21,7 @@ class DeliverablesTableViewController: UITableViewController {
   }
   
   func bindData() {
-    StorageManager.sharedInstance.deliverables.bindTo(self.tableView) { indexPath, agendaItems, tableView in
-      let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
-      let agendaItem = agendaItems[indexPath.row]
-      cell.textLabel!.text = agendaItem.title
-      return cell
-    }
+    print("no usage")
   }
   
   func initData(){
@@ -80,7 +75,7 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
     let token = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
     let userId = token.getUserId()
     
-    StorageManager.sharedInstance.deliverables.filter { deliverable in
+    StorageManager.sharedInstance.organizationDeliverables.filter { deliverable in
       deliverable.owner.id == userId!
       }.bindTo(self.tableView) { indexPath, deliverables, tableView in
         let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
@@ -98,7 +93,7 @@ class ConversationDeliverablesTableViewController: DeliverablesTableViewControll
   
   override func bindData() {
     
-    StorageManager.sharedInstance.deliverables.filter { deliverable in
+    StorageManager.sharedInstance.conversationDeliverables.filter { deliverable in
       deliverable.conversation.id == self.conversation.id
       }.bindTo(self.tableView) { indexPath, agendaItems, tableView in
         let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
