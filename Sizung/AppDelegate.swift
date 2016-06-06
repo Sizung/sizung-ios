@@ -43,6 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func initTheme(){
     UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+    
+    
+    UIToolbar.appearance().tintColor = UIColor.whiteColor()
   }
   
   func registerNotifications(){
