@@ -46,9 +46,7 @@ class ConversationsTableViewController: UITableViewController {
 
       cell.lastCommentLabel.text = "This is the last comment. It can even be longer than expected. It should ellipsize automatically"
       
-      let unreadColor = arc4random_uniform(2) == 0 ? UIColor.clearColor(): UIColor(red: 0.82, green: 0.53, blue: 0.24, alpha: 1)
-      
-      cell.unreadStatusView.backgroundColor = unreadColor
+      cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
       
       return cell
     }

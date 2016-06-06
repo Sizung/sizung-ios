@@ -36,9 +36,15 @@ class AgendaItemsTableViewController: UITableViewController {
     storageManager.agendaItems.filter { agendaItem in
       agendaItem.conversation.id == self.conversation?.id
     }.bindTo(self.tableView) { indexPath, agendaItems, tableView in
-      let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
+      let cell = tableView.dequeueReusableCellWithIdentifier("AgendaItemTableViewCell", forIndexPath: indexPath) as! AgendaItemTableViewCell
       let agendaItem = agendaItems[indexPath.row]
-      cell.textLabel!.text = agendaItem.title
+      cell.titleLabel.text = agendaItem.title
+      cell.conversationLabel.text = agendaItem.conversation.title
+      
+      
+      // TODO: Real unread status
+      cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
+      
       return cell
     }
   }
