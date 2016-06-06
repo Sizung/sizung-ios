@@ -95,7 +95,7 @@ import UIKit
       label.text = items[index - 1]
       label.backgroundColor = UIColor.clearColor()
       label.textAlignment = .Center
-      label.font = UIFont(name: "Avenir-Black", size: 15)
+      label.adjustsFontSizeToFitWidth = true
       label.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
       label.translatesAutoresizingMaskIntoConstraints = false
       self.addSubview(label)

@@ -38,12 +38,18 @@ class ConversationsTableViewController: UITableViewController {
     storageManager.conversations.bindTo(self.tableView) { indexPath, conversations, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier("ConversationsTableViewCell", forIndexPath: indexPath) as! ConversationsTableViewCell
       let conversation = conversations[indexPath.row]
-      cell.nameLabel.text = "@\(conversation.title)"
+      cell.nameLabel.text = conversation.title
       
 //    TODO: get real author email
       let gravatar = Gravatar(emailAddress: NSUUID().UUIDString, defaultImage: .MysteryMan)
       cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
 
+      cell.lastCommentLabel.text = "This is the last comment. It can even be longer than expected. It should ellipsize automatically"
+      
+      let unreadColor = arc4random_uniform(2) == 0 ? UIColor.clearColor(): UIColor(red: 0.82, green: 0.53, blue: 0.24, alpha: 1)
+      
+      cell.unreadStatusView.backgroundColor = unreadColor
+      
       return cell
     }
   }

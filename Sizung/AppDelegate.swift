@@ -44,8 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func initTheme(){
     UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
     
-    
     UIToolbar.appearance().tintColor = UIColor.whiteColor()
+    
+    let mediumFont = UIFont(name: "Brandon Grotesque", size: UIFont.systemFontSize())
+    UILabel.appearance().font = mediumFont
+//    UIView.appearance().font = boldFont
   }
   
   func registerNotifications(){
