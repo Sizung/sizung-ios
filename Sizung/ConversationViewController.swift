@@ -42,6 +42,10 @@ class ConversationViewController: UIViewController, MainPageViewControllerDelega
     self.mainPageViewController.setSelectedIndex(selectedIndex)
   }
   
+  @IBAction func close(sender: AnyObject) {
+    dismissViewControllerAnimated(true, completion: nil)
+  }
+  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "embed" {
       self.mainPageViewController = segue.destinationViewController as! MainPageViewController
