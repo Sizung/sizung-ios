@@ -31,7 +31,7 @@ import UIKit
     }
   }
   
-  @IBInspectable var unselectedLabelColor : UIColor = UIColor.blackColor() {
+  @IBInspectable var unselectedLabelColor : UIColor = UIColor.whiteColor() {
     didSet {
       setSelectedColors()
     }
