@@ -52,27 +52,71 @@
         <scene sceneID="wVM-1n-f0S">
             <objects>
                 <tableViewController storyboardIdentifier="ConversationsTableViewController" id="dIc-j3-YC1" customClass="ConversationsTableViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="sQ1-sS-Lvs">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="sQ1-sS-Lvs">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SizungTableViewCell" textLabel="VhS-AZ-G9T" style="IBUITableViewCellStyleDefault" id="6yJ-y9-RwD" customClass="SizungTableViewCell" customModule="Sizung" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ConversationsTableViewCell" id="6yJ-y9-RwD" customClass="ConversationsTableViewCell" customModule="Sizung">
+                                <rect key="frame" x="0.0" y="28" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6yJ-y9-RwD" id="drN-nW-Q1f">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VhS-AZ-G9T">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2zo-eB-z3w" customClass="CardView" customModule="Sizung" customModuleProvider="target">
+                                            <rect key="frame" x="18" y="8" width="564" height="84"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TNw-MD-34V">
+                                                    <rect key="frame" x="0.0" y="0.0" width="10" height="84"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="10" id="zGI-51-FcE"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFH-cG-xhl">
+                                                    <rect key="frame" x="18" y="8" width="538" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DHn-eB-z0h">
+                                                    <rect key="frame" x="66" y="36" width="490" height="40"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZKX-Bj-Nuo">
+                                                    <rect key="frame" x="18" y="37" width="40" height="40"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="TNw-MD-34V" secondAttribute="bottom" id="70r-aR-dqv"/>
+                                                <constraint firstItem="TNw-MD-34V" firstAttribute="leading" secondItem="2zo-eB-z3w" secondAttribute="leading" id="a74-YM-APG"/>
+                                                <constraint firstItem="TNw-MD-34V" firstAttribute="top" secondItem="2zo-eB-z3w" secondAttribute="top" id="dq6-ep-AiD"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" red="0.48235294222831726" green="0.40784314274787903" blue="0.31372550129890442" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="2zo-eB-z3w" secondAttribute="bottom" id="6Gv-dG-zRo"/>
+                                        <constraint firstItem="2zo-eB-z3w" firstAttribute="leading" secondItem="drN-nW-Q1f" secondAttribute="leadingMargin" constant="10" id="K3l-Mg-MmU"/>
+                                        <constraint firstItem="2zo-eB-z3w" firstAttribute="top" secondItem="drN-nW-Q1f" secondAttribute="topMargin" id="bnW-rt-nww"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="2zo-eB-z3w" secondAttribute="trailing" constant="10" id="vLC-ai-wl4"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="lastCommentAuthorImageView" destination="ZKX-Bj-Nuo" id="QOg-vz-xNK"/>
+                                    <outlet property="lastCommentLabel" destination="DHn-eB-z0h" id="UGB-Su-S6W"/>
+                                    <outlet property="nameLabel" destination="aFH-cG-xhl" id="j8j-bp-Q43"/>
+                                    <outlet property="unreadStatusView" destination="TNw-MD-34V" id="Rxi-fx-hTH"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

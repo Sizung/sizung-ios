@@ -13,6 +13,7 @@ target 'Sizung' do
   pod 'ReactiveKit', '~> 2.0'
   pod 'ReactiveUIKit', '~> 2.0'
   pod 'JWTDecode', '~> 1.0'
+  pod 'AlamofireImage', '~> 2.0'
 
   pod 'Fabric', '~> 1.6'
   pod 'Crashlytics', '~> 3.7'
