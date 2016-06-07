@@ -20,14 +20,7 @@ class ConversationViewController: UIViewController, MainPageViewControllerDelega
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    let storageManager = StorageManager.sharedInstance
-    storageManager.isLoading.observeNext { isLoading in
-      if let selectedOrganizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
-        if let selectedOrganization = storageManager.getOrganization(selectedOrganizationId) {
-          self.titleBarButtonItem.title = selectedOrganization.name
-        }
-      }
-      }.disposeIn(rBag)
+    self.titleBarButtonItem.title = conversation.title
     
     segmentedControl.items = ["To Discuss", "Chat", "To Do"]
     segmentedControl.thumbColors = [Color.TODISCUSS, Color.CHAT, Color.TODO]
@@ -50,9 +43,23 @@ class ConversationViewController: UIViewController, MainPageViewControllerDelega
     if segue.identifier == "embed" {
       self.mainPageViewController = segue.destinationViewController as! MainPageViewController
       self.mainPageViewController.mainPageViewControllerDelegate = self
-      self.mainPageViewController.loadViewControllersNamed("AgendaItemsTableViewController",
-                                                      "TimelineTableViewController",
-                                                      "ConversationDeliverablesTableViewController")
+      
+      let agendaItemsTableViewController = UIStoryboard(name: "Main", bundle: nil) .
+        instantiateViewControllerWithIdentifier("AgendaItemsTableViewController") as! AgendaItemsTableViewController
+      agendaItemsTableViewController.conversation = self.conversation
+      
+      self.mainPageViewController.orderedViewControllers.append(agendaItemsTableViewController)
+      
+      
+      self.mainPageViewController.orderedViewControllers.append(UIStoryboard(name: "Main", bundle: nil) .
+        instantiateViewControllerWithIdentifier("TimelineTableViewController"))
+      
+      let deliverablesTableViewController = UIStoryboard(name: "Main", bundle: nil) .
+        instantiateViewControllerWithIdentifier("ConversationDeliverablesTableViewController") as! ConversationDeliverablesTableViewController
+      
+      deliverablesTableViewController.conversation = conversation
+      
+      self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
     }
   }
   

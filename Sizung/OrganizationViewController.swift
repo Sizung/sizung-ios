@@ -44,9 +44,21 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     if segue.identifier == "embed" {
       self.mainPageViewController = segue.destinationViewController as! MainPageViewController
       self.mainPageViewController.mainPageViewControllerDelegate = self
-      self.mainPageViewController.loadViewControllersNamed("AgendaItemsTableViewController",
-                                                           "ConversationsTableViewController",
-                                                           "UserDeliverablesTableViewController")
+      
+      self.mainPageViewController.orderedViewControllers.append(UIStoryboard(name: "Main", bundle: nil) .
+        instantiateViewControllerWithIdentifier("AgendaItemsTableViewController"))
+      self.mainPageViewController.orderedViewControllers.append(UIStoryboard(name: "Main", bundle: nil) .
+        instantiateViewControllerWithIdentifier("ConversationsTableViewController"))
+      
+      let deliverablesTableViewController = UIStoryboard(name: "Main", bundle: nil) .
+        instantiateViewControllerWithIdentifier("UserDeliverablesTableViewController") as! UserDeliverablesTableViewController
+      
+      let token = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
+      let userId = token.getUserId()
+      
+      deliverablesTableViewController.userId = userId
+       
+      self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
     }
     
   }

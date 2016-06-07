@@ -26,15 +26,9 @@ class MainPageViewController: UIPageViewController, UIPageViewControllerDataSour
   
   var orderedViewControllers: [UIViewController] = []
   
-  private func loadControllerNamed(name: String) -> UIViewController {
+  func loadControllerNamed(name: String) -> UIViewController {
     return UIStoryboard(name: "Main", bundle: nil) .
       instantiateViewControllerWithIdentifier(name)
-  }
-  
-  func loadViewControllersNamed(viewControllerNames: String...){
-    for viewControllerName in viewControllerNames {
-      self.orderedViewControllers.append(self.loadControllerNamed(viewControllerName))
-    }
   }
   
   func setSelectedIndex(index: Int) {

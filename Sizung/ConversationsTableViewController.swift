@@ -82,7 +82,7 @@ class ConversationsTableViewController: UITableViewController {
       let conversationViewController = segue.destinationViewController as! ConversationViewController
       
       // Get the cell that generated this segue.
-      if let selectedCell = sender as? SizungTableViewCell {
+      if let selectedCell = sender as? UITableViewCell {
         let indexPath = tableView.indexPathForCell(selectedCell)!
         let selectedConversation = StorageManager.sharedInstance.conversations[indexPath.row]
         conversationViewController.conversation = selectedConversation
