@@ -1,0 +1,115 @@
+//
+//  Storage.swift
+//  Sizung
+//
+//  Created by Markus Klepp on 20/05/16.
+//  Copyright © 2016 Sizung. All rights reserved.
+//
+
+import Foundation
+import Alamofire
+import ObjectMapper
+import ReactiveKit
+
+class StorageManager {
+  //  singleton
+  static let sharedInstance = StorageManager()
+  private init() {}
+  
+  var isInitialized = false
+  var isLoading = Property(false)
+  
+  let organizations: CollectionProperty <[Organization]> = CollectionProperty([])
+  let conversations: CollectionProperty <[Conversation]> = CollectionProperty([])
+  let agendaItems: CollectionProperty <[AgendaItem]> = CollectionProperty([])
+  
+  let organizationDeliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
+  let conversationDeliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
+  
+  func reset() {
+    isInitialized = false
+    isLoading.value = false
+    organizations.removeAll()
+    conversations.removeAll()
+    agendaItems.removeAll()
+    organizationDeliverables.removeAll()
+    conversationDeliverables.removeAll()
+  }
+  
+  func getOrganization(id: String) -> Organization? {
+    let foundOrganizations = organizations.collection.filter { organization in
+      organization.id == id
+    }
+    
+    return foundOrganizations.first
+  }
+  
+  func updateOrganizations() {
+    
+    self.isLoading.value = true
+    Alamofire.request(SizungHttpRouter.Organizations())
+      .validate()
+      .responseJSON { response in
+        switch response.result {
+        case .Success(let JSON):
+          if let organizationResponse = Mapper<OrganizationsResponse>().map(JSON) {
+            self.organizations.replace(organizationResponse.organizations, performDiff: true)
+          }
+        case .Failure
+          where response.response?.statusCode == 401:
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+        default:
+          print(response.response)
+        }
+        self.isLoading.value = false
+    }
+  }
+  
+  func updateOrganization(organizationId: String) {
+    
+    self.isLoading.value = true
+    Alamofire.request(SizungHttpRouter.Organization(id: organizationId))
+      .validate()
+      .responseJSON { response in
+        switch response.result {
+        case .Success(let JSON):
+          if let organizationResponse = Mapper<OrganizationResponse>().map(JSON) {
+            self.conversations.replace(organizationResponse.conversationsResponse.conversations, performDiff: true)
+            self.agendaItems.replace(organizationResponse.agendaItemsResponse.agendaItems, performDiff: true)
+            
+            let newDeliverables = organizationResponse.deliverablesResponse.deliverables + organizationResponse.conversationDeliverablesResponse.deliverables
+            self.organizationDeliverables.replace(newDeliverables, performDiff: true)
+          }
+        case .Failure
+          where response.response?.statusCode == 401:
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+        default:
+          print("error \(response.result)")
+        }
+        self.isLoading.value = false
+        self.isInitialized = true
+    }
+  }
+  
+  func updateConversation(conversationId: String) {
+    self.isLoading.value = true
+    Alamofire.request(SizungHttpRouter.Conversation(id: conversationId))
+      .validate()
+      .responseJSON { response in
+        switch response.result {
+        case .Success(let JSON):
+          if let conversationResponse = Mapper<ConversationResponse>().map(JSON) {
+            
+            self.conversationDeliverables.replace(conversationResponse.conversation.deliverables, performDiff: true)
+          }
+        case .Failure
+          where response.response?.statusCode == 401:
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+        default:
+          print("error \(response.result)")
+        }
+        self.isLoading.value = false
+        self.isInitialized = true
+    }
+  }
+}

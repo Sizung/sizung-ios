@@ -37,7 +37,7 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
     })
     self.activityIndicator.startAnimating()
     
-    Alamofire.request(Router.Login(email: email!, password: password!))
+    Alamofire.request(SizungHttpRouter.Login(email: email!, password: password!))
       .validate()
       .responseJSON { response in
         switch response.result {

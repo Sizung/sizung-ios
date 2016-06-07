@@ -6,26 +6,24 @@
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
-import Foundation
-import Spine
+import ObjectMapper
+
+import ObjectMapper
 
 class Deliverable: BaseModel {
-  var title: String?
-  var conversation: Conversation?
+  var title: String!
+  var status: String!
+  var archived: Bool!
+  var conversation: Conversation!
   
-  override class var resourceType: ResourceType {
-    return "deliverables"
-  }
+  var owner: User!
   
-  override class var fields: [Field] {
-    return fieldsFromDictionary([
-      "title": Attribute(),
-      "conversation": ToOneRelationship(Conversation)
-      ]
-    )
-  }
-  
-  override func getTableViewCellTitle() -> String {
-    return title!
+  override func mapping(map: Map) {
+    super.mapping(map)
+    title <- map["attributes.title"]
+    status <- map["attributes.status"]
+    archived <- map["attributes.archived"]
+    conversation <- map["relationships.conversation.data"]
+    owner <- map["relationships.owner.data"]
   }
 }

@@ -10,29 +10,48 @@ import UIKit
 
 class MainPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
   
+  var previousIndex: Int = 1
+  var nextIndex: Int = 1
+  
+  var mainPageViewControllerDelegate: MainPageViewControllerDelegate?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     self.dataSource = self
     self.delegate = self
     
-    if orderedViewControllers.count > 1 {
-      setViewControllers([orderedViewControllers[1]],
-                         direction: .Forward,
-                         animated: true,
-                         completion: nil)
-    }
+    setSelectedIndex(nextIndex)
   }
   
-  private(set) lazy var orderedViewControllers: [UIViewController] = {
-    return [self.loadControllerNamed("AgendaItemsTableViewController"),
-            self.loadControllerNamed("CenterViewController"),
-            self.loadControllerNamed("DeliverablesTableViewController")]
-  }()
+  var orderedViewControllers: [UIViewController] = []
   
   private func loadControllerNamed(name: String) -> UIViewController {
     return UIStoryboard(name: "Main", bundle: nil) .
       instantiateViewControllerWithIdentifier(name)
+  }
+  
+  func loadViewControllersNamed(viewControllerNames: String...){
+    for viewControllerName in viewControllerNames {
+      self.orderedViewControllers.append(self.loadControllerNamed(viewControllerName))
+    }
+  }
+  
+  func setSelectedIndex(index: Int) {
+    previousIndex = nextIndex
+    nextIndex = index
+    
+    var direction: UIPageViewControllerNavigationDirection = .Forward
+    if previousIndex > nextIndex {
+      direction = .Reverse
+    }
+    
+    if orderedViewControllers.count > index {
+      setViewControllers([orderedViewControllers[index]],
+                         direction: direction,
+                         animated: true,
+                         completion: nil)
+    }
   }
   
   func pageViewController(pageViewController: UIPageViewController,
@@ -75,10 +94,19 @@ class MainPageViewController: UIPageViewController, UIPageViewControllerDataSour
   }
   
   func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
-    print("willTransitionToViewControllers: \(pendingViewControllers)")
+    self.nextIndex = self.orderedViewControllers.indexOf(pendingViewControllers.first!)!
   }
   
   func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-    print("didFinishAnimating \(previousViewControllers)")
+    if(finished && completed) {
+      self.previousIndex = self.orderedViewControllers.indexOf(previousViewControllers.first!)!
+      if mainPageViewControllerDelegate != nil {
+        mainPageViewControllerDelegate?.mainpageViewController(self, didSwitchToIndex: self.nextIndex)
+      }
+    }
   }
+}
+
+protocol MainPageViewControllerDelegate {
+  func mainpageViewController(mainPageViewController: MainPageViewController, didSwitchToIndex index: Int)
 }

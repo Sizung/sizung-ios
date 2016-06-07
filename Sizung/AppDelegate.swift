@@ -20,7 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
-    Fabric.with([Crashlytics.self])
+    #if RELEASE_VERSION
+      Fabric.with([Crashlytics.self])
+    #endif
+    
+    self.initTheme()
     
     self.registerNotifications()
     
@@ -33,27 +37,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }.onFailure { error in
         self.showLogin()
     }
-
+    
     return true
+  }
+  
+  func initTheme(){
+    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+    
+    UIToolbar.appearance().tintColor = UIColor.whiteColor()
+    
+    let mediumFont = UIFont(name: "Brandon Grotesque", size: UIFont.systemFontSize())
+    UILabel.appearance().font = mediumFont
+//    UIView.appearance().font = boldFont
   }
   
   func registerNotifications(){
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.showLogin), name: Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
-
+    
   }
   
   func loadInitialViewController() {
-//    guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
-//      let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsTableViewController")
-//      self.window?.rootViewController?.presentViewController(organizationViewController, animated: false, completion: nil)
-//      return
-//    }
+    guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
+      let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsViewController")
+      organizationViewController.modalPresentationStyle = .OverCurrentContext
+      organizationViewController.modalTransitionStyle = .CoverVertical
+      self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
+      return
+    }
   }
   
   func showLogin(){
-    let modalViewController = LoginViewController(nibName: "Login", bundle: nil)
-    modalViewController.modalPresentationStyle = .OverCurrentContext
-    self.window?.rootViewController?.presentViewController(modalViewController, animated: true, completion: nil)
+    let loginViewController = LoginViewController(nibName: "Login", bundle: nil)
+    loginViewController.modalPresentationStyle = .OverCurrentContext
+    loginViewController.modalTransitionStyle = .CoverVertical
+    self.window?.rootViewController?.showViewController(loginViewController, sender: nil)
   }
   
   func applicationWillResignActive(application: UIApplication) {

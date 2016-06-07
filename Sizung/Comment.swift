@@ -6,25 +6,16 @@
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
-import Foundation
-import Spine
+import ObjectMapper
 
 class Comment: BaseModel {
-  var author: User?
   var body: String?
+  var author: User?
   
-  override class var resourceType: ResourceType {
-    return "comments"
-  }
   
-  override class var fields: [Field] {
-    return fieldsFromDictionary([
-      "author": ToOneRelationship(User),
-      "body": Attribute()
-      ])
-  }
-  
-  override func getTableViewCellTitle() -> String {
-    return body!
+  override func mapping(map: Map) {
+    super.mapping(map)
+    body <- map["body"]
+    author <- map["relationships.author.data"]
   }
 }
