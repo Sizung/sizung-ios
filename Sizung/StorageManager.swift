@@ -11,6 +11,32 @@ import Alamofire
 import ObjectMapper
 import ReactiveKit
 
+extension CollectionPropertyType where Collection == Array<Member>, Member : Equatable, Member : Hashable {
+  public func insertOrUpdate(newCollection: [Self.Member]){
+    var inserts: [Int] = []
+    var updates: [Int] = []
+    
+    inserts.reserveCapacity(newCollection.count)
+    updates.reserveCapacity(collection.count)
+    
+    let newSet = Set(newCollection)
+    let currentSet = Set(collection)
+    
+    let newElements = newSet.subtract(currentSet)
+    let updatedElements = currentSet.intersect(newSet)
+    
+    for newElement in newElements {
+      inserts.append(newCollection.indexOf(newElement)!)
+    }
+    
+    for updatedElement in updatedElements {
+      updates.append(newCollection.indexOf(updatedElement)!)
+    }
+    
+    update(CollectionChangeset(collection: newCollection, inserts: inserts, deletes: [], updates: updates))
+  }
+}
+
 class StorageManager {
   //  singleton
   static let sharedInstance = StorageManager()
@@ -22,9 +48,7 @@ class StorageManager {
   let organizations: CollectionProperty <[Organization]> = CollectionProperty([])
   let conversations: CollectionProperty <[Conversation]> = CollectionProperty([])
   let agendaItems: CollectionProperty <[AgendaItem]> = CollectionProperty([])
-  
-  let organizationDeliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
-  let conversationDeliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
+  let deliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
   
   func reset() {
     isInitialized = false
@@ -32,8 +56,8 @@ class StorageManager {
     organizations.removeAll()
     conversations.removeAll()
     agendaItems.removeAll()
-    organizationDeliverables.removeAll()
-    conversationDeliverables.removeAll()
+    deliverables.removeAll()
+    
   }
   
   func getOrganization(id: String) -> Organization? {
@@ -53,7 +77,7 @@ class StorageManager {
         switch response.result {
         case .Success(let JSON):
           if let organizationResponse = Mapper<OrganizationsResponse>().map(JSON) {
-            self.organizations.replace(organizationResponse.organizations, performDiff: true)
+            self.organizations.insertOrUpdate(organizationResponse.organizations)
           }
         case .Failure
           where response.response?.statusCode == 401:
@@ -74,11 +98,11 @@ class StorageManager {
         switch response.result {
         case .Success(let JSON):
           if let organizationResponse = Mapper<OrganizationResponse>().map(JSON) {
-            self.conversations.replace(organizationResponse.conversationsResponse.conversations, performDiff: true)
-            self.agendaItems.replace(organizationResponse.agendaItemsResponse.agendaItems, performDiff: true)
+            self.conversations.insertOrUpdate(organizationResponse.conversationsResponse.conversations)
+            self.agendaItems.insertOrUpdate(organizationResponse.agendaItemsResponse.agendaItems)
             
-            let newDeliverables = organizationResponse.deliverablesResponse.deliverables + organizationResponse.conversationDeliverablesResponse.deliverables
-            self.organizationDeliverables.replace(newDeliverables, performDiff: true)
+            self.deliverables.insertOrUpdate(organizationResponse.deliverablesResponse.deliverables)
+            self.deliverables.insertOrUpdate(organizationResponse.conversationDeliverablesResponse.deliverables)
           }
         case .Failure
           where response.response?.statusCode == 401:
@@ -100,7 +124,8 @@ class StorageManager {
         case .Success(let JSON):
           if let conversationResponse = Mapper<ConversationResponse>().map(JSON) {
             
-            self.conversationDeliverables.replace(conversationResponse.conversation.deliverables, performDiff: true)
+            self.agendaItems.insertOrUpdate(conversationResponse.conversation.agenda_items)
+            self.deliverables.insertOrUpdate(conversationResponse.conversation.deliverables)
           }
         case .Failure
           where response.response?.statusCode == 401:

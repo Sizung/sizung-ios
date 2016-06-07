@@ -41,6 +41,7 @@
 		5AA890FC1CF4D1B900ED391B /* TableViewCellDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FB1CF4D1B900ED391B /* TableViewCellDisplayable.swift */; };
 		5AA891001CF5A63A00ED391B /* AgendaItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */; };
 		5AA891021CF5A6AE00ED391B /* DeliverablesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */; };
+		5AAF89661D06BC2E00071C89 /* CollectionInsertOrUpdateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAF89651D06BC2E00071C89 /* CollectionInsertOrUpdateTests.swift */; };
 		5AB781411CFD79D00024DFE9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB781401CFD79D00024DFE9 /* AccountViewController.swift */; };
 		5AB8F2F81CDCADD900F4423F /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8F2F71CDCADD900F4423F /* LoginTests.swift */; };
 		5AB8F2FA1CDCAF2A00F4423F /* UITestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */; };
@@ -126,6 +127,7 @@
 		5AA890FB1CF4D1B900ED391B /* TableViewCellDisplayable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellDisplayable.swift; sourceTree = "<group>"; };
 		5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemsTableViewController.swift; sourceTree = "<group>"; };
 		5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverablesTableViewController.swift; sourceTree = "<group>"; };
+		5AAF89651D06BC2E00071C89 /* CollectionInsertOrUpdateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionInsertOrUpdateTests.swift; sourceTree = "<group>"; };
 		5AB781401CFD79D00024DFE9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		5AB8F2F71CDCADD900F4423F /* LoginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 		5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestHelper.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				5A653EA71CD7A96000FB3DEB /* Info.plist */,
+				5AAF89651D06BC2E00071C89 /* CollectionInsertOrUpdateTests.swift */,
 			);
 			path = SizungTests;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AAF89661D06BC2E00071C89 /* CollectionInsertOrUpdateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -936,6 +940,7 @@
 			baseConfigurationReference = E7C1C059CF8FA9290E27382E /* Pods-SizungTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -944,6 +949,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sizung.ios.SizungTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sizung.app/Sizung";
 			};
 			name = Debug;
@@ -953,6 +959,7 @@
 			baseConfigurationReference = FDCB08FF0B15B62828F591A6 /* Pods-SizungTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

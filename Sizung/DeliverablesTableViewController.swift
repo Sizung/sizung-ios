@@ -75,7 +75,7 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
     let token = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
     let userId = token.getUserId()
     
-    StorageManager.sharedInstance.organizationDeliverables.filter { deliverable in
+    StorageManager.sharedInstance.deliverables.filter { deliverable in
       deliverable.owner.id == userId!
       }.bindTo(self.tableView) { indexPath, deliverables, tableView in
         let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
@@ -99,7 +99,7 @@ class ConversationDeliverablesTableViewController: DeliverablesTableViewControll
   
   override func bindData() {
     
-    StorageManager.sharedInstance.conversationDeliverables.filter { deliverable in
+    StorageManager.sharedInstance.deliverables.filter { deliverable in
       deliverable.conversation.id == self.conversation.id
       }.bindTo(self.tableView) { indexPath, deliverables, tableView in
         let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell

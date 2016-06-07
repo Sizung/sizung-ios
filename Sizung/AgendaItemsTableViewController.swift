@@ -34,7 +34,11 @@ class AgendaItemsTableViewController: UITableViewController {
       }.disposeIn(rBag)
     
     storageManager.agendaItems.filter { agendaItem in
-      agendaItem.conversation.id == self.conversation?.id
+      if let conversationId = self.conversation?.id {
+        return agendaItem.conversation.id == conversationId
+      } else {
+        return true
+      }
     }.bindTo(self.tableView) { indexPath, agendaItems, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier("AgendaItemTableViewCell", forIndexPath: indexPath) as! AgendaItemTableViewCell
       let agendaItem = agendaItems[indexPath.row]
