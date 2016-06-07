@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       Fabric.with([Crashlytics.self])
     #endif
     
+    self.initTheme()
+    
     self.registerNotifications()
     
     let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN)
@@ -37,6 +39,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     return true
+  }
+  
+  func initTheme(){
+    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+    
+    UIToolbar.appearance().tintColor = UIColor.whiteColor()
+    
+    let mediumFont = UIFont(name: "Brandon Grotesque", size: UIFont.systemFontSize())
+    UILabel.appearance().font = mediumFont
+//    UIView.appearance().font = boldFont
   }
   
   func registerNotifications(){

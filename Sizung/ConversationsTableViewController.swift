@@ -19,6 +19,8 @@ class ConversationsTableViewController: UITableViewController {
     self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
     
     self.initData()
+    
+    
   }
   
   func initData(){
@@ -34,9 +36,18 @@ class ConversationsTableViewController: UITableViewController {
     }.disposeIn(rBag)
     
     storageManager.conversations.bindTo(self.tableView) { indexPath, conversations, tableView in
-      let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
+      let cell = tableView.dequeueReusableCellWithIdentifier("ConversationsTableViewCell", forIndexPath: indexPath) as! ConversationsTableViewCell
       let conversation = conversations[indexPath.row]
-      cell.textLabel!.text = conversation.title
+      cell.nameLabel.text = conversation.title
+      
+//    TODO: get real author email
+      let gravatar = Gravatar(emailAddress: NSUUID().UUIDString, defaultImage: .MysteryMan)
+      cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+
+      cell.lastCommentLabel.text = "This is the last comment. It can even be longer than expected. It should ellipsize automatically"
+      
+      cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
+      
       return cell
     }
   }
@@ -50,6 +61,9 @@ class ConversationsTableViewController: UITableViewController {
   func updateData(){
     if let organizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
       StorageManager.sharedInstance.updateOrganization(organizationId)
+      
+//      fetch organizations
+      StorageManager.sharedInstance.updateOrganizations()
     } else {
       fatalError("no organization selected in \(self)")
     }
