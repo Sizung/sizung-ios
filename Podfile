@@ -14,6 +14,7 @@ target 'Sizung' do
   pod 'ReactiveUIKit', '~> 2.0'
   pod 'JWTDecode', '~> 1.0'
   pod 'AlamofireImage', '~> 2.0'
+  pod 'SlackTextViewController', '~> 1.9'
 
   pod 'Fabric', '~> 1.6'
   pod 'Crashlytics', '~> 3.7'
@@ -21,11 +22,16 @@ target 'Sizung' do
   target 'SizungTests' do
     inherit! :search_paths
     # Pods for testing
+    
+    pod 'Nimble'
   end
 
   target 'SizungUITests' do
     inherit! :search_paths
     # Pods for testing
+    
+    pod 'Nimble'
+    pod 'OHHTTPStubs'
   end
 
 end

@@ -16,6 +16,7 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Organizations()
   case Organization(id: String)
   case Conversation(id: String)
+  case ConversationObjects(id: String)
   
   
   var method: Alamofire.Method {
@@ -40,6 +41,8 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/organizations/\(id)"
     case .Conversation(let id):
       return "/conversations/\(id)"
+    case .ConversationObjects(let id):
+      return "/conversations/\(id)/conversation_objects"
     }
   }
   

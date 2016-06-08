@@ -19,8 +19,6 @@ class ConversationsTableViewController: UITableViewController {
     self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
     
     self.initData()
-    
-    
   }
   
   func initData(){

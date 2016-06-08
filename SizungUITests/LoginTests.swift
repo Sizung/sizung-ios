@@ -9,6 +9,7 @@
 import XCTest
 import Nimble
 import OHHTTPStubs
+@testable import Pods_Sizung
 
 class LoginUITests: XCTestCase {
   

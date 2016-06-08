@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2FF81000B72F237F09D8B781 /* Pods_SizungUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13B42A82CE8590D9FB4161 /* Pods_SizungUITests.framework */; };
-		5A35A52B1CDCDDE8005E5B1B /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35A52A1CDCDDE8005E5B1B /* Test.swift */; };
 		5A39F26A1CE47D6D003E20CE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */; };
 		5A504B071CEF0FDC001BEFA3 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */; };
 		5A504B141CEF2413001BEFA3 /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A504B131CEF2413001BEFA3 /* AuthToken.swift */; };
@@ -24,6 +23,8 @@
 		5A7329FA1D05B1FC006531A5 /* Brandon_med.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5A7329F71D05B1FC006531A5 /* Brandon_med.otf */; };
 		5A7329FD1D05FEB2006531A5 /* AgendaItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7329FB1D05FEB2006531A5 /* AgendaItemTableViewCell.swift */; };
 		5A732A011D06060C006531A5 /* DeliverableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A732A001D06060C006531A5 /* DeliverableTableViewCell.swift */; };
+		5A7B38191D089B8F00F2C771 /* CollectionPropertyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7B38181D089B8F00F2C771 /* CollectionPropertyExtension.swift */; };
+		5A7B381A1D089D4900F2C771 /* CollectionPropertyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7B38181D089B8F00F2C771 /* CollectionPropertyExtension.swift */; };
 		5A7B95A41CF8E58B00FE36CB /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */; };
 		5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A86B1281CE4BB64001C2E7A /* Configurations.plist */; };
 		5A86B12C1CE4BC04001C2E7A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B12B1CE4BC04001C2E7A /* Configuration.swift */; };
@@ -42,6 +43,9 @@
 		5AA891001CF5A63A00ED391B /* AgendaItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */; };
 		5AA891021CF5A6AE00ED391B /* DeliverablesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */; };
 		5AAF89661D06BC2E00071C89 /* CollectionInsertOrUpdateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAF89651D06BC2E00071C89 /* CollectionInsertOrUpdateTests.swift */; };
+		5AAF89681D06CC1100071C89 /* ConversationObjectsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAF89671D06CC1100071C89 /* ConversationObjectsResponse.swift */; };
+		5AB641431D075B5F0053453A /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB641411D075B5F0053453A /* CommentTableViewCell.swift */; };
+		5AB641441D075B5F0053453A /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AB641421D075B5F0053453A /* CommentTableViewCell.xib */; };
 		5AB781411CFD79D00024DFE9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB781401CFD79D00024DFE9 /* AccountViewController.swift */; };
 		5AB8F2F81CDCADD900F4423F /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8F2F71CDCADD900F4423F /* LoginTests.swift */; };
 		5AB8F2FA1CDCAF2A00F4423F /* UITestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */; };
@@ -87,7 +91,6 @@
 
 /* Begin PBXFileReference section */
 		40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SizungTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A35A52A1CDCDDE8005E5B1B /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		5A504B131CEF2413001BEFA3 /* AuthToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
 		5A653E8B1CD7A96000FB3DEB /* Sizung.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sizung.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,6 +111,7 @@
 		5A7329F71D05B1FC006531A5 /* Brandon_med.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_med.otf; sourceTree = "<group>"; };
 		5A7329FB1D05FEB2006531A5 /* AgendaItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemTableViewCell.swift; sourceTree = "<group>"; };
 		5A732A001D06060C006531A5 /* DeliverableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverableTableViewCell.swift; sourceTree = "<group>"; };
+		5A7B38181D089B8F00F2C771 /* CollectionPropertyExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionPropertyExtension.swift; sourceTree = "<group>"; };
 		5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		5A7B95A51CF8FC9700FE36CB /* Sizung.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Sizung.entitlements; sourceTree = "<group>"; };
 		5A86B1281CE4BB64001C2E7A /* Configurations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configurations.plist; sourceTree = "<group>"; };
@@ -128,6 +132,9 @@
 		5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemsTableViewController.swift; sourceTree = "<group>"; };
 		5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverablesTableViewController.swift; sourceTree = "<group>"; };
 		5AAF89651D06BC2E00071C89 /* CollectionInsertOrUpdateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionInsertOrUpdateTests.swift; sourceTree = "<group>"; };
+		5AAF89671D06CC1100071C89 /* ConversationObjectsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationObjectsResponse.swift; sourceTree = "<group>"; };
+		5AB641411D075B5F0053453A /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		5AB641421D075B5F0053453A /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		5AB781401CFD79D00024DFE9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		5AB8F2F71CDCADD900F4423F /* LoginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
 		5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestHelper.swift; sourceTree = "<group>"; };
@@ -284,7 +291,6 @@
 				5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */,
 				5A653EB21CD7A96000FB3DEB /* Info.plist */,
 				5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */,
-				5A35A52A1CDCDDE8005E5B1B /* Test.swift */,
 			);
 			path = SizungUITests;
 			sourceTree = "<group>";
@@ -314,6 +320,8 @@
 				5A7329ED1D058574006531A5 /* ConversationsTableViewCell.swift */,
 				5A7329FB1D05FEB2006531A5 /* AgendaItemTableViewCell.swift */,
 				5A732A001D06060C006531A5 /* DeliverableTableViewCell.swift */,
+				5AB641411D075B5F0053453A /* CommentTableViewCell.swift */,
+				5AB641421D075B5F0053453A /* CommentTableViewCell.xib */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -327,6 +335,7 @@
 				5A86B12F1CE5D025001C2E7A /* network */,
 				5A86B1321CE5E2FC001C2E7A /* Sizung-Bridging-Header.h */,
 				5A9EDEBB1D01CEB900D389EC /* Color.swift */,
+				5A7B38181D089B8F00F2C771 /* CollectionPropertyExtension.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -377,6 +386,7 @@
 				5A8F79081CFF14BF00953495 /* DeliverablesResponse.swift */,
 				5A9EDEAF1D00232100D389EC /* UserResponse.swift */,
 				5A9EDEB51D01621200D389EC /* ConversationResponse.swift */,
+				5AAF89671D06CC1100071C89 /* ConversationObjectsResponse.swift */,
 			);
 			name = responses;
 			sourceTree = "<group>";
@@ -544,6 +554,7 @@
 				5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */,
 				5AC85CA21CFC55720028B560 /* Login.xib in Resources */,
 				5A7329FA1D05B1FC006531A5 /* Brandon_med.otf in Resources */,
+				5AB641441D075B5F0053453A /* CommentTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,6 +718,7 @@
 				5ABA4FB61CFDCD7C00110030 /* OrganizationsResponse.swift in Sources */,
 				5A86B12C1CE4BC04001C2E7A /* Configuration.swift in Sources */,
 				5ABA4FB91CFEB78B00110030 /* BaseModel.swift in Sources */,
+				5AB641431D075B5F0053453A /* CommentTableViewCell.swift in Sources */,
 				5ABA4FBD1CFEBF1600110030 /* ConversationsResponse.swift in Sources */,
 				5AD9F1BF1CE9D65900455D98 /* AgendaItemDeliverables.swift in Sources */,
 				5A8F79091CFF14BF00953495 /* DeliverablesResponse.swift in Sources */,
@@ -720,6 +732,7 @@
 				5ABA4FBB1CFEBE3500110030 /* OrganizationResponse.swift in Sources */,
 				5A7329F01D05877D006531A5 /* CardView.swift in Sources */,
 				5AD9F1B91CE9D3D700455D98 /* ConversationMember.swift in Sources */,
+				5AAF89681D06CC1100071C89 /* ConversationObjectsResponse.swift in Sources */,
 				5A7329EE1D058574006531A5 /* ConversationsTableViewCell.swift in Sources */,
 				5A732A011D06060C006531A5 /* DeliverableTableViewCell.swift in Sources */,
 				5AC0E5DF1CF04D0000BBEF45 /* SizungTableViewCell.swift in Sources */,
@@ -734,6 +747,7 @@
 				5AD9F1BB1CE9D5E600455D98 /* AgendaItem.swift in Sources */,
 				5AA890F91CF45D4800ED391B /* BasicTableViewController.swift in Sources */,
 				5AA891021CF5A6AE00ED391B /* DeliverablesTableViewController.swift in Sources */,
+				5A7B38191D089B8F00F2C771 /* CollectionPropertyExtension.swift in Sources */,
 				5AD9F1B51CE9D03000455D98 /* User.swift in Sources */,
 				5AD9F1BD1CE9D63300455D98 /* Deliverable.swift in Sources */,
 				5A86B1311CE5D035001C2E7A /* SizungHttpRouter.swift in Sources */,
@@ -754,6 +768,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A7B381A1D089D4900F2C771 /* CollectionPropertyExtension.swift in Sources */,
 				5AAF89661D06BC2E00071C89 /* CollectionInsertOrUpdateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -763,7 +778,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AB8F2FA1CDCAF2A00F4423F /* UITestHelper.swift in Sources */,
-				5A35A52B1CDCDDE8005E5B1B /* Test.swift in Sources */,
 				5A653EB11CD7A96000FB3DEB /* SizungUITests.swift in Sources */,
 				5A39F26A1CE47D6D003E20CE /* LoginViewController.swift in Sources */,
 				5AB8F2F81CDCADD900F4423F /* LoginTests.swift in Sources */,

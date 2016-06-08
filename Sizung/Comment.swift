@@ -9,13 +9,13 @@
 import ObjectMapper
 
 class Comment: BaseModel {
-  var body: String?
-  var author: User?
+  var body: String!
+  var author: User!
   
   
   override func mapping(map: Map) {
     super.mapping(map)
-    body <- map["body"]
+    body <- map["attributes.body"]
     author <- map["relationships.author.data"]
   }
 }

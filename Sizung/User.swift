@@ -10,10 +10,12 @@ import ObjectMapper
 
 class User: BaseModel {
   var name: String!
+  var email: String!
   
   override func mapping(map: Map) {
     super.mapping(map)
     name <- map["attributes.name"]
+    email <- map["attributes.email"]
   }
 }
 
