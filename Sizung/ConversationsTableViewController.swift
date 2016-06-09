@@ -63,7 +63,7 @@ class ConversationsTableViewController: UITableViewController {
 //      fetch organizations
       StorageManager.sharedInstance.updateOrganizations()
     } else {
-      fatalError("no organization selected in \(self)")
+      print("no organization selected in \(self)")
     }
   }
   

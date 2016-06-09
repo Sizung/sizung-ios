@@ -19,11 +19,13 @@ import UIKit
     }
   }
   
-  var selectedIndex : Int = 0 {
+  var selectedIndex : Int = 1 {
     didSet {
       displayNewSelectedIndex()
     }
   }
+  
+  let horizontalPadding : CGFloat = 5
   
   @IBInspectable var selectedLabelColor : UIColor = UIColor.whiteColor() {
     didSet {
@@ -49,7 +51,7 @@ import UIKit
     }
   }
   
-  @IBInspectable var font : UIFont! = UIFont.systemFontOfSize(12) {
+  @IBInspectable var font : UIFont! = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleHeadline) {
     didSet {
       setFont()
     }
@@ -76,7 +78,7 @@ import UIKit
     
     setupLabels()
     
-    addIndividualItemConstraints(labels, mainView: self, padding: 0)
+    addIndividualItemConstraints(labels, mainView: self, padding: horizontalPadding)
     
     insertSubview(thumbView, atIndex: 0)
   }
@@ -95,6 +97,7 @@ import UIKit
       label.text = items[index - 1]
       label.backgroundColor = UIColor.clearColor()
       label.textAlignment = .Center
+      label.font = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleHeadline)
       label.adjustsFontSizeToFitWidth = true
       label.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
       label.translatesAutoresizingMaskIntoConstraints = false
@@ -102,7 +105,7 @@ import UIKit
       labels.append(label)
     }
     
-    addIndividualItemConstraints(labels, mainView: self, padding: 0)
+    addIndividualItemConstraints(labels, mainView: self, padding: horizontalPadding)
   }
   
   override func layoutSubviews() {
@@ -149,7 +152,11 @@ import UIKit
     
     UIView.animateWithDuration(0.2, animations: {
       
-      self.thumbView.frame = label.frame
+      let thumbOrigin = CGPoint(x: label.frame.origin.x - self.horizontalPadding, y: label.frame.origin.y)
+      let thumbSize = CGSize(width: label.frame.size.width + self.horizontalPadding*2, height: label.frame.size.height)
+      let thumbFrame = CGRect(origin: thumbOrigin, size: thumbSize)
+      
+      self.thumbView.frame = thumbFrame
       self.thumbView.backgroundColor = self.thumbColors[self.selectedIndex]
       
       }, completion: nil)

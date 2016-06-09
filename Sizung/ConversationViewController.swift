@@ -22,9 +22,8 @@ class ConversationViewController: UIViewController, MainPageViewControllerDelega
     super.viewDidLoad()
     self.titleBarButtonItem.title = conversation.title
     
-    segmentedControl.items = ["To Discuss", "Chat", "To Do"]
+    segmentedControl.items = ["TO DISCUSS", "CHAT", "TO DO"]
     segmentedControl.thumbColors = [Color.TODISCUSS, Color.CHAT, Color.TODO]
-    segmentedControl.selectedIndex = 1
     segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged);
   }
   
@@ -44,26 +43,34 @@ class ConversationViewController: UIViewController, MainPageViewControllerDelega
       self.mainPageViewController = segue.destinationViewController as! MainPageViewController
       self.mainPageViewController.mainPageViewControllerDelegate = self
       
-      let agendaItemsTableViewController = UIStoryboard(name: "Main", bundle: nil) .
-        instantiateViewControllerWithIdentifier("AgendaItemsTableViewController") as! AgendaItemsTableViewController
-      agendaItemsTableViewController.conversation = self.conversation
+      let label = UILabel()
+      label.text = "tba"
+      let emptyViewController = UIViewController()
+      emptyViewController.view = label
       
-      self.mainPageViewController.orderedViewControllers.append(agendaItemsTableViewController)
       
-      
-      let timelineTableViewController = UIStoryboard(name: "Main", bundle: nil) .
-      instantiateViewControllerWithIdentifier("TimelineTableViewController") as! TimelineTableViewController
-      
-      timelineTableViewController.conversation = self.conversation
-      
-      self.mainPageViewController.orderedViewControllers.append(timelineTableViewController)
-      
-      let deliverablesTableViewController = UIStoryboard(name: "Main", bundle: nil) .
-        instantiateViewControllerWithIdentifier("ConversationDeliverablesTableViewController") as! ConversationDeliverablesTableViewController
-      
-      deliverablesTableViewController.conversation = conversation
-      
-      self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
+      self.mainPageViewController.orderedViewControllers.append(emptyViewController)
+      self.mainPageViewController.orderedViewControllers.append(emptyViewController)
+      self.mainPageViewController.orderedViewControllers.append(emptyViewController)
+//      
+//      let agendaItemsTableViewController = UIStoryboard(name: "Main", bundle: nil) .
+//        instantiateViewControllerWithIdentifier("AgendaItemsTableViewController") as! AgendaItemsTableViewController
+//      agendaItemsTableViewController.conversation = self.conversation
+//      
+//      self.mainPageViewController.orderedViewControllers.append(agendaItemsTableViewController)
+//      
+//      
+//      self.mainPageViewController.orderedViewControllers.append(UIStoryboard(name: "Main", bundle: nil) .
+//        instantiateViewControllerWithIdentifier("TimelineTableViewController"))
+//      
+//      let deliverablesTableViewController = UIStoryboard(name: "Main", bundle: nil) .
+//        instantiateViewControllerWithIdentifier("ConversationDeliverablesTableViewController") as! ConversationDeliverablesTableViewController
+//      
+//      deliverablesTableViewController.conversation = conversation
+//      
+//      self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
+    } else {
+      fatalError("unkown segue")
     }
   }
   

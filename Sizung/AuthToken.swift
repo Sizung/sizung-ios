@@ -50,8 +50,12 @@ class AuthToken {
   
   func getUserId() -> String? {
     do {
-    let jwt = try decode(self.data!)
-      return jwt.claim("user_id")
+      if let data = self.data {
+        let jwt = try decode(data)
+        return jwt.claim("user_id")
+      } else {
+        return nil
+      }
     }
     catch let error as NSError {
       print(error)

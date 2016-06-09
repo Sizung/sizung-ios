@@ -27,9 +27,8 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
       }
       }.disposeIn(rBag)
     
-    segmentedControl.items = ["To Discuss", "Teams", "To Do"]
+    segmentedControl.items = ["TO DISCUSS", "TEAMS", "TO DO"]
     segmentedControl.thumbColors = [Color.TODISCUSS, Color.TEAM, Color.TODO]
-    segmentedControl.selectedIndex = 1
     segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged);
   }
   
