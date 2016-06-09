@@ -89,28 +89,28 @@ class TimelineTableViewController: SLKTextViewController {
   // Notifies the view controller when the right button's action has been triggered, manually or by using the keyboard return key.
   override func didPressRightButton(sender: AnyObject!) {
     
-    //    // This little trick validates any pending auto-correction or auto-spelling just after hitting the 'Send' button
-    //    self.textView.refreshFirstResponder()
-    //
-    //    let message = ConversationObject()
-    //    message.username = LoremIpsum.name()
-    //    message.text = self.textView.text
-    //
-    //    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-    //    let rowAnimation: UITableViewRowAnimation = self.inverted ? .Bottom : .Top
-    //    let scrollPosition: UITableViewScrollPosition = self.inverted ? .Bottom : .Top
-    //
-    //    self.tableView.beginUpdates()
-    //    self.messages.insert(message, atIndex: 0)
-    //    self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: rowAnimation)
-    //    self.tableView.endUpdates()
-    //
-    //    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: scrollPosition, animated: true)
-    //
-    //    // Fixes the cell from blinking (because of the transform, when using translucent cells)
-    //    // See https://github.com/slackhq/SlackTextViewController/issues/94#issuecomment-69929927
-    //    self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-    //
+    // This little trick validates any pending auto-correction or auto-spelling just after hitting the 'Send' button
+    self.textView.refreshFirstResponder()
+    
+    let authToken = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
+    let user = User(id: authToken.getUserId()!)
+    
+    let message = Comment(author: user, body: self.textView.text)
+    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+    let rowAnimation: UITableViewRowAnimation = self.inverted ? .Bottom : .Top
+    let scrollPosition: UITableViewScrollPosition = self.inverted ? .Bottom : .Top
+    
+    self.tableView.beginUpdates()
+    StorageManager.sharedInstance.conversationObjects.insert(message, atIndex: 0)
+    self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: rowAnimation)
+    self.tableView.endUpdates()
+    
+    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: scrollPosition, animated: true)
+    
+    // Fixes the cell from blinking (because of the transform, when using translucent cells)
+    // See https://github.com/slackhq/SlackTextViewController/issues/94#issuecomment-69929927
+    self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    
     super.didPressRightButton(sender)
   }
   
@@ -238,6 +238,9 @@ extension TimelineTableViewController {
     let cell = tableView.dequeueReusableCellWithIdentifier("CommentTableViewCell") as! CommentTableViewCell
     
     cell.bodyLabel.attributedText = textParser.parseMarkdown(comment.body)
+  
+    
+    cell.bodyLabel.textColor = (comment.offline ? UIColor.grayColor() : UIColor.blackColor())
     
     let author = StorageManager.sharedInstance.getUser(comment.author.id)!
     

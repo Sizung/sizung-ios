@@ -13,6 +13,11 @@ class BaseModel: Mappable, Equatable, Hashable {
   var id: String!
   var type: String!
   
+  init(type: String) {
+    id = NSUUID().UUIDString
+    self.type = type
+  }
+  
   var hashValue: Int {
     return id.hashValue
   }

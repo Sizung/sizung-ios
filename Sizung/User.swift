@@ -12,6 +12,15 @@ class User: BaseModel {
   var name: String!
   var email: String!
   
+  init(id: String) {
+    super.init(type: "users")
+    self.id = id
+  }
+  
+  required init?(_ map: Map) {
+    super.init(map)
+  }
+  
   override func mapping(map: Map) {
     super.mapping(map)
     name <- map["attributes.name"]
