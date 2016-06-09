@@ -22,9 +22,8 @@ class ConversationViewController: UIViewController, MainPageViewControllerDelega
     super.viewDidLoad()
     self.titleBarButtonItem.title = conversation.title
     
-    segmentedControl.items = ["To Discuss", "Chat", "To Do"]
+    segmentedControl.items = ["TO DISCUSS", "CHAT", "TO DO"]
     segmentedControl.thumbColors = [Color.TODISCUSS, Color.CHAT, Color.TODO]
-    segmentedControl.selectedIndex = 1
     segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged);
   }
   
