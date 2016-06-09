@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let bodyFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody)
     
     UILabel.appearance().font = bodyFont
+    UILabel.appearanceWhenContainedInInstancesOfClasses([UIButton.self]).font = bodyFont
     UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: headerFont, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
     
   }

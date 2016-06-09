@@ -49,7 +49,7 @@ import UIKit
     }
   }
   
-  @IBInspectable var font : UIFont! = UIFont.systemFontOfSize(12) {
+  @IBInspectable var font : UIFont! = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleHeadline) {
     didSet {
       setFont()
     }
@@ -95,6 +95,7 @@ import UIKit
       label.text = items[index - 1]
       label.backgroundColor = UIColor.clearColor()
       label.textAlignment = .Center
+      label.font = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleHeadline)
       label.adjustsFontSizeToFitWidth = true
       label.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
       label.translatesAutoresizingMaskIntoConstraints = false
