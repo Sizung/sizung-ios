@@ -10,6 +10,7 @@
 		2FF81000B72F237F09D8B781 /* Pods_SizungUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13B42A82CE8590D9FB4161 /* Pods_SizungUITests.framework */; };
 		5A35A52B1CDCDDE8005E5B1B /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35A52A1CDCDDE8005E5B1B /* Test.swift */; };
 		5A39F26A1CE47D6D003E20CE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */; };
+		5A42707D1D094A1900B294DF /* UICustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A42707C1D094A1900B294DF /* UICustomFont.swift */; };
 		5A504B071CEF0FDC001BEFA3 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */; };
 		5A504B141CEF2413001BEFA3 /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A504B131CEF2413001BEFA3 /* AuthToken.swift */; };
 		5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653E8E1CD7A96000FB3DEB /* AppDelegate.swift */; };
@@ -88,6 +89,7 @@
 /* Begin PBXFileReference section */
 		40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SizungTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A35A52A1CDCDDE8005E5B1B /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		5A42707C1D094A1900B294DF /* UICustomFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomFont.swift; sourceTree = "<group>"; };
 		5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		5A504B131CEF2413001BEFA3 /* AuthToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
 		5A653E8B1CD7A96000FB3DEB /* Sizung.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sizung.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -327,6 +329,7 @@
 				5A86B12F1CE5D025001C2E7A /* network */,
 				5A86B1321CE5E2FC001C2E7A /* Sizung-Bridging-Header.h */,
 				5A9EDEBB1D01CEB900D389EC /* Color.swift */,
+				5A42707C1D094A1900B294DF /* UICustomFont.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -717,6 +720,7 @@
 				5AB781411CFD79D00024DFE9 /* AccountViewController.swift in Sources */,
 				5A9EDEBC1D01CEB900D389EC /* Color.swift in Sources */,
 				5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */,
+				5A42707D1D094A1900B294DF /* UICustomFont.swift in Sources */,
 				5ABA4FBB1CFEBE3500110030 /* OrganizationResponse.swift in Sources */,
 				5A7329F01D05877D006531A5 /* CardView.swift in Sources */,
 				5AD9F1B91CE9D3D700455D98 /* ConversationMember.swift in Sources */,

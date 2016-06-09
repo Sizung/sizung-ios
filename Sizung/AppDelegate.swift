@@ -46,12 +46,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     UIToolbar.appearance().tintColor = UIColor.whiteColor()
     
-    if let mediumFont = UIFont(name: "Brandon Grotesque", size: UIFont.systemFontSize()) {
-      UILabel.appearance().font = mediumFont
-      UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: mediumFont, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
-    } else {
-      fatalError("font not found")
-    }
+    let headerFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleHeadline)
+    let bodyFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody)
+    
+    UILabel.appearance().font = bodyFont
+    UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: headerFont, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
+    
   }
   
   func registerNotifications(){
