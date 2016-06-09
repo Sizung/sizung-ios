@@ -18,6 +18,8 @@ class TimelineTableViewController: SLKTextViewController {
   
   var editingMessage : Comment?
   
+  let textParser: SizungMarkdownParser = SizungMarkdownParser()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -233,7 +235,7 @@ extension TimelineTableViewController {
     
     let cell = tableView.dequeueReusableCellWithIdentifier("CommentTableViewCell") as! CommentTableViewCell
     
-    cell.bodyLabel.text = comment.body
+    cell.bodyLabel.attributedText = textParser.parseMarkdown(comment.body)
     
     let author = StorageManager.sharedInstance.getUser(comment.author.id)!
     

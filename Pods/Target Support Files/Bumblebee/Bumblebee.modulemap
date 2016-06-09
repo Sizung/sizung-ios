@@ -1,0 +1,6 @@
+framework module Bumblebee {
+  umbrella header "Bumblebee-umbrella.h"
+
+  export *
+  module * { export * }
+}
