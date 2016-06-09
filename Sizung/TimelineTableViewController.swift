@@ -26,6 +26,7 @@ class TimelineTableViewController: SLKTextViewController {
     self.initData()
     
     self.tableView.separatorStyle = .None
+    
   }
   
   override var tableView: UITableView {
@@ -34,11 +35,16 @@ class TimelineTableViewController: SLKTextViewController {
     }
   }
   
-  override class func tableViewStyleForCoder(decoder: NSCoder) -> UITableViewStyle {
-    return .Plain
-  }
-  
   func initData(){
+    StorageManager.sharedInstance.conversationObjects.bindTo(self.tableView) { indexPath, deliverables, tableView in
+      if tableView == self.tableView {
+        return self.messageCellForRowAtIndexPath(indexPath)
+      }
+      else {
+        return self.autoCompletionCellForRowAtIndexPath(indexPath)
+      }
+    }
+    
     StorageManager.sharedInstance.updateConversationObjects(self.conversation.id)
   }
   
@@ -54,14 +60,14 @@ class TimelineTableViewController: SLKTextViewController {
   
   func editCellMessage(gesture: UIGestureRecognizer) {
     print("edit")
-//    guard let cell = gesture.view as? CommentTableViewCell else {
-//      return
-//    }
-//    
-//    self.editingMessage = self.conversationObjects[cell.indexPath.row]
-//    self.editText(self.editingMessage.text)
-//    
-//    self.tableView.scrollToRowAtIndexPath(cell.indexPath, atScrollPosition: .Bottom, animated: true)
+    //    guard let cell = gesture.view as? CommentTableViewCell else {
+    //      return
+    //    }
+    //
+    //    self.editingMessage = self.conversationObjects[cell.indexPath.row]
+    //    self.editText(self.editingMessage.text)
+    //
+    //    self.tableView.scrollToRowAtIndexPath(cell.indexPath, atScrollPosition: .Bottom, animated: true)
   }
   
   // Notifies the view controller when the user has pasted a media (image, video, etc) inside of the text view.
@@ -136,8 +142,8 @@ class TimelineTableViewController: SLKTextViewController {
     if prefix == "@" {
       if word.characters.count > 0 {
         array = StorageManager.sharedInstance.organizationUsers.filter { user in
-            user.name.hasPrefix(word) || user.email.hasPrefix(word)
-          }
+          user.name.hasPrefix(word) || user.email.hasPrefix(word)
+        }
       }
       else {
         array = StorageManager.sharedInstance.organizationUsers.collection
@@ -211,16 +217,6 @@ extension TimelineTableViewController {
     }
     
     return 0
-  }
-  
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
-    if tableView == self.tableView {
-      return self.messageCellForRowAtIndexPath(indexPath)
-    }
-    else {
-      return self.autoCompletionCellForRowAtIndexPath(indexPath)
-    }
   }
   
   func messageCellForRowAtIndexPath(indexPath: NSIndexPath) -> CommentTableViewCell {
@@ -318,14 +314,14 @@ extension TimelineTableViewController {
       height += CGRectGetHeight(bodyBounds)
       height += 40
       
-      if height < 100 {
-        height = 100
+      if height < 50 {
+        height = 50
       }
       
       return height
     }
     else {
-      return 100
+      return 50
     }
   }
   
