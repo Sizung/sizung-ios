@@ -290,7 +290,7 @@
 				5A3B4F751CE4696B00086338 /* ViewController */,
 				5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */,
 				5A653EB21CD7A96000FB3DEB /* Info.plist */,
-				5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */,
+				5A8E4C321D09478800DC696A /* Helpers */,
 			);
 			path = SizungUITests;
 			sourceTree = "<group>";
@@ -366,6 +366,14 @@
 				5ABA4FB81CFEB78B00110030 /* BaseModel.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		5A8E4C321D09478800DC696A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				5AB8F2F91CDCAF2A00F4423F /* UITestHelper.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		5AA890FA1CF4D19600ED391B /* Protocols */ = {
