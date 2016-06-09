@@ -378,10 +378,10 @@
         <!--Timeline Table View Controller-->
         <scene sceneID="isL-QX-Cg7">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yzc-UQ-qkl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="TimelineTableViewController" id="mnU-eG-Efj" customClass="TimelineTableViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yzc-UQ-qkl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1955" y="180"/>
         </scene>
