@@ -61,15 +61,17 @@ class TimelineTableViewController: SLKTextViewController {
   }
   
   func editCellMessage(gesture: UIGestureRecognizer) {
-    print("edit")
-    //    guard let cell = gesture.view as? CommentTableViewCell else {
-    //      return
-    //    }
-    //
-    //    self.editingMessage = self.conversationObjects[cell.indexPath.row]
-    //    self.editText(self.editingMessage.text)
-    //
-    //    self.tableView.scrollToRowAtIndexPath(cell.indexPath, atScrollPosition: .Bottom, animated: true)
+    guard let cell = gesture.view as? CommentTableViewCell else {
+      return
+    }
+    
+    if let indexPath = self.tableView.indexPathForCell(cell) {
+      
+      self.editingMessage = StorageManager.sharedInstance.conversationObjects[indexPath.row] as? Comment
+      self.editText(self.editingMessage!.body)
+      
+      self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+    }
   }
   
   // Notifies the view controller when the user has pasted a media (image, video, etc) inside of the text view.
