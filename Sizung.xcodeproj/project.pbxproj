@@ -11,6 +11,7 @@
 		5A35A52B1CDCDDE8005E5B1B /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35A52A1CDCDDE8005E5B1B /* Test.swift */; };
 		5A39F26A1CE47D6D003E20CE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */; };
 		5A42707D1D094A1900B294DF /* UICustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A42707C1D094A1900B294DF /* UICustomFont.swift */; };
+		5A42707F1D095A7000B294DF /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A42707E1D095A7000B294DF /* Settings.bundle */; };
 		5A504B071CEF0FDC001BEFA3 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */; };
 		5A504B141CEF2413001BEFA3 /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A504B131CEF2413001BEFA3 /* AuthToken.swift */; };
 		5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653E8E1CD7A96000FB3DEB /* AppDelegate.swift */; };
@@ -90,6 +91,7 @@
 		40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SizungTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A35A52A1CDCDDE8005E5B1B /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		5A42707C1D094A1900B294DF /* UICustomFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomFont.swift; sourceTree = "<group>"; };
+		5A42707E1D095A7000B294DF /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		5A504B131CEF2413001BEFA3 /* AuthToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
 		5A653E8B1CD7A96000FB3DEB /* Sizung.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sizung.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,6 +268,7 @@
 				5A653E991CD7A96000FB3DEB /* LaunchScreen.storyboard */,
 				5A653E9C1CD7A96000FB3DEB /* Info.plist */,
 				5A86B1281CE4BB64001C2E7A /* Configurations.plist */,
+				5A42707E1D095A7000B294DF /* Settings.bundle */,
 			);
 			path = Sizung;
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A42707F1D095A7000B294DF /* Settings.bundle in Resources */,
 				5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */,
 				5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */,
 				5A7329F91D05B1FC006531A5 /* Brandon_bld.otf in Resources */,

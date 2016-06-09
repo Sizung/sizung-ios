@@ -13,12 +13,13 @@ import Fabric
 import Crashlytics
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   
   var window: UIWindow?
   
-  
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    
+    self.checkSettings()
     
     #if RELEASE_VERSION
       Fabric.with([Crashlytics.self])
@@ -28,17 +29,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     self.registerNotifications()
     
-    let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN)
-    
-    let token = AuthToken(data: authToken)
-    token.validate()
-      .onSuccess { _ in
-        self.loadInitialViewController()
-      }.onFailure { error in
-        self.showLogin()
+    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+      let token = AuthToken(data: authToken)
+      token.validate()
+        .onSuccess { _ in
+          self.loadInitialViewController()
+        }.onFailure { error in
+          self.showLogin()
+      }
+    } else {
+      self.showLogin()
     }
     
     return true
+  }
+  
+  func checkSettings(){
+    if NSUserDefaults.standardUserDefaults().boolForKey("reset_on_launch") {
+      KeychainWrapper.removeObjectForKey(Configuration.Settings.AUTH_TOKEN)
+      KeychainWrapper.removeObjectForKey(Configuration.Settings.SELECTED_ORGANIZATION)
+      
+      // Reset user defaults
+      let appDomain = NSBundle.mainBundle().bundleIdentifier!
+      NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+    }
   }
   
   func initTheme(){
@@ -71,9 +85,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func showLogin(){
     let loginViewController = LoginViewController(nibName: "Login", bundle: nil)
+    loginViewController.loginDelegate = self
     loginViewController.modalPresentationStyle = .OverCurrentContext
     loginViewController.modalTransitionStyle = .CoverVertical
-    self.window?.rootViewController?.showViewController(loginViewController, sender: nil)
+    
+    self.window?.rootViewController = loginViewController
+  }
+  
+  func loginSuccess(loginViewController: LoginViewController) {
+    loginViewController.dismissViewControllerAnimated(true, completion: nil)
+    self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+    self.loadInitialViewController()
   }
   
   func applicationWillResignActive(application: UIApplication) {

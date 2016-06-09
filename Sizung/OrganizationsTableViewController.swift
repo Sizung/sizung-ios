@@ -57,6 +57,9 @@ class OrganizationsTableViewController: UITableViewController {
     
     KeychainWrapper.setString(selectedOrganization.id!, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
     self.dismissViewControllerAnimated(true, completion: nil)
+    
+    // updateOrganizations
+    StorageManager.sharedInstance.updateOrganization(selectedOrganization.id)
   }
   
   // MARK: - Navigation
