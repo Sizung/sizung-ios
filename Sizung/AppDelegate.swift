@@ -52,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UILabel.appearance().font = bodyFont
     UILabel.appearanceWhenContainedInInstancesOfClasses([UIButton.self]).font = bodyFont
     UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: headerFont, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
-    
   }
   
   func registerNotifications(){
