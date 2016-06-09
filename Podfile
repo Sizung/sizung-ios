@@ -5,11 +5,15 @@ target 'Sizung' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Sizung
+# Pods for Sizung
   pod 'Alamofire', '~> 3.4'
+  pod 'ObjectMapper', '~> 1.3'
   pod 'BrightFutures', '~> 4.0'
-  pod 'Spine', git: 'https://github.com/wvteijlingen/Spine', commit: '4ea429e'
-  pod 'SwiftKeychainWrapper', '~> 1.0'  
+  pod 'SwiftKeychainWrapper', '~> 1.0'
+  pod 'ReactiveKit', '~> 2.0'
+  pod 'ReactiveUIKit', '~> 2.0'
+  pod 'JWTDecode', '~> 1.0'
+  pod 'AlamofireImage', '~> 2.0'
 
   pod 'Fabric', '~> 1.6'
   pod 'Crashlytics', '~> 3.7'

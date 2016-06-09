@@ -13,47 +13,89 @@ import Fabric
 import Crashlytics
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   
   var window: UIWindow?
   
-  
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
-    Fabric.with([Crashlytics.self])
+    self.checkSettings()
+    
+    #if RELEASE_VERSION
+      Fabric.with([Crashlytics.self])
+    #endif
+    
+    self.initTheme()
     
     self.registerNotifications()
     
-    let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN)
-    
-    let token = AuthToken(data: authToken)
-    token.validate()
-      .onSuccess { _ in
-        self.loadInitialViewController()
-      }.onFailure { error in
-        self.showLogin()
+    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+      let token = AuthToken(data: authToken)
+      token.validate()
+        .onSuccess { _ in
+          self.loadInitialViewController()
+        }.onFailure { error in
+          self.showLogin()
+      }
+    } else {
+      self.showLogin()
     }
-
+    
     return true
+  }
+  
+  func checkSettings(){
+    if NSUserDefaults.standardUserDefaults().boolForKey("reset_on_launch") {
+      KeychainWrapper.removeObjectForKey(Configuration.Settings.AUTH_TOKEN)
+      KeychainWrapper.removeObjectForKey(Configuration.Settings.SELECTED_ORGANIZATION)
+      
+      // Reset user defaults
+      let appDomain = NSBundle.mainBundle().bundleIdentifier!
+      NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
+    }
+  }
+  
+  func initTheme(){
+    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+    
+    UIToolbar.appearance().tintColor = UIColor.whiteColor()
+    
+    let headerFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleHeadline)
+    let bodyFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody)
+    
+    UILabel.appearance().font = bodyFont
+    UILabel.appearanceWhenContainedInInstancesOfClasses([UIButton.self]).font = bodyFont
+    UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: headerFont, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
   }
   
   func registerNotifications(){
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.showLogin), name: Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
-
+    
   }
   
   func loadInitialViewController() {
-//    guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
-//      let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsTableViewController")
-//      self.window?.rootViewController?.presentViewController(organizationViewController, animated: false, completion: nil)
-//      return
-//    }
+    guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
+      let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsViewController")
+      organizationViewController.modalPresentationStyle = .OverCurrentContext
+      organizationViewController.modalTransitionStyle = .CoverVertical
+      self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
+      return
+    }
   }
   
   func showLogin(){
-    let modalViewController = LoginViewController(nibName: "Login", bundle: nil)
-    modalViewController.modalPresentationStyle = .OverCurrentContext
-    self.window?.rootViewController?.presentViewController(modalViewController, animated: true, completion: nil)
+    let loginViewController = LoginViewController(nibName: "Login", bundle: nil)
+    loginViewController.loginDelegate = self
+    loginViewController.modalPresentationStyle = .OverCurrentContext
+    loginViewController.modalTransitionStyle = .CoverVertical
+    
+    self.window?.rootViewController = loginViewController
+  }
+  
+  func loginSuccess(loginViewController: LoginViewController) {
+    loginViewController.dismissViewControllerAnimated(true, completion: nil)
+    self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+    self.loadInitialViewController()
   }
   
   func applicationWillResignActive(application: UIApplication) {

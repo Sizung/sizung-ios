@@ -7,33 +7,112 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
+import ReactiveKit
 
-class DeliverablesTableViewController : BasicTableViewController {
-  var conversation: Conversation?
+class DeliverablesTableViewController: UITableViewController {
   
-  override func updateData(sender: AnyObject) {
-    if let conversationId = conversation?.id {
-      let apiClient = APIClient()
-      apiClient.getDeliverables(conversationId)
-        .onSuccess() { deliverables in
-          self.modelList = deliverables as [TableViewCellDisplayable]
-        }.onFailure() { error in
-          print(error)
-          switch error {
-          case .Unauthorized:
-            print("unauthorized")
-//            self.navigationController?.performSegueWithIdentifier("showLogin", sender: self)
-          default:
-            let alertController = UIAlertController(title: "Unkown error occured!", message:
-              "Please try again!", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-            
-            self.presentViewController(alertController, animated: true, completion: nil)
-          }
-        }.onComplete() { _ in
-          self.refreshControl?.endRefreshing()
-          self.tableView.reloadData()
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
+    
+    self.initData()
+  }
+  
+  func bindData() {
+    print("no usage")
+  }
+  
+  func initData(){
+    
+    StorageManager.sharedInstance.isLoading.observeNext { isLoading in
+      if isLoading {
+        self.refreshControl?.beginRefreshing()
+      } else {
+        self.refreshControl?.endRefreshing()
+      }
+      }.disposeIn(rBag)
+    
+    bindData()
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    if !StorageManager.sharedInstance.isInitialized {
+      self.updateData()
+    }
+  }
+  
+  func updateData(){
+    if let organizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
+      StorageManager.sharedInstance.updateOrganization(organizationId)
+    } else {
+      fatalError("no organization selected in \(self)")
+    }
+  }
+  
+  // MARK: - Navigation
+  
+  // In a storyboard-based application, you will often want to do a little preparation before navigation
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "showTimeline" {
+      let timelineTableViewController = segue.destinationViewController as! TimelineTableViewController
+      
+      // Get the cell that generated this segue.
+      if let selectedCell = sender as? SizungTableViewCell {
+        let indexPath = tableView.indexPathForCell(selectedCell)!
+        let selectedConversation = StorageManager.sharedInstance.conversations[indexPath.row]
+        timelineTableViewController.conversation = selectedConversation
+        timelineTableViewController.navigationItem.title = selectedConversation.title
       }
     }
   }
 }
+
+class UserDeliverablesTableViewController: DeliverablesTableViewController {
+  
+  var userId: String!
+  
+  override func bindData() {
+    
+    StorageManager.sharedInstance.deliverables.filter { deliverable in
+      deliverable.owner.id == self.userId
+      }.bindTo(self.tableView) { indexPath, deliverables, tableView in
+        let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
+        let deliverable = deliverables[indexPath.row]
+        cell.titleLabel.text = deliverable.title
+        cell.conversationLabel.text = deliverable.conversation?.title
+        cell.statusLabel.text = deliverable.status
+        
+        // TODO: Real unread status
+        cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
+        
+        return cell
+    }
+    
+  }
+}
+
+class ConversationDeliverablesTableViewController: DeliverablesTableViewController {
+  
+  var conversation: Conversation!
+  
+  override func bindData() {
+    
+    StorageManager.sharedInstance.deliverables.filter { deliverable in
+      deliverable.conversation.id == self.conversation?.id
+      }.bindTo(self.tableView) { indexPath, deliverables, tableView in
+        let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
+        let deliverable = deliverables[indexPath.row]
+        cell.titleLabel.text = deliverable.title
+        cell.conversationLabel.text = deliverable.conversation?.title
+        cell.statusLabel.text = deliverable.status
+        
+        // TODO: Real unread status
+        cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
+        return cell
+    }
+    
+  }
+}
+

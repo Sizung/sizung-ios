@@ -10,6 +10,7 @@ import Foundation
 import BrightFutures
 import Result
 import SwiftKeychainWrapper
+import JWTDecode
 
 enum TokenError : ErrorType {
   case InvalidToken
@@ -23,36 +24,42 @@ class AuthToken {
     self.data = data
   }
   
-  func validate() -> Future<Void, TokenError> {
-    let promise = Promise<Void, TokenError>()
-    
-    Queue.global.async {
-      
-      if self.data?.characters.count > 0 {
-        promise.success()
-      }
-      else {
-        promise.failure(TokenError.InvalidToken)
-      }
+  func validate() -> Future<String, TokenError> {
+    let promise = Promise<String, TokenError>()
+    if let userId = self.getUserId() {
+      promise.success(userId)
+    } else {
+      promise.failure(TokenError.InvalidToken)
     }
-    
     return promise.future
   }
   
   func validateAndStore() -> Future<Void, TokenError> {
     let promise = Promise<Void, TokenError>()
     
-    Queue.global.async {
-
-      self.validate()
-        .onSuccess() { payload in
-          KeychainWrapper.setString(self.data!, forKey: Configuration.Settings.AUTH_TOKEN)
-          promise.success(payload)
-        }.onFailure() { error in
-          promise.failure(error)
-      }
+    self.validate()
+      .onSuccess() { userId in
+        KeychainWrapper.setString(self.data!, forKey: Configuration.Settings.AUTH_TOKEN)
+        promise.success()
+      }.onFailure() { error in
+        promise.failure(error)
     }
     
     return promise.future
+  }
+  
+  func getUserId() -> String? {
+    do {
+      if let data = self.data {
+        let jwt = try decode(data)
+        return jwt.claim("user_id")
+      } else {
+        return nil
+      }
+    }
+    catch let error as NSError {
+      print(error)
+      return nil
+    }
   }
 }

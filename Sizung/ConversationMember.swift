@@ -7,20 +7,19 @@
 //
 
 import Foundation
-import Spine
+import ObjectMapper
 
-class ConversationMember: Resource {
+class ConversationMember: Mappable {
+  var id: String!
   var user: User?
   var conversation: Conversation?
   
-  override class var resourceType: ResourceType {
-    return "conversation_members"
+  required init?(_ map: Map) {
+    
   }
   
-  override class var fields: [Field] {
-    return fieldsFromDictionary([
-      "user": ToOneRelationship(User),
-      "conversation": ToOneRelationship(Conversation)
-      ])
+  func mapping(map: Map) {
+    user     <- map["user"]
+    conversation  <- map["conversation"]
   }
 }

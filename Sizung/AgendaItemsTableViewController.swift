@@ -7,34 +7,81 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
-class AgendaItemsTableViewController: BasicTableViewController {
+class AgendaItemsTableViewController: UITableViewController {
   
   var conversation: Conversation?
   
-  override func updateData(sender: AnyObject) {
-    if let conversationId = conversation?.id {
-      let apiClient = APIClient()
-      apiClient.getAgendaItems(conversationId)
-        .onSuccess() { agendaItems in
-          self.modelList = agendaItems as [TableViewCellDisplayable]
-        }.onFailure() { error in
-          print(error)
-          switch error {
-          case .Unauthorized:
-            print("unauthorized")
-//            self.navigationController?.performSegueWithIdentifier("showLogin", sender: self)
-          default:
-            let alertController = UIAlertController(title: "Unkown error occured!", message:
-              "Please try again!", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-            
-            self.presentViewController(alertController, animated: true, completion: nil)
-          }
-        }.onComplete() { _ in
-          self.refreshControl?.endRefreshing()
-          self.tableView.reloadData()
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
+    
+    self.initData()
+  }
+  
+  func initData(){
+    
+    let storageManager = StorageManager.sharedInstance
+    
+    storageManager.isLoading.observeNext { isLoading in
+      if isLoading {
+        self.refreshControl?.beginRefreshing()
+      } else {
+        self.refreshControl?.endRefreshing()
+      }
+      }.disposeIn(rBag)
+    
+    storageManager.agendaItems.filter { agendaItem in
+      if let conversationId = self.conversation?.id {
+        return agendaItem.conversation.id == conversationId
+      } else {
+        return true
+      }
+    }.bindTo(self.tableView) { indexPath, agendaItems, tableView in
+      let cell = tableView.dequeueReusableCellWithIdentifier("AgendaItemTableViewCell", forIndexPath: indexPath) as! AgendaItemTableViewCell
+      let agendaItem = agendaItems[indexPath.row]
+      cell.titleLabel.text = agendaItem.title
+      cell.conversationLabel.text = agendaItem.conversation.title
+      
+      
+      // TODO: Real unread status
+      cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
+      
+      return cell
+    }
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    if !StorageManager.sharedInstance.isInitialized {
+      self.updateData()
+    }
+  }
+  
+  func updateData(){
+    if let organizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
+      StorageManager.sharedInstance.updateOrganization(organizationId)
+    } else {
+      fatalError("no organization selected in \(self)")
+    }
+  }
+  
+  // MARK: - Navigation
+  
+  // In a storyboard-based application, you will often want to do a little preparation before navigation
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "showTimeline" {
+      let timelineTableViewController = segue.destinationViewController as! TimelineTableViewController
+      
+      // Get the cell that generated this segue.
+      if let selectedCell = sender as? SizungTableViewCell {
+        let indexPath = tableView.indexPathForCell(selectedCell)!
+        let selectedConversation = StorageManager.sharedInstance.conversations[indexPath.row]
+        timelineTableViewController.conversation = selectedConversation
+        timelineTableViewController.navigationItem.title = selectedConversation.title
       }
     }
   }
+
 }

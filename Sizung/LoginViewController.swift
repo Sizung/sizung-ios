@@ -16,6 +16,7 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var loginButton: UIButton!
   
+  var loginDelegate: LoginDelegate?
   
   @IBAction func login(sender: AnyObject) {
     let email = emailTextField.text
@@ -37,18 +38,18 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
     })
     self.activityIndicator.startAnimating()
     
-    Alamofire.request(Router.Login(email: email!, password: password!))
+    Alamofire.request(SizungHttpRouter.Login(email: email!, password: password!))
       .validate()
       .responseJSON { response in
         switch response.result {
         case .Success(let JSON)
           where JSON.objectForKey("token") is String:
           
-          let token = AuthToken(data: JSON["token"] as? String)
+          let token = AuthToken(data: JSON["token"] as! String)
           
           token.validateAndStore()
             .onSuccess() { _ in
-              self.dismissViewControllerAnimated(true, completion: nil)
+              self.loginDelegate?.loginSuccess(self)
             }.onFailure() { error in
               print(error)
               self.showAlert("Something went wrong. Please try again")
@@ -101,5 +102,9 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
     
     return true
   }
+}
+
+protocol LoginDelegate {
+  func loginSuccess(loginViewController: LoginViewController)
 }
 
