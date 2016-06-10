@@ -9,6 +9,8 @@
 import UIKit
 import SwiftKeychainWrapper
 import SlackTextViewController
+import DateTools
+import ReactiveKit
 
 class TimelineTableViewController: SLKTextViewController {
   
@@ -19,6 +21,8 @@ class TimelineTableViewController: SLKTextViewController {
   var editingMessage : Comment?
   
   let textParser: SizungMarkdownParser = SizungMarkdownParser()
+  
+  let sortedCollection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -39,15 +43,17 @@ class TimelineTableViewController: SLKTextViewController {
   
   func initData(){
     StorageManager.sharedInstance.conversationObjects
-//      order by date
-      .sort({ $0.created_at!.compare($1.created_at!) == NSComparisonResult.OrderedAscending })
-      .bindTo(self.tableView) { indexPath, deliverables, tableView in
-        if tableView == self.tableView {
-          return self.messageCellForRowAtIndexPath(indexPath)
-        }
-        else {
-          return self.autoCompletionCellForRowAtIndexPath(indexPath)
-        }
+      //    sort by date
+      .sort({ $0.created_at!.compare($1.created_at!) == NSComparisonResult.OrderedDescending })
+      .bindTo(sortedCollection)
+    
+    sortedCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
+      if tableView == self.tableView {
+        return self.messageCellForRowAtIndexPath(indexPath)
+      }
+      else {
+        return self.autoCompletionCellForRowAtIndexPath(indexPath)
+      }
     }
     
     StorageManager.sharedInstance.updateConversationObjects(self.conversation.id)
@@ -70,7 +76,7 @@ class TimelineTableViewController: SLKTextViewController {
     
     if let indexPath = self.tableView.indexPathForCell(cell) {
       
-      self.editingMessage = StorageManager.sharedInstance.conversationObjects[indexPath.row] as? Comment
+      self.editingMessage = sortedCollection[indexPath.row] as? Comment
       self.editText(self.editingMessage!.body)
       
       self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
@@ -231,7 +237,7 @@ extension TimelineTableViewController {
   
   func messageCellForRowAtIndexPath(indexPath: NSIndexPath) -> CommentTableViewCell {
     
-    let comment = StorageManager.sharedInstance.conversationObjects[indexPath.row] as! Comment
+    let comment = sortedCollection[indexPath.row] as! Comment
     
     //    switch conversationObject {
     //    case let deliverable as Deliverable:
@@ -244,9 +250,8 @@ extension TimelineTableViewController {
     let cell = tableView.dequeueReusableCellWithIdentifier("CommentTableViewCell") as! CommentTableViewCell
     
     cell.bodyLabel.attributedText = textParser.parseMarkdown(comment.body)
-    
-    
     cell.bodyLabel.textColor = (comment.offline ? UIColor.grayColor() : UIColor.blackColor())
+    cell.datetimeLabel.text = comment.created_at?.timeAgoSinceNow()
     
     let author = StorageManager.sharedInstance.getUser(comment.author.id)!
     
@@ -299,7 +304,7 @@ extension TimelineTableViewController {
   override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     
     if tableView == self.tableView {
-      let comment = StorageManager.sharedInstance.conversationObjects[indexPath.row] as! Comment
+      let comment = sortedCollection[indexPath.row] as! Comment
       
       let paragraphStyle = NSMutableParagraphStyle()
       paragraphStyle.lineBreakMode = .ByWordWrapping
@@ -327,14 +332,14 @@ extension TimelineTableViewController {
       height += CGRectGetHeight(bodyBounds)
       height += 40
       
-      if height < 50 {
-        height = 50
+      if height < CommentTableViewCell.kMinimumHeight {
+        height = CommentTableViewCell.kMinimumHeight
       }
       
       return height
     }
     else {
-      return 50
+      return CommentTableViewCell.kMinimumHeight
     }
   }
   

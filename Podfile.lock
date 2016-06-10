@@ -7,6 +7,7 @@ PODS:
   - Bumblebee (1.0.1)
   - Crashlytics (3.7.0):
     - Fabric (~> 1.6.3)
+  - DateTools (1.7.0)
   - Fabric (1.6.7)
   - JWTDecode (1.0.0)
   - Nimble (4.0.1)
@@ -37,6 +38,7 @@ DEPENDENCIES:
   - BrightFutures (~> 4.0)
   - Bumblebee (~> 1.0)
   - Crashlytics (~> 3.7)
+  - DateTools
   - Fabric (~> 1.6)
   - JWTDecode (~> 1.0)
   - Nimble
@@ -53,6 +55,7 @@ SPEC CHECKSUMS:
   BrightFutures: e18b83fd6fa8562ceb9902ee609f0de23b0ee110
   Bumblebee: 0249c65d409431276ced68734f96a96708e2e9f2
   Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
+  DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   JWTDecode: d172edcb1607cc15aed85d58eceedcbb675a4534
   Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
@@ -64,6 +67,6 @@ SPEC CHECKSUMS:
   SlackTextViewController: bd2a34c188d4f7dec93cf42388f38551263fac82
   SwiftKeychainWrapper: 011a6946923948ffa49708014dd691164d7621d1
 
-PODFILE CHECKSUM: d626b3601b7d5e00c64f80c660813b0f274a59bd
+PODFILE CHECKSUM: 1a7177726c0dd81e57a26fb1ed62773ed0033676
 
 COCOAPODS: 1.0.0
