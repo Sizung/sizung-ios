@@ -103,7 +103,7 @@ public struct Gravatar {
         let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: false)!
 
         var queryItems = [defaultImage.queryItem, rating.queryItem]
-        queryItems.append(NSURLQueryItem(name: "f", value: forceDefault ? "y" : "n"))
+//        queryItems.append(NSURLQueryItem(name: "f", value: forceDefault ? "y" : "n"))
         queryItems.append(NSURLQueryItem(name: "s", value: String(format: "%.0f",size * scale)))
 
         components.queryItems = queryItems

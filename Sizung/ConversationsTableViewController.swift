@@ -39,7 +39,7 @@ class ConversationsTableViewController: UITableViewController {
       cell.nameLabel.text = conversation.title
       
 //    TODO: get real author email
-      let gravatar = Gravatar(emailAddress: NSUUID().UUIDString, defaultImage: .MysteryMan)
+      let gravatar = Gravatar(emailAddress: NSUUID().UUIDString, defaultImage: .Identicon)
       cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
 
       cell.lastCommentLabel.text = "This is the last comment. It can even be longer than expected. It should ellipsize automatically"

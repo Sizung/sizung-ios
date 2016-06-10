@@ -255,7 +255,7 @@ extension TimelineTableViewController {
     
     let author = StorageManager.sharedInstance.getUser(comment.author.id)!
     
-    let gravatar = Gravatar(emailAddress: author.email, defaultImage: .MysteryMan)
+    let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
     cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
     
     if cell.gestureRecognizers?.count == nil {
