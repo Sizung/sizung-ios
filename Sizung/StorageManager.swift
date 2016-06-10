@@ -137,19 +137,26 @@ class StorageManager {
       .responseJSON { response in
         switch response.result {
         case .Success(let JSON):
-          if let conversationResponse = Mapper<ConversationObjectsResponse>().map(JSON) {
-            for obj in conversationResponse.conversationObjects {
-              switch obj {
-              case let comment as Comment:
-                self.conversationObjects.append(comment)
-              case let agendaItem as AgendaItem:
-                print("convObj deliverable \(agendaItem)")
-              case let deliverable as Deliverable:
-                print("convObj deliverable \(deliverable)")
-              default:
-                print("convObj: \(obj)")
-              }
+          if let conversationObjectsResponse = Mapper<ConversationObjectsResponse>().map(JSON) {
+            
+            let comments = conversationObjectsResponse.conversationObjects.filter { obj in
+              obj is Comment
             }
+            
+            self.conversationObjects.insertOrUpdate(comments)
+            
+//            for obj in conversationResponse.conversationObjects {
+//              switch obj {
+//              case let comment as Comment:
+//                self.conversationObjects.insert(comment)
+//              case let agendaItem as AgendaItem:
+//                print("convObj deliverable \(agendaItem)")
+//              case let deliverable as Deliverable:
+//                print("convObj deliverable \(deliverable)")
+//              default:
+//                print("convObj: \(obj)")
+//              }
+//            }
           }
         case .Failure
           where response.response?.statusCode == 401:
