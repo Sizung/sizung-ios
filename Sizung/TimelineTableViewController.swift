@@ -38,13 +38,16 @@ class TimelineTableViewController: SLKTextViewController {
   }
   
   func initData(){
-    StorageManager.sharedInstance.conversationObjects.bindTo(self.tableView) { indexPath, deliverables, tableView in
-      if tableView == self.tableView {
-        return self.messageCellForRowAtIndexPath(indexPath)
-      }
-      else {
-        return self.autoCompletionCellForRowAtIndexPath(indexPath)
-      }
+    StorageManager.sharedInstance.conversationObjects
+//      order by date
+      .sort({ $0.created_at!.compare($1.created_at!) == NSComparisonResult.OrderedAscending })
+      .bindTo(self.tableView) { indexPath, deliverables, tableView in
+        if tableView == self.tableView {
+          return self.messageCellForRowAtIndexPath(indexPath)
+        }
+        else {
+          return self.autoCompletionCellForRowAtIndexPath(indexPath)
+        }
     }
     
     StorageManager.sharedInstance.updateConversationObjects(self.conversation.id)
@@ -96,23 +99,23 @@ class TimelineTableViewController: SLKTextViewController {
     let user = User(id: authToken.getUserId()!)
     
     let comment = Comment(author: user, body: self.textView.text, commentable: self.conversation)
-//    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-//    let rowAnimation: UITableViewRowAnimation = self.inverted ? .Bottom : .Top
-//    let scrollPosition: UITableViewScrollPosition = self.inverted ? .Bottom : .Top
+    //    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+    //    let rowAnimation: UITableViewRowAnimation = self.inverted ? .Bottom : .Top
+    //    let scrollPosition: UITableViewScrollPosition = self.inverted ? .Bottom : .Top
     
     // push it to server
     StorageManager.sharedInstance.createComment(comment)
-//    
-//    self.tableView.beginUpdates()
-//    StorageManager.sharedInstance.conversationObjects.insert(comment, atIndex: 0)
-//    self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: rowAnimation)
-//    self.tableView.endUpdates()
+    //
+    //    self.tableView.beginUpdates()
+    //    StorageManager.sharedInstance.conversationObjects.insert(comment, atIndex: 0)
+    //    self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: rowAnimation)
+    //    self.tableView.endUpdates()
     
-//    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: scrollPosition, animated: true)
+    //    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: scrollPosition, animated: true)
     
     // Fixes the cell from blinking (because of the transform, when using translucent cells)
     // See https://github.com/slackhq/SlackTextViewController/issues/94#issuecomment-69929927
-//    self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    //    self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     
     super.didPressRightButton(sender)
   }
@@ -241,7 +244,7 @@ extension TimelineTableViewController {
     let cell = tableView.dequeueReusableCellWithIdentifier("CommentTableViewCell") as! CommentTableViewCell
     
     cell.bodyLabel.attributedText = textParser.parseMarkdown(comment.body)
-  
+    
     
     cell.bodyLabel.textColor = (comment.offline ? UIColor.grayColor() : UIColor.blackColor())
     

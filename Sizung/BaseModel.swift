@@ -12,6 +12,7 @@ class BaseModel: Mappable, Equatable, Hashable {
   
   var id: String!
   var type: String!
+  var created_at: NSDate?
   
   init(type: String) {
     id = NSUUID().UUIDString
@@ -29,6 +30,7 @@ class BaseModel: Mappable, Equatable, Hashable {
   func mapping(map: Map) {
     id <- map["id"]
     type <- map["type"]
+    created_at <- (map["attributes.created_at"], ISODateTransform())
   }
   
 //  polymorphic stuff

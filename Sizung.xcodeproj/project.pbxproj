@@ -53,6 +53,7 @@
 		5ABA4FBD1CFEBF1600110030 /* ConversationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4FBC1CFEBF1600110030 /* ConversationsResponse.swift */; };
 		5ABA4FBF1CFEC3B600110030 /* OrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */; };
 		5ABACCDA1D09ACD30093CF21 /* SizungMarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABACCD91D09ACD30093CF21 /* SizungMarkdownParser.swift */; };
+		5ABACCE01D0AA82F0093CF21 /* ISODateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABACCDF1D0AA82F0093CF21 /* ISODateTransform.swift */; };
 		5ABE8E351CDB5AC9004537C6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */; };
 		5AC0E5DF1CF04D0000BBEF45 /* SizungTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0E5DE1CF04D0000BBEF45 /* SizungTableViewCell.swift */; };
 		5AC0E5E11CF04D8D00BBEF45 /* OrganizationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0E5E01CF04D8D00BBEF45 /* OrganizationsTableViewController.swift */; };
@@ -146,6 +147,8 @@
 		5ABA4FBC1CFEBF1600110030 /* ConversationsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsResponse.swift; sourceTree = "<group>"; };
 		5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationViewController.swift; sourceTree = "<group>"; };
 		5ABACCD91D09ACD30093CF21 /* SizungMarkdownParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungMarkdownParser.swift; sourceTree = "<group>"; };
+		5ABACCDF1D0AA82F0093CF21 /* ISODateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISODateTransform.swift; sourceTree = "<group>"; };
+		5ABACCE11D0AA8CD0093CF21 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5AC0E5DE1CF04D0000BBEF45 /* SizungTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungTableViewCell.swift; sourceTree = "<group>"; };
 		5AC0E5E01CF04D8D00BBEF45 /* OrganizationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationsTableViewController.swift; sourceTree = "<group>"; };
@@ -279,6 +282,7 @@
 				5A653E9C1CD7A96000FB3DEB /* Info.plist */,
 				5A86B1281CE4BB64001C2E7A /* Configurations.plist */,
 				5A42707E1D095A7000B294DF /* Settings.bundle */,
+				5ABACCE11D0AA8CD0093CF21 /* MyPlayground.playground */,
 			);
 			path = Sizung;
 			sourceTree = "<group>";
@@ -347,6 +351,7 @@
 				5A9EDEBB1D01CEB900D389EC /* Color.swift */,
 				5A42707C1D094A1900B294DF /* UICustomFont.swift */,
 				5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */,
+				5ABACCDF1D0AA82F0093CF21 /* ISODateTransform.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -772,6 +777,7 @@
 				5AD9F1B51CE9D03000455D98 /* User.swift in Sources */,
 				5AD9F1BD1CE9D63300455D98 /* Deliverable.swift in Sources */,
 				5A86B1311CE5D035001C2E7A /* SizungHttpRouter.swift in Sources */,
+				5ABACCE01D0AA82F0093CF21 /* ISODateTransform.swift in Sources */,
 				5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */,
 				5ABA4FBF1CFEC3B600110030 /* OrganizationViewController.swift in Sources */,
 				5AA890FC1CF4D1B900ED391B /* TableViewCellDisplayable.swift in Sources */,
