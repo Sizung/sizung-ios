@@ -6,36 +6,9 @@
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
-import Foundation
 import Alamofire
 import ObjectMapper
 import ReactiveKit
-
-extension CollectionPropertyType where Collection == Array<Member>, Member : Equatable, Member : Hashable {
-  public func insertOrUpdate(newCollection: [Self.Member]){
-    var inserts: [Int] = []
-    var updates: [Int] = []
-    
-    inserts.reserveCapacity(newCollection.count)
-    updates.reserveCapacity(collection.count)
-    
-    let newSet = Set(newCollection)
-    let currentSet = Set(collection)
-    
-    let newElements = newSet.subtract(currentSet)
-    let updatedElements = currentSet.intersect(newSet)
-    
-    for newElement in newElements {
-      inserts.append(newCollection.indexOf(newElement)!)
-    }
-    
-    for updatedElement in updatedElements {
-      updates.append(newCollection.indexOf(updatedElement)!)
-    }
-    
-    update(CollectionChangeset(collection: newCollection, inserts: inserts, deletes: [], updates: updates))
-  }
-}
 
 class StorageManager {
   //  singleton
@@ -49,6 +22,9 @@ class StorageManager {
   let conversations: CollectionProperty <[Conversation]> = CollectionProperty([])
   let agendaItems: CollectionProperty <[AgendaItem]> = CollectionProperty([])
   let deliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
+  let conversationObjects: CollectionProperty <[BaseModel]> = CollectionProperty([])
+  
+  let organizationUsers: CollectionProperty <[User]> = CollectionProperty([])
   
   func reset() {
     isInitialized = false
@@ -57,7 +33,6 @@ class StorageManager {
     conversations.removeAll()
     agendaItems.removeAll()
     deliverables.removeAll()
-    
   }
   
   func getOrganization(id: String) -> Organization? {
@@ -66,6 +41,14 @@ class StorageManager {
     }
     
     return foundOrganizations.first
+  }
+  
+  func getUser(id: String) -> User? {
+    let foundUsers = organizationUsers.collection.filter { user in
+      user.id == id
+    }
+    
+    return foundUsers.first
   }
   
   func updateOrganizations() {
@@ -103,6 +86,15 @@ class StorageManager {
             
             self.deliverables.insertOrUpdate(organizationResponse.deliverablesResponse.deliverables)
             self.deliverables.insertOrUpdate(organizationResponse.conversationDeliverablesResponse.deliverables)
+            
+            for include in organizationResponse.included {
+              switch include {
+              case let user as User:
+                self.organizationUsers.insertOrUpdate([user])
+              default:
+                print("unknown \(include)")
+              }
+            }
           }
         case .Failure
           where response.response?.statusCode == 401:
@@ -135,6 +127,61 @@ class StorageManager {
         }
         self.isLoading.value = false
         self.isInitialized = true
+    }
+  }
+  
+  func updateConversationObjects(conversationId: String) {
+    self.isLoading.value = true
+    Alamofire.request(SizungHttpRouter.ConversationObjects(id: conversationId))
+      .validate()
+      .responseJSON { response in
+        switch response.result {
+        case .Success(let JSON):
+          if let conversationObjectsResponse = Mapper<ConversationObjectsResponse>().map(JSON) {
+            
+            let comments = conversationObjectsResponse.conversationObjects.filter { obj in
+              obj is Comment
+            }
+            
+            self.conversationObjects.insertOrUpdate(comments)
+            
+//            for obj in conversationResponse.conversationObjects {
+//              switch obj {
+//              case let comment as Comment:
+//                self.conversationObjects.insert(comment)
+//              case let agendaItem as AgendaItem:
+//                print("convObj deliverable \(agendaItem)")
+//              case let deliverable as Deliverable:
+//                print("convObj deliverable \(deliverable)")
+//              default:
+//                print("convObj: \(obj)")
+//              }
+//            }
+          }
+        case .Failure
+          where response.response?.statusCode == 401:
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+        default:
+          print("error \(response.result)")
+        }
+        self.isLoading.value = false
+        self.isInitialized = true
+    }
+  }
+  
+  func createComment(comment: Comment){
+    Alamofire.request(SizungHttpRouter.Comments(comment: comment))
+      .validate()
+      .responseJSON { response in
+        switch response.result {
+        case .Success(let JSON):
+          print("comment create \(JSON)")
+        case .Failure
+          where response.response?.statusCode == 401:
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+        default:
+          print("error \(response.result)")
+        }
     }
   }
 }
