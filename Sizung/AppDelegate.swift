@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   
   var window: UIWindow?
   
+  var websocket: Websocket?
+  
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
     self.checkSettings()
@@ -74,6 +76,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   }
   
   func loadInitialViewController() {
+    
+    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+      websocket = Websocket(headers: ["Authorization": "Bearer \(authToken)"])
+      websocket!.connect()
+    }
+    
     guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
       let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsViewController")
       organizationViewController.modalPresentationStyle = .OverCurrentContext

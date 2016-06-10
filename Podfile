@@ -17,6 +17,8 @@ target 'Sizung' do
   pod 'SlackTextViewController', '~> 1.9'
   pod 'Bumblebee', '~> 1.0'
   pod 'DateTools', '~> 1.0'
+  pod 'Starscream', '~> 1.0'
+  pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 
   pod 'Fabric', '~> 1.6'
   pod 'Crashlytics', '~> 3.7'
