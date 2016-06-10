@@ -29,7 +29,7 @@ extension CollectionPropertyType where Collection == Array<Member>, Member : Equ
     }
     
     for updatedElement in updatedElements {
-      updates.append(updatedCollection.indexOf(updatedElement)!)
+      updates.append(collection.indexOf(updatedElement)!)
     }
     
     update(CollectionChangeset(collection: updatedCollection, inserts: inserts, deletes: [], updates: updates))
