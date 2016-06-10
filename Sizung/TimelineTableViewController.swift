@@ -311,25 +311,28 @@ extension TimelineTableViewController {
       paragraphStyle.alignment = .Left
       
       let attributes = [
+        NSFontAttributeName : UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody),
         NSParagraphStyleAttributeName : paragraphStyle
       ]
       
       var width = CGRectGetWidth(tableView.frame)-50
       width -= 25.0
       
-      guard let author = StorageManager.sharedInstance.getUser(comment.author!.id) else {
-        return 0
-      }
+//      guard let author = StorageManager.sharedInstance.getUser(comment.author!.id) else {
+//        return 0
+//      }
       
-      let titleBounds = (author.name).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
-      let bodyBounds = (comment.body!).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
+//      let titleBounds = (author.name).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
+      let bodyBounds = textParser.parseMarkdown(comment.body).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, context: nil)
+      let datetimeBounds = "date must be singleline, so lets fake it".boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
       
       if comment.body!.characters.count == 0 {
         return 0
       }
       
-      var height = CGRectGetHeight(titleBounds)
-      height += CGRectGetHeight(bodyBounds)
+//      var height = CGRectGetHeight(titleBounds)
+      var height = CGRectGetHeight(bodyBounds)
+      height += CGRectGetHeight(datetimeBounds)
       height += 40
       
       if height < CommentTableViewCell.kMinimumHeight {
