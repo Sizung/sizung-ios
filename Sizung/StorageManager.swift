@@ -161,4 +161,20 @@ class StorageManager {
         self.isInitialized = true
     }
   }
+  
+  func createComment(comment: Comment){
+    Alamofire.request(SizungHttpRouter.Comments(comment: comment))
+      .validate()
+      .responseJSON { response in
+        switch response.result {
+        case .Success(let JSON):
+          print("comment create \(JSON)")
+        case .Failure
+          where response.response?.statusCode == 401:
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+        default:
+          print("error \(response.result)")
+        }
+    }
+  }
 }

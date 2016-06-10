@@ -7,6 +7,7 @@
 //
 
 import Alamofire
+import ObjectMapper
 import SwiftKeychainWrapper
 
 enum SizungHttpRouter: URLRequestConvertible {
@@ -17,11 +18,13 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Organization(id: String)
   case Conversation(id: String)
   case ConversationObjects(id: String)
+  case Comments(comment: Comment)
   
   
   var method: Alamofire.Method {
     switch self {
-    case .Login:
+    case .Login,
+         .Comments:
       return .POST
     case .Logout:
       return .DELETE
@@ -43,6 +46,8 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/conversations/\(id)"
     case .ConversationObjects(let id):
       return "/conversations/\(id)/conversation_objects"
+    case .Comments:
+      return "/comments"
     }
   }
   
@@ -55,6 +60,9 @@ enum SizungHttpRouter: URLRequestConvertible {
     mutableURLRequest.HTTPMethod = method.rawValue
     mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Accept")
     
+    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+      mutableURLRequest.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+    }
     switch self {
     case .Login(let email, let password):
       let parameters = [
@@ -64,10 +72,19 @@ enum SizungHttpRouter: URLRequestConvertible {
         ]
       ]
       return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
+    case .Comments(let comment):
+      
+      // TODO: workaround for incorrect type
+      let commentableType = String(comment.commentable.type.capitalizedString.characters.dropLast())
+      let parameters = [
+        "comment": [
+          "commentable_id": comment.commentable.id,
+          "commentable_type": commentableType,
+          "body": comment.body
+        ]
+      ]
+      return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
     default:
-      if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
-        mutableURLRequest.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-      }
       return mutableURLRequest
     }
   }

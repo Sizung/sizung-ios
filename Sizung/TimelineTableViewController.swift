@@ -95,21 +95,24 @@ class TimelineTableViewController: SLKTextViewController {
     let authToken = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
     let user = User(id: authToken.getUserId()!)
     
-    let message = Comment(author: user, body: self.textView.text)
-    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-    let rowAnimation: UITableViewRowAnimation = self.inverted ? .Bottom : .Top
-    let scrollPosition: UITableViewScrollPosition = self.inverted ? .Bottom : .Top
+    let comment = Comment(author: user, body: self.textView.text, commentable: self.conversation)
+//    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+//    let rowAnimation: UITableViewRowAnimation = self.inverted ? .Bottom : .Top
+//    let scrollPosition: UITableViewScrollPosition = self.inverted ? .Bottom : .Top
     
-    self.tableView.beginUpdates()
-    StorageManager.sharedInstance.conversationObjects.insert(message, atIndex: 0)
-    self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: rowAnimation)
-    self.tableView.endUpdates()
+    // push it to server
+    StorageManager.sharedInstance.createComment(comment)
+//    
+//    self.tableView.beginUpdates()
+//    StorageManager.sharedInstance.conversationObjects.insert(comment, atIndex: 0)
+//    self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: rowAnimation)
+//    self.tableView.endUpdates()
     
-    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: scrollPosition, animated: true)
+//    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: scrollPosition, animated: true)
     
     // Fixes the cell from blinking (because of the transform, when using translucent cells)
     // See https://github.com/slackhq/SlackTextViewController/issues/94#issuecomment-69929927
-    self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+//    self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     
     super.didPressRightButton(sender)
   }

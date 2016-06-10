@@ -11,13 +11,15 @@ import ObjectMapper
 class Comment: BaseModel {
   var body: String!
   var author: User!
+  var commentable: BaseModel!
   var offline = false
   
-  init(author: User, body: String){
+  init(author: User, body: String, commentable: BaseModel){
     super.init(type: "comments")
     self.offline = true
     self.author = author
     self.body = body
+    self.commentable = commentable
   }
   
   required init?(_ map: Map) {
@@ -28,5 +30,6 @@ class Comment: BaseModel {
     super.mapping(map)
     body <- map["attributes.body"]
     author <- map["relationships.author.data"]
+    commentable <- map["relationships.commentable.data"]
   }
 }
