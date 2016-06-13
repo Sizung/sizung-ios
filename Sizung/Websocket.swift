@@ -55,6 +55,10 @@ class Websocket {
     // A channel has successfully been subscribed to.
     channel.onSubscribed = {
       print("Yay!")
+      guard channel.action("follow", params: ["conversation_id": id]) == nil else {
+        print("error connecting")
+        return
+      }
     }
     
     // A channel was unsubscribed, either manually or from a client disconnect.
