@@ -79,7 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
     
     if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
       websocket = Websocket(headers: ["Authorization": "Bearer \(authToken)"])
-      websocket!.connect()
     }
     
     guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
