@@ -8,7 +8,7 @@ PODS:
   - BrightFutures (4.1.0):
     - Result (~> 2.0)
   - Bumblebee (1.0.1)
-  - Crashlytics (3.7.0):
+  - Crashlytics (3.7.1):
     - Fabric (~> 1.6.3)
   - DateTools (1.7.0)
   - Fabric (1.6.7)
@@ -61,7 +61,7 @@ SPEC CHECKSUMS:
   AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
   BrightFutures: e18b83fd6fa8562ceb9902ee609f0de23b0ee110
   Bumblebee: 0249c65d409431276ced68734f96a96708e2e9f2
-  Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
+  Crashlytics: 3cdd4c9655be68032a0cf0379e0fb5ef6af22cad
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   JWTDecode: d172edcb1607cc15aed85d58eceedcbb675a4534
