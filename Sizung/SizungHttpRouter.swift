@@ -71,6 +71,8 @@ enum SizungHttpRouter: URLRequestConvertible {
           "password": password
         ]
       ]
+      // remove authtoken for login
+      mutableURLRequest.setValue(nil, forHTTPHeaderField: "Authorization")
       return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
     case .Comments(let comment):
       
