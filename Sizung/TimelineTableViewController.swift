@@ -358,7 +358,7 @@ extension TimelineTableViewController {
       //      var height = CGRectGetHeight(titleBounds)
       var height = CGRectGetHeight(bodyBounds)
       height += CGRectGetHeight(datetimeBounds)
-      height += 40
+      height += 24
       
       if height < CommentTableViewCell.kMinimumHeight {
         height = CommentTableViewCell.kMinimumHeight
