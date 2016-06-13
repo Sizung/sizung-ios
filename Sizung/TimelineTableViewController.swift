@@ -24,20 +24,40 @@ class TimelineTableViewController: SLKTextViewController {
   
   let sortedCollection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   
+//  var mentions: [(Range<String.Index>, User)] = []
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.registerPrefixesForAutoCompletion(["#"])
+    self.commonInit()
+    
+    self.bounces = true
+    
+    self.registerPrefixesForAutoCompletion(["@"])
     self.tableView.registerNib(UINib.init(nibName: "CommentTableViewCell", bundle: nil), forCellReuseIdentifier: "CommentTableViewCell")
-    self.initData()
+    self.autoCompletionView.registerNib(UINib.init(nibName: "AutoCompletionTableCell", bundle: nil), forCellReuseIdentifier: "AutoCompletionTableCell")
+    
+    self.textView.registerMarkdownFormattingSymbol("**", withTitle: "Bold")
+    self.textView.registerMarkdownFormattingSymbol("*", withTitle: "Italics")
     
     self.tableView.separatorStyle = .None
     
+    self.initData()
   }
   
   override var tableView: UITableView {
     get {
       return super.tableView!
+    }
+  }
+  
+  func commonInit(){func commonInit() {
+    
+    NSNotificationCenter.defaultCenter().addObserver(self.tableView, selector: #selector(UITableView.reloadData), name: UIContentSizeCategoryDidChangeNotification, object: nil)
+    //    NSNotificationCenter.defaultCenter().addObserver(self,  selector: #selector(self.textInputbarDidMove(_:)), name: SLKTextInputbarDidMoveNotification, object: nil)
+    
+    // Register a SLKTextView subclass, if you need any special appearance and/or behavior customisation.
+    //    self.registerClassForTextView(MessageTextView.classForCoder())
     }
   }
   
@@ -58,7 +78,6 @@ class TimelineTableViewController: SLKTextViewController {
     
     StorageManager.sharedInstance.updateConversationObjects(self.conversation.id)
   }
-  
   
   func didLongPressCell(gesture: UIGestureRecognizer) {
     
@@ -104,7 +123,16 @@ class TimelineTableViewController: SLKTextViewController {
     let authToken = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
     let user = User(id: authToken.getUserId()!)
     
-    let comment = Comment(author: user, body: self.textView.text, commentable: self.conversation)
+    // parse mentions
+    let fulltext = self.textView.text
+    
+//    for (range, user) in mentions {
+//      fulltext.replaceRange(range, with: "@[\(user.name)](\(user.id))")
+//    }
+//    
+//    mentions = []
+    
+    let comment = Comment(author: user, body: fulltext, commentable: self.conversation)
     //    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
     //    let rowAnimation: UITableViewRowAnimation = self.inverted ? .Bottom : .Top
     //    let scrollPosition: UITableViewScrollPosition = self.inverted ? .Bottom : .Top
@@ -145,10 +173,6 @@ class TimelineTableViewController: SLKTextViewController {
     super.didCancelTextEditing(sender)
   }
   
-  override func shouldProcessTextForAutoCompletion(text: String) -> Bool {
-    return true
-  }
-  
   override func didChangeAutoCompletionPrefix(prefix: String, andWord word: String) {
     
     var array: [AnyObject]?
@@ -158,7 +182,7 @@ class TimelineTableViewController: SLKTextViewController {
     if prefix == "@" {
       if word.characters.count > 0 {
         array = StorageManager.sharedInstance.organizationUsers.filter { user in
-          user.name.hasPrefix(word) || user.email.hasPrefix(word)
+          return user.name.lowercaseString.hasPrefix(word.lowercaseString)
         }
       }
       else {
@@ -168,7 +192,7 @@ class TimelineTableViewController: SLKTextViewController {
     var show = false
     
     if  array?.count > 0 {
-      self.searchResult = (array! as NSArray).sortedArrayUsingSelector(#selector(NSString.localizedCaseInsensitiveCompare(_:)))
+      self.searchResult = array
       show = (self.searchResult?.count > 0)
     }
     
@@ -195,6 +219,7 @@ class TimelineTableViewController: SLKTextViewController {
   }
   
   override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
     if !StorageManager.sharedInstance.isInitialized {
       self.updateData()
     }
@@ -235,6 +260,14 @@ extension TimelineTableViewController {
     return 0
   }
   
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    if tableView == self.autoCompletionView {
+      return self.autoCompletionCellForRowAtIndexPath(indexPath)
+    }else {
+      fatalError("unkown tableview in cellForRowAtIndexPath")
+    }
+  }
+  
   func messageCellForRowAtIndexPath(indexPath: NSIndexPath) -> CommentTableViewCell {
     
     let comment = sortedCollection[indexPath.row] as! Comment
@@ -255,13 +288,13 @@ extension TimelineTableViewController {
     
     let author = StorageManager.sharedInstance.getUser(comment.author.id)!
     
-    let gravatar = Gravatar(emailAddress: author.email, defaultImage: .MysteryMan)
+    let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
     cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
     
-    if cell.gestureRecognizers?.count == nil {
-      let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))
-      cell.addGestureRecognizer(longPress)
-    }
+//    if cell.gestureRecognizers?.count == nil {
+//      let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))
+//      cell.addGestureRecognizer(longPress)
+//    }
     
     
     // Cells must inherit the table view's transform
@@ -274,29 +307,21 @@ extension TimelineTableViewController {
     //    return cell
   }
   
-  func autoCompletionCellForRowAtIndexPath(indexPath: NSIndexPath) -> CommentTableViewCell {
+  func autoCompletionCellForRowAtIndexPath(indexPath: NSIndexPath) -> AutoCompletionTableCell {
     
-    let cell = self.autoCompletionView.dequeueReusableCellWithIdentifier("AutoCompletionTableCell") as! CommentTableViewCell
+    let cell = self.autoCompletionView.dequeueReusableCellWithIdentifier("AutoCompletionTableCell") as! AutoCompletionTableCell
     cell.selectionStyle = .Default
     
-    guard let searchResult = self.searchResult as? [String] else {
+    guard let searchResult = self.searchResult as? [User] else {
       return cell
     }
     
-    guard let prefix = self.foundPrefix else {
-      return cell
-    }
+    let user = searchResult[indexPath.row]
     
-    var text = searchResult[indexPath.row]
+    cell.usernameLabel.text = user.name
     
-    if prefix == "#" {
-      text = "# " + text
-    }
-    else if prefix == ":" || prefix == "+:" {
-      text = ":\(text):"
-    }
-    
-    cell.bodyLabel.text = text
+    let gravatar = Gravatar(emailAddress: user.email, defaultImage: .Identicon)
+    cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
     
     return cell
   }
@@ -318,22 +343,22 @@ extension TimelineTableViewController {
       var width = CGRectGetWidth(tableView.frame)-50
       width -= 25.0
       
-//      guard let author = StorageManager.sharedInstance.getUser(comment.author!.id) else {
-//        return 0
-//      }
+      //      guard let author = StorageManager.sharedInstance.getUser(comment.author!.id) else {
+      //        return 0
+      //      }
       
-//      let titleBounds = (author.name).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
+      //      let titleBounds = (author.name).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
       let bodyBounds = textParser.parseMarkdown(comment.body).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, context: nil)
-      let datetimeBounds = "date must be singleline, so lets fake it".boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
+      let datetimeBounds = "singleline".boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
       
       if comment.body!.characters.count == 0 {
         return 0
       }
       
-//      var height = CGRectGetHeight(titleBounds)
+      //      var height = CGRectGetHeight(titleBounds)
       var height = CGRectGetHeight(bodyBounds)
       height += CGRectGetHeight(datetimeBounds)
-      height += 40
+      height += 24
       
       if height < CommentTableViewCell.kMinimumHeight {
         height = CommentTableViewCell.kMinimumHeight
@@ -342,7 +367,7 @@ extension TimelineTableViewController {
       return height
     }
     else {
-      return CommentTableViewCell.kMinimumHeight
+      return AutoCompletionTableCell.kMinimumHeight
     }
   }
   
@@ -352,22 +377,24 @@ extension TimelineTableViewController {
     
     if tableView == self.autoCompletionView {
       
-      guard let searchResult = self.searchResult as? [String] else {
+      guard let searchResult = self.searchResult as? [User] else {
         return
       }
       
-      var item = searchResult[indexPath.row]
+      let user = searchResult[indexPath.row]
       
-      if self.foundPrefix == "@" && self.foundPrefixRange.location == 0 {
-        item += ":"
+      var text = ""
+      
+      if self.foundPrefix == "@" {
+        text += "@[\(user.name)](\(user.id)) "
+        
+//        let range = self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location)..<self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location + text.characters.count + self.foundPrefixRange.length)
+//        
+//        mentions.append((range, user))
       }
-      else if self.foundPrefix == ":" || self.foundPrefix == "+:" {
-        item += ":"
-      }
       
-      item += " "
       
-      self.acceptAutoCompletionWithString(item, keepPrefix: true)
+      self.acceptAutoCompletionWithString(text, keepPrefix: false)
     }
   }
 }
