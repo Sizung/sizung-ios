@@ -24,11 +24,15 @@ class Websocket {
       
     client.onConnected = {
       print("Connected!")
-      self.connectToConversation("c164a2e3-1a46-4dde-b34a-617dd1065135")
+      self.connectToConversation("50ebdb8a-66a7-4823-ac3f-a50020c294db")
     }
     
     client.onDisconnected = {(error: ErrorType?) in
-      print("Disconnected!")
+      print("Disconnected! \(error)")
+    }
+    
+    client.onRejected = {
+      print("websocket connection rejected!")
     }
     
     client.connect()
