@@ -21,7 +21,8 @@ class Websocket {
     client = ActionCableClient(URL: NSURL(string: Configuration.websocketEndpoint())!)
     
     client.headers = headers
-      
+    client.origin = Configuration.websocketOrigin()
+    
     client.onConnected = {
       print("Connected!")
       self.connectToConversation("50ebdb8a-66a7-4823-ac3f-a50020c294db")

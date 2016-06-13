@@ -9,9 +9,11 @@
 
 #if RELEASE_VERSION
 let SERVER_URL = "https://app.sizung.com/api"
+let WEBSOCKET_ORIGIN_URL = "https://app.sizung.com"
 let WEBSOCKET_URL = "wss://app.sizung.com/websocket"
 #else
 let SERVER_URL = "https://staging-sizung.herokuapp.com/api"
+let WEBSOCKET_ORIGIN_URL = "https://staging-sizung.herokuapp.com"
 let WEBSOCKET_URL = "wss://staging-sizung.herokuapp.com/websocket"
 #endif
 
@@ -26,6 +28,11 @@ class Configuration: NSObject {
   
   class func websocketEndpoint() -> String {
     return WEBSOCKET_URL
+  }
+  
+  // remove path components from api endpoint
+  class func websocketOrigin() -> String {
+    return WEBSOCKET_ORIGIN_URL
   }
   
   struct Settings {
