@@ -386,13 +386,15 @@ extension TimelineTableViewController {
       var text = ""
       
       if self.foundPrefix == "@" {
-        text += "[\(user.name)](\(user.id)) "
+        text += "@[\(user.name)](\(user.id)) "
         
 //        let range = self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location)..<self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location + text.characters.count + self.foundPrefixRange.length)
 //        
 //        mentions.append((range, user))
       }
-      self.acceptAutoCompletionWithString(text, keepPrefix: true)
+      
+      
+      self.acceptAutoCompletionWithString(text, keepPrefix: false)
     }
   }
 }
