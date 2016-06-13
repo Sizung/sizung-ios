@@ -14,7 +14,7 @@ class CommentTableViewCell: UITableViewCell {
   @IBOutlet weak var bodyLabel: UILabel!
   @IBOutlet weak var datetimeLabel: UILabel!
   
-  static let kMinimumHeight:CGFloat = 80
+  static let kMinimumHeight:CGFloat = 65
   
   class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
   
