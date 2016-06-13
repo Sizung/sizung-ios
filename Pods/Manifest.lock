@@ -38,7 +38,7 @@ PODS:
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - ActionCableClient
+  - ActionCableClient (~> 0.1)
   - Alamofire (~> 3.4)
   - AlamofireImage (~> 2.0)
   - BrightFutures (~> 4.0)
@@ -76,6 +76,6 @@ SPEC CHECKSUMS:
   SwiftKeychainWrapper: 011a6946923948ffa49708014dd691164d7621d1
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: c2d8f3a60b7d996e3a5e8aacd91fc79ec6bdfe2d
+PODFILE CHECKSUM: 181f39b587269ce978470bf9389a20107a353db2
 
 COCOAPODS: 1.0.0

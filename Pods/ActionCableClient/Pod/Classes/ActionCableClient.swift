@@ -160,7 +160,7 @@ public class ActionCableClient {
 //MARK: Channel Creation
 extension ActionCableClient {
     public func create(name: String) -> Channel {
-      let channel = create(name, identifier: nil, data: nil, autoSubscribe: true, bufferActions: true)
+        let channel = create(name, identifier: nil, autoSubscribe: true, bufferActions: true)
         return channel
     }
     
@@ -172,7 +172,7 @@ extension ActionCableClient {
     - returns: an ActionCableChannel object.
     */
     
-  public func create(name: String, identifier: ChannelIdentifier?, data: Dictionary<String, AnyObject>?, autoSubscribe: Bool=true, bufferActions: Bool=true) -> Channel {
+    public func create(name: String, identifier: ChannelIdentifier?, autoSubscribe: Bool=true, bufferActions: Bool=true) -> Channel {
         // Look in existing channels and return that
         if let channel = channels[name] {
             return channel
@@ -209,14 +209,14 @@ extension ActionCableClient {
         return self.channels.keys.contains(name)
     }
     
-  internal func subscribe(channel: Channel, data: Dictionary<String, AnyObject>) {
+    internal func subscribe(channel: Channel) {
         // Is it already added
         if let _ = channels[channel.name] { return }
         // Bail if state is bad
         guard let _ = unconfirmedChannels[channel.name] else { return }
         
         do {
-            try self.transmit(channel, command: Command.Subscribe, data: Dictionary<String, AnyObject>?)
+            try self.transmit(channel, command: Command.Subscribe, data: nil)
         } catch {
             debugPrint(error)
         }
