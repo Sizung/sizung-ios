@@ -24,7 +24,7 @@ class TimelineTableViewController: SLKTextViewController {
   
   let sortedCollection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   
-  var mentions: [(Range<String.Index>, User)] = []
+//  var mentions: [(Range<String.Index>, User)] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -124,13 +124,13 @@ class TimelineTableViewController: SLKTextViewController {
     let user = User(id: authToken.getUserId()!)
     
     // parse mentions
-    var fulltext = self.textView.text
+    let fulltext = self.textView.text
     
-    for (range, user) in mentions {
-      fulltext.replaceRange(range, with: "@[\(user.name)](\(user.id))")
-    }
-    
-    mentions = []
+//    for (range, user) in mentions {
+//      fulltext.replaceRange(range, with: "@[\(user.name)](\(user.id))")
+//    }
+//    
+//    mentions = []
     
     let comment = Comment(author: user, body: fulltext, commentable: self.conversation)
     //    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
@@ -166,14 +166,11 @@ class TimelineTableViewController: SLKTextViewController {
     self.tableView.reloadData()
     
     super.didCommitTextEditing(sender)
-    
-    mentions = []
   }
   
   // Notifies the view controller when tapped on the left "Cancel" button
   override func didCancelTextEditing(sender: AnyObject) {
     super.didCancelTextEditing(sender)
-    mentions = []
   }
   
   override func didChangeAutoCompletionPrefix(prefix: String, andWord word: String) {
@@ -389,11 +386,11 @@ extension TimelineTableViewController {
       var text = ""
       
       if self.foundPrefix == "@" {
-        text += "\(user.name) "
+        text += "[\(user.name)](\(user.id)) "
         
-        let range = self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location)..<self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location + text.characters.count + self.foundPrefixRange.length)
-        
-        mentions.append((range, user))
+//        let range = self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location)..<self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location + text.characters.count + self.foundPrefixRange.length)
+//        
+//        mentions.append((range, user))
       }
       self.acceptAutoCompletionWithString(text, keepPrefix: true)
     }
