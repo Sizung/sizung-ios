@@ -1,29 +1,29 @@
 //
-//  CommentTableViewCell.swift
+//  AutoCompletionTableCell.swift
 //  Sizung
 //
-//  Created by Markus Klepp on 07/06/16.
+//  Created by Markus Klepp on 10/06/16.
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
-import AlamofireImage
 import UIKit
+import AlamofireImage
 
-class CommentTableViewCell: UITableViewCell {
-  @IBOutlet weak var authorImage: UIImageView!
-  @IBOutlet weak var bodyLabel: UILabel!
-  @IBOutlet weak var datetimeLabel: UILabel!
+class AutoCompletionTableCell: UITableViewCell {
+
+  @IBOutlet weak var userImage: UIImageView!
+  @IBOutlet weak var usernameLabel: UILabel!
   
-  static let kMinimumHeight:CGFloat = 65
+  static let kMinimumHeight: CGFloat = 43
   
   class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
   
   // MARK: - Lifecycle Methods
   
   func configureCellWithURLString(URLString: String, placeholderImage: UIImage? = nil) {
-    let size = authorImage.frame.size
+    let size = userImage.frame.size
     
-    authorImage.af_setImageWithURL(
+    userImage.af_setImageWithURL(
       NSURL(string: URLString)!,
       placeholderImage: placeholderImage,
       filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
@@ -34,12 +34,13 @@ class CommentTableViewCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     
-    guard authorImage != nil else {
+    guard userImage != nil else {
       return
     }
     
-    authorImage.af_cancelImageRequest()
-    authorImage.layer.removeAllAnimations()
-    authorImage.image = nil
+    userImage.af_cancelImageRequest()
+    userImage.layer.removeAllAnimations()
+    userImage.image = nil
   }
+  
 }

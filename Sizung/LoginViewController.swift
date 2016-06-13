@@ -45,7 +45,7 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
         case .Success(let JSON)
           where JSON.objectForKey("token") is String:
           
-          let token = AuthToken(data: JSON["token"] as! String)
+          let token = AuthToken(data: JSON["token"] as? String)
           
           token.validateAndStore()
             .onSuccess() { _ in

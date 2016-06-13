@@ -51,6 +51,44 @@ enum SizungHttpRouter: URLRequestConvertible {
     }
   }
   
+  var authentication: String? {
+    switch self {
+    case .Login:
+      return nil
+    default:
+      if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+        return "Bearer \(authToken))"
+      }else {
+        return nil
+      }
+    }
+  }
+  
+  var jsonParameters: [String: AnyObject]? {
+    switch self {
+    case .Login(let email, let password):
+      return [
+        "user": [
+          "email": email,
+          "password": password
+        ]
+      ]
+    case .Comments(let comment):
+      
+      // TODO: workaround for incorrect type
+      let commentableType = String(comment.commentable.type.capitalizedString.characters.dropLast())
+      return [
+        "comment": [
+          "commentable_id": comment.commentable.id,
+          "commentable_type": commentableType,
+          "body": comment.body
+        ]
+      ]
+    default:
+      return nil
+    }
+  }
+  
   // MARK: URLRequestConvertible
   
   var URLRequest: NSMutableURLRequest {
@@ -60,30 +98,12 @@ enum SizungHttpRouter: URLRequestConvertible {
     mutableURLRequest.HTTPMethod = method.rawValue
     mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Accept")
     
-    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
-      mutableURLRequest.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-    }
+    mutableURLRequest.setValue(self.authentication, forHTTPHeaderField: "Authorization")
+    
     switch self {
-    case .Login(let email, let password):
-      let parameters = [
-        "user": [
-          "email": email,
-          "password": password
-        ]
-      ]
-      return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
-    case .Comments(let comment):
-      
-      // TODO: workaround for incorrect type
-      let commentableType = String(comment.commentable.type.capitalizedString.characters.dropLast())
-      let parameters = [
-        "comment": [
-          "commentable_id": comment.commentable.id,
-          "commentable_type": commentableType,
-          "body": comment.body
-        ]
-      ]
-      return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
+    case .Login,
+      .Comments:
+      return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: self.jsonParameters).0
     default:
       return mutableURLRequest
     }
