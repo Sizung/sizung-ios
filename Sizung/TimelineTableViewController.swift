@@ -291,10 +291,10 @@ extension TimelineTableViewController {
     let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
     cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
     
-    if cell.gestureRecognizers?.count == nil {
-      let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))
-      cell.addGestureRecognizer(longPress)
-    }
+//    if cell.gestureRecognizers?.count == nil {
+//      let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))
+//      cell.addGestureRecognizer(longPress)
+//    }
     
     
     // Cells must inherit the table view's transform
