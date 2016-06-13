@@ -9,10 +9,10 @@
 
 #if RELEASE_VERSION
 let SERVER_URL = "https://app.sizung.com/api"
-let WEBSOCKET_URL = "wss://staging-sizung.herokuapp.com/websocket"
+let WEBSOCKET_URL = "wss://app.sizung.com/websocket"
 #else
 let SERVER_URL = "https://staging-sizung.herokuapp.com/api"
-let WEBSOCKET_URL = "wss://app.sizung.com/websocket"
+let WEBSOCKET_URL = "wss://staging-sizung.herokuapp.com/websocket"
 #endif
 
 
