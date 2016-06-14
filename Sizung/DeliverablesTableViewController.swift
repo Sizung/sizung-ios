@@ -75,13 +75,24 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
   
   override func bindData() {
     
+    self.tableView.registerNib(UINib.init(nibName: "DeliverableTableViewCell", bundle: nil), forCellReuseIdentifier: "DeliverableTableViewCell")
+    
     StorageManager.sharedInstance.deliverables.filter { deliverable in
       deliverable.owner.id == self.userId
       }.bindTo(self.tableView) { indexPath, deliverables, tableView in
         let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
         let deliverable = deliverables[indexPath.row]
         cell.titleLabel.text = deliverable.title
-        cell.conversationLabel.text = deliverable.conversation?.title
+        
+        switch deliverable.parent {
+        case let conversation as Conversation:
+          cell.conversationLabel.text = conversation.title
+        case let agendaItem as AgendaItem:
+          cell.conversationLabel.text = agendaItem.title
+        default:
+          cell.conversationLabel.text = nil
+        }
+        
         cell.statusLabel.text = deliverable.status
         
         // TODO: Real unread status
@@ -99,13 +110,24 @@ class ConversationDeliverablesTableViewController: DeliverablesTableViewControll
   
   override func bindData() {
     
+    self.tableView.registerNib(UINib.init(nibName: "DeliverableTableViewCell", bundle: nil), forCellReuseIdentifier: "DeliverableTableViewCell")
+    
     StorageManager.sharedInstance.deliverables.filter { deliverable in
-      deliverable.conversation.id == self.conversation?.id
+      deliverable.parent.id == self.conversation?.id
       }.bindTo(self.tableView) { indexPath, deliverables, tableView in
         let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
         let deliverable = deliverables[indexPath.row]
         cell.titleLabel.text = deliverable.title
-        cell.conversationLabel.text = deliverable.conversation?.title
+        
+        switch deliverable.parent {
+        case let conversation as Conversation:
+          cell.conversationLabel.text = conversation.title
+        case let agendaItem as AgendaItem:
+          cell.conversationLabel.text = agendaItem.title
+        default:
+          cell.conversationLabel.text = nil
+        }
+        
         cell.statusLabel.text = deliverable.status
         
         // TODO: Real unread status

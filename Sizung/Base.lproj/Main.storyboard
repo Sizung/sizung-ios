@@ -341,7 +341,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SizungTableViewCell" textLabel="aP6-tc-EUY" style="IBUITableViewCellStyleDefault" id="emn-u3-Z0V" customClass="SizungTableViewCell" customModule="Sizung" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeliverableTableViewCell" textLabel="aP6-tc-EUY" style="IBUITableViewCellStyleDefault" id="emn-u3-Z0V" customClass="DeliverableTableViewCell" customModule="Sizung" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="emn-u3-Z0V" id="HTB-ax-rkt">
