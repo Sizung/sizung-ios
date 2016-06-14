@@ -74,6 +74,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   }
   
   func loadInitialViewController() {
+    
+    // init websocket
+    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+      StorageManager.sharedInstance.websocket = Websocket(authToken: authToken)
+    }
+    
     guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
       let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsViewController")
       organizationViewController.modalPresentationStyle = .OverCurrentContext

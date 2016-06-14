@@ -12,7 +12,7 @@ import SlackTextViewController
 import DateTools
 import ReactiveKit
 
-class TimelineTableViewController: SLKTextViewController {
+class TimelineTableViewController: SLKTextViewController, ConversationWebsocketDelegate {
   
   var conversation: Conversation!
   
@@ -43,6 +43,11 @@ class TimelineTableViewController: SLKTextViewController {
     self.tableView.separatorStyle = .None
     
     self.initData()
+  }
+  
+  override func viewWillDisappear(animated: Bool) {
+    super.viewWillDisappear(animated)
+    StorageManager.sharedInstance.websocket?.disconnectFromConversation(self.conversation.id)
   }
   
   override var tableView: UITableView {
@@ -76,7 +81,19 @@ class TimelineTableViewController: SLKTextViewController {
       }
     }
     
-    StorageManager.sharedInstance.updateConversationObjects(self.conversation.id)
+    // to prevent missing items first connect to websocket, than fetch current state
+    let websocket = StorageManager.sharedInstance.websocket!
+    websocket.client.onChannelSubscribed = { channel in
+      StorageManager.sharedInstance.updateConversationObjects(self.conversation.id)
+    }
+    
+    websocket.conversationWebsocketDelegate = self
+    
+    StorageManager.sharedInstance.websocket?.connectToConversation(self.conversation.id)
+  }
+  
+  func onReceived(comment: Comment) {
+    StorageManager.sharedInstance.conversationObjects.insertOrUpdate([comment])
   }
   
   func didLongPressCell(gesture: UIGestureRecognizer) {

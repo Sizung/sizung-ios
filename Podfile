@@ -17,6 +17,7 @@ target 'Sizung' do
   pod 'SlackTextViewController', '~> 1.9'
   pod 'Bumblebee', '~> 1.0'
   pod 'DateTools', '~> 1.0'
+  pod 'ActionCableClient', '~> 0.1'
 
   pod 'Fabric', '~> 1.6'
   pod 'Crashlytics', '~> 3.7'

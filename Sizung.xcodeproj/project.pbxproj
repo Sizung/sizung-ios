@@ -16,6 +16,7 @@
 		5A42707F1D095A7000B294DF /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A42707E1D095A7000B294DF /* Settings.bundle */; };
 		5A504B071CEF0FDC001BEFA3 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */; };
 		5A504B141CEF2413001BEFA3 /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A504B131CEF2413001BEFA3 /* AuthToken.swift */; };
+		5A5346B01D0EE0560065278E /* Websocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5346AF1D0EE0560065278E /* Websocket.swift */; };
 		5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653E8E1CD7A96000FB3DEB /* AppDelegate.swift */; };
 		5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E941CD7A96000FB3DEB /* Main.storyboard */; };
 		5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E971CD7A96000FB3DEB /* Assets.xcassets */; };
@@ -70,6 +71,7 @@
 		5AD9F1BB1CE9D5E600455D98 /* AgendaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1BA1CE9D5E600455D98 /* AgendaItem.swift */; };
 		5AD9F1BD1CE9D63300455D98 /* Deliverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1BC1CE9D63300455D98 /* Deliverable.swift */; };
 		5AD9F1BF1CE9D65900455D98 /* AgendaItemDeliverables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverables.swift */; };
+		5ADC882B1D0F57D400596D67 /* WebsocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC882A1D0F57D400596D67 /* WebsocketResponse.swift */; };
 		5AE0CCA11D0AEF3900690C72 /* CommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */; };
 		5AE8839A1D09A5460044364B /* CollectionPropertyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */; };
 		5AE8839D1D09A56C0044364B /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */; };
@@ -105,6 +107,7 @@
 		5A42707E1D095A7000B294DF /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		5A504B131CEF2413001BEFA3 /* AuthToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
+		5A5346AF1D0EE0560065278E /* Websocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Websocket.swift; sourceTree = "<group>"; };
 		5A653E8B1CD7A96000FB3DEB /* Sizung.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sizung.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A653E8E1CD7A96000FB3DEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A653E951CD7A96000FB3DEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -168,6 +171,7 @@
 		5AD9F1BA1CE9D5E600455D98 /* AgendaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItem.swift; sourceTree = "<group>"; };
 		5AD9F1BC1CE9D63300455D98 /* Deliverable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deliverable.swift; sourceTree = "<group>"; };
 		5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemDeliverables.swift; sourceTree = "<group>"; };
+		5ADC882A1D0F57D400596D67 /* WebsocketResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebsocketResponse.swift; sourceTree = "<group>"; };
 		5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentResponse.swift; sourceTree = "<group>"; };
 		5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionPropertyExtension.swift; sourceTree = "<group>"; };
 		5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 		5A86B12F1CE5D025001C2E7A /* network */ = {
 			isa = PBXGroup;
 			children = (
+				5A5346AF1D0EE0560065278E /* Websocket.swift */,
 				5A7329F11D0592E0006531A5 /* Gravatar.swift */,
 				5A86B12D1CE5CF19001C2E7A /* AlamofireManagerExtension.swift */,
 				5A86B1301CE5D035001C2E7A /* SizungHttpRouter.swift */,
@@ -403,6 +408,7 @@
 		5ABA4FB71CFDCE5D00110030 /* responses */ = {
 			isa = PBXGroup;
 			children = (
+				5ADC88291D0F57CD00596D67 /* websocket */,
 				5AE8839F1D09A5990044364B /* ConversationObjectsResponse.swift */,
 				5ABA4FB51CFDCD7C00110030 /* OrganizationsResponse.swift */,
 				5ABA4FBA1CFEBE3500110030 /* OrganizationResponse.swift */,
@@ -459,6 +465,14 @@
 				5AC85CA11CFC55720028B560 /* Login.xib */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		5ADC88291D0F57CD00596D67 /* websocket */ = {
+			isa = PBXGroup;
+			children = (
+				5ADC882A1D0F57D400596D67 /* WebsocketResponse.swift */,
+			);
+			name = websocket;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -762,6 +776,7 @@
 				5AE0CCA11D0AEF3900690C72 /* CommentResponse.swift in Sources */,
 				5A9EDEB61D01621200D389EC /* ConversationResponse.swift in Sources */,
 				5A9EDEB41D0070C500D389EC /* ConversationViewController.swift in Sources */,
+				5ADC882B1D0F57D400596D67 /* WebsocketResponse.swift in Sources */,
 				5A9EDEB01D00232100D389EC /* UserResponse.swift in Sources */,
 				5AB781411CFD79D00024DFE9 /* AccountViewController.swift in Sources */,
 				5A9EDEBC1D01CEB900D389EC /* Color.swift in Sources */,
@@ -783,6 +798,7 @@
 				5ABE8E351CDB5AC9004537C6 /* LoginViewController.swift in Sources */,
 				5AA891001CF5A63A00ED391B /* AgendaItemsTableViewController.swift in Sources */,
 				5A86B12E1CE5CF19001C2E7A /* AlamofireManagerExtension.swift in Sources */,
+				5A5346B01D0EE0560065278E /* Websocket.swift in Sources */,
 				5AD9F1BB1CE9D5E600455D98 /* AgendaItem.swift in Sources */,
 				5AA890F91CF45D4800ED391B /* BasicTableViewController.swift in Sources */,
 				5AA891021CF5A6AE00ED391B /* DeliverablesTableViewController.swift in Sources */,
