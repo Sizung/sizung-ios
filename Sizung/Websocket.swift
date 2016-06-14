@@ -8,6 +8,7 @@
 
 import Foundation
 import ActionCableClient
+import ObjectMapper
 
 class Websocket {
   
@@ -17,15 +18,18 @@ class Websocket {
   
   var client : ActionCableClient
   
-  init(headers: Dictionary<String, String>){
+  var connectedChannels: [String: Channel] = [:]
+  
+  var conversationWebsocketDelegate: ConversationWebsocketDelegate?
+  
+  init(authToken: String){
     client = ActionCableClient(URL: NSURL(string: Configuration.websocketEndpoint())!)
     
-    client.headers = headers
+    client.headers = ["Authorization": "Bearer \(authToken)"]
     client.origin = Configuration.websocketOrigin()
     
     client.onConnected = {
       print("Connected!")
-      self.connectToConversation("50ebdb8a-66a7-4823-ac3f-a50020c294db")
     }
     
     client.onDisconnected = {(error: ErrorType?) in
@@ -46,10 +50,22 @@ class Websocket {
       return
     }
     
+    guard connectedChannels[id] == nil else {
+      print("already connected to channel")
+      return
+    }
+    
     let channel = client.create(Websocket.CHANNEL_CONVERSATION, identifier: nil, autoSubscribe: true)
     
     channel.onReceive = { (JSON : AnyObject?, error : ErrorType?) in
-      print("Received", JSON, error)
+      if let websocketResponse = Mapper<WebsocketResponse>().map(JSON) {
+        switch websocketResponse.payload {
+        case let comment as Comment:
+          self.conversationWebsocketDelegate?.onReceived(comment)
+        default:
+          print("Received", JSON, error)
+        }
+      }
     }
     
     // A channel has successfully been subscribed to.
@@ -64,13 +80,37 @@ class Websocket {
     // A channel was unsubscribed, either manually or from a client disconnect.
     channel.onUnsubscribed = {
       print("Unsubscribed")
+      self.connectedChannels.removeValueForKey(id)
     }
     
     // The attempt at subscribing to a channel was rejected by the server.
     channel.onRejected = {
       print("Rejected")
+      self.connectedChannels.removeValueForKey(id)
     }
     
     channel.subscribe()
+    
+    connectedChannels[id] = channel
   }
+  
+  func disconnectFromConversation(id: String){
+    guard client.connected else {
+      print("client not connected")
+      return
+    }
+    
+    if let channel = self.connectedChannels[id] {
+      guard channel.action("unfollow", params: ["conversation_id": id]) == nil else {
+        print("error disconnecting")
+        return
+      }
+    }else {
+      print("channel not connected")
+    }
+  }
+}
+
+protocol ConversationWebsocketDelegate {
+  func onReceived(comment: Comment)
 }

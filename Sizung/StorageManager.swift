@@ -26,6 +26,8 @@ class StorageManager {
   
   let organizationUsers: CollectionProperty <[User]> = CollectionProperty([])
   
+  var websocket: Websocket?
+  
   func reset() {
     isInitialized = false
     isLoading.value = false
@@ -176,8 +178,7 @@ class StorageManager {
         switch response.result {
         case .Success(let JSON):
           if let commentResponse = Mapper<CommentResponse>().map(JSON) {
-//            self.conversationObjects.insertOrUpdate([commentResponse.comment])
-            self.updateConversationObjects(commentResponse.comment.commentable.id)
+            self.conversationObjects.insertOrUpdate([commentResponse.comment])
           }
         case .Failure
           where response.response?.statusCode == 401:
