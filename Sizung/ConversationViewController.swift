@@ -65,6 +65,7 @@ class ConversationViewController: UIViewController, MainPageViewControllerDelega
       let timelineTableViewController = UIStoryboard(name: "Main", bundle: nil) .
         instantiateViewControllerWithIdentifier("TimelineTableViewController") as! TimelineTableViewController
       timelineTableViewController.conversation = self.conversation
+      timelineTableViewController.timelineParent = self.conversation
       self.mainPageViewController.orderedViewControllers.append(timelineTableViewController)
       
       let deliverablesTableViewController = UIStoryboard(name: "Main", bundle: nil) .

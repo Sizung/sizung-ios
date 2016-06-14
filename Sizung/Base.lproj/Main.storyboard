@@ -201,12 +201,6 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7K-g6-XRI">
-                                <rect key="frame" x="0.0" y="109" width="600" height="491"/>
-                                <connections>
-                                    <segue destination="GWL-Ck-alV" kind="embed" identifier="embed" id="nUY-p3-UPO"/>
-                                </connections>
-                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="so5-a9-Fzz" customClass="SizungSegmentedControl" customModule="Sizung" customModuleProvider="target">
                                 <rect key="frame" x="20" y="76" width="560" height="25"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -214,6 +208,12 @@
                                     <constraint firstAttribute="height" constant="25" id="l6R-gI-eKn"/>
                                 </constraints>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7K-g6-XRI">
+                                <rect key="frame" x="0.0" y="109" width="600" height="491"/>
+                                <connections>
+                                    <segue destination="GWL-Ck-alV" kind="embed" identifier="embed" id="nUY-p3-UPO"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -222,11 +222,11 @@
                             <constraint firstAttribute="trailingMargin" secondItem="so5-a9-Fzz" secondAttribute="trailing" id="DGu-a7-bBf"/>
                             <constraint firstItem="5TO-1R-93h" firstAttribute="leading" secondItem="yfx-Xw-gIy" secondAttribute="leadingMargin" constant="-20" id="KDu-XE-7uC"/>
                             <constraint firstItem="c7K-g6-XRI" firstAttribute="leading" secondItem="yfx-Xw-gIy" secondAttribute="leadingMargin" constant="-20" id="Pic-Qz-2Vh"/>
+                            <constraint firstItem="5TO-1R-93h" firstAttribute="top" secondItem="X4z-vu-Wu9" secondAttribute="bottom" id="Q2w-uA-7UG"/>
                             <constraint firstItem="c7K-g6-XRI" firstAttribute="top" secondItem="so5-a9-Fzz" secondAttribute="bottom" constant="8" id="XXC-nP-j1r"/>
+                            <constraint firstItem="NeV-vx-V20" firstAttribute="top" secondItem="c7K-g6-XRI" secondAttribute="bottom" id="YKX-7A-32l"/>
                             <constraint firstItem="so5-a9-Fzz" firstAttribute="top" secondItem="5TO-1R-93h" secondAttribute="bottom" constant="12" id="az9-iP-0cc"/>
-                            <constraint firstItem="NeV-vx-V20" firstAttribute="top" secondItem="c7K-g6-XRI" secondAttribute="bottom" id="lYP-eT-EYQ"/>
                             <constraint firstItem="so5-a9-Fzz" firstAttribute="leading" secondItem="yfx-Xw-gIy" secondAttribute="leadingMargin" id="n7Y-Iv-3ZO"/>
-                            <constraint firstItem="5TO-1R-93h" firstAttribute="top" secondItem="X4z-vu-Wu9" secondAttribute="bottom" id="z9x-lT-x63"/>
                         </constraints>
                     </view>
                     <connections>

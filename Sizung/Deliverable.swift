@@ -16,7 +16,7 @@ class Deliverable: BaseModel {
   
   var owner: User!
   var assignee: User!
-  var parent: BaseModel!
+  var conversation: Conversation!
   
   override func mapping(map: Map) {
     super.mapping(map)
@@ -26,6 +26,6 @@ class Deliverable: BaseModel {
     archived <- map["attributes.archived"]
     owner <- map["relationships.owner.data"]
     assignee <- map["relationships.assignee.data"]
-    parent <- map["relationships.parent.data"]
+    conversation <- map["relationships.parent.data"]
   }
 }

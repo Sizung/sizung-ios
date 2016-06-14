@@ -15,6 +15,7 @@ import ReactiveKit
 class TimelineTableViewController: SLKTextViewController, ConversationWebsocketDelegate {
   
   var conversation: Conversation!
+  var timelineParent: BaseModel!
   
   var searchResult: [AnyObject]?
   
@@ -22,6 +23,7 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
   
   let textParser: SizungMarkdownParser = SizungMarkdownParser()
   
+  let filteredCollection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   let sortedCollection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   
   //  var mentions: [(Range<String.Index>, User)] = []
@@ -70,7 +72,21 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
   
   func initData(){
     StorageManager.sharedInstance.conversationObjects
-      //    sort by date
+      .filter({ conversationObject in
+        switch conversationObject{
+        case let comment as Comment:
+          return comment.commentable.id == self.timelineParent.id
+        case let deliverable as Deliverable:
+          return deliverable.conversation.id == self.timelineParent.id
+        case let agendaItem as AgendaItem:
+          return agendaItem.conversation.id == self.timelineParent.id
+        default:
+          return false
+        }
+      })
+      .bindTo(filteredCollection)
+    //    sort by date
+    filteredCollection
       .sort({ $0.created_at!.compare($1.created_at!) == NSComparisonResult.OrderedDescending })
       .bindTo(sortedCollection)
     
@@ -301,7 +317,7 @@ extension TimelineTableViewController {
     default:
       fatalError("unkown row type for \(self)")
     }
-  
+    
     // Cells must inherit the table view's transform
     // This is very important, since the main table view may be inverted
     cell.transform = self.tableView.transform
@@ -312,7 +328,7 @@ extension TimelineTableViewController {
   
   func cellForDeliverable(deliverable: Deliverable) -> TimelineDeliverableTableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("TimelineDeliverableTableViewCell") as! TimelineDeliverableTableViewCell
-  
+    
     cell.titleLabel.text = deliverable.title
     cell.dueDateLabel.text = deliverable.due_on?.timeAgoSinceNow()
     cell.dateLabel.text = deliverable.created_at?.timeAgoSinceNow()
