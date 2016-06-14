@@ -37,6 +37,8 @@ class BaseModel: Mappable, Equatable, Hashable {
   class func objectForMapping(map: Map) -> Mappable? {
     if let type: String = map["type"].value() {
       switch type {
+      case "conversations":
+        return Conversation(map)
       case "users":
         return User(map)
       case "comments":

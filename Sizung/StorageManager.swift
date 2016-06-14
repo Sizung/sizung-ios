@@ -45,6 +45,22 @@ class StorageManager {
     return foundOrganizations.first
   }
   
+  func getConversation(id: String) -> Conversation? {
+    let foundConversation = conversations.collection.filter { conversation in
+      conversation.id == id
+    }
+    
+    return foundConversation.first
+  }
+  
+  func getAgendaItem(id: String) -> AgendaItem? {
+    let foundAgendaItem = agendaItems.collection.filter { agendaItem in
+      agendaItem.id == id
+    }
+    
+    return foundAgendaItem.first
+  }
+  
   func getUser(id: String) -> User? {
     let foundUsers = organizationUsers.collection.filter { user in
       user.id == id

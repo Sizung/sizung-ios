@@ -9,8 +9,12 @@
 import UIKit
 import SwiftKeychainWrapper
 import ReactiveKit
+import DateTools
 
 class DeliverablesTableViewController: UITableViewController {
+  
+  let sortedCollection: CollectionProperty <[Deliverable]> = CollectionProperty([])
+  let filteredCollection: CollectionProperty <[Deliverable]> = CollectionProperty([])
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -77,28 +81,46 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
     
     self.tableView.registerNib(UINib.init(nibName: "DeliverableTableViewCell", bundle: nil), forCellReuseIdentifier: "DeliverableTableViewCell")
     
-    StorageManager.sharedInstance.deliverables.filter { deliverable in
-      deliverable.owner.id == self.userId
-      }.bindTo(self.tableView) { indexPath, deliverables, tableView in
-        let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
-        let deliverable = deliverables[indexPath.row]
-        cell.titleLabel.text = deliverable.title
-        
-        switch deliverable.parent {
-        case let conversation as Conversation:
-          cell.conversationLabel.text = conversation.title
-        case let agendaItem as AgendaItem:
-          cell.conversationLabel.text = agendaItem.title
-        default:
-          cell.conversationLabel.text = nil
-        }
-        
+    StorageManager.sharedInstance.deliverables
+      .filter({ deliverable in
+        return deliverable.assignee.id == self.userId
+      })
+      .bindTo(filteredCollection)
+    
+    //    sort by due date
+    filteredCollection.sort({ left, right in
+      if right.due_on == nil {
+        return true
+      } else {
+        return left.due_on?.compare(right.due_on!) == NSComparisonResult.OrderedDescending
+      }
+    })
+      .bindTo(sortedCollection)
+    
+    sortedCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
+      let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
+      let deliverable = deliverables[indexPath.row]
+      cell.titleLabel.text = deliverable.title
+      
+      switch deliverable.parent {
+      case let conversation as Conversation:
+        cell.conversationLabel.text = StorageManager.sharedInstance.getConversation(conversation.id)?.title
+      case let agendaItem as AgendaItem:
+        cell.conversationLabel.text = StorageManager.sharedInstance.getAgendaItem(agendaItem.id)?.title
+      default:
+        cell.conversationLabel.text = nil
+      }
+      
+      if let due_date = deliverable.due_on {
+        cell.statusLabel.text = due_date.timeAgoSinceNow()
+      } else {
         cell.statusLabel.text = deliverable.status
-        
-        // TODO: Real unread status
-        cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
-        
-        return cell
+      }
+      
+      // TODO: Real unread status
+      cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
+      
+      return cell
     }
     
   }
@@ -119,16 +141,21 @@ class ConversationDeliverablesTableViewController: DeliverablesTableViewControll
         let deliverable = deliverables[indexPath.row]
         cell.titleLabel.text = deliverable.title
         
+        if let due_date = deliverable.due_on {
+          cell.statusLabel.text = due_date.timeAgoSinceNow()
+        } else {
+          cell.statusLabel.text = deliverable.status
+        }
+        
         switch deliverable.parent {
         case let conversation as Conversation:
-          cell.conversationLabel.text = conversation.title
+          cell.conversationLabel.text = StorageManager.sharedInstance.getConversation(conversation.id)?.title
         case let agendaItem as AgendaItem:
-          cell.conversationLabel.text = agendaItem.title
+          cell.conversationLabel.text = StorageManager.sharedInstance.getAgendaItem(agendaItem.id)?.title
         default:
           cell.conversationLabel.text = nil
         }
         
-        cell.statusLabel.text = deliverable.status
         
         // TODO: Real unread status
         cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
