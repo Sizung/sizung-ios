@@ -30,7 +30,7 @@ class BaseModel: Mappable, Equatable, Hashable {
   func mapping(map: Map) {
     id <- map["id"]
     type <- map["type"]
-    created_at <- (map["attributes.created_at"], ISODateTransform())
+    created_at <- (map["attributes.created_at"], ISODateTimeTransform())
   }
   
 //  polymorphic stuff

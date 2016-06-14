@@ -24,7 +24,7 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
   
   let sortedCollection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   
-//  var mentions: [(Range<String.Index>, User)] = []
+  //  var mentions: [(Range<String.Index>, User)] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -35,6 +35,8 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
     
     self.registerPrefixesForAutoCompletion(["@"])
     self.tableView.registerNib(UINib.init(nibName: "CommentTableViewCell", bundle: nil), forCellReuseIdentifier: "CommentTableViewCell")
+    self.tableView.registerNib(UINib.init(nibName: "TimelineDeliverableTableViewCell", bundle: nil), forCellReuseIdentifier: "TimelineDeliverableTableViewCell")
+    self.tableView.registerNib(UINib.init(nibName: "TimelineAgendaItemTableViewCell", bundle: nil), forCellReuseIdentifier: "TimelineAgendaItemTableViewCell")
     self.autoCompletionView.registerNib(UINib.init(nibName: "AutoCompletionTableCell", bundle: nil), forCellReuseIdentifier: "AutoCompletionTableCell")
     
     self.textView.registerMarkdownFormattingSymbol("**", withTitle: "Bold")
@@ -143,11 +145,11 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
     // parse mentions
     let fulltext = self.textView.text
     
-//    for (range, user) in mentions {
-//      fulltext.replaceRange(range, with: "@[\(user.name)](\(user.id))")
-//    }
-//    
-//    mentions = []
+    //    for (range, user) in mentions {
+    //      fulltext.replaceRange(range, with: "@[\(user.name)](\(user.id))")
+    //    }
+    //
+    //    mentions = []
     
     let comment = Comment(author: user, body: fulltext, commentable: self.conversation)
     //    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
@@ -285,18 +287,64 @@ extension TimelineTableViewController {
     }
   }
   
-  func messageCellForRowAtIndexPath(indexPath: NSIndexPath) -> CommentTableViewCell {
+  func messageCellForRowAtIndexPath(indexPath: NSIndexPath) -> UITableViewCell {
     
-    let comment = sortedCollection[indexPath.row] as! Comment
+    var cell: UITableViewCell
     
-    //    switch conversationObject {
-    //    case let deliverable as Deliverable:
-    //      print("deliverable: \(deliverable.title)")
-    //    case let agendaItem as AgendaItem:
-    //      print("agendaItem: \(agendaItem.title)")
-    //    case let comment as Comment:
-    //      print("comment: \(comment.body)")
+    switch sortedCollection[indexPath.row] {
+    case let deliverable as Deliverable:
+      cell = self.cellForDeliverable(deliverable)
+    case let agendaItem as AgendaItem:
+      cell = self.cellForAgendaItem(agendaItem)
+    case let comment as Comment:
+      cell = self.cellForComment(comment)
+    default:
+      fatalError("unkown row type for \(self)")
+    }
+  
+    // Cells must inherit the table view's transform
+    // This is very important, since the main table view may be inverted
+    cell.transform = self.tableView.transform
     
+    
+    return cell
+  }
+  
+  func cellForDeliverable(deliverable: Deliverable) -> TimelineDeliverableTableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("TimelineDeliverableTableViewCell") as! TimelineDeliverableTableViewCell
+  
+    cell.titleLabel.text = deliverable.title
+    cell.dueDateLabel.text = deliverable.due_on?.timeAgoSinceNow()
+    cell.dateLabel.text = deliverable.created_at?.timeAgoSinceNow()
+    
+    let author = StorageManager.sharedInstance.getUser(deliverable.owner.id)!
+    
+    let authorGravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
+    cell.configureAuthorImageWithURLString(authorGravatar.URL(size: cell.bounds.width).URLString)
+    
+    let assignee = StorageManager.sharedInstance.getUser(deliverable.assignee.id)!
+    
+    let assigneeGravatar = Gravatar(emailAddress: assignee.email, defaultImage: .Identicon)
+    cell.configureAssigneeImageWithURLString(assigneeGravatar.URL(size: cell.bounds.width).URLString)
+    
+    return cell
+  }
+  
+  func cellForAgendaItem(agendaItem: AgendaItem) -> TimelineAgendaItemTableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("TimelineAgendaItemTableViewCell") as! TimelineAgendaItemTableViewCell
+    
+    cell.titleLabel.text = agendaItem.title
+    cell.dateLabel.text = agendaItem.created_at?.timeAgoSinceNow()
+    
+    let author = StorageManager.sharedInstance.getUser(agendaItem.owner.id)!
+    
+    let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
+    cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+    
+    return cell
+  }
+  
+  func cellForComment(comment: Comment) -> CommentTableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("CommentTableViewCell") as! CommentTableViewCell
     
     cell.bodyLabel.attributedText = textParser.parseMarkdown(comment.body)
@@ -308,20 +356,12 @@ extension TimelineTableViewController {
     let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
     cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
     
-//    if cell.gestureRecognizers?.count == nil {
-//      let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))
-//      cell.addGestureRecognizer(longPress)
-//    }
-    
-    
-    // Cells must inherit the table view's transform
-    // This is very important, since the main table view may be inverted
-    cell.transform = self.tableView.transform
+    //    if cell.gestureRecognizers?.count == nil {
+    //      let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))
+    //      cell.addGestureRecognizer(longPress)
+    //    }
     
     return cell
-    //    }
-    //
-    //    return cell
   }
   
   func autoCompletionCellForRowAtIndexPath(indexPath: NSIndexPath) -> AutoCompletionTableCell {
@@ -346,42 +386,52 @@ extension TimelineTableViewController {
   override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     
     if tableView == self.tableView {
-      let comment = sortedCollection[indexPath.row] as! Comment
-      
-      let paragraphStyle = NSMutableParagraphStyle()
-      paragraphStyle.lineBreakMode = .ByWordWrapping
-      paragraphStyle.alignment = .Left
-      
-      let attributes = [
-        NSFontAttributeName : UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody),
-        NSParagraphStyleAttributeName : paragraphStyle
-      ]
-      
-      var width = CGRectGetWidth(tableView.frame)-50
-      width -= 25.0
-      
-      //      guard let author = StorageManager.sharedInstance.getUser(comment.author!.id) else {
-      //        return 0
-      //      }
-      
-      //      let titleBounds = (author.name).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
-      let bodyBounds = textParser.parseMarkdown(comment.body).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, context: nil)
-      let datetimeBounds = "singleline".boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
-      
-      if comment.body!.characters.count == 0 {
-        return 0
+      switch sortedCollection[indexPath.row] {
+      case let comment as Comment:
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .ByWordWrapping
+        paragraphStyle.alignment = .Left
+        
+        let attributes = [
+          NSFontAttributeName : UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody),
+          NSParagraphStyleAttributeName : paragraphStyle
+        ]
+        
+        var width = CGRectGetWidth(tableView.frame)-50
+        width -= 25.0
+        
+        //      guard let author = StorageManager.sharedInstance.getUser(comment.author!.id) else {
+        //        return 0
+        //      }
+        
+        //      let titleBounds = (author.name).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
+        let bodyBounds = textParser.parseMarkdown(comment.body).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, context: nil)
+        let datetimeBounds = "singleline".boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
+        
+        if comment.body!.characters.count == 0 {
+          return 0
+        }
+        
+        //      var height = CGRectGetHeight(titleBounds)
+        var height = CGRectGetHeight(bodyBounds)
+        height += CGRectGetHeight(datetimeBounds)
+        height += 24
+        
+        if height < CommentTableViewCell.kMinimumHeight {
+          height = CommentTableViewCell.kMinimumHeight
+        }
+        
+        return height
+      case _ as AgendaItem:
+        return TimelineAgendaItemTableViewCell.kHeight
+      case let deliverable as Deliverable where deliverable.due_on != nil:
+        return TimelineDeliverableTableViewCell.kHeight
+      case _ as Deliverable:
+        return TimelineDeliverableTableViewCell.kHeightWithoutDueDate
+      default:
+        return 0;
       }
-      
-      //      var height = CGRectGetHeight(titleBounds)
-      var height = CGRectGetHeight(bodyBounds)
-      height += CGRectGetHeight(datetimeBounds)
-      height += 24
-      
-      if height < CommentTableViewCell.kMinimumHeight {
-        height = CommentTableViewCell.kMinimumHeight
-      }
-      
-      return height
     }
     else {
       return AutoCompletionTableCell.kMinimumHeight
@@ -405,9 +455,9 @@ extension TimelineTableViewController {
       if self.foundPrefix == "@" {
         text += "@[\(user.name)](\(user.id)) "
         
-//        let range = self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location)..<self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location + text.characters.count + self.foundPrefixRange.length)
-//        
-//        mentions.append((range, user))
+        //        let range = self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location)..<self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location + text.characters.count + self.foundPrefixRange.length)
+        //
+        //        mentions.append((range, user))
       }
       
       

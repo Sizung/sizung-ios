@@ -72,6 +72,11 @@
 		5AD9F1BD1CE9D63300455D98 /* Deliverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1BC1CE9D63300455D98 /* Deliverable.swift */; };
 		5AD9F1BF1CE9D65900455D98 /* AgendaItemDeliverables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverables.swift */; };
 		5ADC882B1D0F57D400596D67 /* WebsocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC882A1D0F57D400596D67 /* WebsocketResponse.swift */; };
+		5ADC882D1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ADC882C1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib */; };
+		5ADC882F1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ADC882E1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib */; };
+		5ADC88321D10505700596D67 /* TimelineDeliverableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC88311D10505700596D67 /* TimelineDeliverableTableViewCell.swift */; };
+		5ADC88341D10508800596D67 /* TimelineAgendaItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC88331D10508800596D67 /* TimelineAgendaItemTableViewCell.swift */; };
+		5ADC88361D105C4E00596D67 /* ISODateTimeTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC88351D105C4E00596D67 /* ISODateTimeTransform.swift */; };
 		5AE0CCA11D0AEF3900690C72 /* CommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */; };
 		5AE8839A1D09A5460044364B /* CollectionPropertyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */; };
 		5AE8839D1D09A56C0044364B /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */; };
@@ -172,6 +177,11 @@
 		5AD9F1BC1CE9D63300455D98 /* Deliverable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deliverable.swift; sourceTree = "<group>"; };
 		5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemDeliverables.swift; sourceTree = "<group>"; };
 		5ADC882A1D0F57D400596D67 /* WebsocketResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebsocketResponse.swift; sourceTree = "<group>"; };
+		5ADC882C1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineAgendaItemTableViewCell.xib; sourceTree = "<group>"; };
+		5ADC882E1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineDeliverableTableViewCell.xib; sourceTree = "<group>"; };
+		5ADC88311D10505700596D67 /* TimelineDeliverableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineDeliverableTableViewCell.swift; sourceTree = "<group>"; };
+		5ADC88331D10508800596D67 /* TimelineAgendaItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineAgendaItemTableViewCell.swift; sourceTree = "<group>"; };
+		5ADC88351D105C4E00596D67 /* ISODateTimeTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISODateTimeTransform.swift; sourceTree = "<group>"; };
 		5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentResponse.swift; sourceTree = "<group>"; };
 		5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionPropertyExtension.swift; sourceTree = "<group>"; };
 		5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -339,8 +349,7 @@
 		5A7329FF1D05FEBB006531A5 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */,
-				5AE8839C1D09A56C0044364B /* CommentTableViewCell.xib */,
+				5ADC88301D104FFF00596D67 /* Timeline */,
 				5AC0E5DE1CF04D0000BBEF45 /* SizungTableViewCell.swift */,
 				5A7329ED1D058574006531A5 /* ConversationsTableViewCell.swift */,
 				5A7329FB1D05FEB2006531A5 /* AgendaItemTableViewCell.swift */,
@@ -364,6 +373,7 @@
 				5A42707C1D094A1900B294DF /* UICustomFont.swift */,
 				5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */,
 				5ABACCDF1D0AA82F0093CF21 /* ISODateTransform.swift */,
+				5ADC88351D105C4E00596D67 /* ISODateTimeTransform.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -473,6 +483,19 @@
 				5ADC882A1D0F57D400596D67 /* WebsocketResponse.swift */,
 			);
 			name = websocket;
+			sourceTree = "<group>";
+		};
+		5ADC88301D104FFF00596D67 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */,
+				5AE8839C1D09A56C0044364B /* CommentTableViewCell.xib */,
+				5ADC88331D10508800596D67 /* TimelineAgendaItemTableViewCell.swift */,
+				5ADC882C1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib */,
+				5ADC88311D10505700596D67 /* TimelineDeliverableTableViewCell.swift */,
+				5ADC882E1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib */,
+			);
+			name = Timeline;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -595,11 +618,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A42707F1D095A7000B294DF /* Settings.bundle in Resources */,
+				5ADC882D1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib in Resources */,
 				5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */,
 				5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */,
 				5A7329F91D05B1FC006531A5 /* Brandon_bld.otf in Resources */,
 				5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */,
 				5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */,
+				5ADC882F1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib in Resources */,
 				5AC85CA21CFC55720028B560 /* Login.xib in Resources */,
 				5AE8839E1D09A56C0044364B /* CommentTableViewCell.xib in Resources */,
 				5A7329FA1D05B1FC006531A5 /* Brandon_med.otf in Resources */,
@@ -797,6 +822,7 @@
 				5AC0E5E11CF04D8D00BBEF45 /* OrganizationsTableViewController.swift in Sources */,
 				5ABE8E351CDB5AC9004537C6 /* LoginViewController.swift in Sources */,
 				5AA891001CF5A63A00ED391B /* AgendaItemsTableViewController.swift in Sources */,
+				5ADC88361D105C4E00596D67 /* ISODateTimeTransform.swift in Sources */,
 				5A86B12E1CE5CF19001C2E7A /* AlamofireManagerExtension.swift in Sources */,
 				5A5346B01D0EE0560065278E /* Websocket.swift in Sources */,
 				5AD9F1BB1CE9D5E600455D98 /* AgendaItem.swift in Sources */,
@@ -806,6 +832,8 @@
 				5AD9F1BD1CE9D63300455D98 /* Deliverable.swift in Sources */,
 				5A86B1311CE5D035001C2E7A /* SizungHttpRouter.swift in Sources */,
 				5ABACCE01D0AA82F0093CF21 /* ISODateTransform.swift in Sources */,
+				5ADC88321D10505700596D67 /* TimelineDeliverableTableViewCell.swift in Sources */,
+				5ADC88341D10508800596D67 /* TimelineAgendaItemTableViewCell.swift in Sources */,
 				5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */,
 				5ABA4FBF1CFEC3B600110030 /* OrganizationViewController.swift in Sources */,
 				5AA890FC1CF4D1B900ED391B /* TableViewCellDisplayable.swift in Sources */,
