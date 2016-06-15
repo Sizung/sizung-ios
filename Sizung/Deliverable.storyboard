@@ -53,7 +53,7 @@
                                     <constraint firstAttribute="bottom" secondItem="8D5-1o-hBO" secondAttribute="bottom" constant="10" id="zN0-hL-eAa"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3E-Ai-F2L">
+                            <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3E-Ai-F2L">
                                 <rect key="frame" x="0.0" y="114" width="600" height="486"/>
                                 <connections>
                                     <segue destination="Mz8-Qe-oEK" kind="embed" identifier="embed" id="fkn-o5-abH"/>
