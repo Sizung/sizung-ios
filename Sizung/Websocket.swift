@@ -40,7 +40,7 @@ class Websocket {
     }
     
     client.onDisconnected = {(error: ErrorType?) in
-      fatalError("Websocket disconnected! \(error)")
+      print("Websocket disconnected! \(error)")
     }
     
     client.onRejected = {
