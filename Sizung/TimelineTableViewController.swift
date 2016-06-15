@@ -499,6 +499,18 @@ extension TimelineTableViewController {
       
       
       self.acceptAutoCompletionWithString(text, keepPrefix: false)
+    } else {
+      switch sortedCollection[indexPath.row]{
+      case let agendaItem as AgendaItem:
+        print("open agendaItem \(agendaItem)")
+      case let deliverable as Deliverable:
+        let deliverableViewController = UIStoryboard(name: "Deliverable", bundle: nil).instantiateInitialViewController() as! DeliverableViewController
+        deliverableViewController.deliverable = deliverable
+        
+        self.showViewController(deliverableViewController, sender: self)
+      default:
+        fatalError("unkown row at didSelectRowAtIndexPath \(indexPath)")
+      }
     }
   }
 }
