@@ -101,6 +101,7 @@ class StorageManager {
         switch response.result {
         case .Success(let JSON):
           if let organizationResponse = Mapper<OrganizationResponse>().map(JSON) {
+            self.organizations.insertOrUpdate([organizationResponse.organization])
             self.conversations.insertOrUpdate(organizationResponse.conversationsResponse.conversations)
             self.agendaItems.insertOrUpdate(organizationResponse.agendaItemsResponse.agendaItems)
             

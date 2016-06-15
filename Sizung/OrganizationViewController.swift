@@ -32,15 +32,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     
     let storageManager = StorageManager.sharedInstance
     storageManager.organizations.observeNext { _ in
-      if let selectedOrganizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
-        if let selectedOrganization = storageManager.getOrganization(selectedOrganizationId) {
-          
-          UIView.animateWithDuration(1, animations: {
-            self.titleButton.alpha = 1
-          })
-          self.titleButton.setTitle(selectedOrganization.name, forState: .Normal)
-        }
-      }
+      self.setTitle()
       }.disposeIn(rBag)
     
     storageManager.conversations.observeNext { _ in
@@ -50,6 +42,17 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     segmentedControl.items = ["PRIORITIES", "STREAM", "ACTIONS"]
     segmentedControl.thumbColors = [Color.TODISCUSS, Color.STREAM, Color.TODO]
     segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged);
+  }
+  
+  func setTitle(){
+    if let selectedOrganizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
+      if let selectedOrganization = StorageManager.sharedInstance.getOrganization(selectedOrganizationId) {
+        UIView.animateWithDuration(1, animations: {
+          self.titleButton.alpha = 1
+        })
+        self.titleButton.setTitle(selectedOrganization.name, forState: .Normal)
+      }
+    }
   }
   
   func segmentedControlDidChange(sender: SizungSegmentedControl){
