@@ -57,15 +57,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   
   func initTheme(){
     UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+//    
+//    UIToolbar.appearance().tintColor = UIColor.whiteColor()
     
-    UIToolbar.appearance().tintColor = UIColor.whiteColor()
-    
-    let headerFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleHeadline)
-    let bodyFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody)
-    
-    UILabel.appearance().font = bodyFont
-    UILabel.appearanceWhenContainedInInstancesOfClasses([UIButton.self]).font = bodyFont
-    UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: headerFont, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
+//    let headerFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleHeadline)
+//    let bodyFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody)
+//    
+//    UILabel.appearance().font = bodyFont
+//    UILabel.appearanceWhenContainedInInstancesOfClasses([UIButton.self]).font = bodyFont
+//    UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: headerFont, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
   }
   
   func registerNotifications(){
