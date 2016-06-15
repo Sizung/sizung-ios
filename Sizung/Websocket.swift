@@ -89,7 +89,8 @@ class Websocket {
   func followConversation(id: String){
     
     guard client.connected else {
-      fatalError("client not connected")
+      client.connect()
+      return
     }
     
     guard conversationChannel != nil && conversationChannel!.subscribed else {

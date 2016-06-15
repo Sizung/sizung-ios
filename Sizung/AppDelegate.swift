@@ -75,11 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   
   func loadInitialViewController() {
     
-    // init websocket
-    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
-      StorageManager.sharedInstance.websocket = Websocket(authToken: authToken)
-    }
-    
     guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
       let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsViewController")
       organizationViewController.modalPresentationStyle = .OverCurrentContext
@@ -110,19 +105,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   }
   
   func applicationDidEnterBackground(application: UIApplication) {
+    print("applicationDidEnterBackground")
+    
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
   }
   
   func applicationWillEnterForeground(application: UIApplication) {
+    print("applicationWillEnterForeground")
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
   }
   
   func applicationDidBecomeActive(application: UIApplication) {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+  
+    //ensure websocket connection is open
+    if let websocket = StorageManager.sharedInstance.websocket {
+      if !websocket.client.connected {
+        print("websocket not connected - reconnecting")
+        initWebsocketConnection()
+      }
+    } else {
+      print("websocket not initialized - connecting")
+      initWebsocketConnection()
+    }
+  }
+  
+  func initWebsocketConnection(){
+    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+      StorageManager.sharedInstance.websocket = Websocket(authToken: authToken)
+    }
   }
   
   func applicationWillTerminate(application: UIApplication) {
+    print("applicationWillTerminate")
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
   
