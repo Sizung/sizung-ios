@@ -398,6 +398,8 @@ extension TimelineTableViewController {
     //      cell.addGestureRecognizer(longPress)
     //    }
     
+    cell.selectionStyle = .None
+    
     return cell
   }
   
