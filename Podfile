@@ -18,6 +18,7 @@ target 'Sizung' do
   pod 'Bumblebee', '~> 1.0'
   pod 'DateTools', '~> 1.0'
   pod 'ActionCableClient', '~> 0.1'
+  pod 'Sheriff'
 
   pod 'R.swift', '~> 2.3'
 

@@ -11,7 +11,7 @@ import Alamofire
 import AlamofireImage
 import UIKit
 
-class ConversationsTableViewCell: UITableViewCell {
+class ConversationTableViewCell: UITableViewCell {
   
   @IBOutlet weak var unreadStatusView: UIView!
   @IBOutlet weak var nameLabel: UILabel!

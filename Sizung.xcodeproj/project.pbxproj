@@ -23,7 +23,7 @@
 		5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E971CD7A96000FB3DEB /* Assets.xcassets */; };
 		5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E991CD7A96000FB3DEB /* LaunchScreen.storyboard */; };
 		5A653EB11CD7A96000FB3DEB /* SizungUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */; };
-		5A7329EE1D058574006531A5 /* ConversationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7329ED1D058574006531A5 /* ConversationsTableViewCell.swift */; };
+		5A7329EE1D058574006531A5 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7329ED1D058574006531A5 /* ConversationTableViewCell.swift */; };
 		5A7329F01D05877D006531A5 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7329EF1D05877D006531A5 /* CardView.swift */; };
 		5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7329F11D0592E0006531A5 /* Gravatar.swift */; };
 		5A7329F91D05B1FC006531A5 /* Brandon_bld.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5A7329F61D05B1FC006531A5 /* Brandon_bld.otf */; };
@@ -41,6 +41,11 @@
 		5A9D0EDC1D11998D00037589 /* Organizations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EDB1D11998D00037589 /* Organizations.storyboard */; };
 		5A9D0EE11D119DD000037589 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D0EE01D119DD000037589 /* R.generated.swift */; };
 		5A9D0EE31D119E8700037589 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EE21D119E8700037589 /* Login.storyboard */; };
+		5A9D0EE51D11B33700037589 /* Conversations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EE41D11B33700037589 /* Conversations.storyboard */; };
+		5A9D0EE71D11B3C500037589 /* ConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EE61D11B3C500037589 /* ConversationTableViewCell.xib */; };
+		5A9D0EE91D11BB9800037589 /* StreamTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D0EE81D11BB9800037589 /* StreamTableViewController.swift */; };
+		5A9D0EEC1D11BCAB00037589 /* StreamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D0EEA1D11BCAB00037589 /* StreamTableViewCell.swift */; };
+		5A9D0EED1D11BCAB00037589 /* StreamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EEB1D11BCAB00037589 /* StreamTableViewCell.xib */; };
 		5A9EDEB01D00232100D389EC /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEAF1D00232100D389EC /* UserResponse.swift */; };
 		5A9EDEB41D0070C500D389EC /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEB31D0070C500D389EC /* ConversationViewController.swift */; };
 		5A9EDEB61D01621200D389EC /* ConversationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEB51D01621200D389EC /* ConversationResponse.swift */; };
@@ -131,7 +136,7 @@
 		5A653EAC1CD7A96000FB3DEB /* SizungUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SizungUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizungUITests.swift; sourceTree = "<group>"; };
 		5A653EB21CD7A96000FB3DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5A7329ED1D058574006531A5 /* ConversationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsTableViewCell.swift; sourceTree = "<group>"; };
+		5A7329ED1D058574006531A5 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		5A7329EF1D05877D006531A5 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		5A7329F11D0592E0006531A5 /* Gravatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gravatar.swift; sourceTree = "<group>"; };
 		5A7329F61D05B1FC006531A5 /* Brandon_bld.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_bld.otf; sourceTree = "<group>"; };
@@ -151,6 +156,11 @@
 		5A9D0EDB1D11998D00037589 /* Organizations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Organizations.storyboard; sourceTree = "<group>"; };
 		5A9D0EE01D119DD000037589 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		5A9D0EE21D119E8700037589 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		5A9D0EE41D11B33700037589 /* Conversations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversations.storyboard; sourceTree = "<group>"; };
+		5A9D0EE61D11B3C500037589 /* ConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationTableViewCell.xib; sourceTree = "<group>"; };
+		5A9D0EE81D11BB9800037589 /* StreamTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTableViewController.swift; sourceTree = "<group>"; };
+		5A9D0EEA1D11BCAB00037589 /* StreamTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTableViewCell.swift; sourceTree = "<group>"; };
+		5A9D0EEB1D11BCAB00037589 /* StreamTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamTableViewCell.xib; sourceTree = "<group>"; };
 		5A9EDEAF1D00232100D389EC /* UserResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		5A9EDEB31D0070C500D389EC /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		5A9EDEB51D01621200D389EC /* ConversationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationResponse.swift; sourceTree = "<group>"; };
@@ -364,12 +374,15 @@
 			children = (
 				5ADC88301D104FFF00596D67 /* Timeline */,
 				5AC0E5DE1CF04D0000BBEF45 /* SizungTableViewCell.swift */,
-				5A7329ED1D058574006531A5 /* ConversationsTableViewCell.swift */,
 				5A7329FB1D05FEB2006531A5 /* AgendaItemTableViewCell.swift */,
 				5A732A001D06060C006531A5 /* DeliverableTableViewCell.swift */,
 				5ADC88371D105F3300596D67 /* DeliverableTableViewCell.xib */,
 				5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */,
 				5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */,
+				5A7329ED1D058574006531A5 /* ConversationTableViewCell.swift */,
+				5A9D0EE61D11B3C500037589 /* ConversationTableViewCell.xib */,
+				5A9D0EEA1D11BCAB00037589 /* StreamTableViewCell.swift */,
+				5A9D0EEB1D11BCAB00037589 /* StreamTableViewCell.xib */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -488,6 +501,7 @@
 				5A9D0EDB1D11998D00037589 /* Organizations.storyboard */,
 				5A3FC58E1D11385B0084FF2F /* Deliverable.storyboard */,
 				5AECC1D71D115CBD00AD8ACE /* AgendaItem.storyboard */,
+				5A9D0EE41D11B33700037589 /* Conversations.storyboard */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -516,6 +530,7 @@
 		5ADC883D1D109E3F00596D67 /* TableViews */ = {
 			isa = PBXGroup;
 			children = (
+				5A9D0EE81D11BB9800037589 /* StreamTableViewController.swift */,
 				5AC0E5E01CF04D8D00BBEF45 /* OrganizationsTableViewController.swift */,
 				5AC0E5E31CF0628200BBEF45 /* ConversationsTableViewController.swift */,
 				5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */,
@@ -654,12 +669,15 @@
 				5A9D0EDC1D11998D00037589 /* Organizations.storyboard in Resources */,
 				5A9D0EE31D119E8700037589 /* Login.storyboard in Resources */,
 				5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */,
+				5A9D0EE51D11B33700037589 /* Conversations.storyboard in Resources */,
 				5ADC882F1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib in Resources */,
+				5A9D0EE71D11B3C500037589 /* ConversationTableViewCell.xib in Resources */,
 				5AE8839E1D09A56C0044364B /* CommentTableViewCell.xib in Resources */,
 				5A3FC58F1D11385B0084FF2F /* Deliverable.storyboard in Resources */,
 				5A7329FA1D05B1FC006531A5 /* Brandon_med.otf in Resources */,
 				5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */,
 				5AECC1D81D115CBD00AD8ACE /* AgendaItem.storyboard in Resources */,
+				5A9D0EED1D11BCAB00037589 /* StreamTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -836,6 +854,7 @@
 				5ABA4FB61CFDCD7C00110030 /* OrganizationsResponse.swift in Sources */,
 				5A86B12C1CE4BC04001C2E7A /* Configuration.swift in Sources */,
 				5ABA4FB91CFEB78B00110030 /* BaseModel.swift in Sources */,
+				5A9D0EEC1D11BCAB00037589 /* StreamTableViewCell.swift in Sources */,
 				5A35DC0C1D0AF9C300916118 /* AutoCompletionTableCell.swift in Sources */,
 				5AE8839D1D09A56C0044364B /* CommentTableViewCell.swift in Sources */,
 				5ABA4FBD1CFEBF1600110030 /* ConversationsResponse.swift in Sources */,
@@ -843,6 +862,7 @@
 				5A8F79091CFF14BF00953495 /* DeliverablesResponse.swift in Sources */,
 				5A8F79071CFF0E6B00953495 /* AgendaItemsResponse.swift in Sources */,
 				5AE0CCA11D0AEF3900690C72 /* CommentResponse.swift in Sources */,
+				5A9D0EE91D11BB9800037589 /* StreamTableViewController.swift in Sources */,
 				5A9EDEB61D01621200D389EC /* ConversationResponse.swift in Sources */,
 				5A9D0EE11D119DD000037589 /* R.generated.swift in Sources */,
 				5A9EDEB41D0070C500D389EC /* ConversationViewController.swift in Sources */,
@@ -855,7 +875,7 @@
 				5ABA4FBB1CFEBE3500110030 /* OrganizationResponse.swift in Sources */,
 				5A7329F01D05877D006531A5 /* CardView.swift in Sources */,
 				5AD9F1B91CE9D3D700455D98 /* ConversationMember.swift in Sources */,
-				5A7329EE1D058574006531A5 /* ConversationsTableViewCell.swift in Sources */,
+				5A7329EE1D058574006531A5 /* ConversationTableViewCell.swift in Sources */,
 				5A732A011D06060C006531A5 /* DeliverableTableViewCell.swift in Sources */,
 				5AC0E5DF1CF04D0000BBEF45 /* SizungTableViewCell.swift in Sources */,
 				5ABACCDA1D09ACD30093CF21 /* SizungMarkdownParser.swift in Sources */,

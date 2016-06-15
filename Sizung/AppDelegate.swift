@@ -65,10 +65,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   
   func loadInitialViewController() {
     
-    guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
+    if let selectedOrganization = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
+      StorageManager.sharedInstance.updateOrganization(selectedOrganization)
+    } else {
       let organizationViewController = R.storyboard.organizations.initialViewController()!
       self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
-      return
     }
   }
   

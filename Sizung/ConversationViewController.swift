@@ -39,34 +39,21 @@ class ConversationViewController: UIViewController, MainPageViewControllerDelega
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "embed" {
+    if R.segue.conversationViewController.embed(segue: segue) != nil {
       self.mainPageViewController = segue.destinationViewController as! MainPageViewController
       self.mainPageViewController.mainPageViewControllerDelegate = self
-      /*
-       let label = UILabel()
-       label.text = "tba"
-       let emptyViewController = UIViewController()
-       emptyViewController.view = label
-       
-       
-       self.mainPageViewController.orderedViewControllers.append(emptyViewController)
-       self.mainPageViewController.orderedViewControllers.append(emptyViewController)
-       self.mainPageViewController.orderedViewControllers.append(emptyViewController)
-       */
-      let agendaItemsTableViewController = UIStoryboard(name: "Main", bundle: nil) .
-        instantiateViewControllerWithIdentifier("AgendaItemsTableViewController") as! AgendaItemsTableViewController
+      
+      let agendaItemsTableViewController = R.storyboard.conversations.agendaItemsTableViewController()!
       agendaItemsTableViewController.conversation = self.conversation
       
       self.mainPageViewController.orderedViewControllers.append(agendaItemsTableViewController)
       
-      let timelineTableViewController = UIStoryboard(name: "Main", bundle: nil) .
-        instantiateViewControllerWithIdentifier("TimelineTableViewController") as! TimelineTableViewController
+      let timelineTableViewController = R.storyboard.conversations.timelineTableViewController()!
       timelineTableViewController.conversation = self.conversation
       timelineTableViewController.timelineParent = self.conversation
       self.mainPageViewController.orderedViewControllers.append(timelineTableViewController)
       
-      let deliverablesTableViewController = UIStoryboard(name: "Main", bundle: nil) .
-        instantiateViewControllerWithIdentifier("ConversationDeliverablesTableViewController") as! ConversationDeliverablesTableViewController
+      let deliverablesTableViewController = R.storyboard.conversations.conversationDeliverablesTableViewController()!
       deliverablesTableViewController.conversation = conversation
       self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
     } else {

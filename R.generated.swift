@@ -95,14 +95,18 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 5 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 7 nibs.
   struct nib {
     /// Nib `AutoCompletionTableCell`.
     static let autoCompletionTableCell = _R.nib._AutoCompletionTableCell()
     /// Nib `CommentTableViewCell`.
     static let commentTableViewCell = _R.nib._CommentTableViewCell()
+    /// Nib `ConversationTableViewCell`.
+    static let conversationTableViewCell = _R.nib._ConversationTableViewCell()
     /// Nib `DeliverableTableViewCell`.
     static let deliverableTableViewCell = _R.nib._DeliverableTableViewCell()
+    /// Nib `StreamTableViewCell`.
+    static let streamTableViewCell = _R.nib._StreamTableViewCell()
     /// Nib `TimelineAgendaItemTableViewCell`.
     static let timelineAgendaItemTableViewCell = _R.nib._TimelineAgendaItemTableViewCell()
     /// Nib `TimelineDeliverableTableViewCell`.
@@ -118,9 +122,19 @@ struct R: Rswift.Validatable {
       return UINib(resource: R.nib.commentTableViewCell)
     }
     
+    /// `UINib(name: "ConversationTableViewCell", bundle: ...)`
+    static func conversationTableViewCell(_: Void) -> UINib {
+      return UINib(resource: R.nib.conversationTableViewCell)
+    }
+    
     /// `UINib(name: "DeliverableTableViewCell", bundle: ...)`
     static func deliverableTableViewCell(_: Void) -> UINib {
       return UINib(resource: R.nib.deliverableTableViewCell)
+    }
+    
+    /// `UINib(name: "StreamTableViewCell", bundle: ...)`
+    static func streamTableViewCell(_: Void) -> UINib {
+      return UINib(resource: R.nib.streamTableViewCell)
     }
     
     /// `UINib(name: "TimelineAgendaItemTableViewCell", bundle: ...)`
@@ -136,16 +150,18 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 6 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 7 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell: ReuseIdentifier<AgendaItemTableViewCell> = ReuseIdentifier(identifier: "AgendaItemTableViewCell")
-    /// Reuse identifier `ConversationsTableViewCell`.
-    static let conversationsTableViewCell: ReuseIdentifier<ConversationsTableViewCell> = ReuseIdentifier(identifier: "ConversationsTableViewCell")
+    /// Reuse identifier `ConversationTableViewCell`.
+    static let conversationTableViewCell: ReuseIdentifier<ConversationTableViewCell> = ReuseIdentifier(identifier: "ConversationTableViewCell")
     /// Reuse identifier `DeliverableTableViewCell`.
     static let deliverableTableViewCell: ReuseIdentifier<DeliverableTableViewCell> = ReuseIdentifier(identifier: "DeliverableTableViewCell")
     /// Reuse identifier `SizungTableViewCell`.
     static let sizungTableViewCell: ReuseIdentifier<SizungTableViewCell> = ReuseIdentifier(identifier: "SizungTableViewCell")
+    /// Reuse identifier `StreamTableViewCell`.
+    static let streamTableViewCell: ReuseIdentifier<StreamTableViewCell> = ReuseIdentifier(identifier: "StreamTableViewCell")
     /// Reuse identifier `TimelineAgendaItemTableViewCell`.
     static let timelineAgendaItemTableViewCell: ReuseIdentifier<TimelineAgendaItemTableViewCell> = ReuseIdentifier(identifier: "TimelineAgendaItemTableViewCell")
     /// Reuse identifier `TimelineDeliverableTableViewCell`.
@@ -234,10 +250,12 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.storyboard` struct is generated, and contains static references to 6 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 7 storyboards.
   struct storyboard {
     /// Storyboard `AgendaItem`.
     static let agendaItem = _R.storyboard.agendaItem()
+    /// Storyboard `Conversations`.
+    static let conversations = _R.storyboard.conversations()
     /// Storyboard `Deliverable`.
     static let deliverable = _R.storyboard.deliverable()
     /// Storyboard `LaunchScreen`.
@@ -252,6 +270,11 @@ struct R: Rswift.Validatable {
     /// `UIStoryboard(name: "AgendaItem", bundle: ...)`
     static func agendaItem(_: Void) -> UIStoryboard {
       return UIStoryboard(resource: R.storyboard.agendaItem)
+    }
+    
+    /// `UIStoryboard(name: "Conversations", bundle: ...)`
+    static func conversations(_: Void) -> UIStoryboard {
+      return UIStoryboard(resource: R.storyboard.conversations)
     }
     
     /// `UIStoryboard(name: "Deliverable", bundle: ...)`
@@ -321,6 +344,20 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
+    struct _ConversationTableViewCell: NibResourceType, ReuseIdentifierType {
+      typealias ReusableType = ConversationTableViewCell
+      
+      let bundle = _R.hostingBundle
+      let identifier = "ConversationTableViewCell"
+      let name = "ConversationTableViewCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> ConversationTableViewCell? {
+        return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? ConversationTableViewCell
+      }
+      
+      private init() {}
+    }
+    
     struct _DeliverableTableViewCell: NibResourceType, ReuseIdentifierType {
       typealias ReusableType = DeliverableTableViewCell
       
@@ -330,6 +367,20 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DeliverableTableViewCell? {
         return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? DeliverableTableViewCell
+      }
+      
+      private init() {}
+    }
+    
+    struct _StreamTableViewCell: NibResourceType, ReuseIdentifierType {
+      typealias ReusableType = StreamTableViewCell
+      
+      let bundle = _R.hostingBundle
+      let identifier = "StreamTableViewCell"
+      let name = "StreamTableViewCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> StreamTableViewCell? {
+        return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? StreamTableViewCell
       }
       
       private init() {}
@@ -368,6 +419,7 @@ struct _R: Rswift.Validatable {
   
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
+      try conversations.validate()
       try main.validate()
     }
     
@@ -376,6 +428,43 @@ struct _R: Rswift.Validatable {
       
       let bundle = _R.hostingBundle
       let name = "AgendaItem"
+      
+      private init() {}
+    }
+    
+    struct conversations: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = UIViewController
+      
+      let agendaItemsTableViewController = StoryboardViewControllerResource<AgendaItemsTableViewController>(identifier: "AgendaItemsTableViewController")
+      let bundle = _R.hostingBundle
+      let conversationDeliverablesTableViewController = StoryboardViewControllerResource<ConversationDeliverablesTableViewController>(identifier: "ConversationDeliverablesTableViewController")
+      let conversationsTableViewController = StoryboardViewControllerResource<ConversationsTableViewController>(identifier: "ConversationsTableViewController")
+      let name = "Conversations"
+      let timelineTableViewController = StoryboardViewControllerResource<TimelineTableViewController>(identifier: "TimelineTableViewController")
+      
+      func agendaItemsTableViewController(_: Void) -> AgendaItemsTableViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(agendaItemsTableViewController)
+      }
+      
+      func conversationDeliverablesTableViewController(_: Void) -> ConversationDeliverablesTableViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(conversationDeliverablesTableViewController)
+      }
+      
+      func conversationsTableViewController(_: Void) -> ConversationsTableViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(conversationsTableViewController)
+      }
+      
+      func timelineTableViewController(_: Void) -> TimelineTableViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(timelineTableViewController)
+      }
+      
+      static func validate() throws {
+        if UIImage(named: "IconAgendaItem") == nil { throw ValidationError(description: "[R.swift] Image named 'IconAgendaItem' is used in storyboard 'Conversations', but couldn't be loaded.") }
+        if _R.storyboard.conversations().conversationsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationsTableViewController' could not be loaded from storyboard 'Conversations' as 'ConversationsTableViewController'.") }
+        if _R.storyboard.conversations().timelineTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'timelineTableViewController' could not be loaded from storyboard 'Conversations' as 'TimelineTableViewController'.") }
+        if _R.storyboard.conversations().conversationDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationDeliverablesTableViewController' could not be loaded from storyboard 'Conversations' as 'ConversationDeliverablesTableViewController'.") }
+        if _R.storyboard.conversations().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Conversations' as 'AgendaItemsTableViewController'.") }
+      }
       
       private init() {}
     }
@@ -413,12 +502,9 @@ struct _R: Rswift.Validatable {
       let accountViewController = StoryboardViewControllerResource<AccountViewController>(identifier: "AccountViewController")
       let agendaItemsTableViewController = StoryboardViewControllerResource<AgendaItemsTableViewController>(identifier: "AgendaItemsTableViewController")
       let bundle = _R.hostingBundle
-      let conversationDeliverablesTableViewController = StoryboardViewControllerResource<ConversationDeliverablesTableViewController>(identifier: "ConversationDeliverablesTableViewController")
-      let conversationsTableViewController = StoryboardViewControllerResource<ConversationsTableViewController>(identifier: "ConversationsTableViewController")
-      let deliverablesTableViewController = StoryboardViewControllerResource<DeliverablesTableViewController>(identifier: "DeliverablesTableViewController")
       let mainViewController = StoryboardViewControllerResource<OrganizationViewController>(identifier: "MainViewController")
       let name = "Main"
-      let timelineTableViewController = StoryboardViewControllerResource<TimelineTableViewController>(identifier: "TimelineTableViewController")
+      let streamTableViewController = StoryboardViewControllerResource<StreamTableViewController>(identifier: "StreamTableViewController")
       let userDeliverablesTableViewController = StoryboardViewControllerResource<UserDeliverablesTableViewController>(identifier: "UserDeliverablesTableViewController")
       
       func accountViewController(_: Void) -> AccountViewController? {
@@ -429,24 +515,12 @@ struct _R: Rswift.Validatable {
         return UIStoryboard(resource: self).instantiateViewController(agendaItemsTableViewController)
       }
       
-      func conversationDeliverablesTableViewController(_: Void) -> ConversationDeliverablesTableViewController? {
-        return UIStoryboard(resource: self).instantiateViewController(conversationDeliverablesTableViewController)
-      }
-      
-      func conversationsTableViewController(_: Void) -> ConversationsTableViewController? {
-        return UIStoryboard(resource: self).instantiateViewController(conversationsTableViewController)
-      }
-      
-      func deliverablesTableViewController(_: Void) -> DeliverablesTableViewController? {
-        return UIStoryboard(resource: self).instantiateViewController(deliverablesTableViewController)
-      }
-      
       func mainViewController(_: Void) -> OrganizationViewController? {
         return UIStoryboard(resource: self).instantiateViewController(mainViewController)
       }
       
-      func timelineTableViewController(_: Void) -> TimelineTableViewController? {
-        return UIStoryboard(resource: self).instantiateViewController(timelineTableViewController)
+      func streamTableViewController(_: Void) -> StreamTableViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(streamTableViewController)
       }
       
       func userDeliverablesTableViewController(_: Void) -> UserDeliverablesTableViewController? {
@@ -455,14 +529,11 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIImage(named: "IconAgendaItem") == nil { throw ValidationError(description: "[R.swift] Image named 'IconAgendaItem' is used in storyboard 'Main', but couldn't be loaded.") }
-        if _R.storyboard.main().conversationsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationsTableViewController' could not be loaded from storyboard 'Main' as 'ConversationsTableViewController'.") }
         if _R.storyboard.main().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Main' as 'AgendaItemsTableViewController'.") }
-        if _R.storyboard.main().deliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'deliverablesTableViewController' could not be loaded from storyboard 'Main' as 'DeliverablesTableViewController'.") }
-        if _R.storyboard.main().timelineTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'timelineTableViewController' could not be loaded from storyboard 'Main' as 'TimelineTableViewController'.") }
         if _R.storyboard.main().accountViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'accountViewController' could not be loaded from storyboard 'Main' as 'AccountViewController'.") }
         if _R.storyboard.main().mainViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'mainViewController' could not be loaded from storyboard 'Main' as 'OrganizationViewController'.") }
         if _R.storyboard.main().userDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'userDeliverablesTableViewController' could not be loaded from storyboard 'Main' as 'UserDeliverablesTableViewController'.") }
-        if _R.storyboard.main().conversationDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationDeliverablesTableViewController' could not be loaded from storyboard 'Main' as 'ConversationDeliverablesTableViewController'.") }
+        if _R.storyboard.main().streamTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'streamTableViewController' could not be loaded from storyboard 'Main' as 'StreamTableViewController'.") }
       }
       
       private init() {}

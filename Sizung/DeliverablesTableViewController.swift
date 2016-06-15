@@ -59,7 +59,7 @@ class DeliverablesTableViewController: UITableViewController {
     
     let selectedDeliverable = sortedAndFilteredCollection[indexPath.row]
     
-    let deliverableViewController = UIStoryboard(name: "Deliverable", bundle: nil).instantiateInitialViewController() as! DeliverableViewController
+    let deliverableViewController = R.storyboard.deliverable.initialViewController()!
     deliverableViewController.deliverable = selectedDeliverable
     
     self.showViewController(deliverableViewController, sender: self)
@@ -72,7 +72,7 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
   
   override func bindData() {
     
-    self.tableView.registerNib(UINib.init(nibName: "DeliverableTableViewCell", bundle: nil), forCellReuseIdentifier: "DeliverableTableViewCell")
+    self.tableView.registerNib(R.nib.deliverableTableViewCell(), forCellReuseIdentifier: R.nib.deliverableTableViewCell.identifier)
     
     StorageManager.sharedInstance.deliverables
       .filter({ deliverable in
@@ -91,7 +91,7 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
       .bindTo(sortedAndFilteredCollection)
     
     sortedAndFilteredCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
-      let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
+      let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.deliverableTableViewCell.identifier, forIndexPath: indexPath) as! DeliverableTableViewCell
       let deliverable = deliverables[indexPath.row]
       cell.titleLabel.text = deliverable.title
       

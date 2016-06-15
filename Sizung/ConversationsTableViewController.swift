@@ -17,6 +17,7 @@ class ConversationsTableViewController: UITableViewController {
     super.viewDidLoad()
     
     self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
+    self.tableView.registerNib(R.nib.conversationTableViewCell)
     
     self.initData()
   }
@@ -34,7 +35,7 @@ class ConversationsTableViewController: UITableViewController {
     }.disposeIn(rBag)
     
     storageManager.conversations.bindTo(self.tableView) { indexPath, conversations, tableView in
-      let cell = tableView.dequeueReusableCellWithIdentifier("ConversationsTableViewCell", forIndexPath: indexPath) as! ConversationsTableViewCell
+      let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.conversationTableViewCell.identifier, forIndexPath: indexPath) as! ConversationTableViewCell
       let conversation = conversations[indexPath.row]
       cell.nameLabel.text = conversation.title
       
