@@ -57,20 +57,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   
   func initTheme(){
     UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
-//    
-    UIToolbar.appearance().tintColor = UIColor.whiteColor()
-    
-//    let headerFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleHeadline)
-//    let bodyFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody)
-//    
-//    UILabel.appearance().font = bodyFont
-//    UILabel.appearanceWhenContainedInInstancesOfClasses([UIButton.self]).font = bodyFont
-//    UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: headerFont, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
   }
   
   func registerNotifications(){
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.showLogin), name: Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
-    
   }
   
   func loadInitialViewController() {
