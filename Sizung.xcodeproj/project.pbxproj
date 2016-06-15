@@ -46,6 +46,8 @@
 		5A9D0EE91D11BB9800037589 /* StreamTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D0EE81D11BB9800037589 /* StreamTableViewController.swift */; };
 		5A9D0EEC1D11BCAB00037589 /* StreamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D0EEA1D11BCAB00037589 /* StreamTableViewCell.swift */; };
 		5A9D0EED1D11BCAB00037589 /* StreamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EEB1D11BCAB00037589 /* StreamTableViewCell.xib */; };
+		5A9D0EEF1D11FEC200037589 /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EEE1D11FEC200037589 /* Gotham-Light.otf */; };
+		5A9D0EF11D11FECF00037589 /* Brandon Text W01 Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EF01D11FECF00037589 /* Brandon Text W01 Medium.ttf */; };
 		5A9EDEB01D00232100D389EC /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEAF1D00232100D389EC /* UserResponse.swift */; };
 		5A9EDEB41D0070C500D389EC /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEB31D0070C500D389EC /* ConversationViewController.swift */; };
 		5A9EDEB61D01621200D389EC /* ConversationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEB51D01621200D389EC /* ConversationResponse.swift */; };
@@ -161,6 +163,8 @@
 		5A9D0EE81D11BB9800037589 /* StreamTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTableViewController.swift; sourceTree = "<group>"; };
 		5A9D0EEA1D11BCAB00037589 /* StreamTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTableViewCell.swift; sourceTree = "<group>"; };
 		5A9D0EEB1D11BCAB00037589 /* StreamTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamTableViewCell.xib; sourceTree = "<group>"; };
+		5A9D0EEE1D11FEC200037589 /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gotham-Light.otf"; path = "../../../../Library/Containers/com.apple.mail/Data/Library/Mail Downloads/E66CA0ED-A832-412A-813D-70C960EC3BFF/Sizung iOS_Folder/Fonts/Gotham-Light.otf"; sourceTree = "<group>"; };
+		5A9D0EF01D11FECF00037589 /* Brandon Text W01 Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Brandon Text W01 Medium.ttf"; path = "../../../../Library/Containers/com.apple.mail/Data/Library/Mail Downloads/E66CA0ED-A832-412A-813D-70C960EC3BFF/Sizung iOS_Folder/Fonts/Brandon Text W01 Medium.ttf"; sourceTree = "<group>"; };
 		5A9EDEAF1D00232100D389EC /* UserResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		5A9EDEB31D0070C500D389EC /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		5A9EDEB51D01621200D389EC /* ConversationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationResponse.swift; sourceTree = "<group>"; };
@@ -363,6 +367,8 @@
 		5A7329F41D05B1F2006531A5 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				5A9D0EF01D11FECF00037589 /* Brandon Text W01 Medium.ttf */,
+				5A9D0EEE1D11FEC200037589 /* Gotham-Light.otf */,
 				5A7329F61D05B1FC006531A5 /* Brandon_bld.otf */,
 				5A7329F71D05B1FC006531A5 /* Brandon_med.otf */,
 			);
@@ -663,10 +669,12 @@
 				5ADC882D1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib in Resources */,
 				5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */,
 				5ADC88381D105F3300596D67 /* DeliverableTableViewCell.xib in Resources */,
+				5A9D0EEF1D11FEC200037589 /* Gotham-Light.otf in Resources */,
 				5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */,
 				5A7329F91D05B1FC006531A5 /* Brandon_bld.otf in Resources */,
 				5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */,
 				5A9D0EDC1D11998D00037589 /* Organizations.storyboard in Resources */,
+				5A9D0EF11D11FECF00037589 /* Brandon Text W01 Medium.ttf in Resources */,
 				5A9D0EE31D119E8700037589 /* Login.storyboard in Resources */,
 				5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */,
 				5A9D0EE51D11B33700037589 /* Conversations.storyboard in Resources */,

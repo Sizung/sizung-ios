@@ -16,16 +16,26 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.file` struct is generated, and contains static references to 4 files.
+  /// This `R.file` struct is generated, and contains static references to 6 files.
   struct file {
+    /// Resource file `Brandon Text W01 Medium.ttf`.
+    static let brandonTextW01MediumTtf = FileResource(bundle: _R.hostingBundle, name: "Brandon Text W01 Medium", pathExtension: "ttf")
     /// Resource file `Brandon_bld.otf`.
     static let brandon_bldOtf = FileResource(bundle: _R.hostingBundle, name: "Brandon_bld", pathExtension: "otf")
     /// Resource file `Brandon_med.otf`.
     static let brandon_medOtf = FileResource(bundle: _R.hostingBundle, name: "Brandon_med", pathExtension: "otf")
     /// Resource file `Configurations.plist`.
     static let configurationsPlist = FileResource(bundle: _R.hostingBundle, name: "Configurations", pathExtension: "plist")
+    /// Resource file `Gotham-Light.otf`.
+    static let gothamLightOtf = FileResource(bundle: _R.hostingBundle, name: "Gotham-Light", pathExtension: "otf")
     /// Resource file `Settings.bundle`.
     static let settingsBundle = FileResource(bundle: _R.hostingBundle, name: "Settings", pathExtension: "bundle")
+    
+    /// `bundle.URLForResource("Brandon Text W01 Medium", withExtension: "ttf")`
+    static func brandonTextW01MediumTtf(_: Void) -> NSURL? {
+      let fileResource = R.file.brandonTextW01MediumTtf
+      return fileResource.bundle.URLForResource(fileResource)
+    }
     
     /// `bundle.URLForResource("Brandon_bld", withExtension: "otf")`
     static func brandon_bldOtf(_: Void) -> NSURL? {
@@ -45,6 +55,12 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.URLForResource(fileResource)
     }
     
+    /// `bundle.URLForResource("Gotham-Light", withExtension: "otf")`
+    static func gothamLightOtf(_: Void) -> NSURL? {
+      let fileResource = R.file.gothamLightOtf
+      return fileResource.bundle.URLForResource(fileResource)
+    }
+    
     /// `bundle.URLForResource("Settings", withExtension: "bundle")`
     static func settingsBundle(_: Void) -> NSURL? {
       let fileResource = R.file.settingsBundle
@@ -54,12 +70,16 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.font` struct is generated, and contains static references to 2 fonts.
+  /// This `R.font` struct is generated, and contains static references to 4 fonts.
   struct font {
     /// Font `BrandonGrotesque-Bold`.
     static let brandonGrotesqueBold = FontResource(fontName: "BrandonGrotesque-Bold")
     /// Font `BrandonGrotesque-Medium`.
     static let brandonGrotesqueMedium = FontResource(fontName: "BrandonGrotesque-Medium")
+    /// Font `BrandonTextW01-Medium`.
+    static let brandonTextW01Medium = FontResource(fontName: "BrandonTextW01-Medium")
+    /// Font `Gotham-Light`.
+    static let gothamLight = FontResource(fontName: "Gotham-Light")
     
     /// `UIFont(name: "BrandonGrotesque-Bold", size: ...)`
     static func brandonGrotesqueBold(size size: CGFloat) -> UIFont? {
@@ -69,6 +89,16 @@ struct R: Rswift.Validatable {
     /// `UIFont(name: "BrandonGrotesque-Medium", size: ...)`
     static func brandonGrotesqueMedium(size size: CGFloat) -> UIFont? {
       return UIFont(resource: brandonGrotesqueMedium, size: size)
+    }
+    
+    /// `UIFont(name: "BrandonTextW01-Medium", size: ...)`
+    static func brandonTextW01Medium(size size: CGFloat) -> UIFont? {
+      return UIFont(resource: brandonTextW01Medium, size: size)
+    }
+    
+    /// `UIFont(name: "Gotham-Light", size: ...)`
+    static func gothamLight(size size: CGFloat) -> UIFont? {
+      return UIFont(resource: gothamLight, size: size)
     }
     
     private init() {}
@@ -421,6 +451,7 @@ struct _R: Rswift.Validatable {
     static func validate() throws {
       try conversations.validate()
       try main.validate()
+      try organizations.validate()
     }
     
     struct agendaItem: StoryboardResourceWithInitialControllerType {
@@ -539,11 +570,15 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
-    struct organizations: StoryboardResourceWithInitialControllerType {
+    struct organizations: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = UIViewController
       
       let bundle = _R.hostingBundle
       let name = "Organizations"
+      
+      static func validate() throws {
+        if UIImage(named: "IconAgendaItem") == nil { throw ValidationError(description: "[R.swift] Image named 'IconAgendaItem' is used in storyboard 'Organizations', but couldn't be loaded.") }
+      }
       
       private init() {}
     }

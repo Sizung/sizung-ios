@@ -36,7 +36,8 @@ class OrganizationsTableViewController: UITableViewController {
     storageManager.organizations.bindTo(self.tableView) { indexPath, organizations, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
       let organization = organizations[indexPath.row]
-      cell.textLabel!.text = organization.name
+      cell.textLabel?.text = organization.name
+      cell.imageView?.alpha = arc4random_uniform(2) == 0 ? 1:0
       return cell
     }
   }
