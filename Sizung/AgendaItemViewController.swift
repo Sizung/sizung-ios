@@ -1,28 +1,28 @@
 //
-//  DeliverableViewController.swift
+//  AgendaItemViewController.swift
 //  Sizung
 //
-//  Created by Markus Klepp on 14/06/16.
+//  Created by Markus Klepp on 15/06/16.
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
 import UIKit
 
-class DeliverableViewController: UIViewController {
+class AgendaItemViewController: UIViewController {
   
   @IBOutlet weak var titleBarButtonItem: UIBarButtonItem!
   @IBOutlet weak var statusButton: UIButton!
   @IBOutlet weak var backButton: UIButton!
   
-  var deliverable: Deliverable?
+  var agendaItem: AgendaItem?
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    titleBarButtonItem.title = deliverable?.title
-    if let conversation = StorageManager.sharedInstance.getConversation(deliverable!.conversation.id) {
+    titleBarButtonItem.title = agendaItem?.title
+    if let conversation = StorageManager.sharedInstance.getConversation(agendaItem!.conversation.id) {
       backButton.setTitle(conversation.title, forState: .Normal)
     }
-    statusButton.setTitle(deliverable?.status, forState: .Normal)
+    statusButton.setTitle(agendaItem?.status, forState: .Normal)
   }
   
   @IBAction func close(sender: AnyObject) {
@@ -36,8 +36,8 @@ class DeliverableViewController: UIViewController {
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
     if let timelineTableViewController = segue.destinationViewController as? TimelineTableViewController {
-      timelineTableViewController.conversation = deliverable?.conversation
-      timelineTableViewController.timelineParent = deliverable
+      timelineTableViewController.conversation = agendaItem?.conversation
+      timelineTableViewController.timelineParent = agendaItem
     }
   }
 }

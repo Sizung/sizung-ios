@@ -10,6 +10,7 @@ import ObjectMapper
 
 class BaseModel: Mappable, Equatable, Hashable {
   
+  // a UUID String
   var id: String!
   var type: String!
   var created_at: NSDate?

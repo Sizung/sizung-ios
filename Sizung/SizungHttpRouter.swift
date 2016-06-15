@@ -82,7 +82,7 @@ enum SizungHttpRouter: URLRequestConvertible {
     case .Comments(let comment):
       
       // TODO: workaround for incorrect type
-      let commentableType = String(comment.commentable.type.capitalizedString.characters.dropLast())
+      let commentableType = String(comment.commentable.type.capitalizedString.characters.dropLast()).stringByReplacingOccurrencesOfString("_", withString: "")
       return [
         "comment": [
           "commentable_id": comment.commentable.id,

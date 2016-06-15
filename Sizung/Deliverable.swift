@@ -16,7 +16,20 @@ class Deliverable: BaseModel {
   
   var owner: User!
   var assignee: User!
-  var conversation: Conversation!
+  var parent: BaseModel!
+  
+  var conversation: Conversation {
+    get {
+      switch parent {
+      case let conversation as Conversation:
+        return conversation
+      case let agendaItem as AgendaItem:
+        return StorageManager.sharedInstance.getAgendaItem(agendaItem.id)!.conversation
+      default:
+        fatalError("unkown parent object in Deliverable \(self.id)")
+      }
+    }
+  }
   
   override func mapping(map: Map) {
     super.mapping(map)
@@ -26,6 +39,6 @@ class Deliverable: BaseModel {
     archived <- map["attributes.archived"]
     owner <- map["relationships.owner.data"]
     assignee <- map["relationships.assignee.data"]
-    conversation <- map["relationships.parent.data"]
+    parent <- map["relationships.parent.data"]
   }
 }
