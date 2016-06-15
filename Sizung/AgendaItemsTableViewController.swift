@@ -8,10 +8,14 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import ReactiveKit
 
 class AgendaItemsTableViewController: UITableViewController {
   
   var conversation: Conversation?
+  
+  let filteredCollection: CollectionProperty <[AgendaItem]> = CollectionProperty([])
+  let sortedAndFilteredCollection: CollectionProperty <[AgendaItem]> = CollectionProperty([])
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,13 +37,22 @@ class AgendaItemsTableViewController: UITableViewController {
       }
       }.disposeIn(rBag)
     
-    storageManager.agendaItems.filter { agendaItem in
-      if let conversationId = self.conversation?.id {
-        return agendaItem.conversation.id == conversationId
-      } else {
-        return true
-      }
-    }.bindTo(self.tableView) { indexPath, agendaItems, tableView in
+    storageManager.agendaItems
+      .filter({ agendaItem in
+        if let conversationId = self.conversation?.id {
+          return agendaItem.conversation.id == conversationId
+        } else {
+          return true
+        }
+      }).bindTo(filteredCollection)
+    
+    //    sort by created at date
+    filteredCollection
+      .sort({ left, right in
+        return left.created_at.compare(right.created_at) == NSComparisonResult.OrderedDescending
+      }).bindTo(sortedAndFilteredCollection)
+    
+    sortedAndFilteredCollection.bindTo(self.tableView) { indexPath, agendaItems, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier("AgendaItemTableViewCell", forIndexPath: indexPath) as! AgendaItemTableViewCell
       let agendaItem = agendaItems[indexPath.row]
       cell.titleLabel.text = agendaItem.title
@@ -67,21 +80,13 @@ class AgendaItemsTableViewController: UITableViewController {
     }
   }
   
-  // MARK: - Navigation
-  
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "showTimeline" {
-      let timelineTableViewController = segue.destinationViewController as! TimelineTableViewController
-      
-      // Get the cell that generated this segue.
-      if let selectedCell = sender as? SizungTableViewCell {
-        let indexPath = tableView.indexPathForCell(selectedCell)!
-        let selectedConversation = StorageManager.sharedInstance.conversations[indexPath.row]
-        timelineTableViewController.conversation = selectedConversation
-        timelineTableViewController.navigationItem.title = selectedConversation.title
-      }
-    }
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
+    let selectedAgendaItem = sortedAndFilteredCollection[indexPath.row]
+    
+    let agendaItemViewController = UIStoryboard(name: "AgendaItem", bundle: nil).instantiateInitialViewController() as! AgendaItemViewController
+    agendaItemViewController.agendaItem = selectedAgendaItem
+    
+    self.showViewController(agendaItemViewController, sender: self)
   }
-
 }
