@@ -22,14 +22,16 @@ extension CollectionPropertyType where Collection == Array<Member>, Member : Equ
     let newElements = newSet.subtract(currentSet)
     let updatedElements = newSet.intersect(currentSet)
     
-    let updatedCollection = self.collection + newElements
+    var updatedCollection = self.collection + newElements
     
     for newElement in newElements {
       inserts.append(updatedCollection.indexOf(newElement)!)
     }
     
     for updatedElement in updatedElements {
-      updates.append(collection.indexOf(updatedElement)!)
+      let index = collection.indexOf(updatedElement)!
+      updatedCollection[index] = updatedElement
+      updates.append(index)
     }
     
     update(CollectionChangeset(collection: updatedCollection, inserts: inserts, deletes: [], updates: updates))
