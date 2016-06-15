@@ -15,6 +15,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
   @IBOutlet weak var segmentedControl: SizungSegmentedControl!
   
   var mainPageViewController: MainPageViewController!
+  var organizationsViewController: UIViewController?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -37,6 +38,15 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     let selectedIndex = sender.selectedIndex
     
     self.mainPageViewController.setSelectedIndex(selectedIndex)
+  }
+  
+  @IBAction func showOrganizations(sender: AnyObject) {
+    organizationsViewController = R.storyboard.organizations.initialViewController()
+    self.showViewController(organizationsViewController!, sender: self)
+  }
+  
+  @IBAction func hideOrganizations(sender: AnyObject) {
+    organizationsViewController?.dismissViewControllerAnimated(true, completion: nil)
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

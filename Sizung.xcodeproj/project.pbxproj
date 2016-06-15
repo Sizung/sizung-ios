@@ -468,14 +468,14 @@
 			isa = PBXGroup;
 			children = (
 				5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */,
+				5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */,
 				5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */,
 				5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */,
-				5ADC883D1D109E3F00596D67 /* TableViews */,
 				5AB781401CFD79D00024DFE9 /* AccountViewController.swift */,
-				5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */,
 				5A9EDEB31D0070C500D389EC /* ConversationViewController.swift */,
 				5ADC883E1D109FD500596D67 /* DeliverableViewController.swift */,
 				5AECC1D51D115C8700AD8ACE /* AgendaItemViewController.swift */,
+				5ADC883D1D109E3F00596D67 /* TableViews */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

@@ -400,7 +400,11 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlN-d3-XTg">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem id="Oa9-zB-dmH"/>
+                                    <barButtonItem id="Oa9-zB-dmH">
+                                        <connections>
+                                            <action selector="showOrganizations:" destination="jC2-I1-SwL" id="JdK-ZH-QfS"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem systemItem="flexibleSpace" id="ToR-fs-Uth"/>
                                     <barButtonItem systemItem="add" id="i2Y-nf-1CQ"/>
                                     <barButtonItem systemItem="compose" id="n7g-UT-p1p">
