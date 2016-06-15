@@ -51,7 +51,7 @@ import UIKit
     }
   }
   
-  @IBInspectable var font : UIFont! = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleHeadline) {
+  @IBInspectable var font : UIFont! = R.font.brandonGrotesqueMedium(size: 13) {
     didSet {
       setFont()
     }
@@ -97,7 +97,7 @@ import UIKit
       label.text = items[index - 1]
       label.backgroundColor = UIColor.clearColor()
       label.textAlignment = .Center
-      label.font = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleHeadline)
+      label.font = self.font
       label.adjustsFontSizeToFitWidth = true
       label.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
       label.translatesAutoresizingMaskIntoConstraints = false

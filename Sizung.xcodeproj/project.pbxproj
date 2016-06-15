@@ -13,7 +13,6 @@
 		5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */; };
 		5A39F26A1CE47D6D003E20CE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */; };
 		5A3FC58F1D11385B0084FF2F /* Deliverable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A3FC58E1D11385B0084FF2F /* Deliverable.storyboard */; };
-		5A42707D1D094A1900B294DF /* UICustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A42707C1D094A1900B294DF /* UICustomFont.swift */; };
 		5A42707F1D095A7000B294DF /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A42707E1D095A7000B294DF /* Settings.bundle */; };
 		5A504B071CEF0FDC001BEFA3 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */; };
 		5A504B141CEF2413001BEFA3 /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A504B131CEF2413001BEFA3 /* AuthToken.swift */; };
@@ -122,7 +121,6 @@
 		5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompletionTableCell.swift; sourceTree = "<group>"; };
 		5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoCompletionTableCell.xib; sourceTree = "<group>"; };
 		5A3FC58E1D11385B0084FF2F /* Deliverable.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Deliverable.storyboard; sourceTree = "<group>"; };
-		5A42707C1D094A1900B294DF /* UICustomFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomFont.swift; sourceTree = "<group>"; };
 		5A42707E1D095A7000B294DF /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		5A504B131CEF2413001BEFA3 /* AuthToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthToken.swift; sourceTree = "<group>"; };
@@ -165,6 +163,7 @@
 		5A9D0EEB1D11BCAB00037589 /* StreamTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamTableViewCell.xib; sourceTree = "<group>"; };
 		5A9D0EEE1D11FEC200037589 /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gotham-Light.otf"; path = "../../../../Library/Containers/com.apple.mail/Data/Library/Mail Downloads/E66CA0ED-A832-412A-813D-70C960EC3BFF/Sizung iOS_Folder/Fonts/Gotham-Light.otf"; sourceTree = "<group>"; };
 		5A9D0EF01D11FECF00037589 /* Brandon Text W01 Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Brandon Text W01 Medium.ttf"; path = "../../../../Library/Containers/com.apple.mail/Data/Library/Mail Downloads/E66CA0ED-A832-412A-813D-70C960EC3BFF/Sizung iOS_Folder/Fonts/Brandon Text W01 Medium.ttf"; sourceTree = "<group>"; };
+		5A9D0EF21D12066E00037589 /* Brandon_reg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_reg.otf; sourceTree = "<group>"; };
 		5A9EDEAF1D00232100D389EC /* UserResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		5A9EDEB31D0070C500D389EC /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		5A9EDEB51D01621200D389EC /* ConversationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationResponse.swift; sourceTree = "<group>"; };
@@ -367,6 +366,7 @@
 		5A7329F41D05B1F2006531A5 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				5A9D0EF21D12066E00037589 /* Brandon_reg.otf */,
 				5A9D0EF01D11FECF00037589 /* Brandon Text W01 Medium.ttf */,
 				5A9D0EEE1D11FEC200037589 /* Gotham-Light.otf */,
 				5A7329F61D05B1FC006531A5 /* Brandon_bld.otf */,
@@ -403,7 +403,6 @@
 				5A86B12F1CE5D025001C2E7A /* network */,
 				5A86B1321CE5E2FC001C2E7A /* Sizung-Bridging-Header.h */,
 				5A9EDEBB1D01CEB900D389EC /* Color.swift */,
-				5A42707C1D094A1900B294DF /* UICustomFont.swift */,
 				5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */,
 				5ABACCDF1D0AA82F0093CF21 /* ISODateTransform.swift */,
 				5ADC88351D105C4E00596D67 /* ISODateTimeTransform.swift */,
@@ -879,7 +878,6 @@
 				5AB781411CFD79D00024DFE9 /* AccountViewController.swift in Sources */,
 				5A9EDEBC1D01CEB900D389EC /* Color.swift in Sources */,
 				5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */,
-				5A42707D1D094A1900B294DF /* UICustomFont.swift in Sources */,
 				5ABA4FBB1CFEBE3500110030 /* OrganizationResponse.swift in Sources */,
 				5A7329F01D05877D006531A5 /* CardView.swift in Sources */,
 				5AD9F1B91CE9D3D700455D98 /* ConversationMember.swift in Sources */,

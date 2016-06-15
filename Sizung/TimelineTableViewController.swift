@@ -432,11 +432,6 @@ extension TimelineTableViewController {
         paragraphStyle.lineBreakMode = .ByWordWrapping
         paragraphStyle.alignment = .Left
         
-        let attributes = [
-          NSFontAttributeName : UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody),
-          NSParagraphStyleAttributeName : paragraphStyle
-        ]
-        
         var width = CGRectGetWidth(tableView.frame)-50
         width -= 25.0
         
@@ -446,7 +441,7 @@ extension TimelineTableViewController {
         
         //      let titleBounds = (author.name).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
         let bodyBounds = textParser.parseMarkdown(comment.body).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, context: nil)
-        let datetimeBounds = "singleline".boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
+        let datetimeBounds = textParser.parseMarkdown("singleline").boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, context: nil)
         
         if comment.body!.characters.count == 0 {
           return 0
