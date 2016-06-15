@@ -25,6 +25,7 @@ class AccountViewController: UIViewController {
   @IBAction func logoutClicked(sender: AnyObject) {
     KeychainWrapper.removeObjectForKey(Configuration.Settings.AUTH_TOKEN)
     KeychainWrapper.removeObjectForKey(Configuration.Settings.SELECTED_ORGANIZATION)
+    StorageManager.sharedInstance.reset()
     
     NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
   }
