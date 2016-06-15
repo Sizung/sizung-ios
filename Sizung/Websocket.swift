@@ -106,7 +106,8 @@ class Websocket {
   
   func unfollowConversation(id: String){
     guard client.connected else {
-      fatalError("Websocket client not connected")
+      print("Websocket client not connected")
+      return
     }
     
     guard conversationChannel != nil && conversationChannel!.subscribed else {
