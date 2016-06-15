@@ -23,7 +23,7 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
   
   let textParser: SizungMarkdownParser = SizungMarkdownParser()
   
-  let filteredCollection: CollectionProperty <[BaseModel]> = CollectionProperty([])
+  let collection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   let sortedCollection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   
   //  var mentions: [(Range<String.Index>, User)] = []
@@ -49,9 +49,18 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
     self.initData()
   }
   
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    // to prevent missing items first connect to websocket, than fetch current state
+    StorageManager.sharedInstance.websocket!.conversationWebsocketDelegate = self
+    StorageManager.sharedInstance.websocket!.followConversation(self.conversation.id)
+  }
+  
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
-    StorageManager.sharedInstance.websocket?.disconnectFromConversation(self.conversation.id)
+    
+    StorageManager.sharedInstance.websocket!.unfollowConversation(self.conversation.id)
   }
   
   override var tableView: UITableView {
@@ -71,7 +80,36 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
   }
   
   func initData(){
-    StorageManager.sharedInstance.conversationObjects
+    //    sort by date
+    collection
+      .sort({ $0.created_at!.compare($1.created_at!) == NSComparisonResult.OrderedDescending })
+      .bindTo(sortedCollection)
+    
+    sortedCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
+      if tableView == self.tableView {
+        return self.messageCellForRowAtIndexPath(indexPath)
+      }
+      else {
+        return self.autoCompletionCellForRowAtIndexPath(indexPath)
+      }
+    }
+  }
+  
+  func onFollowSuccess(id: String) {
+    print("Following conversation \(id)")
+    self.updateData()
+  }
+  
+  func onReceived(conversationObject: BaseModel) {
+    addItemToCollection(conversationObject)
+  }
+  
+  func addItemToCollection(item: BaseModel) {
+    addItemsToCollection([item])
+  }
+  
+  func addItemsToCollection(items: [BaseModel]) {
+    let filteredItems = items
       .filter({ conversationObject in
         switch conversationObject{
         case let comment as Comment:
@@ -84,34 +122,8 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
           return false
         }
       })
-      .bindTo(filteredCollection)
-    //    sort by date
-    filteredCollection
-      .sort({ $0.created_at!.compare($1.created_at!) == NSComparisonResult.OrderedDescending })
-      .bindTo(sortedCollection)
     
-    sortedCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
-      if tableView == self.tableView {
-        return self.messageCellForRowAtIndexPath(indexPath)
-      }
-      else {
-        return self.autoCompletionCellForRowAtIndexPath(indexPath)
-      }
-    }
-    
-    // to prevent missing items first connect to websocket, than fetch current state
-    let websocket = StorageManager.sharedInstance.websocket!
-    websocket.client.onChannelSubscribed = { channel in
-      StorageManager.sharedInstance.updateConversationObjects(self.conversation.id)
-    }
-    
-    websocket.conversationWebsocketDelegate = self
-    
-    StorageManager.sharedInstance.websocket?.connectToConversation(self.conversation.id)
-  }
-  
-  func onReceived(comment: Comment) {
-    StorageManager.sharedInstance.conversationObjects.insertOrUpdate([comment])
+    collection.insertOrUpdate(filteredItems)
   }
   
   func didLongPressCell(gesture: UIGestureRecognizer) {
@@ -167,13 +179,18 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
     //
     //    mentions = []
     
-    let comment = Comment(author: user, body: fulltext, commentable: self.conversation)
+    let comment = Comment(author: user, body: fulltext, commentable: self.timelineParent)
     //    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
     //    let rowAnimation: UITableViewRowAnimation = self.inverted ? .Bottom : .Top
     //    let scrollPosition: UITableViewScrollPosition = self.inverted ? .Bottom : .Top
     
-    // push it to server
+    // push it to server. Ignore result -> will be pushed over websocket connection
     StorageManager.sharedInstance.createComment(comment)
+      .onSuccess { comment in
+        print("Comment successfully created")
+      } .onFailure { error in
+        print("Comment creation failed: \(error)")
+    }
     //
     //    self.tableView.beginUpdates()
     //    StorageManager.sharedInstance.conversationObjects.insert(comment, atIndex: 0)
@@ -261,7 +278,10 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
   }
   
   func updateData(){
-    StorageManager.sharedInstance.updateConversationObjects(self.conversation.id)
+    StorageManager.sharedInstance.updateConversationObjects(self.timelineParent)
+      .onSuccess { conversationObjects in
+        self.addItemsToCollection(conversationObjects)
+    }
   }
   
   
@@ -284,7 +304,7 @@ extension TimelineTableViewController {
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
     if tableView == self.tableView {
-      return StorageManager.sharedInstance.conversationObjects.count
+      return sortedCollection.count
     }
     else {
       if let searchResult = self.searchResult {
@@ -333,15 +353,15 @@ extension TimelineTableViewController {
     cell.dueDateLabel.text = deliverable.due_on?.timeAgoSinceNow()
     cell.dateLabel.text = deliverable.created_at?.timeAgoSinceNow()
     
-    let author = StorageManager.sharedInstance.getUser(deliverable.owner.id)!
+    if let author = StorageManager.sharedInstance.getUser(deliverable.owner.id) {
+      let authorGravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
+      cell.configureAuthorImageWithURLString(authorGravatar.URL(size: cell.bounds.width).URLString)
+    }
     
-    let authorGravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
-    cell.configureAuthorImageWithURLString(authorGravatar.URL(size: cell.bounds.width).URLString)
-    
-    let assignee = StorageManager.sharedInstance.getUser(deliverable.assignee.id)!
-    
-    let assigneeGravatar = Gravatar(emailAddress: assignee.email, defaultImage: .Identicon)
-    cell.configureAssigneeImageWithURLString(assigneeGravatar.URL(size: cell.bounds.width).URLString)
+    if let assignee = StorageManager.sharedInstance.getUser(deliverable.assignee.id) {
+      let assigneeGravatar = Gravatar(emailAddress: assignee.email, defaultImage: .Identicon)
+      cell.configureAssigneeImageWithURLString(assigneeGravatar.URL(size: cell.bounds.width).URLString)
+    }
     
     return cell
   }
@@ -352,10 +372,11 @@ extension TimelineTableViewController {
     cell.titleLabel.text = agendaItem.title
     cell.dateLabel.text = agendaItem.created_at?.timeAgoSinceNow()
     
-    let author = StorageManager.sharedInstance.getUser(agendaItem.owner.id)!
-    
-    let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
-    cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+    if let author = StorageManager.sharedInstance.getUser(agendaItem.owner.id) {
+      
+      let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
+      cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+    }
     
     return cell
   }
@@ -367,10 +388,10 @@ extension TimelineTableViewController {
     cell.bodyLabel.textColor = (comment.offline ? UIColor.grayColor() : UIColor.blackColor())
     cell.datetimeLabel.text = comment.created_at?.timeAgoSinceNow()
     
-    let author = StorageManager.sharedInstance.getUser(comment.author.id)!
-    
-    let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
-    cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+    if let author = StorageManager.sharedInstance.getUser(comment.author.id) {
+      let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
+      cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+    }
     
     //    if cell.gestureRecognizers?.count == nil {
     //      let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))

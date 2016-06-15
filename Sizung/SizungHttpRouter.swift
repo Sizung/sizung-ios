@@ -17,7 +17,7 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Organizations()
   case Organization(id: String)
   case Conversation(id: String)
-  case ConversationObjects(id: String)
+  case ConversationObjects(parent: BaseModel)
   case Comments(comment: Comment)
   
   
@@ -44,8 +44,14 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/organizations/\(id)"
     case .Conversation(let id):
       return "/conversations/\(id)"
-    case .ConversationObjects(let id):
-      return "/conversations/\(id)/conversation_objects"
+    case .ConversationObjects(let conversation as Sizung.Conversation):
+      return "/conversations/\(conversation.id)/conversation_objects"
+    case .ConversationObjects(let agendaItem as AgendaItem):
+      return "/agenda_items/\(agendaItem.id)/conversation_objects"
+    case .ConversationObjects(let deliverable as Deliverable):
+      return "/deliverables/\(deliverable.id)/conversation_objects"
+    case .ConversationObjects:
+      fatalError("unkown router call to .ConversationObjects")
     case .Comments:
       return "/comments"
     }
@@ -102,7 +108,7 @@ enum SizungHttpRouter: URLRequestConvertible {
     
     switch self {
     case .Login,
-      .Comments:
+         .Comments:
       return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: self.jsonParameters).0
     default:
       return mutableURLRequest

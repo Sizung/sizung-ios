@@ -9,6 +9,7 @@
 import Alamofire
 import ObjectMapper
 import ReactiveKit
+import BrightFutures
 
 class StorageManager {
   //  singleton
@@ -22,7 +23,6 @@ class StorageManager {
   let conversations: CollectionProperty <[Conversation]> = CollectionProperty([])
   let agendaItems: CollectionProperty <[AgendaItem]> = CollectionProperty([])
   let deliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
-  let conversationObjects: CollectionProperty <[BaseModel]> = CollectionProperty([])
   
   let organizationUsers: CollectionProperty <[User]> = CollectionProperty([])
   
@@ -35,6 +35,7 @@ class StorageManager {
     conversations.removeAll()
     agendaItems.removeAll()
     deliverables.removeAll()
+    organizationUsers.removeAll()
   }
   
   func getOrganization(id: String) -> Organization? {
@@ -148,42 +149,55 @@ class StorageManager {
     }
   }
   
-  func updateConversationObjects(conversationId: String) {
+  // conversationObjects are handled per entity
+  func updateConversationObjects(parent: BaseModel) -> Future<[BaseModel], NSError>  {
+    
+    let promise = Promise<[BaseModel], NSError>()
+    
     self.isLoading.value = true
-    Alamofire.request(SizungHttpRouter.ConversationObjects(id: conversationId))
+    Alamofire.request(SizungHttpRouter.ConversationObjects(parent: parent))
       .validate()
       .responseJSON { response in
         switch response.result {
         case .Success(let JSON):
           if let conversationObjectsResponse = Mapper<ConversationObjectsResponse>().map(JSON) {
-            self.conversationObjects.insertOrUpdate(conversationObjectsResponse.conversationObjects)
+            promise.success(conversationObjectsResponse.conversationObjects)
           }
         case .Failure
           where response.response?.statusCode == 401:
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          promise.failure(response.result.error!)
         default:
           print("error \(response.result)")
+          promise.failure(response.result.error!)
         }
         self.isLoading.value = false
         self.isInitialized = true
     }
+    
+    
+    return promise.future
   }
   
-  func createComment(comment: Comment){
+  func createComment(comment: Comment) -> Future<Comment, NSError> {
+    let promise = Promise<Comment, NSError>()
     Alamofire.request(SizungHttpRouter.Comments(comment: comment))
       .validate()
       .responseJSON { response in
         switch response.result {
         case .Success(let JSON):
           if let commentResponse = Mapper<CommentResponse>().map(JSON) {
-            self.conversationObjects.insertOrUpdate([commentResponse.comment])
+            promise.success(commentResponse.comment)
           }
         case .Failure
           where response.response?.statusCode == 401:
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          promise.failure(response.result.error!)
         default:
           print("error \(response.result)")
+          promise.failure(response.result.error!)
         }
     }
+    return promise.future
   }
 }
