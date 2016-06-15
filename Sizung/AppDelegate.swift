@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   func initTheme(){
     UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
 //    
-//    UIToolbar.appearance().tintColor = UIColor.whiteColor()
+    UIToolbar.appearance().tintColor = UIColor.whiteColor()
     
 //    let headerFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleHeadline)
 //    let bodyFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody)
@@ -76,16 +76,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   func loadInitialViewController() {
     
     guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
-      let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsViewController")
-      organizationViewController.modalPresentationStyle = .OverCurrentContext
-      organizationViewController.modalTransitionStyle = .CoverVertical
+      let organizationViewController = R.storyboard.organizations.initialViewController()!
       self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
       return
     }
   }
   
   func showLogin(){
-    let loginViewController = LoginViewController(nibName: "Login", bundle: nil)
+    let loginViewController = R.storyboard.login.initialViewController()!
     loginViewController.loginDelegate = self
     loginViewController.modalPresentationStyle = .OverCurrentContext
     loginViewController.modalTransitionStyle = .CoverVertical
@@ -95,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   
   func loginSuccess(loginViewController: LoginViewController) {
     loginViewController.dismissViewControllerAnimated(true, completion: nil)
-    self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+    self.window?.rootViewController = R.storyboard.main.initialViewController()
     self.loadInitialViewController()
   }
   

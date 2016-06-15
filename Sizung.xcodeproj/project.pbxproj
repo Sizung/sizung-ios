@@ -38,6 +38,9 @@
 		5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B13A1CE60634001C2E7A /* Organization.swift */; };
 		5A8F79071CFF0E6B00953495 /* AgendaItemsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F79061CFF0E6B00953495 /* AgendaItemsResponse.swift */; };
 		5A8F79091CFF14BF00953495 /* DeliverablesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F79081CFF14BF00953495 /* DeliverablesResponse.swift */; };
+		5A9D0EDC1D11998D00037589 /* Organizations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EDB1D11998D00037589 /* Organizations.storyboard */; };
+		5A9D0EE11D119DD000037589 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D0EE01D119DD000037589 /* R.generated.swift */; };
+		5A9D0EE31D119E8700037589 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EE21D119E8700037589 /* Login.storyboard */; };
 		5A9EDEB01D00232100D389EC /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEAF1D00232100D389EC /* UserResponse.swift */; };
 		5A9EDEB41D0070C500D389EC /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEB31D0070C500D389EC /* ConversationViewController.swift */; };
 		5A9EDEB61D01621200D389EC /* ConversationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEB51D01621200D389EC /* ConversationResponse.swift */; };
@@ -63,7 +66,6 @@
 		5AC0E5E41CF0628200BBEF45 /* ConversationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0E5E31CF0628200BBEF45 /* ConversationsTableViewController.swift */; };
 		5AC0E5E61CF2F5C200BBEF45 /* TimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */; };
 		5AC0E5E81CF33C8300BBEF45 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0E5E71CF33C8300BBEF45 /* Comment.swift */; };
-		5AC85CA21CFC55720028B560 /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AC85CA11CFC55720028B560 /* Login.xib */; };
 		5AD9F1B31CE9C09200455D98 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1B21CE9C09200455D98 /* Conversation.swift */; };
 		5AD9F1B51CE9D03000455D98 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1B41CE9D03000455D98 /* User.swift */; };
 		5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1B61CE9D0A100455D98 /* OrganzationMember.swift */; };
@@ -146,6 +148,9 @@
 		5A86B13A1CE60634001C2E7A /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		5A8F79061CFF0E6B00953495 /* AgendaItemsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemsResponse.swift; sourceTree = "<group>"; };
 		5A8F79081CFF14BF00953495 /* DeliverablesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverablesResponse.swift; sourceTree = "<group>"; };
+		5A9D0EDB1D11998D00037589 /* Organizations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Organizations.storyboard; sourceTree = "<group>"; };
+		5A9D0EE01D119DD000037589 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		5A9D0EE21D119E8700037589 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		5A9EDEAF1D00232100D389EC /* UserResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		5A9EDEB31D0070C500D389EC /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		5A9EDEB51D01621200D389EC /* ConversationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationResponse.swift; sourceTree = "<group>"; };
@@ -172,7 +177,6 @@
 		5AC0E5E31CF0628200BBEF45 /* ConversationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsTableViewController.swift; sourceTree = "<group>"; };
 		5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineTableViewController.swift; sourceTree = "<group>"; };
 		5AC0E5E71CF33C8300BBEF45 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		5AC85CA11CFC55720028B560 /* Login.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Login.xib; sourceTree = "<group>"; };
 		5AD9F1B21CE9C09200455D98 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		5AD9F1B41CE9D03000455D98 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5AD9F1B61CE9D0A100455D98 /* OrganzationMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganzationMember.swift; sourceTree = "<group>"; };
@@ -305,6 +309,7 @@
 				5A86B1391CE60520001C2E7A /* Models */,
 				5A86B12A1CE4BBF3001C2E7A /* Support */,
 				5A653E8E1CD7A96000FB3DEB /* AppDelegate.swift */,
+				5A9D0EE01D119DD000037589 /* R.generated.swift */,
 				5AC85CA01CFC553C0028B560 /* UI */,
 				5A653E991CD7A96000FB3DEB /* LaunchScreen.storyboard */,
 				5A653E9C1CD7A96000FB3DEB /* Info.plist */,
@@ -479,7 +484,8 @@
 			isa = PBXGroup;
 			children = (
 				5A653E941CD7A96000FB3DEB /* Main.storyboard */,
-				5AC85CA11CFC55720028B560 /* Login.xib */,
+				5A9D0EE21D119E8700037589 /* Login.storyboard */,
+				5A9D0EDB1D11998D00037589 /* Organizations.storyboard */,
 				5A3FC58E1D11385B0084FF2F /* Deliverable.storyboard */,
 				5AECC1D71D115CBD00AD8ACE /* AgendaItem.storyboard */,
 			);
@@ -526,6 +532,7 @@
 			buildConfigurationList = 5A653EB51CD7A96000FB3DEB /* Build configuration list for PBXNativeTarget "Sizung" */;
 			buildPhases = (
 				E105DE57700466360BCC015A /* 📦 Check Pods Manifest.lock */,
+				5A9D0EDD1D119A3100037589 /* ShellScript */,
 				5A653E871CD7A96000FB3DEB /* Sources */,
 				5A653E881CD7A96000FB3DEB /* Frameworks */,
 				5A653E891CD7A96000FB3DEB /* Resources */,
@@ -644,9 +651,10 @@
 				5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */,
 				5A7329F91D05B1FC006531A5 /* Brandon_bld.otf in Resources */,
 				5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */,
+				5A9D0EDC1D11998D00037589 /* Organizations.storyboard in Resources */,
+				5A9D0EE31D119E8700037589 /* Login.storyboard in Resources */,
 				5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */,
 				5ADC882F1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib in Resources */,
-				5AC85CA21CFC55720028B560 /* Login.xib in Resources */,
 				5AE8839E1D09A56C0044364B /* CommentTableViewCell.xib in Resources */,
 				5A3FC58F1D11385B0084FF2F /* Deliverable.storyboard in Resources */,
 				5A7329FA1D05B1FC006531A5 /* Brandon_med.otf in Resources */,
@@ -716,6 +724,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		5A9D0EDD1D119A3100037589 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" \"$SRCROOT\"";
 		};
 		5AB7813F1CFD76C60024DFE9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -823,6 +844,7 @@
 				5A8F79071CFF0E6B00953495 /* AgendaItemsResponse.swift in Sources */,
 				5AE0CCA11D0AEF3900690C72 /* CommentResponse.swift in Sources */,
 				5A9EDEB61D01621200D389EC /* ConversationResponse.swift in Sources */,
+				5A9D0EE11D119DD000037589 /* R.generated.swift in Sources */,
 				5A9EDEB41D0070C500D389EC /* ConversationViewController.swift in Sources */,
 				5ADC882B1D0F57D400596D67 /* WebsocketResponse.swift in Sources */,
 				5A9EDEB01D00232100D389EC /* UserResponse.swift in Sources */,

@@ -19,6 +19,8 @@ target 'Sizung' do
   pod 'DateTools', '~> 1.0'
   pod 'ActionCableClient', '~> 0.1'
 
+  pod 'R.swift', '~> 2.3'
+
   pod 'Fabric', '~> 1.6'
   pod 'Crashlytics', '~> 3.7'
 
