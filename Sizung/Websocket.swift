@@ -24,6 +24,9 @@ class Websocket {
   var userChannel: Channel?
   var organizationChannel: Channel?
   
+  // Set containing all channelIDs the socket should follow after socket connect
+  var willFollowConversationChannels: Set<String> = []
+  
   var conversationWebsocketDelegate: ConversationWebsocketDelegate?
   
   init(authToken: String){
@@ -68,7 +71,14 @@ class Websocket {
     
     // A channel has successfully been subscribed to.
     channel.onSubscribed = {
-      print("Subscribed to \(channel.name)")
+      switch channel.name {
+      case ChannelType.Organization.rawValue:
+        for channelId in self.willFollowConversationChannels {
+          self.followConversation(channelId)
+        }
+      default:
+        print("Subscribed to \(channel.name)")
+      }
     }
     
     // A channel was unsubscribed, either manually or from a client disconnect.
@@ -89,6 +99,7 @@ class Websocket {
   func followConversation(id: String){
     
     guard client.connected else {
+      willFollowConversationChannels.insert(id)
       client.connect()
       return
     }
@@ -105,6 +116,9 @@ class Websocket {
   }
   
   func unfollowConversation(id: String){
+    
+    willFollowConversationChannels.remove(id)
+    
     guard client.connected else {
       print("Websocket client not connected")
       return
