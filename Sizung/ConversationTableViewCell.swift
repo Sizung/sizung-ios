@@ -15,17 +15,20 @@ class ConversationTableViewCell: UITableViewCell {
   
   @IBOutlet weak var unreadStatusView: UIView!
   @IBOutlet weak var nameLabel: UILabel!
-  @IBOutlet weak var lastCommentLabel: UILabel!
-  @IBOutlet weak var lastCommentAuthorImageView: UIImageView!
+  @IBOutlet weak var activeCountLabel: UILabel!
+  @IBOutlet weak var activeImageViewsContainerView: UIView!
+  
+  var activeUsersImageViews:Array<UIImageView> = []
   
   class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
   
   // MARK: - Lifecycle Methods
   
-  func configureCellWithURLString(URLString: String, placeholderImage: UIImage? = nil) {
-    let size = lastCommentAuthorImageView.frame.size
+  func configureImageViewWithURLString(imageView: UIImageView ,URLString: String, placeholderImage: UIImage? = nil) {
+    let imageSize = activeImageViewsContainerView.frame.height
+    let size = CGSize(width: imageSize, height: imageSize)
     
-    lastCommentAuthorImageView.af_setImageWithURL(
+    imageView.af_setImageWithURL(
       NSURL(string: URLString)!,
       placeholderImage: placeholderImage,
       filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
@@ -36,8 +39,10 @@ class ConversationTableViewCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     
-    lastCommentAuthorImageView.af_cancelImageRequest()
-    lastCommentAuthorImageView.layer.removeAllAnimations()
-    lastCommentAuthorImageView.image = nil
+    activeUsersImageViews.forEach({ activeUserImageView in
+      activeUserImageView.af_cancelImageRequest()
+      activeUserImageView.layer.removeAllAnimations()
+      activeUserImageView.image = nil
+    })
   }
 }

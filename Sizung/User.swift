@@ -11,6 +11,7 @@ import ObjectMapper
 class User: BaseModel {
   var name: String!
   var email: String!
+  var presence_status: String!
   
   init(id: String) {
     super.init(type: "users")
@@ -21,10 +22,15 @@ class User: BaseModel {
     super.init(map)
   }
   
+  func isActive() -> Bool {
+    return "online" == self.presence_status
+  }
+  
   override func mapping(map: Map) {
     super.mapping(map)
     name <- map["attributes.name"]
     email <- map["attributes.email"]
+    presence_status <- map["attributes.presence_status"]
   }
 }
 

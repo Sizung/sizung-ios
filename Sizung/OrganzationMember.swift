@@ -8,17 +8,12 @@
 
 import ObjectMapper
 
-class OrganizationMember: Mappable {
-  var id: String!
-  var user: User?
-  var organization: Organization?
+class OrganizationMember: BaseModel {
+  var member: User!
+  var conversation: Conversation!
   
-  required init?(_ map: Map) {
-  
-  }
-  
-  func mapping(map: Map) {
-    user     <- map["user"]
-    organization     <- map["organization"]
+  override func mapping(map: Map) {
+    member     <- map["relationships.member.data"]
+    conversation  <- map["relationships.conversation.data"]
   }
 }

@@ -32,18 +32,41 @@ class ConversationsTableViewController: UITableViewController {
       } else {
         self.refreshControl?.endRefreshing()
       }
-    }.disposeIn(rBag)
+      }.disposeIn(rBag)
     
     storageManager.conversations.bindTo(self.tableView) { indexPath, conversations, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.conversationTableViewCell.identifier, forIndexPath: indexPath) as! ConversationTableViewCell
       let conversation = conversations[indexPath.row]
       cell.nameLabel.text = conversation.title
       
-//    TODO: get real author email
-      let gravatar = Gravatar(emailAddress: NSUUID().UUIDString, defaultImage: .Identicon)
-      cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+      let activeUsersCount = conversation.members.reduce(0, combine: {sum, member in
+        if let user = storageManager.getUser(member.id) {
+          return sum + (user.isActive() ? 1 : 0)
+        } else {
+          return sum
+        }
+      })
 
-      cell.lastCommentLabel.text = "This is the last comment. It can even be longer than expected. It should ellipsize automatically"
+      
+      cell.activeCountLabel.text = "\(activeUsersCount) active"
+      // clear containerview
+      cell.activeImageViewsContainerView.subviews.forEach({$0.removeFromSuperview()})
+      
+      var currentPos: CGFloat = 0
+      
+      conversation.members.forEach { member in
+        if let user = storageManager.getUser(member.id) {
+          let imageWidth = cell.activeImageViewsContainerView.frame.height
+          
+          let gravatar = Gravatar(emailAddress: user.email, defaultImage: .Identicon)
+          let imageView = UIImageView()
+          imageView.frame = CGRect(x: currentPos, y: 0, width: imageWidth, height: imageWidth)
+          cell.activeImageViewsContainerView.addSubview(imageView)
+          cell.configureImageViewWithURLString(imageView, URLString: gravatar.URL(size: cell.bounds.width).URLString)
+          
+          currentPos += imageWidth
+        }
+      }
       
       cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
       
@@ -61,7 +84,7 @@ class ConversationsTableViewController: UITableViewController {
     if let organizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
       StorageManager.sharedInstance.updateOrganization(organizationId)
       
-//      fetch organizations
+      //      fetch organizations
       StorageManager.sharedInstance.updateOrganizations()
     } else {
       print("no organization selected in \(self)")

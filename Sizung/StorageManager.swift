@@ -36,6 +36,7 @@ class StorageManager {
     agendaItems.removeAll()
     deliverables.removeAll()
     organizationUsers.removeAll()
+//    organizationMembers.removeAll()
   }
   
   func getOrganization(id: String) -> Organization? {
@@ -110,6 +111,9 @@ class StorageManager {
               switch include {
               case let user as User:
                 self.organizationUsers.insertOrUpdate([user])
+              case let organizationMember as OrganizationMember:
+                print("org member found \(organizationMember.member.email)")
+//                self.organizationMembers.insertOrUpdate([organizationMember])
               default:
                 print("Unknown organization include \(include.type)")
               }
