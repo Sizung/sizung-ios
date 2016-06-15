@@ -24,6 +24,10 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     storageManager.isLoading.observeNext { isLoading in
       if let selectedOrganizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
         if let selectedOrganization = storageManager.getOrganization(selectedOrganizationId) {
+          
+          UIView.animateWithDuration(1, animations: {
+            self.titleButton.alpha = 1
+          })
           self.titleButton.setTitle(selectedOrganization.name, forState: .Normal)
         }
       }
@@ -67,7 +71,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
       let userId = token.getUserId()
       
       deliverablesTableViewController.userId = userId
-       
+      
       self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
     }
     
