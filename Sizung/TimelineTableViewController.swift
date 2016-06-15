@@ -15,6 +15,7 @@ import ReactiveKit
 class TimelineTableViewController: SLKTextViewController, ConversationWebsocketDelegate {
   
   var conversation: Conversation!
+  var timelineParent: BaseModel!
   
   var searchResult: [AnyObject]?
   
@@ -22,9 +23,10 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
   
   let textParser: SizungMarkdownParser = SizungMarkdownParser()
   
+  let collection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   let sortedCollection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   
-//  var mentions: [(Range<String.Index>, User)] = []
+  //  var mentions: [(Range<String.Index>, User)] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -35,6 +37,8 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
     
     self.registerPrefixesForAutoCompletion(["@"])
     self.tableView.registerNib(UINib.init(nibName: "CommentTableViewCell", bundle: nil), forCellReuseIdentifier: "CommentTableViewCell")
+    self.tableView.registerNib(UINib.init(nibName: "TimelineDeliverableTableViewCell", bundle: nil), forCellReuseIdentifier: "TimelineDeliverableTableViewCell")
+    self.tableView.registerNib(UINib.init(nibName: "TimelineAgendaItemTableViewCell", bundle: nil), forCellReuseIdentifier: "TimelineAgendaItemTableViewCell")
     self.autoCompletionView.registerNib(UINib.init(nibName: "AutoCompletionTableCell", bundle: nil), forCellReuseIdentifier: "AutoCompletionTableCell")
     
     self.textView.registerMarkdownFormattingSymbol("**", withTitle: "Bold")
@@ -45,9 +49,18 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
     self.initData()
   }
   
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    // to prevent missing items first connect to websocket, than fetch current state
+    StorageManager.sharedInstance.websocket!.conversationWebsocketDelegate = self
+    StorageManager.sharedInstance.websocket!.followConversation(self.conversation.id)
+  }
+  
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
-    StorageManager.sharedInstance.websocket?.disconnectFromConversation(self.conversation.id)
+    
+    StorageManager.sharedInstance.websocket!.unfollowConversation(self.conversation.id)
   }
   
   override var tableView: UITableView {
@@ -67,8 +80,8 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
   }
   
   func initData(){
-    StorageManager.sharedInstance.conversationObjects
-      //    sort by date
+    //    sort by date
+    collection
       .sort({ $0.created_at!.compare($1.created_at!) == NSComparisonResult.OrderedDescending })
       .bindTo(sortedCollection)
     
@@ -80,20 +93,37 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
         return self.autoCompletionCellForRowAtIndexPath(indexPath)
       }
     }
-    
-    // to prevent missing items first connect to websocket, than fetch current state
-    let websocket = StorageManager.sharedInstance.websocket!
-    websocket.client.onChannelSubscribed = { channel in
-      StorageManager.sharedInstance.updateConversationObjects(self.conversation.id)
-    }
-    
-    websocket.conversationWebsocketDelegate = self
-    
-    StorageManager.sharedInstance.websocket?.connectToConversation(self.conversation.id)
   }
   
-  func onReceived(comment: Comment) {
-    StorageManager.sharedInstance.conversationObjects.insertOrUpdate([comment])
+  func onFollowSuccess(id: String) {
+    print("Following conversation \(id)")
+    self.updateData()
+  }
+  
+  func onReceived(conversationObject: BaseModel) {
+    addItemToCollection(conversationObject)
+  }
+  
+  func addItemToCollection(item: BaseModel) {
+    addItemsToCollection([item])
+  }
+  
+  func addItemsToCollection(items: [BaseModel]) {
+    let filteredItems = items
+      .filter({ conversationObject in
+        switch conversationObject{
+        case let comment as Comment:
+          return comment.commentable.id == self.timelineParent.id
+        case let deliverable as Deliverable:
+          return deliverable.conversation.id == self.timelineParent.id
+        case let agendaItem as AgendaItem:
+          return agendaItem.conversation.id == self.timelineParent.id
+        default:
+          return false
+        }
+      })
+    
+    collection.insertOrUpdate(filteredItems)
   }
   
   func didLongPressCell(gesture: UIGestureRecognizer) {
@@ -143,19 +173,24 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
     // parse mentions
     let fulltext = self.textView.text
     
-//    for (range, user) in mentions {
-//      fulltext.replaceRange(range, with: "@[\(user.name)](\(user.id))")
-//    }
-//    
-//    mentions = []
+    //    for (range, user) in mentions {
+    //      fulltext.replaceRange(range, with: "@[\(user.name)](\(user.id))")
+    //    }
+    //
+    //    mentions = []
     
-    let comment = Comment(author: user, body: fulltext, commentable: self.conversation)
+    let comment = Comment(author: user, body: fulltext, commentable: self.timelineParent)
     //    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
     //    let rowAnimation: UITableViewRowAnimation = self.inverted ? .Bottom : .Top
     //    let scrollPosition: UITableViewScrollPosition = self.inverted ? .Bottom : .Top
     
-    // push it to server
+    // push it to server. Ignore result -> will be pushed over websocket connection
     StorageManager.sharedInstance.createComment(comment)
+      .onSuccess { comment in
+        print("Comment successfully created")
+      } .onFailure { error in
+        print("Comment creation failed: \(error)")
+    }
     //
     //    self.tableView.beginUpdates()
     //    StorageManager.sharedInstance.conversationObjects.insert(comment, atIndex: 0)
@@ -243,7 +278,10 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
   }
   
   func updateData(){
-    StorageManager.sharedInstance.updateConversationObjects(self.conversation.id)
+    StorageManager.sharedInstance.updateConversationObjects(self.timelineParent)
+      .onSuccess { conversationObjects in
+        self.addItemsToCollection(conversationObjects)
+    }
   }
   
   
@@ -266,7 +304,7 @@ extension TimelineTableViewController {
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
     if tableView == self.tableView {
-      return StorageManager.sharedInstance.conversationObjects.count
+      return sortedCollection.count
     }
     else {
       if let searchResult = self.searchResult {
@@ -285,43 +323,84 @@ extension TimelineTableViewController {
     }
   }
   
-  func messageCellForRowAtIndexPath(indexPath: NSIndexPath) -> CommentTableViewCell {
+  func messageCellForRowAtIndexPath(indexPath: NSIndexPath) -> UITableViewCell {
     
-    let comment = sortedCollection[indexPath.row] as! Comment
+    var cell: UITableViewCell
     
-    //    switch conversationObject {
-    //    case let deliverable as Deliverable:
-    //      print("deliverable: \(deliverable.title)")
-    //    case let agendaItem as AgendaItem:
-    //      print("agendaItem: \(agendaItem.title)")
-    //    case let comment as Comment:
-    //      print("comment: \(comment.body)")
+    switch sortedCollection[indexPath.row] {
+    case let deliverable as Deliverable:
+      cell = self.cellForDeliverable(deliverable)
+    case let agendaItem as AgendaItem:
+      cell = self.cellForAgendaItem(agendaItem)
+    case let comment as Comment:
+      cell = self.cellForComment(comment)
+    default:
+      fatalError("unkown row type for \(self)")
+    }
     
+    // Cells must inherit the table view's transform
+    // This is very important, since the main table view may be inverted
+    cell.transform = self.tableView.transform
+    
+    
+    return cell
+  }
+  
+  func cellForDeliverable(deliverable: Deliverable) -> TimelineDeliverableTableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("TimelineDeliverableTableViewCell") as! TimelineDeliverableTableViewCell
+    
+    cell.titleLabel.text = deliverable.title
+    cell.dueDateLabel.text = deliverable.due_on?.timeAgoSinceNow()
+    cell.dateLabel.text = deliverable.created_at?.timeAgoSinceNow()
+    
+    if let author = StorageManager.sharedInstance.getUser(deliverable.owner.id) {
+      let authorGravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
+      cell.configureAuthorImageWithURLString(authorGravatar.URL(size: cell.bounds.width).URLString)
+    }
+    
+    if let assignee = StorageManager.sharedInstance.getUser(deliverable.assignee.id) {
+      let assigneeGravatar = Gravatar(emailAddress: assignee.email, defaultImage: .Identicon)
+      cell.configureAssigneeImageWithURLString(assigneeGravatar.URL(size: cell.bounds.width).URLString)
+    }
+    
+    return cell
+  }
+  
+  func cellForAgendaItem(agendaItem: AgendaItem) -> TimelineAgendaItemTableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("TimelineAgendaItemTableViewCell") as! TimelineAgendaItemTableViewCell
+    
+    cell.titleLabel.text = agendaItem.title
+    cell.dateLabel.text = agendaItem.created_at?.timeAgoSinceNow()
+    
+    if let author = StorageManager.sharedInstance.getUser(agendaItem.owner.id) {
+      
+      let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
+      cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+    }
+    
+    return cell
+  }
+  
+  func cellForComment(comment: Comment) -> CommentTableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("CommentTableViewCell") as! CommentTableViewCell
     
     cell.bodyLabel.attributedText = textParser.parseMarkdown(comment.body)
     cell.bodyLabel.textColor = (comment.offline ? UIColor.grayColor() : UIColor.blackColor())
     cell.datetimeLabel.text = comment.created_at?.timeAgoSinceNow()
     
-    let author = StorageManager.sharedInstance.getUser(comment.author.id)!
+    if let author = StorageManager.sharedInstance.getUser(comment.author.id) {
+      let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
+      cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+    }
     
-    let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
-    cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+    //    if cell.gestureRecognizers?.count == nil {
+    //      let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))
+    //      cell.addGestureRecognizer(longPress)
+    //    }
     
-//    if cell.gestureRecognizers?.count == nil {
-//      let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))
-//      cell.addGestureRecognizer(longPress)
-//    }
-    
-    
-    // Cells must inherit the table view's transform
-    // This is very important, since the main table view may be inverted
-    cell.transform = self.tableView.transform
+    cell.selectionStyle = .None
     
     return cell
-    //    }
-    //
-    //    return cell
   }
   
   func autoCompletionCellForRowAtIndexPath(indexPath: NSIndexPath) -> AutoCompletionTableCell {
@@ -346,42 +425,52 @@ extension TimelineTableViewController {
   override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     
     if tableView == self.tableView {
-      let comment = sortedCollection[indexPath.row] as! Comment
-      
-      let paragraphStyle = NSMutableParagraphStyle()
-      paragraphStyle.lineBreakMode = .ByWordWrapping
-      paragraphStyle.alignment = .Left
-      
-      let attributes = [
-        NSFontAttributeName : UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody),
-        NSParagraphStyleAttributeName : paragraphStyle
-      ]
-      
-      var width = CGRectGetWidth(tableView.frame)-50
-      width -= 25.0
-      
-      //      guard let author = StorageManager.sharedInstance.getUser(comment.author!.id) else {
-      //        return 0
-      //      }
-      
-      //      let titleBounds = (author.name).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
-      let bodyBounds = textParser.parseMarkdown(comment.body).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, context: nil)
-      let datetimeBounds = "singleline".boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
-      
-      if comment.body!.characters.count == 0 {
-        return 0
+      switch sortedCollection[indexPath.row] {
+      case let comment as Comment:
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .ByWordWrapping
+        paragraphStyle.alignment = .Left
+        
+        let attributes = [
+          NSFontAttributeName : UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody),
+          NSParagraphStyleAttributeName : paragraphStyle
+        ]
+        
+        var width = CGRectGetWidth(tableView.frame)-50
+        width -= 25.0
+        
+        //      guard let author = StorageManager.sharedInstance.getUser(comment.author!.id) else {
+        //        return 0
+        //      }
+        
+        //      let titleBounds = (author.name).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
+        let bodyBounds = textParser.parseMarkdown(comment.body).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, context: nil)
+        let datetimeBounds = "singleline".boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
+        
+        if comment.body!.characters.count == 0 {
+          return 0
+        }
+        
+        //      var height = CGRectGetHeight(titleBounds)
+        var height = CGRectGetHeight(bodyBounds)
+        height += CGRectGetHeight(datetimeBounds)
+        height += 24
+        
+        if height < CommentTableViewCell.kMinimumHeight {
+          height = CommentTableViewCell.kMinimumHeight
+        }
+        
+        return height
+      case _ as AgendaItem:
+        return TimelineAgendaItemTableViewCell.kHeight
+      case let deliverable as Deliverable where deliverable.due_on != nil:
+        return TimelineDeliverableTableViewCell.kHeight
+      case _ as Deliverable:
+        return TimelineDeliverableTableViewCell.kHeightWithoutDueDate
+      default:
+        return 0;
       }
-      
-      //      var height = CGRectGetHeight(titleBounds)
-      var height = CGRectGetHeight(bodyBounds)
-      height += CGRectGetHeight(datetimeBounds)
-      height += 24
-      
-      if height < CommentTableViewCell.kMinimumHeight {
-        height = CommentTableViewCell.kMinimumHeight
-      }
-      
-      return height
     }
     else {
       return AutoCompletionTableCell.kMinimumHeight
@@ -405,13 +494,31 @@ extension TimelineTableViewController {
       if self.foundPrefix == "@" {
         text += "@[\(user.name)](\(user.id)) "
         
-//        let range = self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location)..<self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location + text.characters.count + self.foundPrefixRange.length)
-//        
-//        mentions.append((range, user))
+        //        let range = self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location)..<self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location + text.characters.count + self.foundPrefixRange.length)
+        //
+        //        mentions.append((range, user))
       }
       
       
       self.acceptAutoCompletionWithString(text, keepPrefix: false)
+    } else {
+      switch sortedCollection[indexPath.row]{
+      case let agendaItem as AgendaItem:
+        
+        let agendaItemViewController = UIStoryboard(name: "AgendaItem", bundle: nil).instantiateInitialViewController() as! AgendaItemViewController
+        agendaItemViewController.agendaItem = agendaItem
+        
+        self.showViewController(agendaItemViewController, sender: self)
+      case let deliverable as Deliverable:
+        let deliverableViewController = UIStoryboard(name: "Deliverable", bundle: nil).instantiateInitialViewController() as! DeliverableViewController
+        deliverableViewController.deliverable = deliverable
+        
+        self.showViewController(deliverableViewController, sender: self)
+      case let comment as Comment:
+        print("selected comment \(comment)")
+      default:
+        fatalError("unkown row at didSelectRowAtIndexPath \(indexPath)")
+      }
     }
   }
 }

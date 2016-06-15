@@ -201,12 +201,6 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7K-g6-XRI">
-                                <rect key="frame" x="0.0" y="109" width="600" height="491"/>
-                                <connections>
-                                    <segue destination="GWL-Ck-alV" kind="embed" identifier="embed" id="nUY-p3-UPO"/>
-                                </connections>
-                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="so5-a9-Fzz" customClass="SizungSegmentedControl" customModule="Sizung" customModuleProvider="target">
                                 <rect key="frame" x="20" y="76" width="560" height="25"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -214,6 +208,12 @@
                                     <constraint firstAttribute="height" constant="25" id="l6R-gI-eKn"/>
                                 </constraints>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7K-g6-XRI">
+                                <rect key="frame" x="0.0" y="109" width="600" height="491"/>
+                                <connections>
+                                    <segue destination="GWL-Ck-alV" kind="embed" identifier="embed" id="nUY-p3-UPO"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -222,11 +222,11 @@
                             <constraint firstAttribute="trailingMargin" secondItem="so5-a9-Fzz" secondAttribute="trailing" id="DGu-a7-bBf"/>
                             <constraint firstItem="5TO-1R-93h" firstAttribute="leading" secondItem="yfx-Xw-gIy" secondAttribute="leadingMargin" constant="-20" id="KDu-XE-7uC"/>
                             <constraint firstItem="c7K-g6-XRI" firstAttribute="leading" secondItem="yfx-Xw-gIy" secondAttribute="leadingMargin" constant="-20" id="Pic-Qz-2Vh"/>
+                            <constraint firstItem="5TO-1R-93h" firstAttribute="top" secondItem="X4z-vu-Wu9" secondAttribute="bottom" id="Q2w-uA-7UG"/>
                             <constraint firstItem="c7K-g6-XRI" firstAttribute="top" secondItem="so5-a9-Fzz" secondAttribute="bottom" constant="8" id="XXC-nP-j1r"/>
+                            <constraint firstItem="NeV-vx-V20" firstAttribute="top" secondItem="c7K-g6-XRI" secondAttribute="bottom" id="YKX-7A-32l"/>
                             <constraint firstItem="so5-a9-Fzz" firstAttribute="top" secondItem="5TO-1R-93h" secondAttribute="bottom" constant="12" id="az9-iP-0cc"/>
-                            <constraint firstItem="NeV-vx-V20" firstAttribute="top" secondItem="c7K-g6-XRI" secondAttribute="bottom" id="lYP-eT-EYQ"/>
                             <constraint firstItem="so5-a9-Fzz" firstAttribute="leading" secondItem="yfx-Xw-gIy" secondAttribute="leadingMargin" id="n7Y-Iv-3ZO"/>
-                            <constraint firstItem="5TO-1R-93h" firstAttribute="top" secondItem="X4z-vu-Wu9" secondAttribute="bottom" id="z9x-lT-x63"/>
                         </constraints>
                     </view>
                     <connections>
@@ -336,20 +336,20 @@
         <scene sceneID="VMH-UD-0dA">
             <objects>
                 <tableViewController storyboardIdentifier="DeliverablesTableViewController" id="fSe-B9-c8A" customClass="DeliverablesTableViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="2XR-yM-lGS">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="2XR-yM-lGS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SizungTableViewCell" textLabel="aP6-tc-EUY" style="IBUITableViewCellStyleDefault" id="emn-u3-Z0V" customClass="SizungTableViewCell" customModule="Sizung" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeliverableTableViewCell" textLabel="aP6-tc-EUY" style="IBUITableViewCellStyleDefault" id="emn-u3-Z0V" customClass="DeliverableTableViewCell" customModule="Sizung" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="emn-u3-Z0V" id="HTB-ax-rkt">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aP6-tc-EUY">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                            <rect key="frame" x="15" y="0.0" width="570" height="69"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -628,29 +628,10 @@
         <scene sceneID="747-sE-RdP">
             <objects>
                 <tableViewController storyboardIdentifier="ConversationDeliverablesTableViewController" id="Fvq-Kc-jSh" customClass="ConversationDeliverablesTableViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="chf-TN-hcf">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="71" sectionHeaderHeight="28" sectionFooterHeight="28" id="chf-TN-hcf">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SizungTableViewCell" textLabel="N0v-wZ-1gJ" style="IBUITableViewCellStyleDefault" id="Mu7-ie-Rpb" customClass="SizungTableViewCell" customModule="Sizung" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mu7-ie-Rpb" id="Qlv-fV-ubx">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="N0v-wZ-1gJ">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Fvq-Kc-jSh" id="2Ss-QG-WFB"/>
                             <outlet property="delegate" destination="Fvq-Kc-jSh" id="o9F-uP-LvE"/>

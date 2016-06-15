@@ -10,9 +10,10 @@ import ObjectMapper
 
 class BaseModel: Mappable, Equatable, Hashable {
   
+  // a UUID String
   var id: String!
   var type: String!
-  var created_at: NSDate?
+  var created_at: NSDate!
   
   init(type: String) {
     id = NSUUID().UUIDString
@@ -30,13 +31,15 @@ class BaseModel: Mappable, Equatable, Hashable {
   func mapping(map: Map) {
     id <- map["id"]
     type <- map["type"]
-    created_at <- (map["attributes.created_at"], ISODateTransform())
+    created_at <- (map["attributes.created_at"], ISODateTimeTransform())
   }
   
 //  polymorphic stuff
   class func objectForMapping(map: Map) -> Mappable? {
     if let type: String = map["type"].value() {
       switch type {
+      case "conversations":
+        return Conversation(map)
       case "users":
         return User(map)
       case "comments":

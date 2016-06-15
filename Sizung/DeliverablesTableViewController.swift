@@ -9,8 +9,12 @@
 import UIKit
 import SwiftKeychainWrapper
 import ReactiveKit
+import DateTools
 
 class DeliverablesTableViewController: UITableViewController {
+  
+  let filteredCollection: CollectionProperty <[Deliverable]> = CollectionProperty([])
+  let sortedAndFilteredCollection: CollectionProperty <[Deliverable]> = CollectionProperty([])
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -51,21 +55,14 @@ class DeliverablesTableViewController: UITableViewController {
     }
   }
   
-  // MARK: - Navigation
-  
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "showTimeline" {
-      let timelineTableViewController = segue.destinationViewController as! TimelineTableViewController
-      
-      // Get the cell that generated this segue.
-      if let selectedCell = sender as? SizungTableViewCell {
-        let indexPath = tableView.indexPathForCell(selectedCell)!
-        let selectedConversation = StorageManager.sharedInstance.conversations[indexPath.row]
-        timelineTableViewController.conversation = selectedConversation
-        timelineTableViewController.navigationItem.title = selectedConversation.title
-      }
-    }
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    
+    let selectedDeliverable = sortedAndFilteredCollection[indexPath.row]
+    
+    let deliverableViewController = UIStoryboard(name: "Deliverable", bundle: nil).instantiateInitialViewController() as! DeliverableViewController
+    deliverableViewController.deliverable = selectedDeliverable
+    
+    self.showViewController(deliverableViewController, sender: self)
   }
 }
 
@@ -75,19 +72,50 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
   
   override func bindData() {
     
-    StorageManager.sharedInstance.deliverables.filter { deliverable in
-      deliverable.owner.id == self.userId
-      }.bindTo(self.tableView) { indexPath, deliverables, tableView in
-        let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
-        let deliverable = deliverables[indexPath.row]
-        cell.titleLabel.text = deliverable.title
-        cell.conversationLabel.text = deliverable.conversation?.title
+    self.tableView.registerNib(UINib.init(nibName: "DeliverableTableViewCell", bundle: nil), forCellReuseIdentifier: "DeliverableTableViewCell")
+    
+    StorageManager.sharedInstance.deliverables
+      .filter({ deliverable in
+        return deliverable.assignee.id == self.userId
+      })
+      .bindTo(filteredCollection)
+    
+    //    sort by due date
+    filteredCollection.sort({ left, right in
+      if right.due_on == nil {
+        return true
+      } else {
+        return left.due_on?.compare(right.due_on!) == NSComparisonResult.OrderedDescending
+      }
+    })
+      .bindTo(sortedAndFilteredCollection)
+    
+    sortedAndFilteredCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
+      let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
+      let deliverable = deliverables[indexPath.row]
+      cell.titleLabel.text = deliverable.title
+      
+      //      switch deliverable.parent {
+      //      case let conversation as Conversation:
+      //        cell.conversationLabel.text = StorageManager.sharedInstance.getConversation(conversation.id)?.title
+      //      case let agendaItem as AgendaItem:
+      //        cell.conversationLabel.text = StorageManager.sharedInstance.getAgendaItem(agendaItem.id)?.title
+      //      default:
+      //        cell.conversationLabel.text = nil
+      //      }
+      
+      cell.conversationLabel.text = StorageManager.sharedInstance.getConversation(deliverable.conversation.id)?.title
+      
+      if let due_date = deliverable.due_on {
+        cell.statusLabel.text = due_date.timeAgoSinceNow()
+      } else {
         cell.statusLabel.text = deliverable.status
-        
-        // TODO: Real unread status
-        cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
-        
-        return cell
+      }
+      
+      // TODO: Real unread status
+      cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
+      
+      return cell
     }
     
   }
@@ -99,18 +127,40 @@ class ConversationDeliverablesTableViewController: DeliverablesTableViewControll
   
   override func bindData() {
     
-    StorageManager.sharedInstance.deliverables.filter { deliverable in
-      deliverable.conversation.id == self.conversation?.id
-      }.bindTo(self.tableView) { indexPath, deliverables, tableView in
-        let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
-        let deliverable = deliverables[indexPath.row]
-        cell.titleLabel.text = deliverable.title
-        cell.conversationLabel.text = deliverable.conversation?.title
+    self.tableView.registerNib(UINib.init(nibName: "DeliverableTableViewCell", bundle: nil), forCellReuseIdentifier: "DeliverableTableViewCell")
+    
+    StorageManager.sharedInstance.deliverables
+      .filter({ deliverable in
+        return deliverable.conversation.id == self.conversation.id
+      })
+      .bindTo(filteredCollection)
+    
+    //    sort by due date
+    filteredCollection.sort({ left, right in
+      if right.due_on == nil {
+        return true
+      } else {
+        return left.due_on?.compare(right.due_on!) == NSComparisonResult.OrderedDescending
+      }
+    })
+      .bindTo(sortedAndFilteredCollection)
+    
+    sortedAndFilteredCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
+      let cell = tableView.dequeueReusableCellWithIdentifier("DeliverableTableViewCell", forIndexPath: indexPath) as! DeliverableTableViewCell
+      let deliverable = deliverables[indexPath.row]
+      cell.titleLabel.text = deliverable.title
+      
+      if let due_date = deliverable.due_on {
+        cell.statusLabel.text = due_date.timeAgoSinceNow()
+      } else {
         cell.statusLabel.text = deliverable.status
-        
-        // TODO: Real unread status
-        cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
-        return cell
+      }
+      
+      cell.conversationLabel.text = StorageManager.sharedInstance.getConversation(deliverable.conversation.id)?.title
+      
+      // TODO: Real unread status
+      cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
+      return cell
     }
     
   }

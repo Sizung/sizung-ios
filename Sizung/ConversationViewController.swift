@@ -59,12 +59,10 @@ class ConversationViewController: UIViewController, MainPageViewControllerDelega
       
       self.mainPageViewController.orderedViewControllers.append(agendaItemsTableViewController)
       
-      // reset conversationObjects
-      StorageManager.sharedInstance.conversationObjects.replace([])
-      
       let timelineTableViewController = UIStoryboard(name: "Main", bundle: nil) .
         instantiateViewControllerWithIdentifier("TimelineTableViewController") as! TimelineTableViewController
       timelineTableViewController.conversation = self.conversation
+      timelineTableViewController.timelineParent = self.conversation
       self.mainPageViewController.orderedViewControllers.append(timelineTableViewController)
       
       let deliverablesTableViewController = UIStoryboard(name: "Main", bundle: nil) .

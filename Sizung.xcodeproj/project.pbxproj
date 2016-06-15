@@ -12,6 +12,7 @@
 		5A35DC0C1D0AF9C300916118 /* AutoCompletionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */; };
 		5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */; };
 		5A39F26A1CE47D6D003E20CE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */; };
+		5A3FC58F1D11385B0084FF2F /* Deliverable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A3FC58E1D11385B0084FF2F /* Deliverable.storyboard */; };
 		5A42707D1D094A1900B294DF /* UICustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A42707C1D094A1900B294DF /* UICustomFont.swift */; };
 		5A42707F1D095A7000B294DF /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A42707E1D095A7000B294DF /* Settings.bundle */; };
 		5A504B071CEF0FDC001BEFA3 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */; };
@@ -42,7 +43,6 @@
 		5A9EDEB61D01621200D389EC /* ConversationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEB51D01621200D389EC /* ConversationResponse.swift */; };
 		5A9EDEB81D01BB5C00D389EC /* SizungSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEB71D01BB5C00D389EC /* SizungSegmentedControl.swift */; };
 		5A9EDEBC1D01CEB900D389EC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEBB1D01CEB900D389EC /* Color.swift */; };
-		5AA890F91CF45D4800ED391B /* BasicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890F81CF45D4800ED391B /* BasicTableViewController.swift */; };
 		5AA890FC1CF4D1B900ED391B /* TableViewCellDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FB1CF4D1B900ED391B /* TableViewCellDisplayable.swift */; };
 		5AA891001CF5A63A00ED391B /* AgendaItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */; };
 		5AA891021CF5A6AE00ED391B /* DeliverablesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */; };
@@ -72,11 +72,20 @@
 		5AD9F1BD1CE9D63300455D98 /* Deliverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1BC1CE9D63300455D98 /* Deliverable.swift */; };
 		5AD9F1BF1CE9D65900455D98 /* AgendaItemDeliverables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverables.swift */; };
 		5ADC882B1D0F57D400596D67 /* WebsocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC882A1D0F57D400596D67 /* WebsocketResponse.swift */; };
+		5ADC882D1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ADC882C1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib */; };
+		5ADC882F1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ADC882E1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib */; };
+		5ADC88321D10505700596D67 /* TimelineDeliverableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC88311D10505700596D67 /* TimelineDeliverableTableViewCell.swift */; };
+		5ADC88341D10508800596D67 /* TimelineAgendaItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC88331D10508800596D67 /* TimelineAgendaItemTableViewCell.swift */; };
+		5ADC88361D105C4E00596D67 /* ISODateTimeTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC88351D105C4E00596D67 /* ISODateTimeTransform.swift */; };
+		5ADC88381D105F3300596D67 /* DeliverableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ADC88371D105F3300596D67 /* DeliverableTableViewCell.xib */; };
+		5ADC88401D109FD500596D67 /* DeliverableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC883E1D109FD500596D67 /* DeliverableViewController.swift */; };
 		5AE0CCA11D0AEF3900690C72 /* CommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */; };
 		5AE8839A1D09A5460044364B /* CollectionPropertyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */; };
 		5AE8839D1D09A56C0044364B /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */; };
 		5AE8839E1D09A56C0044364B /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AE8839C1D09A56C0044364B /* CommentTableViewCell.xib */; };
 		5AE883A01D09A5990044364B /* ConversationObjectsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8839F1D09A5990044364B /* ConversationObjectsResponse.swift */; };
+		5AECC1D61D115C8700AD8ACE /* AgendaItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECC1D51D115C8700AD8ACE /* AgendaItemViewController.swift */; };
+		5AECC1D81D115CBD00AD8ACE /* AgendaItem.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AECC1D71D115CBD00AD8ACE /* AgendaItem.storyboard */; };
 		7C805C9F87DFD35FED0D4054 /* Pods_SizungTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */; };
 		FCA0C987B799BBE8626392B5 /* Pods_Sizung.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 996C9E787ED021D4997D12D2 /* Pods_Sizung.framework */; };
 /* End PBXBuildFile section */
@@ -103,6 +112,7 @@
 		5A35A52A1CDCDDE8005E5B1B /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompletionTableCell.swift; sourceTree = "<group>"; };
 		5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoCompletionTableCell.xib; sourceTree = "<group>"; };
+		5A3FC58E1D11385B0084FF2F /* Deliverable.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Deliverable.storyboard; sourceTree = "<group>"; };
 		5A42707C1D094A1900B294DF /* UICustomFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomFont.swift; sourceTree = "<group>"; };
 		5A42707E1D095A7000B294DF /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
@@ -141,7 +151,6 @@
 		5A9EDEB51D01621200D389EC /* ConversationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationResponse.swift; sourceTree = "<group>"; };
 		5A9EDEB71D01BB5C00D389EC /* SizungSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungSegmentedControl.swift; sourceTree = "<group>"; };
 		5A9EDEBB1D01CEB900D389EC /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		5AA890F81CF45D4800ED391B /* BasicTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicTableViewController.swift; sourceTree = "<group>"; };
 		5AA890FB1CF4D1B900ED391B /* TableViewCellDisplayable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellDisplayable.swift; sourceTree = "<group>"; };
 		5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemsTableViewController.swift; sourceTree = "<group>"; };
 		5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverablesTableViewController.swift; sourceTree = "<group>"; };
@@ -172,11 +181,20 @@
 		5AD9F1BC1CE9D63300455D98 /* Deliverable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deliverable.swift; sourceTree = "<group>"; };
 		5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemDeliverables.swift; sourceTree = "<group>"; };
 		5ADC882A1D0F57D400596D67 /* WebsocketResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebsocketResponse.swift; sourceTree = "<group>"; };
+		5ADC882C1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineAgendaItemTableViewCell.xib; sourceTree = "<group>"; };
+		5ADC882E1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineDeliverableTableViewCell.xib; sourceTree = "<group>"; };
+		5ADC88311D10505700596D67 /* TimelineDeliverableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineDeliverableTableViewCell.swift; sourceTree = "<group>"; };
+		5ADC88331D10508800596D67 /* TimelineAgendaItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineAgendaItemTableViewCell.swift; sourceTree = "<group>"; };
+		5ADC88351D105C4E00596D67 /* ISODateTimeTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISODateTimeTransform.swift; sourceTree = "<group>"; };
+		5ADC88371D105F3300596D67 /* DeliverableTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeliverableTableViewCell.xib; sourceTree = "<group>"; };
+		5ADC883E1D109FD500596D67 /* DeliverableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverableViewController.swift; sourceTree = "<group>"; };
 		5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentResponse.swift; sourceTree = "<group>"; };
 		5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionPropertyExtension.swift; sourceTree = "<group>"; };
 		5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		5AE8839C1D09A56C0044364B /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		5AE8839F1D09A5990044364B /* ConversationObjectsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationObjectsResponse.swift; sourceTree = "<group>"; };
+		5AECC1D51D115C8700AD8ACE /* AgendaItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemViewController.swift; sourceTree = "<group>"; };
+		5AECC1D71D115CBD00AD8ACE /* AgendaItem.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AgendaItem.storyboard; sourceTree = "<group>"; };
 		76E7771C4CDE72F6FB4EA165 /* Pods-Sizung.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sizung.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sizung/Pods-Sizung.release.xcconfig"; sourceTree = "<group>"; };
 		996C9E787ED021D4997D12D2 /* Pods_Sizung.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sizung.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BDDA999939B2CCA49D06D48 /* Pods-Sizung.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sizung.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sizung/Pods-Sizung.debug.xcconfig"; sourceTree = "<group>"; };
@@ -339,12 +357,12 @@
 		5A7329FF1D05FEBB006531A5 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */,
-				5AE8839C1D09A56C0044364B /* CommentTableViewCell.xib */,
+				5ADC88301D104FFF00596D67 /* Timeline */,
 				5AC0E5DE1CF04D0000BBEF45 /* SizungTableViewCell.swift */,
 				5A7329ED1D058574006531A5 /* ConversationsTableViewCell.swift */,
 				5A7329FB1D05FEB2006531A5 /* AgendaItemTableViewCell.swift */,
 				5A732A001D06060C006531A5 /* DeliverableTableViewCell.swift */,
+				5ADC88371D105F3300596D67 /* DeliverableTableViewCell.xib */,
 				5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */,
 				5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */,
 			);
@@ -364,6 +382,7 @@
 				5A42707C1D094A1900B294DF /* UICustomFont.swift */,
 				5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */,
 				5ABACCDF1D0AA82F0093CF21 /* ISODateTransform.swift */,
+				5ADC88351D105C4E00596D67 /* ISODateTimeTransform.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -445,15 +464,13 @@
 			children = (
 				5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */,
 				5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */,
-				5AC0E5E01CF04D8D00BBEF45 /* OrganizationsTableViewController.swift */,
-				5AC0E5E31CF0628200BBEF45 /* ConversationsTableViewController.swift */,
 				5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */,
-				5AA890F81CF45D4800ED391B /* BasicTableViewController.swift */,
-				5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */,
-				5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */,
+				5ADC883D1D109E3F00596D67 /* TableViews */,
 				5AB781401CFD79D00024DFE9 /* AccountViewController.swift */,
 				5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */,
 				5A9EDEB31D0070C500D389EC /* ConversationViewController.swift */,
+				5ADC883E1D109FD500596D67 /* DeliverableViewController.swift */,
+				5AECC1D51D115C8700AD8ACE /* AgendaItemViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -463,6 +480,8 @@
 			children = (
 				5A653E941CD7A96000FB3DEB /* Main.storyboard */,
 				5AC85CA11CFC55720028B560 /* Login.xib */,
+				5A3FC58E1D11385B0084FF2F /* Deliverable.storyboard */,
+				5AECC1D71D115CBD00AD8ACE /* AgendaItem.storyboard */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -473,6 +492,30 @@
 				5ADC882A1D0F57D400596D67 /* WebsocketResponse.swift */,
 			);
 			name = websocket;
+			sourceTree = "<group>";
+		};
+		5ADC88301D104FFF00596D67 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */,
+				5AE8839C1D09A56C0044364B /* CommentTableViewCell.xib */,
+				5ADC88331D10508800596D67 /* TimelineAgendaItemTableViewCell.swift */,
+				5ADC882C1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib */,
+				5ADC88311D10505700596D67 /* TimelineDeliverableTableViewCell.swift */,
+				5ADC882E1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib */,
+			);
+			name = Timeline;
+			sourceTree = "<group>";
+		};
+		5ADC883D1D109E3F00596D67 /* TableViews */ = {
+			isa = PBXGroup;
+			children = (
+				5AC0E5E01CF04D8D00BBEF45 /* OrganizationsTableViewController.swift */,
+				5AC0E5E31CF0628200BBEF45 /* ConversationsTableViewController.swift */,
+				5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */,
+				5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */,
+			);
+			name = TableViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -595,15 +638,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A42707F1D095A7000B294DF /* Settings.bundle in Resources */,
+				5ADC882D1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib in Resources */,
 				5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */,
+				5ADC88381D105F3300596D67 /* DeliverableTableViewCell.xib in Resources */,
 				5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */,
 				5A7329F91D05B1FC006531A5 /* Brandon_bld.otf in Resources */,
 				5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */,
 				5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */,
+				5ADC882F1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib in Resources */,
 				5AC85CA21CFC55720028B560 /* Login.xib in Resources */,
 				5AE8839E1D09A56C0044364B /* CommentTableViewCell.xib in Resources */,
+				5A3FC58F1D11385B0084FF2F /* Deliverable.storyboard in Resources */,
 				5A7329FA1D05B1FC006531A5 /* Brandon_med.otf in Resources */,
 				5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */,
+				5AECC1D81D115CBD00AD8ACE /* AgendaItem.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,16 +844,20 @@
 				5A7B95A41CF8E58B00FE36CB /* MainPageViewController.swift in Sources */,
 				5AC0E5E11CF04D8D00BBEF45 /* OrganizationsTableViewController.swift in Sources */,
 				5ABE8E351CDB5AC9004537C6 /* LoginViewController.swift in Sources */,
+				5ADC88401D109FD500596D67 /* DeliverableViewController.swift in Sources */,
 				5AA891001CF5A63A00ED391B /* AgendaItemsTableViewController.swift in Sources */,
+				5ADC88361D105C4E00596D67 /* ISODateTimeTransform.swift in Sources */,
 				5A86B12E1CE5CF19001C2E7A /* AlamofireManagerExtension.swift in Sources */,
 				5A5346B01D0EE0560065278E /* Websocket.swift in Sources */,
+				5AECC1D61D115C8700AD8ACE /* AgendaItemViewController.swift in Sources */,
 				5AD9F1BB1CE9D5E600455D98 /* AgendaItem.swift in Sources */,
-				5AA890F91CF45D4800ED391B /* BasicTableViewController.swift in Sources */,
 				5AA891021CF5A6AE00ED391B /* DeliverablesTableViewController.swift in Sources */,
 				5AD9F1B51CE9D03000455D98 /* User.swift in Sources */,
 				5AD9F1BD1CE9D63300455D98 /* Deliverable.swift in Sources */,
 				5A86B1311CE5D035001C2E7A /* SizungHttpRouter.swift in Sources */,
 				5ABACCE01D0AA82F0093CF21 /* ISODateTransform.swift in Sources */,
+				5ADC88321D10505700596D67 /* TimelineDeliverableTableViewCell.swift in Sources */,
+				5ADC88341D10508800596D67 /* TimelineAgendaItemTableViewCell.swift in Sources */,
 				5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */,
 				5ABA4FBF1CFEC3B600110030 /* OrganizationViewController.swift in Sources */,
 				5AA890FC1CF4D1B900ED391B /* TableViewCellDisplayable.swift in Sources */,
