@@ -401,14 +401,19 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="48"/>
                                 <subviews>
                                     <button opaque="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dl-LS-tg6">
-                                        <rect key="frame" x="8" y="9" width="461" height="30"/>
+                                        <rect key="frame" x="8" y="9" width="30" height="30"/>
                                         <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="showOrganizations:" destination="zbj-sK-a1Q" eventType="touchUpInside" id="QVV-Tt-SNO"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEE-d2-7Nm">
-                                        <rect key="frame" x="477" y="7" width="57" height="34"/>
-                                        <state key="normal" title="Search"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEE-d2-7Nm">
+                                        <rect key="frame" x="486" y="9" width="48" height="30"/>
+                                        <state key="normal" title="Search">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8D-8A-foB">
                                         <rect key="frame" x="542" y="9" width="50" height="30"/>
@@ -423,7 +428,7 @@
                                     <constraint firstItem="F8D-8A-foB" firstAttribute="centerY" secondItem="2Nt-o4-xOt" secondAttribute="centerY" id="T0A-Sq-zmP"/>
                                     <constraint firstItem="F8D-8A-foB" firstAttribute="centerX" secondItem="2Nt-o4-xOt" secondAttribute="centerX" id="Xb3-7c-XJf"/>
                                     <constraint firstAttribute="trailing" secondItem="F8D-8A-foB" secondAttribute="trailing" constant="8" id="cnm-Yo-gmh"/>
-                                    <constraint firstItem="bEE-d2-7Nm" firstAttribute="leading" secondItem="0dl-LS-tg6" secondAttribute="trailing" constant="8" id="nm6-3n-DTR"/>
+                                    <constraint firstItem="bEE-d2-7Nm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0dl-LS-tg6" secondAttribute="trailing" constant="8" id="nm6-3n-DTR"/>
                                     <constraint firstAttribute="height" constant="48" id="s3M-Bw-FF0"/>
                                     <constraint firstItem="0dl-LS-tg6" firstAttribute="leading" secondItem="2Nt-o4-xOt" secondAttribute="leading" constant="8" id="v4k-FT-NpL"/>
                                     <constraint firstItem="0dl-LS-tg6" firstAttribute="centerY" secondItem="2Nt-o4-xOt" secondAttribute="centerY" id="zMD-Yp-yot"/>
