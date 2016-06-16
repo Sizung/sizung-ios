@@ -39,7 +39,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
       self.groupsBadgeView.badgeValue = storageManager.conversations.count
     }.disposeIn(rBag)
     
-    segmentedControl.items = ["PRIORITY", "DISCUSS", "ACTION"]
+    segmentedControl.items = ["PRIORITY", "STREAM", "ACTION"]
     segmentedControl.thumbColors = [Color.TODISCUSS, Color.STREAM, Color.TODO]
     segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged);
   }
