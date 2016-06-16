@@ -17,8 +17,8 @@ class TimelineDeliverableTableViewCell: UITableViewCell {
   @IBOutlet weak var dueDateLabel: UILabel!
   @IBOutlet weak var dateLabel: UILabel!
   
-  static let kHeight:CGFloat = 123
-  static let kHeightWithoutDueDate:CGFloat = 95
+  static let kHeight:CGFloat = 158
+  static let kHeightWithoutDueDate:CGFloat = kHeight - 21
   
   class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
   

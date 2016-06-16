@@ -119,16 +119,58 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 2 images.
+  /// This `R.image` struct is generated, and contains static references to 8 images.
   struct image {
+    /// Image `action_bg_left`.
+    static let action_bg_left = ImageResource(bundle: _R.hostingBundle, name: "action_bg_left")
+    /// Image `action_bg_middle`.
+    static let action_bg_middle = ImageResource(bundle: _R.hostingBundle, name: "action_bg_middle")
+    /// Image `action_bg_right`.
+    static let action_bg_right = ImageResource(bundle: _R.hostingBundle, name: "action_bg_right")
     /// Image `groups`.
     static let groups = ImageResource(bundle: _R.hostingBundle, name: "groups")
+    /// Image `priority_bg_left`.
+    static let priority_bg_left = ImageResource(bundle: _R.hostingBundle, name: "priority_bg_left")
+    /// Image `priority_bg_middle`.
+    static let priority_bg_middle = ImageResource(bundle: _R.hostingBundle, name: "priority_bg_middle")
+    /// Image `priority_bg_right`.
+    static let priority_bg_right = ImageResource(bundle: _R.hostingBundle, name: "priority_bg_right")
     /// Image `search`.
     static let search = ImageResource(bundle: _R.hostingBundle, name: "search")
+    
+    /// `UIImage(named: "action_bg_left", bundle: ..., traitCollection: ...)`
+    static func action_bg_left(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.action_bg_left, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "action_bg_middle", bundle: ..., traitCollection: ...)`
+    static func action_bg_middle(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.action_bg_middle, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "action_bg_right", bundle: ..., traitCollection: ...)`
+    static func action_bg_right(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.action_bg_right, compatibleWithTraitCollection: traitCollection)
+    }
     
     /// `UIImage(named: "groups", bundle: ..., traitCollection: ...)`
     static func groups(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.groups, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "priority_bg_left", bundle: ..., traitCollection: ...)`
+    static func priority_bg_left(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.priority_bg_left, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "priority_bg_middle", bundle: ..., traitCollection: ...)`
+    static func priority_bg_middle(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.priority_bg_middle, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "priority_bg_right", bundle: ..., traitCollection: ...)`
+    static func priority_bg_right(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.priority_bg_right, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "search", bundle: ..., traitCollection: ...)`
