@@ -40,6 +40,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Webdings.ttf</string>
 		<string>Brandon_reg.otf</string>
 		<string>Gotham-Light.otf</string>
 		<string>Brandon_med.otf</string>

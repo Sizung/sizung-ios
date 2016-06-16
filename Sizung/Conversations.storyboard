@@ -285,8 +285,8 @@
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="b4Z-xr-8nz"/>
                                             <exclude reference="XRs-TN-lAg"/>
+                                            <exclude reference="b4Z-xr-8nz"/>
                                             <exclude reference="d3r-ch-hRx"/>
                                         </mask>
                                     </variation>

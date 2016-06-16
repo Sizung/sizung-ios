@@ -16,7 +16,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.file` struct is generated, and contains static references to 6 files.
+  /// This `R.file` struct is generated, and contains static references to 7 files.
   struct file {
     /// Resource file `Brandon Text W01 Medium.ttf`.
     static let brandonTextW01MediumTtf = FileResource(bundle: _R.hostingBundle, name: "Brandon Text W01 Medium", pathExtension: "ttf")
@@ -30,6 +30,8 @@ struct R: Rswift.Validatable {
     static let gothamLightOtf = FileResource(bundle: _R.hostingBundle, name: "Gotham-Light", pathExtension: "otf")
     /// Resource file `Settings.bundle`.
     static let settingsBundle = FileResource(bundle: _R.hostingBundle, name: "Settings", pathExtension: "bundle")
+    /// Resource file `Webdings.ttf`.
+    static let webdingsTtf = FileResource(bundle: _R.hostingBundle, name: "Webdings", pathExtension: "ttf")
     
     /// `bundle.URLForResource("Brandon Text W01 Medium", withExtension: "ttf")`
     static func brandonTextW01MediumTtf(_: Void) -> NSURL? {
@@ -67,10 +69,16 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.URLForResource(fileResource)
     }
     
+    /// `bundle.URLForResource("Webdings", withExtension: "ttf")`
+    static func webdingsTtf(_: Void) -> NSURL? {
+      let fileResource = R.file.webdingsTtf
+      return fileResource.bundle.URLForResource(fileResource)
+    }
+    
     private init() {}
   }
   
-  /// This `R.font` struct is generated, and contains static references to 4 fonts.
+  /// This `R.font` struct is generated, and contains static references to 5 fonts.
   struct font {
     /// Font `BrandonGrotesque-Bold`.
     static let brandonGrotesqueBold = FontResource(fontName: "BrandonGrotesque-Bold")
@@ -80,6 +88,8 @@ struct R: Rswift.Validatable {
     static let brandonTextW01Medium = FontResource(fontName: "BrandonTextW01-Medium")
     /// Font `Gotham-Light`.
     static let gothamLight = FontResource(fontName: "Gotham-Light")
+    /// Font `Webdings`.
+    static let webdings = FontResource(fontName: "Webdings")
     
     /// `UIFont(name: "BrandonGrotesque-Bold", size: ...)`
     static func brandonGrotesqueBold(size size: CGFloat) -> UIFont? {
@@ -101,17 +111,29 @@ struct R: Rswift.Validatable {
       return UIFont(resource: gothamLight, size: size)
     }
     
+    /// `UIFont(name: "Webdings", size: ...)`
+    static func webdings(size size: CGFloat) -> UIFont? {
+      return UIFont(resource: webdings, size: size)
+    }
+    
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 1 images.
+  /// This `R.image` struct is generated, and contains static references to 2 images.
   struct image {
-    /// Image `IconAgendaItem`.
-    static let iconAgendaItem = ImageResource(bundle: _R.hostingBundle, name: "IconAgendaItem")
+    /// Image `groups`.
+    static let groups = ImageResource(bundle: _R.hostingBundle, name: "groups")
+    /// Image `search`.
+    static let search = ImageResource(bundle: _R.hostingBundle, name: "search")
     
-    /// `UIImage(named: "IconAgendaItem", bundle: ..., traitCollection: ...)`
-    static func iconAgendaItem(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
-      return UIImage(resource: R.image.iconAgendaItem, compatibleWithTraitCollection: traitCollection)
+    /// `UIImage(named: "groups", bundle: ..., traitCollection: ...)`
+    static func groups(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.groups, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "search", bundle: ..., traitCollection: ...)`
+    static func search(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.search, compatibleWithTraitCollection: traitCollection)
     }
     
     private init() {}
@@ -125,7 +147,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 7 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 8 nibs.
   struct nib {
     /// Nib `AutoCompletionTableCell`.
     static let autoCompletionTableCell = _R.nib._AutoCompletionTableCell()
@@ -135,6 +157,8 @@ struct R: Rswift.Validatable {
     static let conversationTableViewCell = _R.nib._ConversationTableViewCell()
     /// Nib `DeliverableTableViewCell`.
     static let deliverableTableViewCell = _R.nib._DeliverableTableViewCell()
+    /// Nib `OrganizationTableViewCell`.
+    static let organizationTableViewCell = _R.nib._OrganizationTableViewCell()
     /// Nib `StreamTableViewCell`.
     static let streamTableViewCell = _R.nib._StreamTableViewCell()
     /// Nib `TimelineAgendaItemTableViewCell`.
@@ -160,6 +184,11 @@ struct R: Rswift.Validatable {
     /// `UINib(name: "DeliverableTableViewCell", bundle: ...)`
     static func deliverableTableViewCell(_: Void) -> UINib {
       return UINib(resource: R.nib.deliverableTableViewCell)
+    }
+    
+    /// `UINib(name: "OrganizationTableViewCell", bundle: ...)`
+    static func organizationTableViewCell(_: Void) -> UINib {
+      return UINib(resource: R.nib.organizationTableViewCell)
     }
     
     /// `UINib(name: "StreamTableViewCell", bundle: ...)`
@@ -188,8 +217,8 @@ struct R: Rswift.Validatable {
     static let conversationTableViewCell: ReuseIdentifier<ConversationTableViewCell> = ReuseIdentifier(identifier: "ConversationTableViewCell")
     /// Reuse identifier `DeliverableTableViewCell`.
     static let deliverableTableViewCell: ReuseIdentifier<DeliverableTableViewCell> = ReuseIdentifier(identifier: "DeliverableTableViewCell")
-    /// Reuse identifier `SizungTableViewCell`.
-    static let sizungTableViewCell: ReuseIdentifier<SizungTableViewCell> = ReuseIdentifier(identifier: "SizungTableViewCell")
+    /// Reuse identifier `OrganizationTableViewCell`.
+    static let organizationTableViewCell: ReuseIdentifier<OrganizationTableViewCell> = ReuseIdentifier(identifier: "OrganizationTableViewCell")
     /// Reuse identifier `StreamTableViewCell`.
     static let streamTableViewCell: ReuseIdentifier<StreamTableViewCell> = ReuseIdentifier(identifier: "StreamTableViewCell")
     /// Reuse identifier `TimelineAgendaItemTableViewCell`.
@@ -402,6 +431,20 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
+    struct _OrganizationTableViewCell: NibResourceType, ReuseIdentifierType {
+      typealias ReusableType = OrganizationTableViewCell
+      
+      let bundle = _R.hostingBundle
+      let identifier = "OrganizationTableViewCell"
+      let name = "OrganizationTableViewCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> OrganizationTableViewCell? {
+        return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? OrganizationTableViewCell
+      }
+      
+      private init() {}
+    }
+    
     struct _StreamTableViewCell: NibResourceType, ReuseIdentifierType {
       typealias ReusableType = StreamTableViewCell
       
@@ -451,7 +494,6 @@ struct _R: Rswift.Validatable {
     static func validate() throws {
       try conversations.validate()
       try main.validate()
-      try organizations.validate()
     }
     
     struct agendaItem: StoryboardResourceWithInitialControllerType {
@@ -559,7 +601,9 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
+        if UIImage(named: "groups") == nil { throw ValidationError(description: "[R.swift] Image named 'groups' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIImage(named: "IconAgendaItem") == nil { throw ValidationError(description: "[R.swift] Image named 'IconAgendaItem' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIImage(named: "search") == nil { throw ValidationError(description: "[R.swift] Image named 'search' is used in storyboard 'Main', but couldn't be loaded.") }
         if _R.storyboard.main().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Main' as 'AgendaItemsTableViewController'.") }
         if _R.storyboard.main().accountViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'accountViewController' could not be loaded from storyboard 'Main' as 'AccountViewController'.") }
         if _R.storyboard.main().mainViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'mainViewController' could not be loaded from storyboard 'Main' as 'OrganizationViewController'.") }
@@ -570,15 +614,11 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
-    struct organizations: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+    struct organizations: StoryboardResourceWithInitialControllerType {
       typealias InitialController = UIViewController
       
       let bundle = _R.hostingBundle
       let name = "Organizations"
-      
-      static func validate() throws {
-        if UIImage(named: "IconAgendaItem") == nil { throw ValidationError(description: "[R.swift] Image named 'IconAgendaItem' is used in storyboard 'Organizations', but couldn't be loaded.") }
-      }
       
       private init() {}
     }

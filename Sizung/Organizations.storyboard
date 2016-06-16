@@ -9,7 +9,9 @@
         <mutableArray key="Brandon_med.otf">
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
-            <string>BrandonGrotesque-Medium</string>
+        </mutableArray>
+        <mutableArray key="Webdings.ttf">
+            <string>Webdings</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -25,21 +27,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8nk-ue-Nub">
-                                <rect key="frame" x="0.0" y="83" width="600" height="517"/>
+                            <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8nk-ue-Nub">
+                                <rect key="frame" x="0.0" y="65" width="600" height="535"/>
                                 <connections>
                                     <segue destination="ZmW-Nb-bi9" kind="embed" id="2gc-Xu-FrK"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HgC-LL-I3f">
-                                <rect key="frame" x="525" y="28" width="55" height="37"/>
+                                <rect key="frame" x="525" y="20" width="55" height="37"/>
                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                 <state key="normal" title="Settings">
-                                    <color key="titleColor" red="0.66666668653488159" green="0.45882353186607361" blue="0.27450981736183167" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.48235294222831726" green="0.40784314274787903" blue="0.31372550129890442" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k11-Zo-1BP">
-                                <rect key="frame" x="15" y="28" width="95" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k11-Zo-1BP">
+                                <rect key="frame" x="20" y="20" width="93" height="37"/>
                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                 <state key="normal" title="Organizations">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -48,12 +50,36 @@
                                     <action selector="hideOrganizations:" destination="3pB-ZO-H0I" eventType="touchUpInside" id="BPa-lv-mqQ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OJP-Si-15h">
+                                <rect key="frame" x="113" y="26" width="30" height="29"/>
+                                <fontDescription key="fontDescription" name="Webdings" family="Webdings" pointSize="17"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="hideOrganizations:" destination="3pB-ZO-H0I" eventType="touchUpInside" id="2DX-Hl-1p4"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.1019607843" green="0.1137254902" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="8nk-ue-Nub" firstAttribute="leading" secondItem="d8L-ad-U2R" secondAttribute="leadingMargin" constant="-20" id="6M7-Mf-S6r"/>
+                            <constraint firstItem="OJP-Si-15h" firstAttribute="centerY" secondItem="k11-Zo-1BP" secondAttribute="centerY" constant="2" id="Edt-Ky-Vf6"/>
+                            <constraint firstItem="k11-Zo-1BP" firstAttribute="leading" secondItem="d8L-ad-U2R" secondAttribute="leadingMargin" id="RDm-1x-qo7"/>
+                            <constraint firstItem="Z5h-dB-NP4" firstAttribute="top" secondItem="8nk-ue-Nub" secondAttribute="bottom" id="ReY-Sl-RWU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8nk-ue-Nub" secondAttribute="trailing" constant="-20" id="V5K-vj-nkc"/>
+                            <constraint firstItem="8nk-ue-Nub" firstAttribute="top" secondItem="k11-Zo-1BP" secondAttribute="bottom" constant="8" id="Vv7-4t-er8"/>
+                            <constraint firstItem="HgC-LL-I3f" firstAttribute="centerY" secondItem="k11-Zo-1BP" secondAttribute="centerY" id="Y8C-sR-Vbt"/>
+                            <constraint firstItem="k11-Zo-1BP" firstAttribute="top" secondItem="qfl-D6-maU" secondAttribute="bottom" id="g8K-ix-Tev"/>
                             <constraint firstItem="HgC-LL-I3f" firstAttribute="trailing" secondItem="d8L-ad-U2R" secondAttribute="trailingMargin" id="neH-ZD-rky"/>
+                            <constraint firstItem="OJP-Si-15h" firstAttribute="leading" secondItem="k11-Zo-1BP" secondAttribute="trailing" id="tJd-be-bIw"/>
                             <constraint firstItem="HgC-LL-I3f" firstAttribute="top" secondItem="qfl-D6-maU" secondAttribute="bottom" constant="8" id="x6L-Np-idb"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="x6L-Np-idb"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3pB-ZO-H0I" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -64,34 +90,10 @@
         <scene sceneID="Sji-3j-HA6">
             <objects>
                 <tableViewController id="ZmW-Nb-bi9" customClass="OrganizationsTableViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="YeT-0Q-ygI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="517"/>
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" id="YeT-0Q-ygI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="535"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SizungTableViewCell" textLabel="giW-A5-ks2" imageView="nwT-kt-FtE" style="IBUITableViewCellStyleDefault" id="9Ua-Gs-PRr" customClass="SizungTableViewCell" customModule="Sizung" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9Ua-Gs-PRr" id="Os8-zX-0cM">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="giW-A5-ks2">
-                                            <rect key="frame" x="50" y="0.0" width="535" height="44"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="IconAgendaItem" id="nwT-kt-FtE">
-                                            <rect key="frame" x="15" y="12" width="20" height="20"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </tableViewCell>
-                        </prototypes>
+                        <color key="backgroundColor" red="0.1019607843" green="0.1137254902" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <outlet property="dataSource" destination="ZmW-Nb-bi9" id="8bp-Pf-YQZ"/>
                             <outlet property="delegate" destination="ZmW-Nb-bi9" id="JIj-m8-wjp"/>
@@ -107,7 +109,4 @@
             <point key="canvasLocation" x="-941" y="265.5"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="IconAgendaItem" width="20" height="20"/>
-    </resources>
 </document>

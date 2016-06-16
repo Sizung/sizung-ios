@@ -94,6 +94,9 @@
 		5AE883A01D09A5990044364B /* ConversationObjectsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8839F1D09A5990044364B /* ConversationObjectsResponse.swift */; };
 		5AECC1D61D115C8700AD8ACE /* AgendaItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AECC1D51D115C8700AD8ACE /* AgendaItemViewController.swift */; };
 		5AECC1D81D115CBD00AD8ACE /* AgendaItem.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AECC1D71D115CBD00AD8ACE /* AgendaItem.storyboard */; };
+		5AF36B9B1D12FBC300A1581F /* OrganizationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF36B991D12FBC300A1581F /* OrganizationTableViewCell.swift */; };
+		5AF36B9C1D12FBC300A1581F /* OrganizationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AF36B9A1D12FBC300A1581F /* OrganizationTableViewCell.xib */; };
+		5AF36B9E1D13024D00A1581F /* Webdings.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AF36B9D1D13004C00A1581F /* Webdings.ttf */; };
 		7C805C9F87DFD35FED0D4054 /* Pods_SizungTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */; };
 		FCA0C987B799BBE8626392B5 /* Pods_Sizung.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 996C9E787ED021D4997D12D2 /* Pods_Sizung.framework */; };
 /* End PBXBuildFile section */
@@ -212,6 +215,9 @@
 		5AE8839F1D09A5990044364B /* ConversationObjectsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationObjectsResponse.swift; sourceTree = "<group>"; };
 		5AECC1D51D115C8700AD8ACE /* AgendaItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemViewController.swift; sourceTree = "<group>"; };
 		5AECC1D71D115CBD00AD8ACE /* AgendaItem.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AgendaItem.storyboard; sourceTree = "<group>"; };
+		5AF36B991D12FBC300A1581F /* OrganizationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationTableViewCell.swift; sourceTree = "<group>"; };
+		5AF36B9A1D12FBC300A1581F /* OrganizationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrganizationTableViewCell.xib; sourceTree = "<group>"; };
+		5AF36B9D1D13004C00A1581F /* Webdings.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Webdings.ttf; sourceTree = "<group>"; };
 		76E7771C4CDE72F6FB4EA165 /* Pods-Sizung.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sizung.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sizung/Pods-Sizung.release.xcconfig"; sourceTree = "<group>"; };
 		996C9E787ED021D4997D12D2 /* Pods_Sizung.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sizung.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BDDA999939B2CCA49D06D48 /* Pods-Sizung.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sizung.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sizung/Pods-Sizung.debug.xcconfig"; sourceTree = "<group>"; };
@@ -366,6 +372,7 @@
 		5A7329F41D05B1F2006531A5 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				5AF36B9D1D13004C00A1581F /* Webdings.ttf */,
 				5A9D0EF21D12066E00037589 /* Brandon_reg.otf */,
 				5A9D0EF01D11FECF00037589 /* Brandon Text W01 Medium.ttf */,
 				5A9D0EEE1D11FEC200037589 /* Gotham-Light.otf */,
@@ -389,6 +396,8 @@
 				5A9D0EE61D11B3C500037589 /* ConversationTableViewCell.xib */,
 				5A9D0EEA1D11BCAB00037589 /* StreamTableViewCell.swift */,
 				5A9D0EEB1D11BCAB00037589 /* StreamTableViewCell.xib */,
+				5AF36B991D12FBC300A1581F /* OrganizationTableViewCell.swift */,
+				5AF36B9A1D12FBC300A1581F /* OrganizationTableViewCell.xib */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -674,6 +683,7 @@
 				5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */,
 				5A9D0EDC1D11998D00037589 /* Organizations.storyboard in Resources */,
 				5A9D0EF11D11FECF00037589 /* Brandon Text W01 Medium.ttf in Resources */,
+				5AF36B9C1D12FBC300A1581F /* OrganizationTableViewCell.xib in Resources */,
 				5A9D0EE31D119E8700037589 /* Login.storyboard in Resources */,
 				5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */,
 				5A9D0EE51D11B33700037589 /* Conversations.storyboard in Resources */,
@@ -682,6 +692,7 @@
 				5AE8839E1D09A56C0044364B /* CommentTableViewCell.xib in Resources */,
 				5A3FC58F1D11385B0084FF2F /* Deliverable.storyboard in Resources */,
 				5A7329FA1D05B1FC006531A5 /* Brandon_med.otf in Resources */,
+				5AF36B9E1D13024D00A1581F /* Webdings.ttf in Resources */,
 				5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */,
 				5AECC1D81D115CBD00AD8ACE /* AgendaItem.storyboard in Resources */,
 				5A9D0EED1D11BCAB00037589 /* StreamTableViewCell.xib in Resources */,
@@ -864,6 +875,7 @@
 				5A9D0EEC1D11BCAB00037589 /* StreamTableViewCell.swift in Sources */,
 				5A35DC0C1D0AF9C300916118 /* AutoCompletionTableCell.swift in Sources */,
 				5AE8839D1D09A56C0044364B /* CommentTableViewCell.swift in Sources */,
+				5AF36B9B1D12FBC300A1581F /* OrganizationTableViewCell.swift in Sources */,
 				5ABA4FBD1CFEBF1600110030 /* ConversationsResponse.swift in Sources */,
 				5AD9F1BF1CE9D65900455D98 /* AgendaItemDeliverables.swift in Sources */,
 				5A8F79091CFF14BF00953495 /* DeliverablesResponse.swift in Sources */,
