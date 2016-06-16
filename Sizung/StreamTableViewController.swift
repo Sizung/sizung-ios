@@ -30,7 +30,19 @@ class StreamTableViewController: UITableViewController {
   // MARK: - Table view data source
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    // #warning Incomplete implementation, return the number of sections
+    
+    // Display a message when the table is empty
+    let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+    
+    messageLabel.text = "To be implemented"
+    messageLabel.numberOfLines = 0
+    messageLabel.textAlignment = .Center
+    messageLabel.font = R.font.brandonGrotesqueBold(size: 30)
+    messageLabel.sizeToFit()
+    
+    self.tableView.backgroundView = messageLabel;
+    self.tableView.separatorStyle = .None;
+    
     return 0
   }
   
