@@ -19,6 +19,7 @@ target 'Sizung' do
   pod 'DateTools', '~> 1.0'
   pod 'ActionCableClient', '~> 0.1'
   pod 'Sheriff'
+  pod 'KCFloatingActionButton'
 
   pod 'R.swift', '~> 2.3'
 

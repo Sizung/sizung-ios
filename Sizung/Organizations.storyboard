@@ -15,10 +15,10 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Organizations View Controller-->
         <scene sceneID="48e-G5-PQm">
             <objects>
-                <viewController id="xtB-TJ-duP" sceneMemberID="viewController">
+                <viewController id="xtB-TJ-duP" customClass="OrganizationsViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qfl-D6-maU"/>
                         <viewControllerLayoutGuide type="bottom" id="Z5h-dB-NP4"/>
@@ -60,6 +60,22 @@
                                     <action selector="hideOrganizations:" destination="3pB-ZO-H0I" eventType="touchUpInside" id="2DX-Hl-1p4"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eE-qZ-yfG" customClass="KCFloatingActionButton" customModule="KCFloatingActionButton">
+                                <rect key="frame" x="525" y="515" width="50" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="6AX-As-n31"/>
+                                    <constraint firstAttribute="height" constant="50" id="KGG-eD-BgD"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="buttonColor">
+                                        <color key="value" red="0.5607843137254902" green="0.4823529411764706" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="plusColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.1019607843" green="0.1137254902" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -70,7 +86,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="8nk-ue-Nub" secondAttribute="trailing" constant="-20" id="V5K-vj-nkc"/>
                             <constraint firstItem="8nk-ue-Nub" firstAttribute="top" secondItem="k11-Zo-1BP" secondAttribute="bottom" constant="8" id="Vv7-4t-er8"/>
                             <constraint firstItem="HgC-LL-I3f" firstAttribute="centerY" secondItem="k11-Zo-1BP" secondAttribute="centerY" id="Y8C-sR-Vbt"/>
+                            <constraint firstAttribute="trailing" secondItem="0eE-qZ-yfG" secondAttribute="trailing" constant="25" id="ddt-Ig-1nG"/>
                             <constraint firstItem="k11-Zo-1BP" firstAttribute="top" secondItem="qfl-D6-maU" secondAttribute="bottom" id="g8K-ix-Tev"/>
+                            <constraint firstItem="Z5h-dB-NP4" firstAttribute="top" secondItem="0eE-qZ-yfG" secondAttribute="bottom" constant="35" id="lCT-Qx-3Cn"/>
                             <constraint firstItem="HgC-LL-I3f" firstAttribute="trailing" secondItem="d8L-ad-U2R" secondAttribute="trailingMargin" id="neH-ZD-rky"/>
                             <constraint firstItem="OJP-Si-15h" firstAttribute="leading" secondItem="k11-Zo-1BP" secondAttribute="trailing" id="tJd-be-bIw"/>
                             <constraint firstItem="HgC-LL-I3f" firstAttribute="top" secondItem="qfl-D6-maU" secondAttribute="bottom" constant="8" id="x6L-Np-idb"/>
@@ -81,6 +99,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="addOrganizationButton" destination="0eE-qZ-yfG" id="qGQ-2H-Z7x"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3pB-ZO-H0I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -615,7 +615,7 @@ struct _R: Rswift.Validatable {
     }
     
     struct organizations: StoryboardResourceWithInitialControllerType {
-      typealias InitialController = UIViewController
+      typealias InitialController = OrganizationsViewController
       
       let bundle = _R.hostingBundle
       let name = "Organizations"
