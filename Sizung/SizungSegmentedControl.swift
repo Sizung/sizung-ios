@@ -50,8 +50,8 @@ import UIKit
       layer.borderColor = borderColor.CGColor
     }
   }
-  
-  @IBInspectable var font : UIFont! = R.font.brandonGrotesqueMedium(size: 13) {
+
+  @IBInspectable var font : UIFont! = R.font.brandonGrotesqueMedium(size: 12) {
     didSet {
       setFont()
     }
@@ -98,7 +98,6 @@ import UIKit
       label.backgroundColor = UIColor.clearColor()
       label.textAlignment = .Center
       label.font = self.font
-      label.adjustsFontSizeToFitWidth = true
       label.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
       label.translatesAutoresizingMaskIntoConstraints = false
       self.addSubview(label)
