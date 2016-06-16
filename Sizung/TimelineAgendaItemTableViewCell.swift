@@ -15,7 +15,7 @@ class TimelineAgendaItemTableViewCell: UITableViewCell {
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var dateLabel: UILabel!
   
-  static let kHeight:CGFloat = 95
+  static let kHeight:CGFloat = 107
   
   class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
   
