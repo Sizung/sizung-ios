@@ -119,7 +119,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 8 images.
+  /// This `R.image` struct is generated, and contains static references to 9 images.
   struct image {
     /// Image `action_bg_left`.
     static let action_bg_left = ImageResource(bundle: _R.hostingBundle, name: "action_bg_left")
@@ -129,6 +129,8 @@ struct R: Rswift.Validatable {
     static let action_bg_right = ImageResource(bundle: _R.hostingBundle, name: "action_bg_right")
     /// Image `groups`.
     static let groups = ImageResource(bundle: _R.hostingBundle, name: "groups")
+    /// Image `priority`.
+    static let priority = ImageResource(bundle: _R.hostingBundle, name: "priority")
     /// Image `priority_bg_left`.
     static let priority_bg_left = ImageResource(bundle: _R.hostingBundle, name: "priority_bg_left")
     /// Image `priority_bg_middle`.
@@ -156,6 +158,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "groups", bundle: ..., traitCollection: ...)`
     static func groups(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.groups, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "priority", bundle: ..., traitCollection: ...)`
+    static func priority(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.priority, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "priority_bg_left", bundle: ..., traitCollection: ...)`
@@ -644,7 +651,7 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIImage(named: "groups") == nil { throw ValidationError(description: "[R.swift] Image named 'groups' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIImage(named: "IconAgendaItem") == nil { throw ValidationError(description: "[R.swift] Image named 'IconAgendaItem' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIImage(named: "priority") == nil { throw ValidationError(description: "[R.swift] Image named 'priority' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIImage(named: "search") == nil { throw ValidationError(description: "[R.swift] Image named 'search' is used in storyboard 'Main', but couldn't be loaded.") }
         if _R.storyboard.main().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Main' as 'AgendaItemsTableViewController'.") }
         if _R.storyboard.main().accountViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'accountViewController' could not be loaded from storyboard 'Main' as 'AccountViewController'.") }

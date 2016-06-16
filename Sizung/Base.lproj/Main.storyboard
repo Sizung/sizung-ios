@@ -8,6 +8,10 @@
     <customFonts key="customFonts">
         <mutableArray key="Brandon_med.otf">
             <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+        </mutableArray>
+        <mutableArray key="Brandon_reg.otf">
+            <string>BrandonText-Regular</string>
         </mutableArray>
         <mutableArray key="Webdings.ttf">
             <string>Webdings</string>
@@ -43,22 +47,22 @@
                                                 </mask>
                                             </variation>
                                         </view>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IconAgendaItem" translatesAutoresizingMaskIntoConstraints="NO" id="gAf-9G-KcY">
-                                            <rect key="frame" x="13" y="8" width="20" height="20"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="priority" translatesAutoresizingMaskIntoConstraints="NO" id="gAf-9G-KcY">
+                                            <rect key="frame" x="13" y="14" width="15" height="10"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="20" id="HCA-Z3-ZeZ"/>
-                                                <constraint firstAttribute="width" constant="20" id="Zix-gJ-1zI"/>
+                                                <constraint firstAttribute="height" constant="10" id="HCA-Z3-ZeZ"/>
+                                                <constraint firstAttribute="width" constant="15" id="Zix-gJ-1zI"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="255" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X85-Em-BYJ">
-                                            <rect key="frame" x="41" y="11" width="551" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="36" y="8" width="556" height="22"/>
+                                            <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hgh-qy-Ykc">
-                                            <rect key="frame" x="41" y="40" width="551" height="20"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="36" y="38" width="556" height="22"/>
+                                            <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="13"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -67,7 +71,8 @@
                                         <constraint firstItem="OLQ-pQ-dvB" firstAttribute="leading" secondItem="VlT-Q9-l8e" secondAttribute="leading" id="CWv-Zq-Ijb"/>
                                         <constraint firstItem="OLQ-pQ-dvB" firstAttribute="top" secondItem="VlT-Q9-l8e" secondAttribute="top" id="GLD-5R-Zgj"/>
                                         <constraint firstItem="gAf-9G-KcY" firstAttribute="top" secondItem="VlT-Q9-l8e" secondAttribute="topMargin" id="KAO-Cm-C3Z"/>
-                                        <constraint firstItem="X85-Em-BYJ" firstAttribute="top" secondItem="VlT-Q9-l8e" secondAttribute="topMargin" constant="3" id="MPz-9c-LkF"/>
+                                        <constraint firstItem="X85-Em-BYJ" firstAttribute="top" secondItem="VlT-Q9-l8e" secondAttribute="topMargin" id="MPz-9c-LkF"/>
+                                        <constraint firstItem="Hgh-qy-Ykc" firstAttribute="leading" secondItem="X85-Em-BYJ" secondAttribute="leading" id="Wdl-LG-Uv2"/>
                                         <constraint firstItem="X85-Em-BYJ" firstAttribute="trailing" secondItem="VlT-Q9-l8e" secondAttribute="trailingMargin" id="Xc9-O6-DBK"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="X85-Em-BYJ" secondAttribute="bottom" constant="3" id="YL7-jk-gMj"/>
                                         <constraint firstItem="Hgh-qy-Ykc" firstAttribute="top" secondItem="X85-Em-BYJ" secondAttribute="bottom" constant="8" id="ZtV-kr-Fof"/>
@@ -78,13 +83,16 @@
                                         <constraint firstItem="gAf-9G-KcY" firstAttribute="leading" secondItem="OLQ-pQ-dvB" secondAttribute="trailing" constant="8" id="ibe-9P-Xd8"/>
                                         <constraint firstItem="Hgh-qy-Ykc" firstAttribute="top" secondItem="X85-Em-BYJ" secondAttribute="bottom" constant="8" id="ogT-wF-qUE"/>
                                         <constraint firstItem="Hgh-qy-Ykc" firstAttribute="leading" secondItem="OLQ-pQ-dvB" secondAttribute="trailing" constant="36" id="pEq-XY-gcL"/>
+                                        <constraint firstItem="X85-Em-BYJ" firstAttribute="centerY" secondItem="gAf-9G-KcY" secondAttribute="centerY" id="pd8-R7-isv"/>
                                         <constraint firstItem="X85-Em-BYJ" firstAttribute="leading" secondItem="gAf-9G-KcY" secondAttribute="trailing" constant="8" id="vrq-fv-EBP"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
+                                            <exclude reference="KAO-Cm-C3Z"/>
                                             <exclude reference="YL7-jk-gMj"/>
                                             <exclude reference="vrq-fv-EBP"/>
                                             <exclude reference="ZtV-kr-Fof"/>
+                                            <exclude reference="pEq-XY-gcL"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -393,8 +401,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="IconAgendaItem" width="20" height="20"/>
         <image name="groups" width="24" height="16"/>
+        <image name="priority" width="15" height="10"/>
         <image name="search" width="20" height="21"/>
     </resources>
 </document>

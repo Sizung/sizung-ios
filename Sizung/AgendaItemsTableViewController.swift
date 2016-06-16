@@ -56,7 +56,12 @@ class AgendaItemsTableViewController: UITableViewController {
       let cell = tableView.dequeueReusableCellWithIdentifier("AgendaItemTableViewCell", forIndexPath: indexPath) as! AgendaItemTableViewCell
       let agendaItem = agendaItems[indexPath.row]
       cell.titleLabel.text = agendaItem.title
-      cell.conversationLabel.text = agendaItem.conversation.title
+      
+      cell.conversationLabel.text = ""
+      
+      if let conversationTitle = storageManager.getConversation(agendaItem.conversation.id)?.title {
+        cell.conversationLabel.text = "@\(conversationTitle)"
+      }
       
       
       // TODO: Real unread status
