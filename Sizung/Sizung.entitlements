@@ -4,8 +4,8 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>app.sizung.com</string>
-		<string>staging-sizung.herokuapp.com</string>
+		<string>applinks:app.sizung.com</string>
+		<string>applinks:staging-sizung.herokuapp.com</string>
 	</array>
 </dict>
 </plist>
