@@ -19,6 +19,11 @@ class OrganizationsViewController: UIViewController, KCFloatingActionButtonDeleg
     addOrganizationButton.fabDelegate = self
   }
   
+  @IBAction func showSettings(sender: AnyObject) {
+    let accountViewController = R.storyboard.main.accountViewController()!
+    self.showViewController(accountViewController, sender: self)
+  }
+  
   func emptyKCFABSelected(fab: KCFloatingActionButton) {
     print("add org")
   }

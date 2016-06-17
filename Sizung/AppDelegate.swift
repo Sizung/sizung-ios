@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
       token.validate()
         .onSuccess { _ in
           self.loadInitialViewController()
+          
         }.onFailure { error in
           self.showLogin()
       }
@@ -83,6 +84,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   }
   
   func loginSuccess(loginViewController: LoginViewController) {
+    self.registerForPushNotifications()
+    
     loginViewController.dismissViewControllerAnimated(true, completion: nil)
     self.window?.rootViewController = R.storyboard.main.initialViewController()
     self.loadInitialViewController()
@@ -106,7 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   }
   
   func applicationDidBecomeActive(application: UIApplication) {
-  
+    
     //ensure websocket connection is open
     if let websocket = StorageManager.sharedInstance.websocket {
       if !websocket.client.connected {
@@ -130,6 +133,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
   
+  // universal links
+  
+  func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+    if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+      let url = userActivity.webpageURL
+      
+      print("received URL:\(url)")
+    }
+    return true
+  }
+  
+  // push notifications
+  
+  func registerForPushNotifications() {
+    let application = UIApplication.sharedApplication()
+    let notificationSettings = UIUserNotificationSettings(
+      forTypes: [.Badge, .Sound, .Alert], categories: nil)
+    
+    application.registerUserNotificationSettings(notificationSettings)
+    
+    application.registerForRemoteNotifications()
+  }
+  
+  func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
+    var tokenString = ""
+    
+    for i in 0..<deviceToken.length {
+      tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
+    }
+    
+    print("Device Token:", tokenString)
+    
+    Alamofire.request(SizungHttpRouter.RegisterDevice(token: tokenString))
+      .validate()
+      .responseJSON { response in
+        print(response)
+    }
+    
+    
+  }
+  
+  func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+    print("Failed to register:", error)
+  }
+  
+  func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+    print("received remote notification: \(userInfo)")
+  }
   
 }
 

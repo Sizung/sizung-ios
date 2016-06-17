@@ -13,6 +13,7 @@ import SwiftKeychainWrapper
 enum SizungHttpRouter: URLRequestConvertible {
   
   case Login(email: String, password: String)
+  case RegisterDevice(token: String)
   case Logout()
   case Organizations()
   case Organization(id: String)
@@ -24,6 +25,7 @@ enum SizungHttpRouter: URLRequestConvertible {
   var method: Alamofire.Method {
     switch self {
     case .Login,
+         .RegisterDevice,
          .Comments:
       return .POST
     case .Logout:
@@ -38,6 +40,8 @@ enum SizungHttpRouter: URLRequestConvertible {
     case .Login,
          .Logout:
       return "/session_tokens"
+    case .RegisterDevice:
+      return "/devices"
     case .Organizations:
       return "/organizations"
     case .Organization(let id):
@@ -79,6 +83,12 @@ enum SizungHttpRouter: URLRequestConvertible {
           "password": password
         ]
       ]
+    case .RegisterDevice(let deviceToken):
+      return [
+        "device": [
+          "token": deviceToken
+        ]
+      ]
     case .Comments(let comment):
       
       // TODO: workaround for incorrect type
@@ -103,11 +113,13 @@ enum SizungHttpRouter: URLRequestConvertible {
     let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
     mutableURLRequest.HTTPMethod = method.rawValue
     mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Accept")
+    mutableURLRequest.setValue(Configuration.getDeviceId(), forHTTPHeaderField: "X-DEVICE")
     
     mutableURLRequest.setValue(self.authentication, forHTTPHeaderField: "Authorization")
     
     switch self {
     case .Login,
+         .RegisterDevice,
          .Comments:
       return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: self.jsonParameters).0
     default:

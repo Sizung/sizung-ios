@@ -647,6 +647,9 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = N7XA4D3XV9;
 						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
 							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
