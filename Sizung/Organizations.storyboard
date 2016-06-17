@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xtB-TJ-duP">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Brandon_med.otf">
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+        </mutableArray>
+        <mutableArray key="Webdings.ttf">
+            <string>Webdings</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--Organizations View Controller-->
+        <scene sceneID="48e-G5-PQm">
+            <objects>
+                <viewController id="xtB-TJ-duP" customClass="OrganizationsViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qfl-D6-maU"/>
+                        <viewControllerLayoutGuide type="bottom" id="Z5h-dB-NP4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="d8L-ad-U2R">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8nk-ue-Nub">
+                                <rect key="frame" x="0.0" y="65" width="600" height="535"/>
+                                <connections>
+                                    <segue destination="ZmW-Nb-bi9" kind="embed" id="2gc-Xu-FrK"/>
+                                </connections>
+                            </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HgC-LL-I3f">
+                                <rect key="frame" x="525" y="20" width="55" height="37"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                <state key="normal" title="Settings">
+                                    <color key="titleColor" red="0.48235294222831726" green="0.40784314274787903" blue="0.31372550129890442" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="showSettings:" destination="xtB-TJ-duP" eventType="touchUpInside" id="URD-wI-xSf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k11-Zo-1BP">
+                                <rect key="frame" x="20" y="20" width="93" height="37"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                <state key="normal" title="Organizations">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="hideOrganizations:" destination="3pB-ZO-H0I" eventType="touchUpInside" id="BPa-lv-mqQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OJP-Si-15h">
+                                <rect key="frame" x="113" y="26" width="30" height="29"/>
+                                <fontDescription key="fontDescription" name="Webdings" family="Webdings" pointSize="17"/>
+                                <state key="normal" title="">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="hideOrganizations:" destination="3pB-ZO-H0I" eventType="touchUpInside" id="2DX-Hl-1p4"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eE-qZ-yfG" customClass="KCFloatingActionButton" customModule="KCFloatingActionButton">
+                                <rect key="frame" x="525" y="515" width="50" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="6AX-As-n31"/>
+                                    <constraint firstAttribute="height" constant="50" id="KGG-eD-BgD"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="buttonColor">
+                                        <color key="value" red="0.5607843137254902" green="0.4823529411764706" blue="0.396078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="plusColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1019607843" green="0.1137254902" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="8nk-ue-Nub" firstAttribute="leading" secondItem="d8L-ad-U2R" secondAttribute="leadingMargin" constant="-20" id="6M7-Mf-S6r"/>
+                            <constraint firstItem="OJP-Si-15h" firstAttribute="centerY" secondItem="k11-Zo-1BP" secondAttribute="centerY" constant="2" id="Edt-Ky-Vf6"/>
+                            <constraint firstItem="k11-Zo-1BP" firstAttribute="leading" secondItem="d8L-ad-U2R" secondAttribute="leadingMargin" id="RDm-1x-qo7"/>
+                            <constraint firstItem="Z5h-dB-NP4" firstAttribute="top" secondItem="8nk-ue-Nub" secondAttribute="bottom" id="ReY-Sl-RWU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8nk-ue-Nub" secondAttribute="trailing" constant="-20" id="V5K-vj-nkc"/>
+                            <constraint firstItem="8nk-ue-Nub" firstAttribute="top" secondItem="k11-Zo-1BP" secondAttribute="bottom" constant="8" id="Vv7-4t-er8"/>
+                            <constraint firstItem="HgC-LL-I3f" firstAttribute="centerY" secondItem="k11-Zo-1BP" secondAttribute="centerY" id="Y8C-sR-Vbt"/>
+                            <constraint firstAttribute="trailing" secondItem="0eE-qZ-yfG" secondAttribute="trailing" constant="25" id="ddt-Ig-1nG"/>
+                            <constraint firstItem="k11-Zo-1BP" firstAttribute="top" secondItem="qfl-D6-maU" secondAttribute="bottom" id="g8K-ix-Tev"/>
+                            <constraint firstItem="Z5h-dB-NP4" firstAttribute="top" secondItem="0eE-qZ-yfG" secondAttribute="bottom" constant="35" id="lCT-Qx-3Cn"/>
+                            <constraint firstItem="HgC-LL-I3f" firstAttribute="trailing" secondItem="d8L-ad-U2R" secondAttribute="trailingMargin" id="neH-ZD-rky"/>
+                            <constraint firstItem="OJP-Si-15h" firstAttribute="leading" secondItem="k11-Zo-1BP" secondAttribute="trailing" id="tJd-be-bIw"/>
+                            <constraint firstItem="HgC-LL-I3f" firstAttribute="top" secondItem="qfl-D6-maU" secondAttribute="bottom" constant="8" id="x6L-Np-idb"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="x6L-Np-idb"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="addOrganizationButton" destination="0eE-qZ-yfG" id="qGQ-2H-Z7x"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3pB-ZO-H0I" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1697" y="266"/>
+        </scene>
+        <!--Organizations Table View Controller-->
+        <scene sceneID="Sji-3j-HA6">
+            <objects>
+                <tableViewController id="ZmW-Nb-bi9" customClass="OrganizationsTableViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" id="YeT-0Q-ygI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="535"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.1019607843" green="0.1137254902" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <outlet property="dataSource" destination="ZmW-Nb-bi9" id="8bp-Pf-YQZ"/>
+                            <outlet property="delegate" destination="ZmW-Nb-bi9" id="JIj-m8-wjp"/>
+                        </connections>
+                    </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="70t-FD-NVA">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rC3-SE-cAL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-941" y="265.5"/>
+        </scene>
+    </scenes>
+</document>

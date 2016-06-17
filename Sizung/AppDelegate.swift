@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
       token.validate()
         .onSuccess { _ in
           self.loadInitialViewController()
+          
         }.onFailure { error in
           self.showLogin()
       }
@@ -57,34 +58,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   
   func initTheme(){
     UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
-    
-    UIToolbar.appearance().tintColor = UIColor.whiteColor()
-    
-    let headerFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleHeadline)
-    let bodyFont = UIFont.preferredCustomFontForTextStyle(UIFontTextStyleBody)
-    
-    UILabel.appearance().font = bodyFont
-    UILabel.appearanceWhenContainedInInstancesOfClasses([UIButton.self]).font = bodyFont
-    UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: headerFont, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: .Normal)
   }
   
   func registerNotifications(){
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.showLogin), name: Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
-    
   }
   
   func loadInitialViewController() {
-    guard KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) != nil else {
-      let organizationViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("OrganizationsViewController")
-      organizationViewController.modalPresentationStyle = .OverCurrentContext
-      organizationViewController.modalTransitionStyle = .CoverVertical
+    
+    if let selectedOrganization = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
+      StorageManager.sharedInstance.updateOrganization(selectedOrganization)
+    } else {
+      let organizationViewController = R.storyboard.organizations.initialViewController()!
       self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
-      return
     }
   }
   
   func showLogin(){
-    let loginViewController = LoginViewController(nibName: "Login", bundle: nil)
+    let loginViewController = R.storyboard.login.initialViewController()!
     loginViewController.loginDelegate = self
     loginViewController.modalPresentationStyle = .OverCurrentContext
     loginViewController.modalTransitionStyle = .CoverVertical
@@ -93,8 +84,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   }
   
   func loginSuccess(loginViewController: LoginViewController) {
+    self.registerForPushNotifications()
+    
     loginViewController.dismissViewControllerAnimated(true, completion: nil)
-    self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+    self.window?.rootViewController = R.storyboard.main.initialViewController()
     self.loadInitialViewController()
   }
   
@@ -104,22 +97,91 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   }
   
   func applicationDidEnterBackground(application: UIApplication) {
+    print("applicationDidEnterBackground")
+    
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
   }
   
   func applicationWillEnterForeground(application: UIApplication) {
+    print("applicationWillEnterForeground")
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
   }
   
   func applicationDidBecomeActive(application: UIApplication) {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    //ensure websocket connection is open
+    if let websocket = StorageManager.sharedInstance.websocket {
+      if !websocket.client.connected {
+        print("websocket not connected - reconnecting")
+        initWebsocketConnection()
+      }
+    } else {
+      print("websocket not initialized - connecting")
+      initWebsocketConnection()
+    }
+  }
+  
+  func initWebsocketConnection(){
+    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+      StorageManager.sharedInstance.websocket = Websocket(authToken: authToken)
+    }
   }
   
   func applicationWillTerminate(application: UIApplication) {
+    print("applicationWillTerminate")
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
   
+  // universal links
+  
+  func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+    if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+      let url = userActivity.webpageURL
+      
+      print("received URL:\(url)")
+    }
+    return true
+  }
+  
+  // push notifications
+  
+  func registerForPushNotifications() {
+    let application = UIApplication.sharedApplication()
+    let notificationSettings = UIUserNotificationSettings(
+      forTypes: [.Badge, .Sound, .Alert], categories: nil)
+    
+    application.registerUserNotificationSettings(notificationSettings)
+    
+    application.registerForRemoteNotifications()
+  }
+  
+  func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
+    var tokenString = ""
+    
+    for i in 0..<deviceToken.length {
+      tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
+    }
+    
+    print("Device Token:", tokenString)
+    
+    Alamofire.request(SizungHttpRouter.RegisterDevice(token: tokenString))
+      .validate()
+      .responseJSON { response in
+        print(response)
+    }
+    
+    
+  }
+  
+  func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+    print("Failed to register:", error)
+  }
+  
+  func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+    print("received remote notification: \(userInfo)")
+  }
   
 }
 

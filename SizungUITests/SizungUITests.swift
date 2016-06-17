@@ -7,6 +7,8 @@
 //
 
 import XCTest
+@testable import Pods_Sizung
+
 
 class SizungUITests: XCTestCase {
     

@@ -8,22 +8,45 @@
 
 import ObjectMapper
 
-import ObjectMapper
-
 class Deliverable: BaseModel {
   var title: String!
   var status: String!
   var archived: Bool!
-  var conversation: Conversation!
+  var due_on: NSDate?
   
   var owner: User!
+  var assignee: User!
+  var parent: BaseModel!
+  
+  var conversation: Conversation {
+    get {
+      switch parent {
+      case let conversation as Conversation:
+        return conversation
+      case let agendaItem as AgendaItem:
+        return StorageManager.sharedInstance.getAgendaItem(agendaItem.id)!.conversation
+      default:
+        fatalError("unkown parent object in Deliverable \(self.id)")
+      }
+    }
+  }
+  
+  func isCompleted() -> Bool {
+    return "closed" == self.status
+  }
+  
+  func getStatus() -> String {
+    return self.status.capitalizedString
+  }
   
   override func mapping(map: Map) {
     super.mapping(map)
     title <- map["attributes.title"]
     status <- map["attributes.status"]
+    due_on <- (map["attributes.due_on"], ISODateTransform())
     archived <- map["attributes.archived"]
-    conversation <- map["relationships.conversation.data"]
     owner <- map["relationships.owner.data"]
+    assignee <- map["relationships.assignee.data"]
+    parent <- map["relationships.parent.data"]
   }
 }

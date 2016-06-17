@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Brandon Text W01 Medium.ttf">
+            <string>BrandonTextW01-Medium</string>
+        </mutableArray>
+        <mutableArray key="Brandon_med.otf">
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeliverableTableViewCell" id="iQU-sR-Wm4" customClass="DeliverableTableViewCell" customModule="Sizung" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="71"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iQU-sR-Wm4" id="q6O-Ze-FLG">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uBU-Xv-q9Y">
+                        <rect key="frame" x="0.0" y="0.0" width="5" height="70"/>
+                        <color key="backgroundColor" red="0.97647058819999999" green="0.40000000000000002" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="5" id="bH1-H7-OAg"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bAi-4e-Gva">
+                        <rect key="frame" x="13" y="8" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="ctm-WL-b5p"/>
+                            <constraint firstAttribute="height" constant="20" id="stL-Gq-h93"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mZ-H7-bse">
+                        <rect key="frame" x="41" y="8" width="551" height="22"/>
+                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zob-pi-Jjx">
+                        <rect key="frame" x="41" y="38" width="515" height="19"/>
+                        <fontDescription key="fontDescription" name="BrandonTextW01-Medium" family="BrandonTextW01-Medium" pointSize="13"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8i2-ut-hEs">
+                        <rect key="frame" x="564" y="38" width="28" height="19"/>
+                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="13"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="8i2-ut-hEs" firstAttribute="leading" secondItem="Zob-pi-Jjx" secondAttribute="trailing" constant="8" id="91k-4y-7bl"/>
+                    <constraint firstItem="bAi-4e-Gva" firstAttribute="leading" secondItem="uBU-Xv-q9Y" secondAttribute="trailing" constant="8" id="AH4-Cu-jLX"/>
+                    <constraint firstItem="uBU-Xv-q9Y" firstAttribute="top" secondItem="q6O-Ze-FLG" secondAttribute="top" id="CmU-Np-0fg"/>
+                    <constraint firstItem="bAi-4e-Gva" firstAttribute="top" secondItem="q6O-Ze-FLG" secondAttribute="topMargin" id="EJ7-dB-ihI"/>
+                    <constraint firstItem="Zob-pi-Jjx" firstAttribute="leading" secondItem="uBU-Xv-q9Y" secondAttribute="trailing" constant="36" id="IQ1-CE-w3h"/>
+                    <constraint firstItem="8i2-ut-hEs" firstAttribute="trailing" secondItem="q6O-Ze-FLG" secondAttribute="trailingMargin" id="USM-k0-A5U"/>
+                    <constraint firstItem="Zob-pi-Jjx" firstAttribute="top" secondItem="6mZ-H7-bse" secondAttribute="bottom" constant="8" id="V8s-8n-bYh"/>
+                    <constraint firstAttribute="bottom" secondItem="uBU-Xv-q9Y" secondAttribute="bottom" id="c2d-MR-3eK"/>
+                    <constraint firstItem="8i2-ut-hEs" firstAttribute="top" secondItem="6mZ-H7-bse" secondAttribute="bottom" constant="8" id="can-LN-D55"/>
+                    <constraint firstItem="uBU-Xv-q9Y" firstAttribute="leading" secondItem="q6O-Ze-FLG" secondAttribute="leading" id="jeg-V2-qNx"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="8i2-ut-hEs" secondAttribute="bottom" constant="5" id="kSn-Fm-8Id"/>
+                    <constraint firstItem="6mZ-H7-bse" firstAttribute="top" secondItem="q6O-Ze-FLG" secondAttribute="topMargin" id="pLt-tL-8OP"/>
+                    <constraint firstItem="6mZ-H7-bse" firstAttribute="leading" secondItem="bAi-4e-Gva" secondAttribute="trailing" constant="8" id="t2I-5q-SmI"/>
+                    <constraint firstItem="6mZ-H7-bse" firstAttribute="trailing" secondItem="q6O-Ze-FLG" secondAttribute="trailingMargin" id="u4F-ra-yzu"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Zob-pi-Jjx" secondAttribute="bottom" constant="5" id="zn7-VV-O39"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="conversationLabel" destination="8i2-ut-hEs" id="44I-bm-FqT"/>
+                <outlet property="statusLabel" destination="Zob-pi-Jjx" id="gEY-31-14P"/>
+                <outlet property="titleLabel" destination="6mZ-H7-bse" id="dde-iI-xjz"/>
+                <outlet property="unreadStatusView" destination="uBU-Xv-q9Y" id="VxP-Wa-Z9n"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

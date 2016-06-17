@@ -17,6 +17,7 @@ class OrganizationsTableViewController: UITableViewController {
     super.viewDidLoad()
     
     self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
+    self.tableView.registerNib(R.nib.organizationTableViewCell(), forCellReuseIdentifier: R.nib.organizationTableViewCell.identifier)
     
     self.initData()
   }
@@ -34,9 +35,10 @@ class OrganizationsTableViewController: UITableViewController {
       }.disposeIn(rBag)
     
     storageManager.organizations.bindTo(self.tableView) { indexPath, organizations, tableView in
-      let cell = tableView.dequeueReusableCellWithIdentifier("SizungTableViewCell", forIndexPath: indexPath)
+      let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.organizationTableViewCell.identifier, forIndexPath: indexPath) as! OrganizationTableViewCell
       let organization = organizations[indexPath.row]
-      cell.textLabel!.text = organization.name
+      cell.nameLabel.text = organization.name
+      cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
       return cell
     }
   }

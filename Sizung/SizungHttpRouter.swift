@@ -7,20 +7,26 @@
 //
 
 import Alamofire
+import ObjectMapper
 import SwiftKeychainWrapper
 
 enum SizungHttpRouter: URLRequestConvertible {
   
   case Login(email: String, password: String)
+  case RegisterDevice(token: String)
   case Logout()
   case Organizations()
   case Organization(id: String)
   case Conversation(id: String)
+  case ConversationObjects(parent: BaseModel)
+  case Comments(comment: Comment)
   
   
   var method: Alamofire.Method {
     switch self {
-    case .Login:
+    case .Login,
+         .RegisterDevice,
+         .Comments:
       return .POST
     case .Logout:
       return .DELETE
@@ -34,12 +40,68 @@ enum SizungHttpRouter: URLRequestConvertible {
     case .Login,
          .Logout:
       return "/session_tokens"
+    case .RegisterDevice:
+      return "/devices"
     case .Organizations:
       return "/organizations"
     case .Organization(let id):
       return "/organizations/\(id)"
     case .Conversation(let id):
       return "/conversations/\(id)"
+    case .ConversationObjects(let conversation as Sizung.Conversation):
+      return "/conversations/\(conversation.id)/conversation_objects"
+    case .ConversationObjects(let agendaItem as AgendaItem):
+      return "/agenda_items/\(agendaItem.id)/conversation_objects"
+    case .ConversationObjects(let deliverable as Deliverable):
+      return "/deliverables/\(deliverable.id)/conversation_objects"
+    case .ConversationObjects:
+      fatalError("unkown router call to .ConversationObjects")
+    case .Comments:
+      return "/comments"
+    }
+  }
+  
+  var authentication: String? {
+    switch self {
+    case .Login:
+      return nil
+    default:
+      if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+        return "Bearer \(authToken))"
+      }else {
+        return nil
+      }
+    }
+  }
+  
+  var jsonParameters: [String: AnyObject]? {
+    switch self {
+    case .Login(let email, let password):
+      return [
+        "user": [
+          "email": email,
+          "password": password
+        ]
+      ]
+    case .RegisterDevice(let deviceToken):
+      return [
+        "device": [
+          "token": deviceToken
+        ]
+      ]
+    case .Comments(let comment):
+      
+      // TODO: workaround for incorrect type
+      let commentableType = String(comment.commentable.type.capitalizedString.characters.dropLast()).stringByReplacingOccurrencesOfString("_", withString: "")
+      return [
+        "comment": [
+          "commentable_id": comment.commentable.id,
+          "commentable_type": commentableType,
+          "body": comment.body
+        ]
+      ]
+    default:
+      return nil
     }
   }
   
@@ -51,20 +113,16 @@ enum SizungHttpRouter: URLRequestConvertible {
     let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
     mutableURLRequest.HTTPMethod = method.rawValue
     mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Accept")
+    mutableURLRequest.setValue(Configuration.getDeviceId(), forHTTPHeaderField: "X-DEVICE")
+    
+    mutableURLRequest.setValue(self.authentication, forHTTPHeaderField: "Authorization")
     
     switch self {
-    case .Login(let email, let password):
-      let parameters = [
-        "user": [
-          "email": email,
-          "password": password
-        ]
-      ]
-      return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: parameters).0
+    case .Login,
+         .RegisterDevice,
+         .Comments:
+      return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: self.jsonParameters).0
     default:
-      if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
-        mutableURLRequest.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-      }
       return mutableURLRequest
     }
   }

@@ -8,28 +8,51 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import Sheriff
 
 class OrganizationViewController: UIViewController, MainPageViewControllerDelegate {
   
-  @IBOutlet weak var titleBarButtonItem: UIBarButtonItem!
+  
   @IBOutlet weak var segmentedControl: SizungSegmentedControl!
+  
+  @IBOutlet weak var titleButton: UIButton!
+  @IBOutlet weak var groupsButton: UIButton!
+  
+  var groupsBadgeView = GIBadgeView()
   
   var mainPageViewController: MainPageViewController!
   
+  var organizationsViewController: UIViewController?
+  var groupsViewController: UIViewController?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    self.groupsButton.addSubview(groupsBadgeView)
+    
     let storageManager = StorageManager.sharedInstance
-    storageManager.isLoading.observeNext { isLoading in
-      if let selectedOrganizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
-        if let selectedOrganization = storageManager.getOrganization(selectedOrganizationId) {
-          self.titleBarButtonItem.title = selectedOrganization.name
-        }
-      }
+    storageManager.organizations.observeNext { _ in
+      self.setTitle()
       }.disposeIn(rBag)
     
-    segmentedControl.items = ["TO DISCUSS", "TEAMS", "TO DO"]
-    segmentedControl.thumbColors = [Color.TODISCUSS, Color.TEAM, Color.TODO]
+    storageManager.conversations.observeNext { _ in
+      self.groupsBadgeView.badgeValue = storageManager.conversations.count
+    }.disposeIn(rBag)
+    
+    segmentedControl.items = ["PRIORITY", "STREAM", "ACTION"]
+    segmentedControl.thumbColors = [Color.TODISCUSS, Color.STREAM, Color.TODO]
     segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged);
+  }
+  
+  func setTitle(){
+    if let selectedOrganizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
+      if let selectedOrganization = StorageManager.sharedInstance.getOrganization(selectedOrganizationId) {
+        UIView.animateWithDuration(1, animations: {
+          self.titleButton.alpha = 1
+        })
+        self.titleButton.setTitle(selectedOrganization.name, forState: .Normal)
+      }
+    }
   }
   
   func segmentedControlDidChange(sender: SizungSegmentedControl){
@@ -39,24 +62,41 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     self.mainPageViewController.setSelectedIndex(selectedIndex)
   }
   
+  @IBAction func showOrganizations(sender: AnyObject) {
+    organizationsViewController = R.storyboard.organizations.initialViewController()
+    self.showViewController(organizationsViewController!, sender: self)
+  }
+  
+  @IBAction func hideOrganizations(sender: AnyObject) {
+    organizationsViewController?.dismissViewControllerAnimated(true, completion: nil)
+    organizationsViewController = nil
+  }
+  
+  @IBAction func showGroups(sender: AnyObject) {
+    groupsViewController = R.storyboard.conversations.initialViewController()
+    self.showViewController(groupsViewController!, sender: self)
+  }
+  
+  @IBAction func hideGroups(sender: AnyObject) {
+    groupsViewController?.dismissViewControllerAnimated(true, completion: nil)
+    groupsViewController = nil
+  }
+  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "embed" {
       self.mainPageViewController = segue.destinationViewController as! MainPageViewController
       self.mainPageViewController.mainPageViewControllerDelegate = self
       
-      self.mainPageViewController.orderedViewControllers.append(UIStoryboard(name: "Main", bundle: nil) .
-        instantiateViewControllerWithIdentifier("AgendaItemsTableViewController"))
-      self.mainPageViewController.orderedViewControllers.append(UIStoryboard(name: "Main", bundle: nil) .
-        instantiateViewControllerWithIdentifier("ConversationsTableViewController"))
+      self.mainPageViewController.orderedViewControllers.append(R.storyboard.main.agendaItemsTableViewController()!)
+      self.mainPageViewController.orderedViewControllers.append(R.storyboard.main.streamTableViewController()!)
       
-      let deliverablesTableViewController = UIStoryboard(name: "Main", bundle: nil) .
-        instantiateViewControllerWithIdentifier("UserDeliverablesTableViewController") as! UserDeliverablesTableViewController
+      let deliverablesTableViewController = R.storyboard.main.userDeliverablesTableViewController()!
       
       let token = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
       let userId = token.getUserId()
       
       deliverablesTableViewController.userId = userId
-       
+      
       self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
     }
     

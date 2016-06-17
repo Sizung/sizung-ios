@@ -15,7 +15,7 @@ class Conversation: BaseModel {
   var agenda_items: [AgendaItem]!
   var deliverables: [Deliverable]!
   var agenda_item_deliverables: [AgendaItemDeliverable]!
-  var conversation_members: [ConversationMember]!
+  var members: [User]!
   
   override func mapping(map: Map) {
     super.mapping(map)
@@ -23,5 +23,6 @@ class Conversation: BaseModel {
     archived <- map["attributes.archived"]
     archived <- map["attributes.archived"]
     organization <- map["attributes.organization"]
+    members <- map["relationships.members.data"]
   }
 }
