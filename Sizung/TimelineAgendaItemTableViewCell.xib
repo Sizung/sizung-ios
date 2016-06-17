@@ -22,42 +22,42 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2AC-Kj-0y3">
-                        <rect key="frame" x="8" y="8" width="30" height="30"/>
+                        <rect key="frame" x="33" y="8" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="2AC-Kj-0y3" secondAttribute="height" multiplier="1:1" id="MWQ-Jh-cG4"/>
                             <constraint firstAttribute="width" constant="30" id="fZI-7u-XO0"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="added a new Priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMX-i8-hMZ">
-                        <rect key="frame" x="46" y="8" width="266" height="19"/>
+                        <rect key="frame" x="71" y="8" width="241" height="19"/>
                         <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="priority_bg_left" translatesAutoresizingMaskIntoConstraints="NO" id="0Ga-1d-xDl">
-                        <rect key="frame" x="46" y="31" width="30" height="30"/>
+                        <rect key="frame" x="71" y="31" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="hQY-IK-kfe"/>
                             <constraint firstAttribute="height" constant="30" id="ypv-Qf-2lz"/>
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="priority_bg_middle" translatesAutoresizingMaskIntoConstraints="NO" id="4cX-d0-cxu">
-                        <rect key="frame" x="76" y="31" width="39" height="30"/>
+                        <rect key="frame" x="101" y="31" width="39" height="30"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FwZ-U2-Vnb">
-                        <rect key="frame" x="81" y="35" width="34" height="20"/>
+                        <rect key="frame" x="106" y="35" width="34" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQH-e3-644">
-                        <rect key="frame" x="46" y="81" width="266" height="16"/>
+                        <rect key="frame" x="71" y="81" width="241" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="priority_bg_right" translatesAutoresizingMaskIntoConstraints="NO" id="FBm-af-z3H">
-                        <rect key="frame" x="115" y="31" width="17" height="30"/>
+                        <rect key="frame" x="140" y="31" width="17" height="30"/>
                     </imageView>
                 </subviews>
                 <constraints>
@@ -68,7 +68,7 @@
                     <constraint firstItem="mQH-e3-644" firstAttribute="leading" secondItem="7Lt-2D-bCh" secondAttribute="leadingMargin" constant="38" id="781-B3-ERf"/>
                     <constraint firstItem="4cX-d0-cxu" firstAttribute="leading" secondItem="0Ga-1d-xDl" secondAttribute="trailing" id="ASr-iX-jhL"/>
                     <constraint firstItem="mQH-e3-644" firstAttribute="top" secondItem="FBm-af-z3H" secondAttribute="bottom" constant="20" id="CAx-MM-kQx"/>
-                    <constraint firstItem="2AC-Kj-0y3" firstAttribute="leading" secondItem="7Lt-2D-bCh" secondAttribute="leadingMargin" id="D5I-8W-woJ"/>
+                    <constraint firstItem="2AC-Kj-0y3" firstAttribute="leading" secondItem="7Lt-2D-bCh" secondAttribute="leadingMargin" constant="25" id="D5I-8W-woJ"/>
                     <constraint firstItem="FwZ-U2-Vnb" firstAttribute="leading" secondItem="0Ga-1d-xDl" secondAttribute="trailing" constant="5" id="Uha-Jg-UOp"/>
                     <constraint firstItem="0Ga-1d-xDl" firstAttribute="top" secondItem="oMX-i8-hMZ" secondAttribute="bottom" constant="4" id="XJP-Kv-0ja"/>
                     <constraint firstItem="2AC-Kj-0y3" firstAttribute="top" secondItem="7Lt-2D-bCh" secondAttribute="topMargin" id="ZGE-1b-nhB"/>
