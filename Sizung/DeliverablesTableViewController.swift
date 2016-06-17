@@ -106,10 +106,10 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
       
       cell.conversationLabel.text = StorageManager.sharedInstance.getConversation(deliverable.conversation.id)?.title
       
-      if let due_date = deliverable.due_on {
-        cell.statusLabel.text = due_date.timeAgoSinceNow()
+      if deliverable.due_on != nil && !deliverable.isCompleted() {
+        cell.statusLabel.text = DueDateHelper.getDueDateString(deliverable.due_on!)
       } else {
-        cell.statusLabel.text = deliverable.status
+        cell.statusLabel.text = deliverable.getStatus()
       }
       
       // TODO: Real unread status

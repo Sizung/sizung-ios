@@ -31,6 +31,14 @@ class Deliverable: BaseModel {
     }
   }
   
+  func isCompleted() -> Bool {
+    return "closed" == self.status
+  }
+  
+  func getStatus() -> String {
+    return self.status.capitalizedString
+  }
+  
   override func mapping(map: Map) {
     super.mapping(map)
     title <- map["attributes.title"]

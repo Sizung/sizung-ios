@@ -56,6 +56,7 @@
 		5AA890FC1CF4D1B900ED391B /* TableViewCellDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FB1CF4D1B900ED391B /* TableViewCellDisplayable.swift */; };
 		5AA891001CF5A63A00ED391B /* AgendaItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */; };
 		5AA891021CF5A6AE00ED391B /* DeliverablesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */; };
+		5AA983F31D13E4D100A9C2EE /* DueDateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA983F21D13E4D100A9C2EE /* DueDateHelper.swift */; };
 		5AAF89661D06BC2E00071C89 /* CollectionInsertOrUpdateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AAF89651D06BC2E00071C89 /* CollectionInsertOrUpdateTests.swift */; };
 		5AB781411CFD79D00024DFE9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB781401CFD79D00024DFE9 /* AccountViewController.swift */; };
 		5AB8F2F81CDCADD900F4423F /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8F2F71CDCADD900F4423F /* LoginTests.swift */; };
@@ -177,6 +178,7 @@
 		5AA890FB1CF4D1B900ED391B /* TableViewCellDisplayable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellDisplayable.swift; sourceTree = "<group>"; };
 		5AA890FF1CF5A63A00ED391B /* AgendaItemsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemsTableViewController.swift; sourceTree = "<group>"; };
 		5AA891011CF5A6AE00ED391B /* DeliverablesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverablesTableViewController.swift; sourceTree = "<group>"; };
+		5AA983F21D13E4D100A9C2EE /* DueDateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DueDateHelper.swift; sourceTree = "<group>"; };
 		5AAF89651D06BC2E00071C89 /* CollectionInsertOrUpdateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionInsertOrUpdateTests.swift; sourceTree = "<group>"; };
 		5AB781401CFD79D00024DFE9 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		5AB8F2F71CDCADD900F4423F /* LoginTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
@@ -415,8 +417,7 @@
 				5A86B1321CE5E2FC001C2E7A /* Sizung-Bridging-Header.h */,
 				5A9EDEBB1D01CEB900D389EC /* Color.swift */,
 				5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */,
-				5ABACCDF1D0AA82F0093CF21 /* ISODateTransform.swift */,
-				5ADC88351D105C4E00596D67 /* ISODateTimeTransform.swift */,
+				5AA983F11D13E4C200A9C2EE /* DateHelper */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -456,6 +457,16 @@
 				5AA890FB1CF4D1B900ED391B /* TableViewCellDisplayable.swift */,
 			);
 			name = Protocols;
+			sourceTree = "<group>";
+		};
+		5AA983F11D13E4C200A9C2EE /* DateHelper */ = {
+			isa = PBXGroup;
+			children = (
+				5ABACCDF1D0AA82F0093CF21 /* ISODateTransform.swift */,
+				5ADC88351D105C4E00596D67 /* ISODateTimeTransform.swift */,
+				5AA983F21D13E4D100A9C2EE /* DueDateHelper.swift */,
+			);
+			name = DateHelper;
 			sourceTree = "<group>";
 		};
 		5ABA4FB71CFDCE5D00110030 /* responses */ = {
@@ -932,6 +943,7 @@
 				5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */,
 				5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */,
 				5AC0E5E61CF2F5C200BBEF45 /* TimelineTableViewController.swift in Sources */,
+				5AA983F31D13E4D100A9C2EE /* DueDateHelper.swift in Sources */,
 				5AE883A01D09A5990044364B /* ConversationObjectsResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
