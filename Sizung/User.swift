@@ -11,7 +11,7 @@ import ObjectMapper
 class User: BaseModel {
   var name: String!
   var email: String!
-  var presence_status: String!
+  var presence_status: String?
   
   init(id: String) {
     super.init(type: "users")
