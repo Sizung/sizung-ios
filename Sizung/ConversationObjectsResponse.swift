@@ -11,6 +11,7 @@ import ObjectMapper
 class ConversationObjectsResponse: Mappable {
   
   var conversationObjects: [BaseModel]!
+  var nextPageURL: String?
   
   required init?(_ map: Map) {
     
@@ -18,5 +19,6 @@ class ConversationObjectsResponse: Mappable {
   
   func mapping(map: Map) {
     conversationObjects <- map["data"]
+    nextPageURL <- map["links.next"]
   }
 }
