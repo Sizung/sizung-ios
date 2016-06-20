@@ -208,7 +208,7 @@ class StorageManager {
     return promise.future
   }
   
-  func getUnseenObjects(userId: String) {
+  func updateUnseenObjects(userId: String) {
     Alamofire.request(SizungHttpRouter.UnseenObjects(userId: userId))
       .validate()
       .responseJSON{ response in

@@ -123,6 +123,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
       print("websocket not initialized - connecting")
       initWebsocketConnection()
     }
+    
+    // update unseenobjects
+    let authToken = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
+    if let userID = authToken.getUserId() {
+      StorageManager.sharedInstance.updateUnseenObjects(userID)
+    }
+    
   }
   
   func initWebsocketConnection(){

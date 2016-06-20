@@ -112,8 +112,7 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
         cell.statusLabel.text = deliverable.getStatus()
       }
       
-      // TODO: Real unread status
-      cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
+      cell.unreadStatusView.alpha = StorageManager.sharedInstance.unseenObjects.contains(deliverable) ? 1 : 0
       
       return cell
     }

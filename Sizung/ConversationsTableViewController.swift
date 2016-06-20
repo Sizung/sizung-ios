@@ -68,7 +68,7 @@ class ConversationsTableViewController: UITableViewController {
         }
       }
       
-      cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
+      cell.unreadStatusView.alpha = StorageManager.sharedInstance.unseenObjects.contains(conversation) ? 1 : 0
       
       return cell
     }
