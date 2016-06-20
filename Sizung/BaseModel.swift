@@ -48,6 +48,8 @@ class BaseModel: Mappable, Equatable, Hashable {
         return Deliverable(map)
       case "agenda_items":
         return AgendaItem(map)
+      case "unseen_objects":
+        return UnseenObject(map)
       default:
         return nil
       }
