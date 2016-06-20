@@ -33,6 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
       let token = AuthToken(data: authToken)
       token.validate()
         .onSuccess { _ in
+          
+          self.registerForPushNotifications()
+          
           self.loadInitialViewController()
           
         }.onFailure { error in
