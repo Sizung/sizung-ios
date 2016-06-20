@@ -19,9 +19,9 @@ class UnseenObject: BaseModel {
   
   override func mapping(map: Map) {
     super.mapping(map)
-    agendaItem <- map["relationships.author.data"]
-    conversation <- map["relationships.author.data"]
-    deliverable <- map["relationships.commentable.data"]
+    agendaItem <- map["relationships.agenda_item.data"]
+    conversation <- map["relationships.conversation.data"]
+    deliverable <- map["relationships.deliverable.data"]
     organization <- map["relationships.organization.data"]
     target <- map["relationships.target.data"]
     user <- map["relationships.user.data"]

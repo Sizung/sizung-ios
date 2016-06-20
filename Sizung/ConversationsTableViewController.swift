@@ -34,6 +34,11 @@ class ConversationsTableViewController: UITableViewController {
       }
       }.disposeIn(rBag)
     
+    // listen to unseenObject changes
+    storageManager.unseenObjects.observeNext { _ in
+      self.tableView.reloadData()
+    }.disposeIn(rBag)
+    
     storageManager.conversations.bindTo(self.tableView) { indexPath, conversations, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.conversationTableViewCell.identifier, forIndexPath: indexPath) as! ConversationTableViewCell
       let conversation = conversations[indexPath.row]
@@ -68,7 +73,11 @@ class ConversationsTableViewController: UITableViewController {
         }
       }
       
-      cell.unreadStatusView.alpha = StorageManager.sharedInstance.unseenObjects.contains(conversation) ? 1 : 0
+      let hasUnseenObject = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
+        return obj.conversation?.id == conversation.id
+      }
+      
+      cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
       
       return cell
     }

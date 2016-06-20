@@ -26,7 +26,7 @@ class StorageManager {
   
   let organizationUsers: CollectionProperty <[User]> = CollectionProperty([])
   
-  let unseenObjects: CollectionProperty <Set<BaseModel>> = CollectionProperty([])
+  let unseenObjects: CollectionProperty <Set<UnseenObject>> = CollectionProperty([])
   
   var websocket: Websocket?
   
@@ -216,18 +216,7 @@ class StorageManager {
         case .Success(let JSON):
           if let unseenObjectResponse = Mapper<UnseenObjectsResponse>().map(JSON) {
             unseenObjectResponse.unseenObjects.forEach { unseenObject in
-              if let agendaItem = unseenObject.agendaItem {
-                self.unseenObjects.insert(agendaItem)
-              }
-              if let deliverable = unseenObject.deliverable {
-                self.unseenObjects.insert(deliverable)
-              }
-              if let conversation = unseenObject.conversation {
-                self.unseenObjects.insert(conversation)
-              }
-              if let organization = unseenObject.organization {
-                self.unseenObjects.insert(organization)
-              }
+              self.unseenObjects.insert(unseenObject)
             }
           }
         case .Failure
