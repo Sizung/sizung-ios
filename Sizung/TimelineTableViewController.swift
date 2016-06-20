@@ -26,6 +26,8 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
   let collection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   let sortedCollection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   
+  var nextPage: Int?
+  
   //  var mentions: [(Range<String.Index>, User)] = []
   
   override func viewDidLoad() {
@@ -279,7 +281,9 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
   
   func updateData(){
     StorageManager.sharedInstance.updateConversationObjects(self.timelineParent)
-      .onSuccess { conversationObjects in
+      .onSuccess { conversationObjects, nextPage in
+        
+        self.nextPage = nextPage
         self.addItemsToCollection(conversationObjects)
     }
   }
