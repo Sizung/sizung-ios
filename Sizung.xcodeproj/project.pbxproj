@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2FF81000B72F237F09D8B781 /* Pods_SizungUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13B42A82CE8590D9FB4161 /* Pods_SizungUITests.framework */; };
+		5A304B3B1D18367F009CBBAD /* StartOfConversationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */; };
 		5A35A52B1CDCDDE8005E5B1B /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35A52A1CDCDDE8005E5B1B /* Test.swift */; };
 		5A35DC0C1D0AF9C300916118 /* AutoCompletionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */; };
 		5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */; };
@@ -122,6 +123,7 @@
 
 /* Begin PBXFileReference section */
 		40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SizungTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartOfConversationView.xib; sourceTree = "<group>"; };
 		5A35A52A1CDCDDE8005E5B1B /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompletionTableCell.swift; sourceTree = "<group>"; };
 		5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoCompletionTableCell.xib; sourceTree = "<group>"; };
@@ -500,6 +502,7 @@
 				5A7329FF1D05FEBB006531A5 /* TableViewCell */,
 				5A9EDEB71D01BB5C00D389EC /* SizungSegmentedControl.swift */,
 				5A7329EF1D05877D006531A5 /* CardView.swift */,
+				5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -695,6 +698,7 @@
 				5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */,
 				5ADC88381D105F3300596D67 /* DeliverableTableViewCell.xib in Resources */,
 				5A9D0EEF1D11FEC200037589 /* Gotham-Light.otf in Resources */,
+				5A304B3B1D18367F009CBBAD /* StartOfConversationView.xib in Resources */,
 				5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */,
 				5A7329F91D05B1FC006531A5 /* Brandon_bld.otf in Resources */,
 				5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */,

@@ -155,18 +155,18 @@ class StorageManager {
   }
   
   // conversationObjects are handled per entity
-  func updateConversationObjects(parent: BaseModel) -> Future<[BaseModel], NSError>  {
+  func updateConversationObjects(parent: BaseModel, page: Int) -> Future<([BaseModel], Int?), NSError>  {
     
-    let promise = Promise<[BaseModel], NSError>()
+    let promise = Promise<([BaseModel], Int?), NSError>()
     
     self.isLoading.value = true
-    Alamofire.request(SizungHttpRouter.ConversationObjects(parent: parent))
+    Alamofire.request(SizungHttpRouter.ConversationObjects(parent: parent, page: page))
       .validate()
       .responseJSON { response in
         switch response.result {
         case .Success(let JSON):
           if let conversationObjectsResponse = Mapper<ConversationObjectsResponse>().map(JSON) {
-            promise.success(conversationObjectsResponse.conversationObjects)
+            promise.success((conversationObjectsResponse.conversationObjects, conversationObjectsResponse.nextPage))
           }
         case .Failure
           where response.response?.statusCode == 401:

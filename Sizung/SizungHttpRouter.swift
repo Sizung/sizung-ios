@@ -18,7 +18,7 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Organizations()
   case Organization(id: String)
   case Conversation(id: String)
-  case ConversationObjects(parent: BaseModel)
+  case ConversationObjects(parent: BaseModel, page: Int)
   case Comments(comment: Comment)
   
   
@@ -48,11 +48,11 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/organizations/\(id)"
     case .Conversation(let id):
       return "/conversations/\(id)"
-    case .ConversationObjects(let conversation as Sizung.Conversation):
+    case .ConversationObjects(let conversation as Sizung.Conversation, _):
       return "/conversations/\(conversation.id)/conversation_objects"
-    case .ConversationObjects(let agendaItem as AgendaItem):
+    case .ConversationObjects(let agendaItem as AgendaItem, _):
       return "/agenda_items/\(agendaItem.id)/conversation_objects"
-    case .ConversationObjects(let deliverable as Deliverable):
+    case .ConversationObjects(let deliverable as Deliverable, _):
       return "/deliverables/\(deliverable.id)/conversation_objects"
     case .ConversationObjects:
       fatalError("unkown router call to .ConversationObjects")
@@ -105,6 +105,18 @@ enum SizungHttpRouter: URLRequestConvertible {
     }
   }
   
+  var urlParams: [String: AnyObject]? {
+    switch self {
+    case .ConversationObjects(_, let page):
+      return [
+        "page[number]": page,
+        "page[size]": 20
+      ]
+    default:
+      return nil
+    }
+  }
+  
   // MARK: URLRequestConvertible
   
   var URLRequest: NSMutableURLRequest {
@@ -122,6 +134,8 @@ enum SizungHttpRouter: URLRequestConvertible {
          .RegisterDevice,
          .Comments:
       return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: self.jsonParameters).0
+    case .ConversationObjects:
+      return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: self.urlParams).0
     default:
       return mutableURLRequest
     }
