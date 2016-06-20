@@ -26,7 +26,7 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
   let collection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   let sortedCollection: CollectionProperty <[BaseModel]> = CollectionProperty([])
   
-  var nextPage: Int?
+  var nextPage: Int? = 0
   
   //  var mentions: [(Range<String.Index>, User)] = []
   
@@ -34,7 +34,6 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
     super.viewDidLoad()
     
     self.commonInit()
-    
     self.bounces = true
     
     self.registerPrefixesForAutoCompletion(["@"])
@@ -47,6 +46,8 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
     self.textView.registerMarkdownFormattingSymbol("*", withTitle: "Italics")
     
     self.tableView.separatorStyle = .None
+    
+    self.tableView.tableFooterView = getFooterView()
     
     self.initData()
   }
@@ -279,9 +280,29 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
     }
   }
   
+  override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    if indexPath.row >= self.sortedCollection.count - 1 {
+      self.updateData()
+    }
+  }
+  
   func updateData(){
-    StorageManager.sharedInstance.updateConversationObjects(self.timelineParent)
+    
+    guard nextPage != nil else {
+      return
+    }
+    
+    StorageManager.sharedInstance.updateConversationObjects(self.timelineParent, page: self.nextPage!)
       .onSuccess { conversationObjects, nextPage in
+        
+        // hide top loading view if no further data is available
+        if nextPage == nil && self.nextPage > 0 {
+          let reachedStartOfConversationView = R.nib.startOfConversationView.firstView(owner: nil)
+          reachedStartOfConversationView?.transform = self.tableView.transform
+          self.tableView.tableFooterView = reachedStartOfConversationView
+        } else if nextPage == nil {
+          self.tableView.tableFooterView = nil
+        }
         
         self.nextPage = nextPage
         self.addItemsToCollection(conversationObjects)
@@ -307,10 +328,7 @@ extension TimelineTableViewController {
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-    if tableView == self.tableView {
-      return sortedCollection.count
-    }
-    else {
+    if tableView == self.autoCompletionView {
       if let searchResult = self.searchResult {
         return searchResult.count
       }
@@ -325,6 +343,14 @@ extension TimelineTableViewController {
     }else {
       fatalError("unkown tableview in cellForRowAtIndexPath")
     }
+  }
+  
+  func getFooterView() -> UIView {
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    activityIndicator.transform = self.tableView.transform
+    activityIndicator.startAnimating()
+    
+    return activityIndicator
   }
   
   func messageCellForRowAtIndexPath(indexPath: NSIndexPath) -> UITableViewCell {

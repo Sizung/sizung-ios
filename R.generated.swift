@@ -196,7 +196,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 8 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 9 nibs.
   struct nib {
     /// Nib `AutoCompletionTableCell`.
     static let autoCompletionTableCell = _R.nib._AutoCompletionTableCell()
@@ -208,6 +208,8 @@ struct R: Rswift.Validatable {
     static let deliverableTableViewCell = _R.nib._DeliverableTableViewCell()
     /// Nib `OrganizationTableViewCell`.
     static let organizationTableViewCell = _R.nib._OrganizationTableViewCell()
+    /// Nib `StartOfConversationView`.
+    static let startOfConversationView = _R.nib._StartOfConversationView()
     /// Nib `StreamTableViewCell`.
     static let streamTableViewCell = _R.nib._StreamTableViewCell()
     /// Nib `TimelineAgendaItemTableViewCell`.
@@ -238,6 +240,11 @@ struct R: Rswift.Validatable {
     /// `UINib(name: "OrganizationTableViewCell", bundle: ...)`
     static func organizationTableViewCell(_: Void) -> UINib {
       return UINib(resource: R.nib.organizationTableViewCell)
+    }
+    
+    /// `UINib(name: "StartOfConversationView", bundle: ...)`
+    static func startOfConversationView(_: Void) -> UINib {
+      return UINib(resource: R.nib.startOfConversationView)
     }
     
     /// `UINib(name: "StreamTableViewCell", bundle: ...)`
@@ -489,6 +496,17 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> OrganizationTableViewCell? {
         return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? OrganizationTableViewCell
+      }
+      
+      private init() {}
+    }
+    
+    struct _StartOfConversationView: NibResourceType {
+      let bundle = _R.hostingBundle
+      let name = "StartOfConversationView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIView? {
+        return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? UIView
       }
       
       private init() {}
