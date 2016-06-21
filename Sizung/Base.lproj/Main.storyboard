@@ -26,9 +26,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Z6t-Wq-lbV">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="CiJ-hi-Y1g">
+                                    <rect key="frame" x="195" y="8" width="211" height="29"/>
+                                    <segments>
+                                        <segment title="Team Priorities"/>
+                                        <segment title="My Priorities"/>
+                                    </segments>
+                                    <color key="tintColor" red="0.0" green="0.31764705879999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="filterValueChanged:" destination="7Kt-Xg-hqO" eventType="valueChanged" id="6j6-p9-c3b"/>
+                                    </connections>
+                                </segmentedControl>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="CiJ-hi-Y1g" firstAttribute="centerX" secondItem="Z6t-Wq-lbV" secondAttribute="centerX" id="21F-6z-znH"/>
+                                <constraint firstItem="CiJ-hi-Y1g" firstAttribute="centerY" secondItem="Z6t-Wq-lbV" secondAttribute="centerY" id="eKw-FK-sLC"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AgendaItemTableViewCell" id="Tfa-6a-vdh" customClass="AgendaItemTableViewCell" customModule="Sizung" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="71"/>
+                                <rect key="frame" x="0.0" y="72" width="600" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Tfa-6a-vdh" id="VlT-Q9-l8e">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="71"/>

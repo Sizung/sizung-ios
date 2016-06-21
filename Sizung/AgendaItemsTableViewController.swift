@@ -13,7 +13,16 @@ import ReactiveKit
 class AgendaItemsTableViewController: UITableViewController {
   
   var conversation: Conversation?
+  var filter: Filter = .Mine
   
+  var userId: String?
+  
+  enum Filter {
+    case Mine
+    case All
+  }
+  
+  let conversationFilteredCollection: CollectionProperty <[AgendaItem]> = CollectionProperty([])
   let filteredCollection: CollectionProperty <[AgendaItem]> = CollectionProperty([])
   let sortedAndFilteredCollection: CollectionProperty <[AgendaItem]> = CollectionProperty([])
   
@@ -22,7 +31,32 @@ class AgendaItemsTableViewController: UITableViewController {
     
     self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
     
+    userId = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN)).getUserId()
+    
     self.initData()
+  }
+  
+  @IBAction func filterValueChanged(sender: UISegmentedControl) {
+    switch sender.selectedSegmentIndex {
+    case 0:
+      self.filter = .All
+    case 1:
+      self.filter = .Mine
+    default:
+      break
+    }
+    
+    filterCollection()
+  }
+  
+  func filterCollection(){
+    conversationFilteredCollection.filter { agendaItem in
+      if self.filter == .Mine {
+        return agendaItem.owner.id == self.userId
+      } else {
+        return true
+      }
+    }.bindTo(filteredCollection)
   }
   
   func initData(){
@@ -44,7 +78,9 @@ class AgendaItemsTableViewController: UITableViewController {
         } else {
           return true
         }
-      }).bindTo(filteredCollection)
+      }).bindTo(conversationFilteredCollection)
+    
+    filterCollection()
     
     //    sort by created at date
     filteredCollection
