@@ -112,7 +112,11 @@ class UserDeliverablesTableViewController: DeliverablesTableViewController {
         cell.statusLabel.text = deliverable.getStatus()
       }
       
-      cell.unreadStatusView.alpha = StorageManager.sharedInstance.unseenObjects.contains(deliverable) ? 1 : 0
+      let hasUnseenObject = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
+        return obj.deliverable?.id == deliverable.id
+      }
+      
+      cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
       
       return cell
     }
