@@ -12,7 +12,7 @@ import SlackTextViewController
 import DateTools
 import ReactiveKit
 
-class TimelineTableViewController: SLKTextViewController, ConversationWebsocketDelegate {
+class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   
   var conversation: Conversation!
   var timelineParent: BaseModel!

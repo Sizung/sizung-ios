@@ -13,7 +13,7 @@ import Fabric
 import Crashlytics
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketDelegate {
   
   var window: UIWindow?
   
@@ -35,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
         .onSuccess { _ in
           
           self.registerForPushNotifications()
+          self.fetchUnseenObjects()
           
           self.loadInitialViewController()
           
@@ -123,11 +124,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
       print("websocket not initialized - connecting")
       initWebsocketConnection()
     }
+    
+    self.fetchUnseenObjects()
   }
   
   func initWebsocketConnection(){
     if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
       StorageManager.sharedInstance.websocket = Websocket(authToken: authToken)
+    }
+  }
+  
+  func fetchUnseenObjects(){
+    // update unseenobjects
+    let authToken = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
+    if let userId = authToken.getUserId() {
+      StorageManager.sharedInstance.updateUnseenObjects(userId)
+      
+      // subscribe to user channel
+      StorageManager.sharedInstance.websocket?.userWebsocketDelegate = self
+      StorageManager.sharedInstance.websocket?.followUser(userId)
     }
   }
   
@@ -167,15 +182,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
       tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
     }
     
-    print("Device Token:", tokenString)
-    
     Alamofire.request(SizungHttpRouter.RegisterDevice(token: tokenString))
       .validate()
       .responseJSON { response in
         print(response)
     }
-    
-    
   }
   
   func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
@@ -184,6 +195,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate {
   
   func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
     print("received remote notification: \(userInfo)")
+  }
+  
+  func onReceived(conversationObject: BaseModel) {
+    if let unseenObject = conversationObject as? UnseenObject {
+      StorageManager.sharedInstance.unseenObjects.insert(unseenObject)
+    } else {
+      print(conversationObject)
+    }
+  }
+  
+  func onFollowSuccess(channelName: String) {
+    print("follow user channel \(channelName)")
   }
   
 }

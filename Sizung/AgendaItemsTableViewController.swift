@@ -63,9 +63,11 @@ class AgendaItemsTableViewController: UITableViewController {
         cell.conversationLabel.text = "@\(conversationTitle)"
       }
       
+      let hasUnseenObject = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
+        return obj.agendaItem?.id == agendaItem.id
+      }
       
-      // TODO: Real unread status
-      cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
+      cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
       
       return cell
     }

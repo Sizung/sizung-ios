@@ -20,6 +20,7 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Conversation(id: String)
   case ConversationObjects(parent: BaseModel, page: Int)
   case Comments(comment: Comment)
+  case UnseenObjects(userId: String)
   
   
   var method: Alamofire.Method {
@@ -58,6 +59,8 @@ enum SizungHttpRouter: URLRequestConvertible {
       fatalError("unkown router call to .ConversationObjects")
     case .Comments:
       return "/comments"
+    case .UnseenObjects(let userId):
+      return "/users/\(userId)/unseen_objects"
     }
   }
   

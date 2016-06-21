@@ -35,13 +35,23 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
       self.setTitle()
       }.disposeIn(rBag)
     
-    storageManager.conversations.observeNext { _ in
-      self.groupsBadgeView.badgeValue = storageManager.conversations.count
-    }.disposeIn(rBag)
+    storageManager.unseenObjects.observeNext { _ in
+      self.groupsBadgeView.badgeValue = self.calculateUnseenConversations()
+      }.disposeIn(rBag)
     
     segmentedControl.items = ["PRIORITY", "STREAM", "ACTION"]
     segmentedControl.thumbColors = [Color.TODISCUSS, Color.STREAM, Color.TODO]
     segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged);
+  }
+  
+  func calculateUnseenConversations() -> Int {
+    var unseenConversationSet = Set<String>()
+    StorageManager.sharedInstance.unseenObjects.collection.forEach { unseenObject in
+      if let conversation = unseenObject.conversation {
+        unseenConversationSet.insert(conversation.id)
+      }
+    }
+    return unseenConversationSet.count
   }
   
   func setTitle(){

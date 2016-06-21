@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2FF81000B72F237F09D8B781 /* Pods_SizungUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13B42A82CE8590D9FB4161 /* Pods_SizungUITests.framework */; };
 		5A304B3B1D18367F009CBBAD /* StartOfConversationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */; };
+		5A304B3D1D1843DE009CBBAD /* UnseenObjectsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */; };
+		5A304B3F1D184427009CBBAD /* UnseenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A304B3E1D184427009CBBAD /* UnseenObject.swift */; };
 		5A35A52B1CDCDDE8005E5B1B /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35A52A1CDCDDE8005E5B1B /* Test.swift */; };
 		5A35DC0C1D0AF9C300916118 /* AutoCompletionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */; };
 		5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */; };
@@ -124,6 +126,8 @@
 /* Begin PBXFileReference section */
 		40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SizungTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartOfConversationView.xib; sourceTree = "<group>"; };
+		5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnseenObjectsResponse.swift; sourceTree = "<group>"; };
+		5A304B3E1D184427009CBBAD /* UnseenObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnseenObject.swift; sourceTree = "<group>"; };
 		5A35A52A1CDCDDE8005E5B1B /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompletionTableCell.swift; sourceTree = "<group>"; };
 		5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoCompletionTableCell.xib; sourceTree = "<group>"; };
@@ -449,6 +453,7 @@
 				5AD9F1B81CE9D3D700455D98 /* ConversationMember.swift */,
 				5AC0E5E71CF33C8300BBEF45 /* Comment.swift */,
 				5ABA4FB81CFEB78B00110030 /* BaseModel.swift */,
+				5A304B3E1D184427009CBBAD /* UnseenObject.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -483,6 +488,7 @@
 				5A8F79081CFF14BF00953495 /* DeliverablesResponse.swift */,
 				5A9EDEAF1D00232100D389EC /* UserResponse.swift */,
 				5A9EDEB51D01621200D389EC /* ConversationResponse.swift */,
+				5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */,
 				5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */,
 			);
 			name = responses;
@@ -940,6 +946,7 @@
 				5ABACCE01D0AA82F0093CF21 /* ISODateTransform.swift in Sources */,
 				5ADC88321D10505700596D67 /* TimelineDeliverableTableViewCell.swift in Sources */,
 				5ADC88341D10508800596D67 /* TimelineAgendaItemTableViewCell.swift in Sources */,
+				5A304B3F1D184427009CBBAD /* UnseenObject.swift in Sources */,
 				5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */,
 				5ABA4FBF1CFEC3B600110030 /* OrganizationViewController.swift in Sources */,
 				5AA890FC1CF4D1B900ED391B /* TableViewCellDisplayable.swift in Sources */,
@@ -949,6 +956,7 @@
 				5A9EDEB81D01BB5C00D389EC /* SizungSegmentedControl.swift in Sources */,
 				5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */,
 				5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */,
+				5A304B3D1D1843DE009CBBAD /* UnseenObjectsResponse.swift in Sources */,
 				5AC0E5E61CF2F5C200BBEF45 /* TimelineTableViewController.swift in Sources */,
 				5AA983F31D13E4D100A9C2EE /* DueDateHelper.swift in Sources */,
 				5AE883A01D09A5990044364B /* ConversationObjectsResponse.swift in Sources */,

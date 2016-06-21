@@ -26,6 +26,8 @@ class StorageManager {
   
   let organizationUsers: CollectionProperty <[User]> = CollectionProperty([])
   
+  let unseenObjects: CollectionProperty <Set<UnseenObject>> = CollectionProperty([])
+  
   var websocket: Websocket?
   
   func reset() {
@@ -36,7 +38,7 @@ class StorageManager {
     agendaItems.removeAll()
     deliverables.removeAll()
     organizationUsers.removeAll()
-//    organizationMembers.removeAll()
+    //    organizationMembers.removeAll()
   }
   
   func getOrganization(id: String) -> Organization? {
@@ -114,7 +116,7 @@ class StorageManager {
                 self.organizationUsers.insertOrUpdate([user])
               case let organizationMember as OrganizationMember:
                 print("org member found \(organizationMember.member.email)")
-//                self.organizationMembers.insertOrUpdate([organizationMember])
+              //                self.organizationMembers.insertOrUpdate([organizationMember])
               default:
                 print("Unknown organization include \(include.type)")
               }
@@ -204,5 +206,25 @@ class StorageManager {
         }
     }
     return promise.future
+  }
+  
+  func updateUnseenObjects(userId: String) {
+    Alamofire.request(SizungHttpRouter.UnseenObjects(userId: userId))
+      .validate()
+      .responseJSON{ response in
+        switch response.result {
+        case .Success(let JSON):
+          if let unseenObjectResponse = Mapper<UnseenObjectsResponse>().map(JSON) {
+            unseenObjectResponse.unseenObjects.forEach { unseenObject in
+              self.unseenObjects.insert(unseenObject)
+            }
+          }
+        case .Failure
+          where response.response?.statusCode == 401:
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+        default:
+          print("error \(response.result)")
+        }
+    }
   }
 }
