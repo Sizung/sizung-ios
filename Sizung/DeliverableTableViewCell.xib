@@ -31,53 +31,60 @@
                             <constraint firstAttribute="width" constant="6" id="bH1-H7-OAg"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bAi-4e-Gva">
-                        <rect key="frame" x="14" y="8" width="20" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="20" id="ctm-WL-b5p"/>
-                            <constraint firstAttribute="height" constant="20" id="stL-Gq-h93"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6mZ-H7-bse">
-                        <rect key="frame" x="42" y="8" width="550" height="22"/>
+                        <rect key="frame" x="48" y="8" width="524" height="22"/>
                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zob-pi-Jjx">
-                        <rect key="frame" x="42" y="38" width="514" height="19"/>
+                        <rect key="frame" x="48" y="38" width="488" height="19"/>
                         <fontDescription key="fontDescription" name="BrandonTextW01-Medium" family="BrandonTextW01-Medium" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8i2-ut-hEs">
-                        <rect key="frame" x="564" y="38" width="28" height="19"/>
+                        <rect key="frame" x="544" y="38" width="28" height="19"/>
                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sc2-Dw-Qfv">
+                        <rect key="frame" x="18" y="13" width="10" height="10"/>
+                        <color key="backgroundColor" red="0.97647058963775635" green="0.40000000596046448" blue="0.37647059559822083" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="10" id="jEG-Lw-aGV"/>
+                            <constraint firstAttribute="height" constant="10" id="vfu-dJ-WVD"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="8i2-ut-hEs" firstAttribute="leading" secondItem="Zob-pi-Jjx" secondAttribute="trailing" constant="8" id="91k-4y-7bl"/>
-                    <constraint firstItem="bAi-4e-Gva" firstAttribute="leading" secondItem="uBU-Xv-q9Y" secondAttribute="trailing" constant="8" id="AH4-Cu-jLX"/>
                     <constraint firstItem="uBU-Xv-q9Y" firstAttribute="top" secondItem="q6O-Ze-FLG" secondAttribute="top" id="CmU-Np-0fg"/>
-                    <constraint firstItem="bAi-4e-Gva" firstAttribute="top" secondItem="q6O-Ze-FLG" secondAttribute="topMargin" id="EJ7-dB-ihI"/>
-                    <constraint firstItem="Zob-pi-Jjx" firstAttribute="leading" secondItem="uBU-Xv-q9Y" secondAttribute="trailing" constant="36" id="IQ1-CE-w3h"/>
-                    <constraint firstItem="8i2-ut-hEs" firstAttribute="trailing" secondItem="q6O-Ze-FLG" secondAttribute="trailingMargin" id="USM-k0-A5U"/>
+                    <constraint firstItem="sc2-Dw-Qfv" firstAttribute="leading" secondItem="uBU-Xv-q9Y" secondAttribute="trailing" constant="12" id="Eq6-2p-T1B"/>
+                    <constraint firstItem="6mZ-H7-bse" firstAttribute="leading" secondItem="sc2-Dw-Qfv" secondAttribute="trailing" constant="20" id="GxL-WL-yPv"/>
+                    <constraint firstItem="Zob-pi-Jjx" firstAttribute="leading" secondItem="6mZ-H7-bse" secondAttribute="leading" id="Kv9-m9-FpQ"/>
+                    <constraint firstItem="sc2-Dw-Qfv" firstAttribute="top" secondItem="q6O-Ze-FLG" secondAttribute="top" constant="13" id="LGt-5U-Dqv"/>
                     <constraint firstItem="Zob-pi-Jjx" firstAttribute="top" secondItem="6mZ-H7-bse" secondAttribute="bottom" constant="8" id="V8s-8n-bYh"/>
+                    <constraint firstItem="8i2-ut-hEs" firstAttribute="trailing" secondItem="6mZ-H7-bse" secondAttribute="trailing" id="bUh-kA-6hr"/>
                     <constraint firstAttribute="bottom" secondItem="uBU-Xv-q9Y" secondAttribute="bottom" id="c2d-MR-3eK"/>
                     <constraint firstItem="8i2-ut-hEs" firstAttribute="top" secondItem="6mZ-H7-bse" secondAttribute="bottom" constant="8" id="can-LN-D55"/>
                     <constraint firstItem="uBU-Xv-q9Y" firstAttribute="leading" secondItem="q6O-Ze-FLG" secondAttribute="leading" id="jeg-V2-qNx"/>
                     <constraint firstAttribute="bottomMargin" secondItem="8i2-ut-hEs" secondAttribute="bottom" constant="5" id="kSn-Fm-8Id"/>
                     <constraint firstItem="6mZ-H7-bse" firstAttribute="top" secondItem="q6O-Ze-FLG" secondAttribute="topMargin" id="pLt-tL-8OP"/>
-                    <constraint firstItem="6mZ-H7-bse" firstAttribute="leading" secondItem="bAi-4e-Gva" secondAttribute="trailing" constant="8" id="t2I-5q-SmI"/>
-                    <constraint firstItem="6mZ-H7-bse" firstAttribute="trailing" secondItem="q6O-Ze-FLG" secondAttribute="trailingMargin" id="u4F-ra-yzu"/>
+                    <constraint firstItem="6mZ-H7-bse" firstAttribute="trailing" secondItem="q6O-Ze-FLG" secondAttribute="trailingMargin" constant="-20" id="u4F-ra-yzu"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Zob-pi-Jjx" secondAttribute="bottom" constant="5" id="zn7-VV-O39"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="conversationLabel" destination="8i2-ut-hEs" id="44I-bm-FqT"/>
                 <outlet property="statusLabel" destination="Zob-pi-Jjx" id="gEY-31-14P"/>
+                <outlet property="statusView" destination="sc2-Dw-Qfv" id="fi8-Ea-4iy"/>
                 <outlet property="titleLabel" destination="6mZ-H7-bse" id="dde-iI-xjz"/>
                 <outlet property="unreadStatusView" destination="uBU-Xv-q9Y" id="VxP-Wa-Z9n"/>
             </connections>
