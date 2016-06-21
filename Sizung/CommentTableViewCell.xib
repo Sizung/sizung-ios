@@ -70,10 +70,10 @@
                 <variation key="default">
                     <mask key="constraints">
                         <exclude reference="nfr-gx-wNP"/>
+                        <exclude reference="DoE-EP-CMS"/>
                         <exclude reference="PXI-Eq-lbw"/>
                         <exclude reference="ZEu-Aw-fzU"/>
                         <exclude reference="okH-Tk-ytu"/>
-                        <exclude reference="DoE-EP-CMS"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>

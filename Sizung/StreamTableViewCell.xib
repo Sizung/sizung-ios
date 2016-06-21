@@ -20,14 +20,14 @@
                         <rect key="frame" x="18" y="8" width="564" height="83"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cva-an-rJj">
-                                <rect key="frame" x="0.0" y="0.0" width="5" height="83"/>
+                                <rect key="frame" x="0.0" y="0.0" width="6" height="83"/>
                                 <color key="backgroundColor" red="0.79215687509999999" green="0.5411764979" blue="0.21176470820000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="5" id="ti2-jA-Rai"/>
+                                    <constraint firstAttribute="width" constant="6" id="ti2-jA-Rai"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zb-Td-dcz">
-                                <rect key="frame" x="13" y="8" width="543" height="21"/>
+                                <rect key="frame" x="14" y="8" width="542" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="TEi-pp-YdI"/>
                                 </constraints>
@@ -36,13 +36,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="aYh-Mh-XXy">
-                                <rect key="frame" x="60" y="36" width="496" height="39"/>
+                                <rect key="frame" x="61" y="36" width="495" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BYt-A4-lbD">
-                                <rect key="frame" x="13" y="37" width="39" height="39"/>
+                                <rect key="frame" x="14" y="37" width="39" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="BYt-A4-lbD" secondAttribute="height" multiplier="1:1" id="KFl-Za-oCf"/>
                                 </constraints>
