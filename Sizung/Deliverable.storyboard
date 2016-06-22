@@ -64,8 +64,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NfS-yD-wtj">
                                 <rect key="frame" x="0.0" y="75" width="600" height="55"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8D5-1o-hBO">
-                                        <rect key="frame" x="20" y="9" width="31" height="37"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8D5-1o-hBO">
+                                        <rect key="frame" x="20" y="11" width="30" height="33"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="14"/>
                                         <state key="normal" title="back">
                                             <color key="titleColor" red="0.97647058959999999" green="0.40000000600000002" blue="0.37647059560000001" alpha="1" colorSpace="calibratedRGB"/>

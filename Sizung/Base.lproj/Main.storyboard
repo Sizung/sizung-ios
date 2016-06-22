@@ -169,8 +169,8 @@
                                     <action selector="logoutClicked:" destination="60j-uB-VEk" eventType="touchUpInside" id="cCe-dk-KPl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ExN-PN-ATf">
-                                <rect key="frame" x="549" y="32" width="17" height="22"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ExN-PN-ATf">
+                                <rect key="frame" x="543" y="40" width="17" height="22"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="close"/>
                                 <connections>
@@ -180,7 +180,9 @@
                         </subviews>
                         <color key="backgroundColor" red="0.086274509799999996" green="0.086274509799999996" blue="0.094117647060000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="ExN-PN-ATf" firstAttribute="top" secondItem="zam-WZ-pgD" secondAttribute="bottom" constant="20" id="0e9-ch-w9D"/>
                             <constraint firstItem="Ojd-fT-4s6" firstAttribute="centerX" secondItem="iMU-ar-89F" secondAttribute="centerX" id="H4E-Kv-lmG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ExN-PN-ATf" secondAttribute="trailing" constant="20" id="Noj-uJ-493"/>
                             <constraint firstItem="Ojd-fT-4s6" firstAttribute="centerY" secondItem="iMU-ar-89F" secondAttribute="centerY" id="z4n-3U-tnb"/>
                         </constraints>
                     </view>
