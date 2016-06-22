@@ -31,8 +31,18 @@ class Deliverable: BaseModel {
     }
   }
   
+  var sort_date: NSDate! {
+    get {
+      if let dueDate = self.due_on {
+        return dueDate
+      } else {
+        return self.created_at
+      }
+    }
+  }
+  
   func isCompleted() -> Bool {
-    return "closed" == self.status
+    return "resolved" == self.status
   }
   
   func getStatus() -> String {

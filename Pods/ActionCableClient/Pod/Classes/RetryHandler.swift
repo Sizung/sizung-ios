@@ -23,29 +23,29 @@
 import Foundation
 
 public enum RetryStrategy {
-    
-    case ExponentialBackoff(maxRetries: Int, maxIntervalTime: NSTimeInterval)
-    case LogarithmicBackoff(maxRetries: Int, maxIntervalTime: NSTimeInterval)
-    case Linear(maxRetries: Int, intervalTime: Int)
-    case None
-    
-    func calculateInterval(retries : Int) -> NSTimeInterval  {
-        switch self {
-        case .LogarithmicBackoff(let maxRetries, let maxIntervalTime):
-            if (retries > maxRetries) { return 0 }
-            let interval = 5 * log(Double(retries + 1))
-            return NSTimeInterval(clamp(interval, lower: 0.0, upper: Double(maxIntervalTime)))
-        case .ExponentialBackoff(let maxRetries, let maxIntervalTime):
-            if (retries > maxRetries) { return 0 }
-            let interval = 2^(retries)
-            return NSTimeInterval(clamp(Double(interval), lower: 0.0, upper: Double(maxIntervalTime)))
-        case .Linear(let maxRetries, let intervalTime):
-            if (retries > maxRetries) { return 0 }
-            return NSTimeInterval(intervalTime)
-        default:
-            return 0.0
-        }
+  
+  case ExponentialBackoff(maxRetries: Int, maxIntervalTime: NSTimeInterval)
+  case LogarithmicBackoff(maxRetries: Int, maxIntervalTime: NSTimeInterval)
+  case Linear(maxRetries: Int, intervalTime: Int)
+  case None
+  
+  func calculateInterval(retries : Int) -> NSTimeInterval  {
+    switch self {
+    case .LogarithmicBackoff(let maxRetries, let maxIntervalTime):
+      if (retries > maxRetries) { return 0.0 }
+      let interval = 5 * log(Double(retries))
+      return NSTimeInterval(clamp(interval, lower: 0.1, upper: Double(maxIntervalTime)))
+    case .ExponentialBackoff(let maxRetries, let maxIntervalTime):
+      if (retries > maxRetries) { return 0.0 }
+      let interval = exp2(Double(retries))
+      return NSTimeInterval(clamp(Double(interval), lower: 0.1, upper: Double(maxIntervalTime)))
+    case .Linear(let maxRetries, let intervalTime):
+      if (retries > maxRetries) { return 0.0 }
+      return NSTimeInterval(intervalTime)
+    default:
+      return 0.0
     }
+  }
 }
 
 internal class RetryHandler : NSObject {
@@ -59,24 +59,27 @@ internal class RetryHandler : NSObject {
     }
     
     func retry(callback: ((Void) -> (Void)))  {
-        self.retries++
+        self.retries += 1
         
         // Save callback
         self.callback = callback
-        
+      
         if let aTimer = self.timer { aTimer.invalidate() }
-        
+      
+        // Calculate interval based on strategy
         let interval: NSTimeInterval = self.strategy.calculateInterval(self.retries)
+
         if (interval > 0.0) {
             self.timer = NSTimer.scheduledTimerWithTimeInterval(interval,
                 target: self,
-                selector: "fire:",
+                selector: #selector(self.fire(_:)),
                 userInfo: nil,
                 repeats: false)
         }
     }
     
     internal func fire(timer : NSTimer) {
+      
         if let callback = self.callback {
             callback()
         }

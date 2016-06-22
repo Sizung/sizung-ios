@@ -13,7 +13,16 @@ import ReactiveKit
 class AgendaItemsTableViewController: UITableViewController {
   
   var conversation: Conversation?
+  var filter: Filter = .Mine
   
+  var userId: String?
+  
+  enum Filter {
+    case Mine
+    case All
+  }
+  
+  let conversationFilteredCollection: CollectionProperty <[AgendaItem]> = CollectionProperty([])
   let filteredCollection: CollectionProperty <[AgendaItem]> = CollectionProperty([])
   let sortedAndFilteredCollection: CollectionProperty <[AgendaItem]> = CollectionProperty([])
   
@@ -21,11 +30,46 @@ class AgendaItemsTableViewController: UITableViewController {
     super.viewDidLoad()
     
     self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
+    self.tableView.registerNib(R.nib.agendaItemTableViewCell(), forCellReuseIdentifier: R.nib.agendaItemTableViewCell.identifier)
+    
+    userId = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN)).getUserId()
     
     self.initData()
   }
   
+  @IBAction func filterValueChanged(sender: UISegmentedControl) {
+    switch sender.selectedSegmentIndex {
+    case 0:
+      self.filter = .All
+    case 1:
+      self.filter = .Mine
+    default:
+      break
+    }
+    
+    filterCollection()
+  }
+  
+  func filterCollection(){
+    conversationFilteredCollection.filter { agendaItem in
+      if self.filter == .Mine {
+        return agendaItem.owner.id == self.userId
+      } else {
+        return true
+      }
+    }.bindTo(filteredCollection)
+  }
+  
   func initData(){
+    
+    sortedAndFilteredCollection.observeNext { _ in
+      if self.sortedAndFilteredCollection.count == 0 {
+        self.tableView.tableFooterView?.alpha = 1
+      } else {
+        self.tableView.tableFooterView?.alpha = 0
+      }
+
+    }.disposeIn(rBag)
     
     let storageManager = StorageManager.sharedInstance
     
@@ -44,7 +88,9 @@ class AgendaItemsTableViewController: UITableViewController {
         } else {
           return true
         }
-      }).bindTo(filteredCollection)
+      }).bindTo(conversationFilteredCollection)
+    
+    filterCollection()
     
     //    sort by created at date
     filteredCollection
@@ -53,7 +99,7 @@ class AgendaItemsTableViewController: UITableViewController {
       }).bindTo(sortedAndFilteredCollection)
     
     sortedAndFilteredCollection.bindTo(self.tableView) { indexPath, agendaItems, tableView in
-      let cell = tableView.dequeueReusableCellWithIdentifier("AgendaItemTableViewCell", forIndexPath: indexPath) as! AgendaItemTableViewCell
+      let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.agendaItemTableViewCell.identifier, forIndexPath: indexPath) as! AgendaItemTableViewCell
       let agendaItem = agendaItems[indexPath.row]
       cell.titleLabel.text = agendaItem.title
       

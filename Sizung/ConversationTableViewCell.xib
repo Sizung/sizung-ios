@@ -19,14 +19,14 @@
                         <rect key="frame" x="18" y="8" width="564" height="83"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cva-an-rJj">
-                                <rect key="frame" x="0.0" y="0.0" width="5" height="83"/>
+                                <rect key="frame" x="0.0" y="0.0" width="6" height="83"/>
                                 <color key="backgroundColor" red="0.79215687509999999" green="0.5411764979" blue="0.21176470820000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="5" id="ti2-jA-Rai"/>
+                                    <constraint firstAttribute="width" constant="6" id="ti2-jA-Rai"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Groupname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zb-Td-dcz">
-                                <rect key="frame" x="13" y="8" width="90" height="21"/>
+                                <rect key="frame" x="14" y="8" width="90" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="TEi-pp-YdI"/>
                                 </constraints>
@@ -41,7 +41,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dF-dD-bR7">
-                                <rect key="frame" x="13" y="37" width="543" height="38"/>
+                                <rect key="frame" x="14" y="37" width="542" height="38"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="beU-yL-T57">
                                         <rect key="frame" x="0.0" y="0.0" width="543" height="38"/>
