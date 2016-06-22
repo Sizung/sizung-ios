@@ -620,7 +620,6 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
-        if UIImage(named: "IconAgendaItem") == nil { throw ValidationError(description: "[R.swift] Image named 'IconAgendaItem' is used in storyboard 'Conversations', but couldn't be loaded.") }
         if _R.storyboard.conversations().conversationsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationsTableViewController' could not be loaded from storyboard 'Conversations' as 'ConversationsTableViewController'.") }
         if _R.storyboard.conversations().timelineTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'timelineTableViewController' could not be loaded from storyboard 'Conversations' as 'TimelineTableViewController'.") }
         if _R.storyboard.conversations().conversationDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationDeliverablesTableViewController' could not be loaded from storyboard 'Conversations' as 'ConversationDeliverablesTableViewController'.") }
