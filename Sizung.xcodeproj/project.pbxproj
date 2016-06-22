@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2FF81000B72F237F09D8B781 /* Pods_SizungUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13B42A82CE8590D9FB4161 /* Pods_SizungUITests.framework */; };
+		5A1DDBD21D1A74700089CD45 /* AgendaItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */; };
 		5A304B3B1D18367F009CBBAD /* StartOfConversationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */; };
 		5A304B3D1D1843DE009CBBAD /* UnseenObjectsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */; };
 		5A304B3F1D184427009CBBAD /* UnseenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A304B3E1D184427009CBBAD /* UnseenObject.swift */; };
@@ -125,6 +126,7 @@
 
 /* Begin PBXFileReference section */
 		40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SizungTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgendaItemTableViewCell.xib; sourceTree = "<group>"; };
 		5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartOfConversationView.xib; sourceTree = "<group>"; };
 		5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnseenObjectsResponse.swift; sourceTree = "<group>"; };
 		5A304B3E1D184427009CBBAD /* UnseenObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnseenObject.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				5ADC88301D104FFF00596D67 /* Timeline */,
 				5AC0E5DE1CF04D0000BBEF45 /* SizungTableViewCell.swift */,
 				5A7329FB1D05FEB2006531A5 /* AgendaItemTableViewCell.swift */,
+				5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */,
 				5A732A001D06060C006531A5 /* DeliverableTableViewCell.swift */,
 				5ADC88371D105F3300596D67 /* DeliverableTableViewCell.xib */,
 				5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */,
@@ -711,6 +714,7 @@
 				5A9D0EDC1D11998D00037589 /* Organizations.storyboard in Resources */,
 				5A9D0EF11D11FECF00037589 /* Brandon Text W01 Medium.ttf in Resources */,
 				5AF36B9C1D12FBC300A1581F /* OrganizationTableViewCell.xib in Resources */,
+				5A1DDBD21D1A74700089CD45 /* AgendaItemTableViewCell.xib in Resources */,
 				5A9D0EE31D119E8700037589 /* Login.storyboard in Resources */,
 				5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */,
 				5A9D0EE51D11B33700037589 /* Conversations.storyboard in Resources */,

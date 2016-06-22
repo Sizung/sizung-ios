@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Brandon_med.otf">
+            <string>BrandonGrotesque-Medium</string>
+        </mutableArray>
+        <mutableArray key="Brandon_reg.otf">
+            <string>BrandonText-Regular</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AgendaItemTableViewCell" id="8Qv-AW-evl" customClass="AgendaItemTableViewCell" customModule="Sizung" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="71"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Qv-AW-evl" id="l8V-LN-sFa">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gZG-P6-rQI">
+                        <rect key="frame" x="0.0" y="0.0" width="5" height="70"/>
+                        <color key="backgroundColor" red="0.0" green="0.31764705879999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="5" id="7F1-Fj-MMq"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="5" id="X7b-At-4Fk"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="X7b-At-4Fk"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="priority" translatesAutoresizingMaskIntoConstraints="NO" id="tNm-Vk-XoJ">
+                        <rect key="frame" x="13" y="12" width="15" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="EV2-mi-HC5"/>
+                            <constraint firstAttribute="width" constant="15" id="Mco-G7-3bH"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="255" verticalCompressionResistancePriority="751" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Guz-AC-0DN">
+                        <rect key="frame" x="36" y="8" width="556" height="18"/>
+                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUM-2f-apJ">
+                        <rect key="frame" x="36" y="34" width="556" height="25"/>
+                        <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="13"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Guz-AC-0DN" firstAttribute="leading" secondItem="tNm-Vk-XoJ" secondAttribute="trailing" constant="8" id="0M0-tk-ES9"/>
+                    <constraint firstItem="tNm-Vk-XoJ" firstAttribute="top" secondItem="l8V-LN-sFa" secondAttribute="topMargin" id="4dI-ct-k0a"/>
+                    <constraint firstItem="Guz-AC-0DN" firstAttribute="trailing" secondItem="l8V-LN-sFa" secondAttribute="trailingMargin" id="BUt-KX-LCd"/>
+                    <constraint firstItem="gZG-P6-rQI" firstAttribute="top" secondItem="l8V-LN-sFa" secondAttribute="top" id="DWt-RB-c4s"/>
+                    <constraint firstItem="YUM-2f-apJ" firstAttribute="top" secondItem="Guz-AC-0DN" secondAttribute="bottom" constant="8" id="EGU-H9-DcB"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Guz-AC-0DN" secondAttribute="bottom" constant="3" id="M8M-2H-IPt"/>
+                    <constraint firstItem="gZG-P6-rQI" firstAttribute="leading" secondItem="l8V-LN-sFa" secondAttribute="leading" id="R43-QM-YX8"/>
+                    <constraint firstItem="YUM-2f-apJ" firstAttribute="leading" secondItem="Guz-AC-0DN" secondAttribute="leading" id="TVI-Ov-cyo"/>
+                    <constraint firstItem="YUM-2f-apJ" firstAttribute="top" secondItem="Guz-AC-0DN" secondAttribute="bottom" constant="8" id="Ukz-ZJ-Eiy"/>
+                    <constraint firstAttribute="bottom" secondItem="gZG-P6-rQI" secondAttribute="bottom" id="VPh-ZF-yI0"/>
+                    <constraint firstItem="Guz-AC-0DN" firstAttribute="top" secondItem="l8V-LN-sFa" secondAttribute="topMargin" id="WrB-nu-Nan"/>
+                    <constraint firstItem="Guz-AC-0DN" firstAttribute="centerY" secondItem="tNm-Vk-XoJ" secondAttribute="centerY" id="Zrn-XV-ryi"/>
+                    <constraint firstItem="Guz-AC-0DN" firstAttribute="leading" secondItem="tNm-Vk-XoJ" secondAttribute="trailing" constant="8" id="ana-3J-Bpa"/>
+                    <constraint firstItem="tNm-Vk-XoJ" firstAttribute="leading" secondItem="gZG-P6-rQI" secondAttribute="trailing" constant="8" id="gnm-Vh-lLm"/>
+                    <constraint firstItem="YUM-2f-apJ" firstAttribute="trailing" secondItem="l8V-LN-sFa" secondAttribute="trailingMargin" id="j05-rS-eEo"/>
+                    <constraint firstItem="YUM-2f-apJ" firstAttribute="leading" secondItem="gZG-P6-rQI" secondAttribute="trailing" constant="36" id="ntq-FP-aTe"/>
+                    <constraint firstAttribute="bottom" secondItem="YUM-2f-apJ" secondAttribute="bottom" constant="11" id="yvl-LD-mg4"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="4dI-ct-k0a"/>
+                        <exclude reference="M8M-2H-IPt"/>
+                        <exclude reference="ana-3J-Bpa"/>
+                        <exclude reference="EGU-H9-DcB"/>
+                        <exclude reference="ntq-FP-aTe"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="conversationLabel" destination="YUM-2f-apJ" id="T2c-qe-jXw"/>
+                <outlet property="titleLabel" destination="Guz-AC-0DN" id="hDV-s1-U7t"/>
+                <outlet property="unreadStatusView" destination="gZG-P6-rQI" id="ZA3-ey-vSf"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="priority" width="15" height="10"/>
+    </resources>
+</document>

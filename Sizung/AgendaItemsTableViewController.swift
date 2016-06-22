@@ -30,6 +30,7 @@ class AgendaItemsTableViewController: UITableViewController {
     super.viewDidLoad()
     
     self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
+    self.tableView.registerNib(R.nib.agendaItemTableViewCell(), forCellReuseIdentifier: R.nib.agendaItemTableViewCell.identifier)
     
     userId = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN)).getUserId()
     
@@ -89,7 +90,7 @@ class AgendaItemsTableViewController: UITableViewController {
       }).bindTo(sortedAndFilteredCollection)
     
     sortedAndFilteredCollection.bindTo(self.tableView) { indexPath, agendaItems, tableView in
-      let cell = tableView.dequeueReusableCellWithIdentifier("AgendaItemTableViewCell", forIndexPath: indexPath) as! AgendaItemTableViewCell
+      let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.agendaItemTableViewCell.identifier, forIndexPath: indexPath) as! AgendaItemTableViewCell
       let agendaItem = agendaItems[indexPath.row]
       cell.titleLabel.text = agendaItem.title
       

@@ -196,8 +196,10 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 9 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 10 nibs.
   struct nib {
+    /// Nib `AgendaItemTableViewCell`.
+    static let agendaItemTableViewCell = _R.nib._AgendaItemTableViewCell()
     /// Nib `AutoCompletionTableCell`.
     static let autoCompletionTableCell = _R.nib._AutoCompletionTableCell()
     /// Nib `CommentTableViewCell`.
@@ -216,6 +218,11 @@ struct R: Rswift.Validatable {
     static let timelineAgendaItemTableViewCell = _R.nib._TimelineAgendaItemTableViewCell()
     /// Nib `TimelineDeliverableTableViewCell`.
     static let timelineDeliverableTableViewCell = _R.nib._TimelineDeliverableTableViewCell()
+    
+    /// `UINib(name: "AgendaItemTableViewCell", bundle: ...)`
+    static func agendaItemTableViewCell(_: Void) -> UINib {
+      return UINib(resource: R.nib.agendaItemTableViewCell)
+    }
     
     /// `UINib(name: "AutoCompletionTableCell", bundle: ...)`
     static func autoCompletionTableCell(_: Void) -> UINib {
@@ -437,6 +444,20 @@ struct _R: Rswift.Validatable {
   }
   
   struct nib {
+    struct _AgendaItemTableViewCell: NibResourceType, ReuseIdentifierType {
+      typealias ReusableType = AgendaItemTableViewCell
+      
+      let bundle = _R.hostingBundle
+      let identifier = "AgendaItemTableViewCell"
+      let name = "AgendaItemTableViewCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> AgendaItemTableViewCell? {
+        return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? AgendaItemTableViewCell
+      }
+      
+      private init() {}
+    }
+    
     struct _AutoCompletionTableCell: NibResourceType {
       let bundle = _R.hostingBundle
       let name = "AutoCompletionTableCell"
