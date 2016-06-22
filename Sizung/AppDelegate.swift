@@ -197,11 +197,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     print("received remote notification: \(userInfo)")
   }
   
-  func onReceived(conversationObject: BaseModel) {
-    if let unseenObject = conversationObject as? UnseenObject {
+  func onReceived(unseenObject: BaseModel) {
+    if let unseenObject = unseenObject as? UnseenObject {
       StorageManager.sharedInstance.unseenObjects.insert(unseenObject)
     } else {
-      print(conversationObject)
+      print(unseenObject)
     }
   }
   

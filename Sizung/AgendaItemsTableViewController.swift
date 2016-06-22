@@ -81,6 +81,11 @@ class AgendaItemsTableViewController: UITableViewController {
       }
       }.disposeIn(rBag)
     
+    // listen to unseenObject changes
+    storageManager.unseenObjects.observeNext { _ in
+      self.tableView.reloadData()
+      }.disposeIn(rBag)
+    
     storageManager.agendaItems
       .filter({ agendaItem in
         if let conversationId = self.conversation?.id {

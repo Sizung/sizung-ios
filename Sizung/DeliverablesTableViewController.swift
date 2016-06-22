@@ -93,6 +93,11 @@ class DeliverablesTableViewController: UITableViewController {
       }
       }.disposeIn(rBag)
     
+    // listen to unseenObject changes
+    storageManager.unseenObjects.observeNext { _ in
+      self.tableView.reloadData()
+      }.disposeIn(rBag)
+    
     filterCollection()
     
 //    sort

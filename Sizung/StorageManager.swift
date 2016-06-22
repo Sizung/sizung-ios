@@ -227,4 +227,24 @@ class StorageManager {
         }
     }
   }
+  
+  func sawTimeLineFor(object: BaseModel) {
+    Alamofire.request(SizungHttpRouter.DeleteUnseenObjects(type: object.type, id: object.id))
+      .validate()
+      .responseJSON{ response in
+        switch response.result {
+        case .Success(let JSON):
+          if let unseenObjectResponse = Mapper<UnseenObjectsResponse>().map(JSON) {
+            unseenObjectResponse.unseenObjects.forEach { unseenObject in
+              self.unseenObjects.remove(unseenObject)
+            }
+          }
+        case .Failure
+          where response.response?.statusCode == 401:
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+        default:
+          print("error \(response.result)")
+        }
+    }
+  }
 }
