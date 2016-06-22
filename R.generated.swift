@@ -587,6 +587,7 @@ struct _R: Rswift.Validatable {
   
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
+      try deliverable.validate()
       try conversations.validate()
       try main.validate()
     }
@@ -637,11 +638,15 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
-    struct deliverable: StoryboardResourceWithInitialControllerType {
+    struct deliverable: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = DeliverableViewController
       
       let bundle = _R.hostingBundle
       let name = "Deliverable"
+      
+      static func validate() throws {
+        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Deliverable', but couldn't be loaded.") }
+      }
       
       private init() {}
     }

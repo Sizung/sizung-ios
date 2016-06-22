@@ -7,22 +7,45 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class DeliverableViewController: UIViewController {
   
-  @IBOutlet weak var titleBarButtonItem: UIBarButtonItem!
+  @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var statusButton: UIButton!
   @IBOutlet weak var backButton: UIButton!
+  @IBOutlet weak var assigneeImageView: UIImageView!
   
-  var deliverable: Deliverable?
+  var deliverable: Deliverable!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    titleBarButtonItem.title = deliverable?.title
-    if let conversation = StorageManager.sharedInstance.getConversation(deliverable!.conversation.id) {
-      backButton.setTitle(conversation.title, forState: .Normal)
+    
+    if let conversation = StorageManager.sharedInstance.getConversation(deliverable.conversation.id) {
+      titleButton.setTitle("@\(conversation.title)", forState: .Normal)
     }
-    statusButton.setTitle(deliverable?.status, forState: .Normal)
+    backButton.setTitle("< \(deliverable.title)", forState: .Normal)
+    
+    if let user = StorageManager.sharedInstance.getUser((deliverable.assignee.id)!) {
+      let gravatar = Gravatar(emailAddress: user.email, defaultImage: .Identicon)
+      
+      let size = assigneeImageView.frame.size
+      
+      assigneeImageView.af_setImageWithURL(
+        gravatar.URL(size: size.height),
+        placeholderImage: nil,
+        filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
+        imageTransition: .CrossDissolve(0.2)
+      )
+    }
+    
+    var statusString = deliverable.status
+    
+    if let dueDate = deliverable.due_on {
+      statusString = DueDateHelper.getDueDateString(dueDate)
+    }
+    
+    statusButton.setTitle(statusString, forState: .Normal)
   }
   
   @IBAction func close(sender: AnyObject) {
