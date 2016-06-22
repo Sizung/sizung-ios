@@ -5,6 +5,13 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Brandon_med.otf">
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Agenda Item View Controller-->
         <scene sceneID="LCV-A5-fHa">
@@ -18,28 +25,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2XS-yf-Wyq">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <items>
-                                    <barButtonItem title="Item" id="XDx-8n-H1M"/>
-                                    <barButtonItem systemItem="flexibleSpace" id="A4C-nx-5NQ"/>
-                                    <barButtonItem systemItem="stop" id="XBs-Ls-DyM">
-                                        <connections>
-                                            <action selector="close:" destination="GPy-5R-nwL" id="RxH-7l-h7m"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NfS-yD-wtj">
-                                <rect key="frame" x="0.0" y="64" width="600" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gg-G1-mne">
+                                <rect key="frame" x="0.0" y="20" width="600" height="55"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8D5-1o-hBO">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y7x-GC-03F">
+                                        <rect key="frame" x="20" y="9" width="30" height="37"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="0.79215687509999999" green="0.5411764979" blue="0.21176470820000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ESg-2f-1le">
+                                        <rect key="frame" x="563" y="17" width="17" height="22"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="close"/>
+                                        <connections>
+                                            <action selector="close:" destination="GPy-5R-nwL" eventType="touchUpInside" id="Pee-8W-h2B"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="y7x-GC-03F" firstAttribute="leading" secondItem="7gg-G1-mne" secondAttribute="leading" constant="20" id="8Iz-2w-j0G"/>
+                                    <constraint firstItem="ESg-2f-1le" firstAttribute="centerY" secondItem="y7x-GC-03F" secondAttribute="centerY" id="HI6-Eb-ULz"/>
+                                    <constraint firstItem="y7x-GC-03F" firstAttribute="centerY" secondItem="7gg-G1-mne" secondAttribute="centerY" id="NXl-pc-k4M"/>
+                                    <constraint firstAttribute="trailing" secondItem="ESg-2f-1le" secondAttribute="trailing" constant="20" id="dZC-BD-Xdr"/>
+                                    <constraint firstAttribute="height" constant="55" id="oGD-u5-PsV"/>
+                                </constraints>
+                            </view>
+                            <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3E-Ai-F2L">
+                                <rect key="frame" x="0.0" y="125" width="600" height="475"/>
+                                <connections>
+                                    <segue destination="Mz8-Qe-oEK" kind="embed" identifier="embed" id="fkn-o5-abH"/>
+                                </connections>
+                            </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NfS-yD-wtj">
+                                <rect key="frame" x="0.0" y="75" width="600" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8D5-1o-hBO">
                                         <rect key="frame" x="14" y="10" width="34" height="30"/>
-                                        <state key="normal" title="back"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="14"/>
+                                        <state key="normal" title="back">
+                                            <color key="titleColor" red="0.0" green="0.31764705879999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg1-da-c05">
-                                        <rect key="frame" x="548" y="10" width="43" height="30"/>
-                                        <state key="normal" title="status"/>
+                                        <rect key="frame" x="551" y="10" width="40" height="30"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                        <state key="normal" title="status">
+                                            <color key="titleColor" red="0.0" green="0.31764705879999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -53,32 +87,32 @@
                                     <constraint firstAttribute="bottom" secondItem="8D5-1o-hBO" secondAttribute="bottom" constant="10" id="zN0-hL-eAa"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3E-Ai-F2L">
-                                <rect key="frame" x="0.0" y="114" width="600" height="486"/>
-                                <connections>
-                                    <segue destination="Mz8-Qe-oEK" kind="embed" identifier="embed" id="fkn-o5-abH"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="NfS-yD-wtj" firstAttribute="leading" secondItem="O7V-TP-UOm" secondAttribute="leadingMargin" constant="-20" id="2mt-Mw-BxP"/>
                             <constraint firstItem="x3E-Ai-F2L" firstAttribute="leading" secondItem="O7V-TP-UOm" secondAttribute="leadingMargin" constant="-20" id="3wh-Up-vmJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="2XS-yf-Wyq" secondAttribute="trailing" constant="-20" id="DOu-7c-wjQ"/>
-                            <constraint firstItem="2XS-yf-Wyq" firstAttribute="leading" secondItem="O7V-TP-UOm" secondAttribute="leadingMargin" constant="-20" id="IXh-GF-GYl"/>
-                            <constraint firstItem="NfS-yD-wtj" firstAttribute="top" secondItem="2XS-yf-Wyq" secondAttribute="bottom" id="Ptv-vk-olU"/>
+                            <constraint firstItem="7gg-G1-mne" firstAttribute="top" secondItem="O7V-TP-UOm" secondAttribute="topMargin" id="9RR-VD-4xy"/>
+                            <constraint firstItem="7gg-G1-mne" firstAttribute="top" secondItem="9rz-ZZ-vna" secondAttribute="bottom" id="KWL-cc-aMI"/>
+                            <constraint firstItem="7gg-G1-mne" firstAttribute="leading" secondItem="O7V-TP-UOm" secondAttribute="leadingMargin" constant="-20" id="PpQ-LF-KaX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="NfS-yD-wtj" secondAttribute="trailing" constant="-20" id="Sv8-DX-kvD"/>
                             <constraint firstItem="x3E-Ai-F2L" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="bottom" id="c35-Oy-aFl"/>
+                            <constraint firstItem="NfS-yD-wtj" firstAttribute="top" secondItem="7gg-G1-mne" secondAttribute="bottom" id="cXS-4x-hI0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="x3E-Ai-F2L" secondAttribute="trailing" constant="-20" id="gQt-De-sue"/>
                             <constraint firstAttribute="bottomMargin" secondItem="x3E-Ai-F2L" secondAttribute="bottom" id="h8w-D0-6jV"/>
-                            <constraint firstItem="2XS-yf-Wyq" firstAttribute="top" secondItem="9rz-ZZ-vna" secondAttribute="bottom" id="izw-Ms-P2m"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7gg-G1-mne" secondAttribute="trailing" constant="-20" id="x9u-du-xCH"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="9RR-VD-4xy"/>
+                            </mask>
+                        </variation>
                     </view>
                     <toolbarItems/>
                     <connections>
                         <outlet property="backButton" destination="8D5-1o-hBO" id="nrU-90-mYG"/>
                         <outlet property="statusButton" destination="vg1-da-c05" id="AgE-aI-O5W"/>
-                        <outlet property="titleBarButtonItem" destination="XDx-8n-H1M" id="bOD-fE-YXj"/>
+                        <outlet property="titleButton" destination="y7x-GC-03F" id="DUb-G8-SSB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BO4-Kt-VOn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -94,7 +128,7 @@
                         <viewControllerLayoutGuide type="bottom" id="vDd-0G-jah"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="KCh-Ee-fve">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="486"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="475"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -104,4 +138,7 @@
             <point key="canvasLocation" x="972" y="269"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="close" width="17" height="17"/>
+    </resources>
 </document>

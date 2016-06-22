@@ -588,15 +588,20 @@ struct _R: Rswift.Validatable {
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       try deliverable.validate()
+      try agendaItem.validate()
       try conversations.validate()
       try main.validate()
     }
     
-    struct agendaItem: StoryboardResourceWithInitialControllerType {
+    struct agendaItem: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = AgendaItemViewController
       
       let bundle = _R.hostingBundle
       let name = "AgendaItem"
+      
+      static func validate() throws {
+        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'AgendaItem', but couldn't be loaded.") }
+      }
       
       private init() {}
     }
