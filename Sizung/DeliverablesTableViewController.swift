@@ -87,26 +87,26 @@ class DeliverablesTableViewController: UITableViewController {
     
     filterCollection()
     
-    // sort
-    //    filteredCollection
-    //      .sort({ left, right in
-    ////        sort completed to bottom of list
-    //        if left.isCompleted() && !right.isCompleted() {
-    //          return false
-    //        } else if !left.isCompleted() && right.isCompleted() {
-    //          return true
-    ////        sort items with due date on top
-    //        } else if left.due_on != nil && right.due_on == nil {
-    //          return true
-    //        } else if left.due_on == nil && right.due_on != nil {
-    //          return false
-    ////        sort grouped items by sort_date
-    //        } else {
-    //          return left.sort_date.isEarlierThan(right.sort_date)
-    //        }
-    //      }).bindTo(sortedAndFilteredCollection)
+//    sort
+    filteredCollection
+      .sort({ left, right in
+        //        sort completed to bottom of list
+        if left.isCompleted() && !right.isCompleted() {
+          return false
+        } else if !left.isCompleted() && right.isCompleted() {
+          return true
+          //        sort items with due date on top
+        } else if left.due_on != nil && right.due_on == nil {
+          return true
+        } else if left.due_on == nil && right.due_on != nil {
+          return false
+          //        sort grouped items by sort_date
+        } else {
+          return left.sort_date.isEarlierThan(right.sort_date)
+        }
+      }).bindTo(sortedAndFilteredCollection)
     
-    filteredCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
+    sortedAndFilteredCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.deliverableTableViewCell.identifier, forIndexPath: indexPath) as! DeliverableTableViewCell
       let deliverable = deliverables[indexPath.row]
       cell.titleLabel.text = deliverable.title
@@ -135,12 +135,14 @@ class DeliverablesTableViewController: UITableViewController {
       cell.statusView.layer.borderColor = statusColor.CGColor
       cell.statusLabel.textColor = textStatusColor
       
-      let hasUnseenObject = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
+      let hasUnseenObjects = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
         return obj.deliverable?.id == deliverable.id
       }
       
-      cell.statusView.backgroundColor = hasUnseenObject ? statusColor : UIColor.clearColor()
-      cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
+      if !deliverable.isCompleted() && !hasUnseenObjects {
+        cell.statusView.backgroundColor = UIColor.clearColor()
+      }
+      cell.unreadStatusView.alpha = hasUnseenObjects ? 1 : 0
       
       return cell
     }
