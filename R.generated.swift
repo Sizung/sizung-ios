@@ -119,7 +119,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 9 images.
+  /// This `R.image` struct is generated, and contains static references to 10 images.
   struct image {
     /// Image `action_bg_left`.
     static let action_bg_left = ImageResource(bundle: _R.hostingBundle, name: "action_bg_left")
@@ -127,6 +127,8 @@ struct R: Rswift.Validatable {
     static let action_bg_middle = ImageResource(bundle: _R.hostingBundle, name: "action_bg_middle")
     /// Image `action_bg_right`.
     static let action_bg_right = ImageResource(bundle: _R.hostingBundle, name: "action_bg_right")
+    /// Image `close`.
+    static let close = ImageResource(bundle: _R.hostingBundle, name: "close")
     /// Image `groups`.
     static let groups = ImageResource(bundle: _R.hostingBundle, name: "groups")
     /// Image `priority`.
@@ -153,6 +155,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "action_bg_right", bundle: ..., traitCollection: ...)`
     static func action_bg_right(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.action_bg_right, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "close", bundle: ..., traitCollection: ...)`
+    static func close(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.close, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "groups", bundle: ..., traitCollection: ...)`
@@ -620,6 +627,7 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
+        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Conversations', but couldn't be loaded.") }
         if _R.storyboard.conversations().conversationsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationsTableViewController' could not be loaded from storyboard 'Conversations' as 'ConversationsTableViewController'.") }
         if _R.storyboard.conversations().timelineTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'timelineTableViewController' could not be loaded from storyboard 'Conversations' as 'TimelineTableViewController'.") }
         if _R.storyboard.conversations().conversationDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationDeliverablesTableViewController' could not be loaded from storyboard 'Conversations' as 'DeliverablesTableViewController'.") }
@@ -689,6 +697,7 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIImage(named: "groups") == nil { throw ValidationError(description: "[R.swift] Image named 'groups' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIImage(named: "priority") == nil { throw ValidationError(description: "[R.swift] Image named 'priority' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIImage(named: "search") == nil { throw ValidationError(description: "[R.swift] Image named 'search' is used in storyboard 'Main', but couldn't be loaded.") }
         if _R.storyboard.main().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Main' as 'AgendaItemsTableViewController'.") }
