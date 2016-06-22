@@ -598,7 +598,7 @@ struct _R: Rswift.Validatable {
       
       let agendaItemsTableViewController = StoryboardViewControllerResource<AgendaItemsTableViewController>(identifier: "AgendaItemsTableViewController")
       let bundle = _R.hostingBundle
-      let conversationDeliverablesTableViewController = StoryboardViewControllerResource<ConversationDeliverablesTableViewController>(identifier: "ConversationDeliverablesTableViewController")
+      let conversationDeliverablesTableViewController = StoryboardViewControllerResource<DeliverablesTableViewController>(identifier: "ConversationDeliverablesTableViewController")
       let conversationsTableViewController = StoryboardViewControllerResource<ConversationsTableViewController>(identifier: "ConversationsTableViewController")
       let name = "Conversations"
       let timelineTableViewController = StoryboardViewControllerResource<TimelineTableViewController>(identifier: "TimelineTableViewController")
@@ -607,7 +607,7 @@ struct _R: Rswift.Validatable {
         return UIStoryboard(resource: self).instantiateViewController(agendaItemsTableViewController)
       }
       
-      func conversationDeliverablesTableViewController(_: Void) -> ConversationDeliverablesTableViewController? {
+      func conversationDeliverablesTableViewController(_: Void) -> DeliverablesTableViewController? {
         return UIStoryboard(resource: self).instantiateViewController(conversationDeliverablesTableViewController)
       }
       
@@ -622,7 +622,7 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if _R.storyboard.conversations().conversationsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationsTableViewController' could not be loaded from storyboard 'Conversations' as 'ConversationsTableViewController'.") }
         if _R.storyboard.conversations().timelineTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'timelineTableViewController' could not be loaded from storyboard 'Conversations' as 'TimelineTableViewController'.") }
-        if _R.storyboard.conversations().conversationDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationDeliverablesTableViewController' could not be loaded from storyboard 'Conversations' as 'ConversationDeliverablesTableViewController'.") }
+        if _R.storyboard.conversations().conversationDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationDeliverablesTableViewController' could not be loaded from storyboard 'Conversations' as 'DeliverablesTableViewController'.") }
         if _R.storyboard.conversations().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Conversations' as 'AgendaItemsTableViewController'.") }
       }
       
@@ -665,7 +665,7 @@ struct _R: Rswift.Validatable {
       let mainViewController = StoryboardViewControllerResource<OrganizationViewController>(identifier: "MainViewController")
       let name = "Main"
       let streamTableViewController = StoryboardViewControllerResource<StreamTableViewController>(identifier: "StreamTableViewController")
-      let userDeliverablesTableViewController = StoryboardViewControllerResource<UserDeliverablesTableViewController>(identifier: "UserDeliverablesTableViewController")
+      let userDeliverablesTableViewController = StoryboardViewControllerResource<DeliverablesTableViewController>(identifier: "UserDeliverablesTableViewController")
       
       func accountViewController(_: Void) -> AccountViewController? {
         return UIStoryboard(resource: self).instantiateViewController(accountViewController)
@@ -683,7 +683,7 @@ struct _R: Rswift.Validatable {
         return UIStoryboard(resource: self).instantiateViewController(streamTableViewController)
       }
       
-      func userDeliverablesTableViewController(_: Void) -> UserDeliverablesTableViewController? {
+      func userDeliverablesTableViewController(_: Void) -> DeliverablesTableViewController? {
         return UIStoryboard(resource: self).instantiateViewController(userDeliverablesTableViewController)
       }
       
@@ -694,7 +694,7 @@ struct _R: Rswift.Validatable {
         if _R.storyboard.main().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Main' as 'AgendaItemsTableViewController'.") }
         if _R.storyboard.main().accountViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'accountViewController' could not be loaded from storyboard 'Main' as 'AccountViewController'.") }
         if _R.storyboard.main().mainViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'mainViewController' could not be loaded from storyboard 'Main' as 'OrganizationViewController'.") }
-        if _R.storyboard.main().userDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'userDeliverablesTableViewController' could not be loaded from storyboard 'Main' as 'UserDeliverablesTableViewController'.") }
+        if _R.storyboard.main().userDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'userDeliverablesTableViewController' could not be loaded from storyboard 'Main' as 'DeliverablesTableViewController'.") }
         if _R.storyboard.main().streamTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'streamTableViewController' could not be loaded from storyboard 'Main' as 'StreamTableViewController'.") }
       }
       

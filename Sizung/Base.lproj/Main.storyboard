@@ -312,17 +312,39 @@
             </objects>
             <point key="canvasLocation" x="-410" y="-796"/>
         </scene>
-        <!--User Deliverables Table View Controller-->
+        <!--Deliverables Table View Controller-->
         <scene sceneID="ZVb-DR-daB">
             <objects>
-                <tableViewController storyboardIdentifier="UserDeliverablesTableViewController" id="7zC-UA-nwk" customClass="UserDeliverablesTableViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UserDeliverablesTableViewController" id="7zC-UA-nwk" customClass="DeliverablesTableViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="71" sectionHeaderHeight="28" sectionFooterHeight="28" id="XSM-k4-TZd">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="8Ta-fn-7Ew">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="L1y-D4-5kJ">
+                                    <rect key="frame" x="204" y="8" width="193" height="29"/>
+                                    <segments>
+                                        <segment title="Team Actions"/>
+                                        <segment title="My Actions"/>
+                                    </segments>
+                                    <color key="tintColor" red="0.48235294220000002" green="0.40784314269999999" blue="0.31372550129999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <action selector="filterValueChanged:" destination="7zC-UA-nwk" eventType="valueChanged" id="ecw-A8-XTY"/>
+                                    </connections>
+                                </segmentedControl>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="L1y-D4-5kJ" firstAttribute="centerX" secondItem="8Ta-fn-7Ew" secondAttribute="centerX" id="1YH-zd-6sv"/>
+                                <constraint firstItem="L1y-D4-5kJ" firstAttribute="centerY" secondItem="8Ta-fn-7Ew" secondAttribute="centerY" id="PAU-Rd-fPb"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeliverableTableViewCell" id="9Ey-Hv-ium" customClass="DeliverableTableViewCell" customModule="Sizung" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="71"/>
+                                <rect key="frame" x="0.0" y="72" width="600" height="71"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9Ey-Hv-ium" id="7b3-tx-EhJ">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="71"/>
