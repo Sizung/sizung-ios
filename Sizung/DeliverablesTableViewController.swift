@@ -13,8 +13,6 @@ import DateTools
 
 class DeliverablesTableViewController: UITableViewController {
   
-  
-  let conversationFilteredCollection: CollectionProperty <[Deliverable]> = CollectionProperty([])
   let filteredCollection: CollectionProperty <[Deliverable]> = CollectionProperty([])
   let sortedAndFilteredCollection: CollectionProperty <[Deliverable]> = CollectionProperty([])
   
@@ -53,17 +51,18 @@ class DeliverablesTableViewController: UITableViewController {
   }
   
   func filterCollection(){
-    conversationFilteredCollection.filter { deliverable in
+    StorageManager.sharedInstance.deliverables.filter { deliverable in
+      
+      if self.conversation != nil && self.conversation!.id != deliverable.conversation.id {
+        return false
+      }
+      
       if self.filter == .Mine {
         return deliverable.owner.id == self.userId
       } else {
         return true
       }
       }.bindTo(filteredCollection)
-  }
-  
-  func bindData() {
-    print("no usage")
   }
   
   func initData(){
@@ -86,37 +85,28 @@ class DeliverablesTableViewController: UITableViewController {
       }
       }.disposeIn(rBag)
     
-    storageManager.deliverables
-      .filter({ deliverable in
-        if let conversationId = self.conversation?.id {
-          return deliverable.conversation.id == conversationId
-        } else {
-          return true
-        }
-      }).bindTo(conversationFilteredCollection)
-    
     filterCollection()
     
     // sort
-    filteredCollection
-      .sort({ left, right in
-//        sort completed to bottom of list
-        if left.isCompleted() && !right.isCompleted() {
-          return false
-        } else if !left.isCompleted() && right.isCompleted() {
-          return true
-//        sort items with due date on top
-        } else if left.due_on != nil && right.due_on == nil {
-          return true
-        } else if left.due_on == nil && right.due_on != nil {
-          return false
-//        sort grouped items by sort_date  
-        } else {
-          return left.sort_date.isEarlierThan(right.sort_date)
-        }
-      }).bindTo(sortedAndFilteredCollection)
+    //    filteredCollection
+    //      .sort({ left, right in
+    ////        sort completed to bottom of list
+    //        if left.isCompleted() && !right.isCompleted() {
+    //          return false
+    //        } else if !left.isCompleted() && right.isCompleted() {
+    //          return true
+    ////        sort items with due date on top
+    //        } else if left.due_on != nil && right.due_on == nil {
+    //          return true
+    //        } else if left.due_on == nil && right.due_on != nil {
+    //          return false
+    ////        sort grouped items by sort_date
+    //        } else {
+    //          return left.sort_date.isEarlierThan(right.sort_date)
+    //        }
+    //      }).bindTo(sortedAndFilteredCollection)
     
-    sortedAndFilteredCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
+    filteredCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.deliverableTableViewCell.identifier, forIndexPath: indexPath) as! DeliverableTableViewCell
       let deliverable = deliverables[indexPath.row]
       cell.titleLabel.text = deliverable.title
