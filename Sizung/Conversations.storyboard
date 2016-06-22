@@ -8,6 +8,8 @@
     <customFonts key="customFonts">
         <mutableArray key="Brandon_med.otf">
             <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -28,7 +30,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HnZ-m2-39P">
                                         <rect key="frame" x="552" y="13" width="29" height="22"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.086274512110000007" green="0.086274512110000007" blue="0.094117648900000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="close"/>
                                         <connections>
                                             <action selector="hideGroups:" destination="wAw-vw-HyH" eventType="touchUpInside" id="V3O-YU-pND"/>
@@ -129,8 +131,8 @@
                                             <color key="titleColor" red="0.7921568751335144" green="0.54117649793624878" blue="0.21176470816135406" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EW1-Ux-VP6">
-                                        <rect key="frame" x="558" y="20" width="29" height="22"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EW1-Ux-VP6">
+                                        <rect key="frame" x="570" y="20" width="17" height="22"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="close"/>
                                         <connections>
@@ -259,6 +261,13 @@
                                 <constraint firstItem="EAK-4H-c8S" firstAttribute="centerX" secondItem="Mpk-BS-v0V" secondAttribute="centerX" id="bb1-dH-4co"/>
                             </constraints>
                         </view>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing there yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Gqg-Jr-gLu">
+                            <rect key="frame" x="0.0" y="44" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                            <color key="textColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <connections>
                             <outlet property="dataSource" destination="QL4-iM-1vf" id="FOO-s7-RMm"/>
                             <outlet property="delegate" destination="QL4-iM-1vf" id="uPt-1v-4Hc"/>
@@ -305,6 +314,13 @@
                                 <constraint firstItem="yBs-P7-hN2" firstAttribute="centerX" secondItem="vsT-MG-DZ5" secondAttribute="centerX" id="oIQ-Cy-SJt"/>
                             </constraints>
                         </view>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing there yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q5C-gc-zIr">
+                            <rect key="frame" x="0.0" y="44" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                            <color key="textColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <connections>
                             <outlet property="dataSource" destination="MTV-Hl-JVU" id="ypR-fw-H7M"/>
                             <outlet property="delegate" destination="MTV-Hl-JVU" id="5BD-F6-Fy4"/>

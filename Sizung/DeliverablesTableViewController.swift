@@ -75,6 +75,14 @@ class DeliverablesTableViewController: UITableViewController {
       }
       }.disposeIn(rBag)
     
+    sortedAndFilteredCollection.observeNext { _ in
+      if self.sortedAndFilteredCollection.count == 0 {
+        self.tableView.tableFooterView?.alpha = 1
+      } else {
+        self.tableView.tableFooterView?.alpha = 0
+      }
+    }.disposeIn(rBag)
+    
     let storageManager = StorageManager.sharedInstance
     
     storageManager.isLoading.observeNext { isLoading in

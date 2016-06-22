@@ -9,6 +9,8 @@
         <mutableArray key="Brandon_med.otf">
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
         </mutableArray>
         <mutableArray key="Brandon_reg.otf">
             <string>BrandonText-Regular</string>
@@ -48,6 +50,13 @@
                                 <constraint firstItem="CiJ-hi-Y1g" firstAttribute="centerY" secondItem="Z6t-Wq-lbV" secondAttribute="centerY" id="eKw-FK-sLC"/>
                             </constraints>
                         </view>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing there yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NX9-EG-Ubu">
+                            <rect key="frame" x="0.0" y="143" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                            <color key="textColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AgendaItemTableViewCell" id="Tfa-6a-vdh" customClass="AgendaItemTableViewCell" customModule="Sizung" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="600" height="71"/>
@@ -336,6 +345,13 @@
                                 <constraint firstItem="L1y-D4-5kJ" firstAttribute="centerY" secondItem="8Ta-fn-7Ew" secondAttribute="centerY" id="PAU-Rd-fPb"/>
                             </constraints>
                         </view>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing there yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Box-O0-Ppa">
+                            <rect key="frame" x="0.0" y="143" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                            <color key="textColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeliverableTableViewCell" id="9Ey-Hv-ium" customClass="DeliverableTableViewCell" customModule="Sizung" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="600" height="71"/>
