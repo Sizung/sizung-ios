@@ -61,6 +61,11 @@ class ConversationsTableViewController: UITableViewController {
       
       conversation.members.forEach { member in
         if let user = storageManager.getUser(member.id) {
+          
+          guard user.isActive() else {
+            return
+          }
+          
           let imageWidth = cell.activeImageViewsContainerView.frame.height
           
           let gravatar = Gravatar(emailAddress: user.email, defaultImage: .Identicon)
