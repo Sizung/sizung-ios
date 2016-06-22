@@ -10,19 +10,21 @@ import UIKit
 
 class AgendaItemViewController: UIViewController {
   
-  @IBOutlet weak var titleBarButtonItem: UIBarButtonItem!
+  
+  @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var statusButton: UIButton!
   @IBOutlet weak var backButton: UIButton!
   
-  var agendaItem: AgendaItem?
+  var agendaItem: AgendaItem!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    titleBarButtonItem.title = agendaItem?.title
-    if let conversation = StorageManager.sharedInstance.getConversation(agendaItem!.conversation.id) {
-      backButton.setTitle(conversation.title, forState: .Normal)
+    if let conversation = StorageManager.sharedInstance.getConversation(agendaItem.conversation.id) {
+      titleButton.setTitle("@\(conversation.title)", forState: .Normal)
     }
-    statusButton.setTitle(agendaItem?.status, forState: .Normal)
+    backButton.setTitle("< \(agendaItem.title)", forState: .Normal)
+    
+    statusButton.setTitle(agendaItem.status, forState: .Normal)
   }
   
   @IBAction func close(sender: AnyObject) {

@@ -2,7 +2,7 @@ PODS:
   - ActionCableClient (0.1.3):
     - Starscream (~> 1.1.2)
     - SwiftyJSON (~> 2.3.1)
-  - Alamofire (3.4.0)
+  - Alamofire (3.4.1)
   - AlamofireImage (2.4.0):
     - Alamofire (~> 3.3)
   - BrightFutures (4.1.0):
@@ -14,28 +14,28 @@ PODS:
   - Fabric (1.6.7)
   - JWTDecode (1.0.0)
   - KCFloatingActionButton (1.3.4)
-  - Nimble (4.0.1)
+  - Nimble (4.1.0)
   - ObjectMapper (1.3.0)
-  - OHHTTPStubs (5.0.0):
-    - OHHTTPStubs/Default (= 5.0.0)
-  - OHHTTPStubs/Core (5.0.0)
-  - OHHTTPStubs/Default (5.0.0):
+  - OHHTTPStubs (5.1.0):
+    - OHHTTPStubs/Default (= 5.1.0)
+  - OHHTTPStubs/Core (5.1.0)
+  - OHHTTPStubs/Default (5.1.0):
     - OHHTTPStubs/Core
     - OHHTTPStubs/JSON
     - OHHTTPStubs/NSURLSession
     - OHHTTPStubs/OHPathHelpers
-  - OHHTTPStubs/JSON (5.0.0):
+  - OHHTTPStubs/JSON (5.1.0):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/NSURLSession (5.0.0):
+  - OHHTTPStubs/NSURLSession (5.1.0):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/OHPathHelpers (5.0.0)
+  - OHHTTPStubs/OHPathHelpers (5.1.0)
   - R.swift (2.3.0):
     - R.swift.Library (~> 2.1.0)
   - R.swift.Library (2.1.0)
-  - ReactiveKit (2.0.3)
+  - ReactiveKit (2.1.0)
   - ReactiveUIKit (2.0.1):
     - ReactiveKit (~> 2.0)
-  - Result (2.0.0)
+  - Result (2.1.1)
   - Sheriff (0.3.2)
   - SlackTextViewController (1.9.3)
   - Starscream (1.1.3)
@@ -43,7 +43,7 @@ PODS:
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - ActionCableClient (~> 0.1)
+  - ActionCableClient (= 0.1.3)
   - Alamofire (~> 3.4)
   - AlamofireImage (~> 2.0)
   - BrightFutures (~> 4.0)
@@ -65,7 +65,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   ActionCableClient: a267d85d8eed1749f83cbc63596da3edf1e7945a
-  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
   BrightFutures: e18b83fd6fa8562ceb9902ee609f0de23b0ee110
   Bumblebee: 0249c65d409431276ced68734f96a96708e2e9f2
@@ -74,20 +74,20 @@ SPEC CHECKSUMS:
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   JWTDecode: d172edcb1607cc15aed85d58eceedcbb675a4534
   KCFloatingActionButton: 7a2974b7e30fa3dd80a476b401a5b5f44cf5440a
-  Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
+  Nimble: 97a0a4cae5124c117115634b2d055d8c97d0af19
   ObjectMapper: 4eb08a726e9791a93b2632049951b56a7c17e471
-  OHHTTPStubs: a5d2e9eea07869d42ec03338325f398bc520e159
+  OHHTTPStubs: 592f74439d2d72615115cf99a954237a3fbe26e5
   R.swift: 38b2191a603c3d491a09baddfb4ccc7aa9be4d9d
   R.swift.Library: e5e077ed04f6867a95676af491650091b23518e9
-  ReactiveKit: 1e0b34f266e382b4b9957b5726243f9b8c8c703a
+  ReactiveKit: fe3c5d480ed904ce6d6d99cc94ccf568d5c48c5c
   ReactiveUIKit: af6e401a61d196502267ff216b7ac6f4c37c0dc5
-  Result: 9e75e1111c774c6ac594e14907b15057053a7959
+  Result: 822c879f145943320cc80a9a8372378e3d699fe4
   Sheriff: d3d03fe6d35aa781e3f42d48f3fb53ed7d04958d
   SlackTextViewController: bd2a34c188d4f7dec93cf42388f38551263fac82
   Starscream: d662732354b40dd19ed1ece3e3c44c80b536b83c
   SwiftKeychainWrapper: 011a6946923948ffa49708014dd691164d7621d1
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 88b0f4b6ce422f3ce4ce7af66f606d5380acfb50
+PODFILE CHECKSUM: 5fdc5207910ed0c23e2ad5f6b0d379263f8f58d2
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.0.1

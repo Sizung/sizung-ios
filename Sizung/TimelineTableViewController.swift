@@ -12,7 +12,7 @@ import SlackTextViewController
 import DateTools
 import ReactiveKit
 
-class TimelineTableViewController: SLKTextViewController, ConversationWebsocketDelegate {
+class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   
   var conversation: Conversation!
   var timelineParent: BaseModel!
@@ -58,6 +58,9 @@ class TimelineTableViewController: SLKTextViewController, ConversationWebsocketD
     // to prevent missing items first connect to websocket, than fetch current state
     StorageManager.sharedInstance.websocket!.conversationWebsocketDelegate = self
     StorageManager.sharedInstance.websocket!.followConversation(self.conversation.id)
+    
+    // mark unseenObjects as read
+    StorageManager.sharedInstance.sawTimeLineFor(self.timelineParent)
   }
   
   override func viewWillDisappear(animated: Bool) {

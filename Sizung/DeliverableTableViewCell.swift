@@ -12,6 +12,7 @@ class DeliverableTableViewCell: UITableViewCell {
 
 
   @IBOutlet weak var unreadStatusView: UIView!
+  @IBOutlet weak var statusView: UIView!
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var statusLabel: UILabel!
   @IBOutlet weak var conversationLabel: UILabel!

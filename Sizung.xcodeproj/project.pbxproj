@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		2FF81000B72F237F09D8B781 /* Pods_SizungUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13B42A82CE8590D9FB4161 /* Pods_SizungUITests.framework */; };
+		5A1DDBD21D1A74700089CD45 /* AgendaItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */; };
 		5A304B3B1D18367F009CBBAD /* StartOfConversationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */; };
+		5A304B3D1D1843DE009CBBAD /* UnseenObjectsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */; };
+		5A304B3F1D184427009CBBAD /* UnseenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A304B3E1D184427009CBBAD /* UnseenObject.swift */; };
 		5A35A52B1CDCDDE8005E5B1B /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35A52A1CDCDDE8005E5B1B /* Test.swift */; };
 		5A35DC0C1D0AF9C300916118 /* AutoCompletionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */; };
 		5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */; };
@@ -123,7 +126,10 @@
 
 /* Begin PBXFileReference section */
 		40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SizungTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgendaItemTableViewCell.xib; sourceTree = "<group>"; };
 		5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartOfConversationView.xib; sourceTree = "<group>"; };
+		5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnseenObjectsResponse.swift; sourceTree = "<group>"; };
+		5A304B3E1D184427009CBBAD /* UnseenObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnseenObject.swift; sourceTree = "<group>"; };
 		5A35A52A1CDCDDE8005E5B1B /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompletionTableCell.swift; sourceTree = "<group>"; };
 		5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoCompletionTableCell.xib; sourceTree = "<group>"; };
@@ -394,6 +400,7 @@
 				5ADC88301D104FFF00596D67 /* Timeline */,
 				5AC0E5DE1CF04D0000BBEF45 /* SizungTableViewCell.swift */,
 				5A7329FB1D05FEB2006531A5 /* AgendaItemTableViewCell.swift */,
+				5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */,
 				5A732A001D06060C006531A5 /* DeliverableTableViewCell.swift */,
 				5ADC88371D105F3300596D67 /* DeliverableTableViewCell.xib */,
 				5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */,
@@ -449,6 +456,7 @@
 				5AD9F1B81CE9D3D700455D98 /* ConversationMember.swift */,
 				5AC0E5E71CF33C8300BBEF45 /* Comment.swift */,
 				5ABA4FB81CFEB78B00110030 /* BaseModel.swift */,
+				5A304B3E1D184427009CBBAD /* UnseenObject.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -483,6 +491,7 @@
 				5A8F79081CFF14BF00953495 /* DeliverablesResponse.swift */,
 				5A9EDEAF1D00232100D389EC /* UserResponse.swift */,
 				5A9EDEB51D01621200D389EC /* ConversationResponse.swift */,
+				5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */,
 				5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */,
 			);
 			name = responses;
@@ -577,13 +586,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5A653EB51CD7A96000FB3DEB /* Build configuration list for PBXNativeTarget "Sizung" */;
 			buildPhases = (
-				E105DE57700466360BCC015A /* 📦 Check Pods Manifest.lock */,
+				E105DE57700466360BCC015A /* [CP] Check Pods Manifest.lock */,
 				5A9D0EDD1D119A3100037589 /* ShellScript */,
 				5A653E871CD7A96000FB3DEB /* Sources */,
 				5A653E881CD7A96000FB3DEB /* Frameworks */,
 				5A653E891CD7A96000FB3DEB /* Resources */,
-				2AFCCC27DE5AA34EDEF55170 /* 📦 Embed Pods Frameworks */,
-				2E7715FED8C5D0285E7EEFAA /* 📦 Copy Pods Resources */,
+				2AFCCC27DE5AA34EDEF55170 /* [CP] Embed Pods Frameworks */,
+				2E7715FED8C5D0285E7EEFAA /* [CP] Copy Pods Resources */,
 				5AB7813F1CFD76C60024DFE9 /* ShellScript */,
 			);
 			buildRules = (
@@ -599,12 +608,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5A653EB81CD7A96000FB3DEB /* Build configuration list for PBXNativeTarget "SizungTests" */;
 			buildPhases = (
-				AF48B3FF281BAAE515195628 /* 📦 Check Pods Manifest.lock */,
+				AF48B3FF281BAAE515195628 /* [CP] Check Pods Manifest.lock */,
 				5A653E9D1CD7A96000FB3DEB /* Sources */,
 				5A653E9E1CD7A96000FB3DEB /* Frameworks */,
 				5A653E9F1CD7A96000FB3DEB /* Resources */,
-				81A3DE7BC0440625DB88B805 /* 📦 Embed Pods Frameworks */,
-				F9CB2916F3C4AE9901F51D8E /* 📦 Copy Pods Resources */,
+				81A3DE7BC0440625DB88B805 /* [CP] Embed Pods Frameworks */,
+				F9CB2916F3C4AE9901F51D8E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -620,11 +629,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5A653EBB1CD7A96000FB3DEB /* Build configuration list for PBXNativeTarget "SizungUITests" */;
 			buildPhases = (
-				5A2A0FC26437109DDB3B3FE4 /* 📦 Check Pods Manifest.lock */,
+				5A2A0FC26437109DDB3B3FE4 /* [CP] Check Pods Manifest.lock */,
 				5A653EA81CD7A96000FB3DEB /* Sources */,
 				5A653EA91CD7A96000FB3DEB /* Frameworks */,
 				5A653EAA1CD7A96000FB3DEB /* Resources */,
-				B2963C8A464DDB7328E00F85 /* 📦 Copy Pods Resources */,
+				B2963C8A464DDB7328E00F85 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -705,6 +714,7 @@
 				5A9D0EDC1D11998D00037589 /* Organizations.storyboard in Resources */,
 				5A9D0EF11D11FECF00037589 /* Brandon Text W01 Medium.ttf in Resources */,
 				5AF36B9C1D12FBC300A1581F /* OrganizationTableViewCell.xib in Resources */,
+				5A1DDBD21D1A74700089CD45 /* AgendaItemTableViewCell.xib in Resources */,
 				5A9D0EE31D119E8700037589 /* Login.storyboard in Resources */,
 				5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */,
 				5A9D0EE51D11B33700037589 /* Conversations.storyboard in Resources */,
@@ -737,14 +747,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2AFCCC27DE5AA34EDEF55170 /* 📦 Embed Pods Frameworks */ = {
+		2AFCCC27DE5AA34EDEF55170 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -752,14 +762,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sizung/Pods-Sizung-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2E7715FED8C5D0285E7EEFAA /* 📦 Copy Pods Resources */ = {
+		2E7715FED8C5D0285E7EEFAA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -767,14 +777,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sizung/Pods-Sizung-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5A2A0FC26437109DDB3B3FE4 /* 📦 Check Pods Manifest.lock */ = {
+		5A2A0FC26437109DDB3B3FE4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -808,14 +818,14 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 3208098f00747de220b43db580d23fdbf34edab8 631964a97b41ca94b39712c00c08ebb46a7253d16d4a8a666008a9b3b406fb21";
 		};
-		81A3DE7BC0440625DB88B805 /* 📦 Embed Pods Frameworks */ = {
+		81A3DE7BC0440625DB88B805 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -823,14 +833,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SizungTests/Pods-SizungTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AF48B3FF281BAAE515195628 /* 📦 Check Pods Manifest.lock */ = {
+		AF48B3FF281BAAE515195628 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -838,14 +848,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		B2963C8A464DDB7328E00F85 /* 📦 Copy Pods Resources */ = {
+		B2963C8A464DDB7328E00F85 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -853,14 +863,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SizungUITests/Pods-SizungUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E105DE57700466360BCC015A /* 📦 Check Pods Manifest.lock */ = {
+		E105DE57700466360BCC015A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -868,14 +878,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		F9CB2916F3C4AE9901F51D8E /* 📦 Copy Pods Resources */ = {
+		F9CB2916F3C4AE9901F51D8E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -940,6 +950,7 @@
 				5ABACCE01D0AA82F0093CF21 /* ISODateTransform.swift in Sources */,
 				5ADC88321D10505700596D67 /* TimelineDeliverableTableViewCell.swift in Sources */,
 				5ADC88341D10508800596D67 /* TimelineAgendaItemTableViewCell.swift in Sources */,
+				5A304B3F1D184427009CBBAD /* UnseenObject.swift in Sources */,
 				5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */,
 				5ABA4FBF1CFEC3B600110030 /* OrganizationViewController.swift in Sources */,
 				5AA890FC1CF4D1B900ED391B /* TableViewCellDisplayable.swift in Sources */,
@@ -949,6 +960,7 @@
 				5A9EDEB81D01BB5C00D389EC /* SizungSegmentedControl.swift in Sources */,
 				5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */,
 				5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */,
+				5A304B3D1D1843DE009CBBAD /* UnseenObjectsResponse.swift in Sources */,
 				5AC0E5E61CF2F5C200BBEF45 /* TimelineTableViewController.swift in Sources */,
 				5AA983F31D13E4D100A9C2EE /* DueDateHelper.swift in Sources */,
 				5AE883A01D09A5990044364B /* ConversationObjectsResponse.swift in Sources */,

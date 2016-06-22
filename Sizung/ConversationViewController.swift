@@ -11,7 +11,8 @@ import SwiftKeychainWrapper
 
 class ConversationViewController: UIViewController, MainPageViewControllerDelegate {
   
-  @IBOutlet weak var titleBarButtonItem: UIBarButtonItem!
+  
+  @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var segmentedControl: SizungSegmentedControl!
   
   var mainPageViewController: MainPageViewController!
@@ -20,9 +21,9 @@ class ConversationViewController: UIViewController, MainPageViewControllerDelega
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.titleBarButtonItem.title = conversation.title
+    self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
     
-    segmentedControl.items = ["TO DISCUSS", "CHAT", "TO DO"]
+    segmentedControl.items = ["PRIORITIES", "CHAT", "ACTIONS"]
     segmentedControl.thumbColors = [Color.TODISCUSS, Color.CHAT, Color.TODO]
     segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged);
   }

@@ -38,7 +38,12 @@ class OrganizationsTableViewController: UITableViewController {
       let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.organizationTableViewCell.identifier, forIndexPath: indexPath) as! OrganizationTableViewCell
       let organization = organizations[indexPath.row]
       cell.nameLabel.text = organization.name
-      cell.unreadStatusView.alpha = arc4random_uniform(2) == 0 ? 1:0
+      
+      let hasUnseenObject = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
+        return obj.organization?.id == organization.id
+      }
+      
+      cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
       return cell
     }
   }

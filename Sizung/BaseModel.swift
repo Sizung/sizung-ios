@@ -14,6 +14,7 @@ class BaseModel: Mappable, Equatable, Hashable {
   var id: String!
   var type: String!
   var created_at: NSDate!
+  var updated_at: NSDate!
   
   init(type: String) {
     id = NSUUID().UUIDString
@@ -32,6 +33,7 @@ class BaseModel: Mappable, Equatable, Hashable {
     id <- map["id"]
     type <- map["type"]
     created_at <- (map["attributes.created_at"], ISODateTimeTransform())
+    updated_at <- (map["attributes.updated_at"], ISODateTimeTransform())
   }
   
 //  polymorphic stuff
@@ -48,6 +50,8 @@ class BaseModel: Mappable, Equatable, Hashable {
         return Deliverable(map)
       case "agenda_items":
         return AgendaItem(map)
+      case "unseen_objects":
+        return UnseenObject(map)
       default:
         return nil
       }

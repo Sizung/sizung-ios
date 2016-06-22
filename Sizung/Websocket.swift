@@ -26,8 +26,10 @@ class Websocket {
   
   // Set containing all channelIDs the socket should follow after socket connect
   var willFollowConversationChannels: Set<String> = []
+  var willFollowUserChannels: Set<String> = []
   
-  var conversationWebsocketDelegate: ConversationWebsocketDelegate?
+  var conversationWebsocketDelegate: WebsocketDelegate?
+  var userWebsocketDelegate: WebsocketDelegate?
   
   init(authToken: String){
     client = ActionCableClient(URL: NSURL(string: Configuration.websocketEndpoint())!)
@@ -63,6 +65,8 @@ class Websocket {
              _ as Deliverable,
              _ as AgendaItem:
           self.conversationWebsocketDelegate?.onReceived(websocketResponse.payload)
+        case _ as UnseenObject:
+          self.userWebsocketDelegate?.onReceived(websocketResponse.payload)
         default:
           print("Received", JSON, error)
         }
@@ -75,6 +79,10 @@ class Websocket {
       case ChannelType.Organization.rawValue:
         for channelId in self.willFollowConversationChannels {
           self.followConversation(channelId)
+        }
+      case ChannelType.User.rawValue:
+        for channelId in self.willFollowUserChannels {
+          self.followUser(channelId)
         }
       default:
         print("Subscribed to \(channel.name)")
@@ -134,9 +142,27 @@ class Websocket {
     
     print("Unfollowing conversation \(id)")
   }
+  
+  func followUser(id: String){
+    guard client.connected else {
+      willFollowUserChannels.insert(id)
+      client.connect()
+      return
+    }
+    
+    guard userChannel != nil && userChannel!.subscribed else {
+      fatalError("userChannel not subscribed")
+    }
+    
+    guard userChannel!.action("follow", params: ["user_id": id]) == nil else {
+      fatalError("error following user \(id)")
+    }
+    
+    self.userWebsocketDelegate?.onFollowSuccess(id)
+  }
 }
 
-protocol ConversationWebsocketDelegate {
+protocol WebsocketDelegate {
   func onFollowSuccess(channelName: String)
   func onReceived(conversationObject: BaseModel)
 }

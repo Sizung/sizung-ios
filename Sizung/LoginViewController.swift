@@ -98,6 +98,8 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
     
     if (textField == self.emailTextField) {
       self.passwordTextField.becomeFirstResponder()
+    } else if textField == self.passwordTextField {
+      self.login(textField)
     }
     
     return true
