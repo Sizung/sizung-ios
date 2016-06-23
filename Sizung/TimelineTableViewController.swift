@@ -465,8 +465,7 @@ extension TimelineTableViewController {
         paragraphStyle.lineBreakMode = .ByWordWrapping
         paragraphStyle.alignment = .Left
         
-        var width = CGRectGetWidth(tableView.frame)-50
-        width -= 25.0
+        let width = CGRectGetWidth(tableView.frame)-58-25
         
         //      guard let author = StorageManager.sharedInstance.getUser(comment.author!.id) else {
         //        return 0
