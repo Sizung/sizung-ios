@@ -272,13 +272,13 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jeL-bc-96P" customClass="SizungSegmentedControl" customModule="Sizung" customModuleProvider="target">
-                                <rect key="frame" x="20" y="97" width="560" height="25"/>
+                                <rect key="frame" x="20" y="77" width="560" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="Wya-Fs-6Vf"/>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5VD-Py-3iJ">
-                                <rect key="frame" x="0.0" y="137" width="600" height="463"/>
+                                <rect key="frame" x="0.0" y="117" width="600" height="483"/>
                                 <connections>
                                     <segue destination="mo9-0P-tvR" kind="embed" identifier="embed" id="q3D-Sc-D89"/>
                                 </connections>
@@ -291,7 +291,7 @@
                             <constraint firstAttribute="trailing" secondItem="5VD-Py-3iJ" secondAttribute="trailing" id="diu-FR-naS"/>
                             <constraint firstItem="5VD-Py-3iJ" firstAttribute="leading" secondItem="z0H-DV-eXO" secondAttribute="leading" id="ea3-Qu-CVk"/>
                             <constraint firstItem="2Nt-o4-xOt" firstAttribute="leading" secondItem="z0H-DV-eXO" secondAttribute="leadingMargin" constant="-20" id="m4b-wl-vpL"/>
-                            <constraint firstItem="jeL-bc-96P" firstAttribute="top" secondItem="2Nt-o4-xOt" secondAttribute="bottom" constant="35" id="qJw-F1-O9i"/>
+                            <constraint firstItem="jeL-bc-96P" firstAttribute="top" secondItem="2Nt-o4-xOt" secondAttribute="bottom" constant="15" id="qJw-F1-O9i"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2Nt-o4-xOt" secondAttribute="trailing" constant="-20" id="rFL-D6-AtW"/>
                             <constraint firstItem="2Nt-o4-xOt" firstAttribute="top" secondItem="MbN-Vi-sHB" secondAttribute="bottom" constant="5" id="tN9-Ip-ZDw"/>
                             <constraint firstItem="5VD-Py-3iJ" firstAttribute="width" secondItem="z0H-DV-eXO" secondAttribute="width" id="vsj-Bf-JUv"/>

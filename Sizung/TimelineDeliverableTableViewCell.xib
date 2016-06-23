@@ -28,8 +28,8 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="assigned a new Task to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="40f-HR-LfM">
-                        <rect key="frame" x="71" y="8" width="144" height="21"/>
-                        <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="15"/>
+                        <rect key="frame" x="71" y="8" width="125" height="19"/>
+                        <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -37,7 +37,7 @@
                         <rect key="frame" x="71" y="43" width="30" height="30"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BFD-f9-S7p">
-                        <rect key="frame" x="223" y="6" width="25" height="25"/>
+                        <rect key="frame" x="204" y="5" width="25" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="5El-Yj-vNl"/>
                             <constraint firstAttribute="width" secondItem="BFD-f9-S7p" secondAttribute="height" multiplier="1:1" id="Fdc-Zn-SVs"/>
@@ -69,13 +69,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOa-qg-ZsR">
-                        <rect key="frame" x="71" y="85" width="35" height="21"/>
-                        <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="15"/>
+                        <rect key="frame" x="71" y="85" width="30" height="19"/>
+                        <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8I-UH-Bva">
-                        <rect key="frame" x="71" y="136" width="26" height="16"/>
+                        <rect key="frame" x="71" y="134" width="26" height="16"/>
                         <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="11"/>
                         <color key="textColor" red="0.83529412746429443" green="0.84705883264541626" blue="0.81960785388946533" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>

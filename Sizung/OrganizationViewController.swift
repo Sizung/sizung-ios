@@ -28,6 +28,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    groupsBadgeView.userInteractionEnabled = false
     self.groupsButton.addSubview(groupsBadgeView)
     
     let storageManager = StorageManager.sharedInstance

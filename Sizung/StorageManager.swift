@@ -30,6 +30,9 @@ class StorageManager {
   
   var websocket: Websocket?
   
+  // networking queue
+  let networkQueue = dispatch_queue_create("\(NSBundle.mainBundle().bundleIdentifier).networking-queue", DISPATCH_QUEUE_CONCURRENT)
+  
   func reset() {
     isInitialized = false
     isLoading.value = false
@@ -78,7 +81,7 @@ class StorageManager {
     self.isLoading.value = true
     Alamofire.request(SizungHttpRouter.Organizations())
       .validate()
-      .responseJSON { response in
+      .responseJSON(queue: networkQueue) { response in
         switch response.result {
         case .Success(let JSON):
           if let organizationResponse = Mapper<OrganizationsResponse>().map(JSON) {
@@ -99,26 +102,26 @@ class StorageManager {
     self.isLoading.value = true
     Alamofire.request(SizungHttpRouter.Organization(id: organizationId))
       .validate()
-      .responseJSON { response in
+      .responseJSON(queue: networkQueue) { response in
         switch response.result {
         case .Success(let JSON):
           if let organizationResponse = Mapper<OrganizationResponse>().map(JSON) {
-            self.organizations.insertOrUpdate([organizationResponse.organization])
-            self.conversations.insertOrUpdate(organizationResponse.conversationsResponse.conversations)
-            self.agendaItems.insertOrUpdate(organizationResponse.agendaItemsResponse.agendaItems)
-            
-            self.deliverables.insertOrUpdate(organizationResponse.deliverablesResponse.deliverables)
-            self.deliverables.insertOrUpdate(organizationResponse.conversationDeliverablesResponse.deliverables)
-            
-            for include in organizationResponse.included {
-              switch include {
-              case let user as User:
-                self.organizationUsers.insertOrUpdate([user])
-              case let organizationMember as OrganizationMember:
-                print("org member found \(organizationMember.member.email)")
-              //                self.organizationMembers.insertOrUpdate([organizationMember])
-              default:
-                print("Unknown organization include \(include.type)")
+            dispatch_async(dispatch_get_main_queue()) {
+              self.organizations.insertOrUpdate([organizationResponse.organization])
+              self.conversations.insertOrUpdate(organizationResponse.conversationsResponse.conversations)
+              self.agendaItems.insertOrUpdate(organizationResponse.agendaItemsResponse.agendaItems)
+              
+              self.deliverables.insertOrUpdate(organizationResponse.deliverablesResponse.deliverables)
+              self.deliverables.insertOrUpdate(organizationResponse.conversationDeliverablesResponse.deliverables)
+              
+              for include in organizationResponse.included {
+                switch include {
+                case let user as User:
+                  self.organizationUsers.insertOrUpdate([user])
+                default:
+                  //                print("Unknown organization include \(include.type)")
+                  break;
+                }
               }
             }
           }
@@ -137,13 +140,14 @@ class StorageManager {
     self.isLoading.value = true
     Alamofire.request(SizungHttpRouter.Conversation(id: conversationId))
       .validate()
-      .responseJSON { response in
+      .responseJSON(queue: networkQueue) {response in
         switch response.result {
         case .Success(let JSON):
           if let conversationResponse = Mapper<ConversationResponse>().map(JSON) {
-            
-            self.agendaItems.insertOrUpdate(conversationResponse.conversation.agenda_items)
-            self.deliverables.insertOrUpdate(conversationResponse.conversation.deliverables)
+            dispatch_async(dispatch_get_main_queue()) {
+              self.agendaItems.insertOrUpdate(conversationResponse.conversation.agenda_items)
+              self.deliverables.insertOrUpdate(conversationResponse.conversation.deliverables)
+            }
           }
         case .Failure
           where response.response?.statusCode == 401:
@@ -164,19 +168,25 @@ class StorageManager {
     self.isLoading.value = true
     Alamofire.request(SizungHttpRouter.ConversationObjects(parent: parent, page: page))
       .validate()
-      .responseJSON { response in
+      .responseJSON(queue: networkQueue) { response in
         switch response.result {
         case .Success(let JSON):
           if let conversationObjectsResponse = Mapper<ConversationObjectsResponse>().map(JSON) {
-            promise.success((conversationObjectsResponse.conversationObjects, conversationObjectsResponse.nextPage))
+            dispatch_async(dispatch_get_main_queue()) {
+              promise.success((conversationObjectsResponse.conversationObjects, conversationObjectsResponse.nextPage))
+            }
           }
         case .Failure
           where response.response?.statusCode == 401:
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
-          promise.failure(response.result.error!)
+          dispatch_async(dispatch_get_main_queue()) {
+            promise.failure(response.result.error!)
+          }
         default:
           print("error \(response.result)")
-          promise.failure(response.result.error!)
+          dispatch_async(dispatch_get_main_queue()) {
+            promise.failure(response.result.error!)
+          }
         }
         self.isLoading.value = false
         self.isInitialized = true
@@ -190,19 +200,25 @@ class StorageManager {
     let promise = Promise<Comment, NSError>()
     Alamofire.request(SizungHttpRouter.Comments(comment: comment))
       .validate()
-      .responseJSON { response in
+      .responseJSON(queue: networkQueue) { response in
         switch response.result {
         case .Success(let JSON):
           if let commentResponse = Mapper<CommentResponse>().map(JSON) {
-            promise.success(commentResponse.comment)
+            dispatch_async(dispatch_get_main_queue()) {
+              promise.success(commentResponse.comment)
+            }
           }
         case .Failure
           where response.response?.statusCode == 401:
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
-          promise.failure(response.result.error!)
+          dispatch_async(dispatch_get_main_queue()) {
+            promise.failure(response.result.error!)
+          }
         default:
           print("error \(response.result)")
-          promise.failure(response.result.error!)
+          dispatch_async(dispatch_get_main_queue()) {
+            promise.failure(response.result.error!)
+          }
         }
     }
     return promise.future
@@ -211,12 +227,14 @@ class StorageManager {
   func updateUnseenObjects(userId: String) {
     Alamofire.request(SizungHttpRouter.UnseenObjects(userId: userId))
       .validate()
-      .responseJSON{ response in
+      .responseJSON(queue: networkQueue){ response in
         switch response.result {
         case .Success(let JSON):
           if let unseenObjectResponse = Mapper<UnseenObjectsResponse>().map(JSON) {
-            unseenObjectResponse.unseenObjects.forEach { unseenObject in
-              self.unseenObjects.insert(unseenObject)
+            dispatch_async(dispatch_get_main_queue()) {
+              unseenObjectResponse.unseenObjects.forEach { unseenObject in
+                self.unseenObjects.insert(unseenObject)
+              }
             }
           }
         case .Failure
@@ -231,12 +249,14 @@ class StorageManager {
   func sawTimeLineFor(object: BaseModel) {
     Alamofire.request(SizungHttpRouter.DeleteUnseenObjects(type: object.type, id: object.id))
       .validate()
-      .responseJSON{ response in
+      .responseJSON(queue: networkQueue){ response in
         switch response.result {
         case .Success(let JSON):
           if let unseenObjectResponse = Mapper<UnseenObjectsResponse>().map(JSON) {
-            unseenObjectResponse.unseenObjects.forEach { unseenObject in
-              self.unseenObjects.remove(unseenObject)
+            dispatch_async(dispatch_get_main_queue()) {
+              unseenObjectResponse.unseenObjects.forEach { unseenObject in
+                self.unseenObjects.remove(unseenObject)
+              }
             }
           }
         case .Failure

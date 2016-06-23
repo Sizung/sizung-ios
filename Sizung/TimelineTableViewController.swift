@@ -37,10 +37,10 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     self.bounces = true
     
     self.registerPrefixesForAutoCompletion(["@"])
-    self.tableView.registerNib(UINib.init(nibName: "CommentTableViewCell", bundle: nil), forCellReuseIdentifier: "CommentTableViewCell")
-    self.tableView.registerNib(UINib.init(nibName: "TimelineDeliverableTableViewCell", bundle: nil), forCellReuseIdentifier: "TimelineDeliverableTableViewCell")
-    self.tableView.registerNib(UINib.init(nibName: "TimelineAgendaItemTableViewCell", bundle: nil), forCellReuseIdentifier: "TimelineAgendaItemTableViewCell")
-    self.autoCompletionView.registerNib(UINib.init(nibName: "AutoCompletionTableCell", bundle: nil), forCellReuseIdentifier: "AutoCompletionTableCell")
+    self.tableView.registerNib(R.nib.commentTableViewCell(), forCellReuseIdentifier: R.nib.commentTableViewCell.identifier )
+    self.tableView.registerNib(R.nib.timelineAgendaItemTableViewCell(), forCellReuseIdentifier: R.nib.timelineAgendaItemTableViewCell.identifier )
+    self.tableView.registerNib(R.nib.timelineDeliverableTableViewCell(), forCellReuseIdentifier: R.nib.timelineDeliverableTableViewCell.identifier )
+    self.tableView.registerNib(R.nib.autoCompletionTableCell(), forCellReuseIdentifier: R.nib.autoCompletionTableCell.identifier )
     
     self.textView.registerMarkdownFormattingSymbol("**", withTitle: "Bold")
     self.textView.registerMarkdownFormattingSymbol("*", withTitle: "Italics")
@@ -61,6 +61,10 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     
     // mark unseenObjects as read
     StorageManager.sharedInstance.sawTimeLineFor(self.timelineParent)
+    
+    if let selection = self.tableView.indexPathForSelectedRow {
+      self.tableView.deselectRowAtIndexPath(selection, animated: true)
+    }
   }
   
   override func viewWillDisappear(animated: Bool) {
@@ -121,7 +125,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
         case let comment as Comment:
           return comment.commentable.id == self.timelineParent.id
         case let deliverable as Deliverable:
-          return deliverable.conversation.id == self.timelineParent.id
+          return deliverable.parent.id == self.timelineParent.id
         case let agendaItem as AgendaItem:
           return agendaItem.conversation.id == self.timelineParent.id
         default:
@@ -380,7 +384,7 @@ extension TimelineTableViewController {
   }
   
   func cellForDeliverable(deliverable: Deliverable) -> TimelineDeliverableTableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("TimelineDeliverableTableViewCell") as! TimelineDeliverableTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.timelineDeliverableTableViewCell.identifier) as! TimelineDeliverableTableViewCell
     
     cell.titleLabel.text = deliverable.title
     cell.dueDateLabel.text = deliverable.due_on?.timeAgoSinceNow()
@@ -400,7 +404,7 @@ extension TimelineTableViewController {
   }
   
   func cellForAgendaItem(agendaItem: AgendaItem) -> TimelineAgendaItemTableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("TimelineAgendaItemTableViewCell") as! TimelineAgendaItemTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.timelineAgendaItemTableViewCell.identifier) as! TimelineAgendaItemTableViewCell
     
     cell.titleLabel.text = agendaItem.title
     cell.dateLabel.text = agendaItem.created_at?.timeAgoSinceNow()
@@ -415,7 +419,7 @@ extension TimelineTableViewController {
   }
   
   func cellForComment(comment: Comment) -> CommentTableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("CommentTableViewCell") as! CommentTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.commentTableViewCell.identifier) as! CommentTableViewCell
     
     cell.bodyLabel.attributedText = textParser.parseMarkdown(comment.body)
     cell.bodyLabel.textColor = (comment.offline ? UIColor.grayColor() : UIColor.blackColor())
@@ -438,7 +442,7 @@ extension TimelineTableViewController {
   
   func autoCompletionCellForRowAtIndexPath(indexPath: NSIndexPath) -> AutoCompletionTableCell {
     
-    let cell = self.autoCompletionView.dequeueReusableCellWithIdentifier("AutoCompletionTableCell") as! AutoCompletionTableCell
+    let cell = self.autoCompletionView.dequeueReusableCellWithIdentifier(R.nib.autoCompletionTableCell.identifier) as! AutoCompletionTableCell
     cell.selectionStyle = .Default
     
     guard let searchResult = self.searchResult as? [User] else {
@@ -465,8 +469,7 @@ extension TimelineTableViewController {
         paragraphStyle.lineBreakMode = .ByWordWrapping
         paragraphStyle.alignment = .Left
         
-        var width = CGRectGetWidth(tableView.frame)-50
-        width -= 25.0
+        let width = CGRectGetWidth(tableView.frame)-58-25
         
         //      guard let author = StorageManager.sharedInstance.getUser(comment.author!.id) else {
         //        return 0
