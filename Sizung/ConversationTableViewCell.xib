@@ -40,40 +40,39 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dF-dD-bR7">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7dF-dD-bR7">
                                 <rect key="frame" x="14" y="37" width="542" height="38"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="beU-yL-T57">
-                                        <rect key="frame" x="0.0" y="0.0" width="543" height="38"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="542" height="38"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="38" id="1ik-Kk-u7A"/>
                                             <constraint firstAttribute="width" constant="543" id="wSG-np-nz6"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="1ik-Kk-u7A"/>
+                                                <exclude reference="wSG-np-nz6"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="beU-yL-T57" secondAttribute="trailing" id="FSv-VY-mTB"/>
-                                    <constraint firstAttribute="bottom" secondItem="beU-yL-T57" secondAttribute="bottom" id="HJl-EV-nkF"/>
-                                    <constraint firstItem="beU-yL-T57" firstAttribute="leading" secondItem="7dF-dD-bR7" secondAttribute="leading" id="Qsu-WD-MUx"/>
-                                    <constraint firstItem="beU-yL-T57" firstAttribute="centerY" secondItem="7dF-dD-bR7" secondAttribute="centerY" id="RlP-T9-swx"/>
-                                    <constraint firstItem="beU-yL-T57" firstAttribute="centerX" secondItem="7dF-dD-bR7" secondAttribute="centerX" id="Uhx-pZ-t6r"/>
-                                    <constraint firstItem="beU-yL-T57" firstAttribute="top" secondItem="7dF-dD-bR7" secondAttribute="top" id="cKn-YX-8yS"/>
-                                    <constraint firstAttribute="trailing" secondItem="beU-yL-T57" secondAttribute="trailing" id="pV9-tz-c8w"/>
+                                    <constraint firstItem="beU-yL-T57" firstAttribute="leading" secondItem="7dF-dD-bR7" secondAttribute="leading" id="4fz-yG-TaQ"/>
+                                    <constraint firstItem="beU-yL-T57" firstAttribute="top" secondItem="7dF-dD-bR7" secondAttribute="top" id="9rX-ct-kiI"/>
+                                    <constraint firstItem="beU-yL-T57" firstAttribute="height" secondItem="7dF-dD-bR7" secondAttribute="height" id="ZGI-GW-0oB"/>
+                                    <constraint firstAttribute="trailing" secondItem="beU-yL-T57" secondAttribute="trailing" id="qRT-WR-Gq6"/>
+                                    <constraint firstItem="beU-yL-T57" firstAttribute="width" secondItem="7dF-dD-bR7" secondAttribute="width" id="vBW-sF-pjN"/>
+                                    <constraint firstAttribute="bottom" secondItem="beU-yL-T57" secondAttribute="bottom" id="xIh-9R-7pa"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="RlP-T9-swx"/>
-                                        <exclude reference="Uhx-pZ-t6r"/>
-                                        <exclude reference="pV9-tz-c8w"/>
-                                    </mask>
-                                </variation>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="FXd-BP-CYK" secondAttribute="trailing" constant="8" id="0wl-qa-uv8"/>
                             <constraint firstAttribute="bottom" secondItem="7dF-dD-bR7" secondAttribute="bottom" constant="8" id="6zS-HG-XaZ"/>
+                            <constraint firstItem="7dF-dD-bR7" firstAttribute="leading" secondItem="Cva-an-rJj" secondAttribute="trailing" constant="8" id="8pq-fB-aLr"/>
                             <constraint firstAttribute="trailing" secondItem="6Zb-Td-dcz" secondAttribute="trailing" constant="8" id="BpC-bR-zFw"/>
                             <constraint firstItem="Cva-an-rJj" firstAttribute="leading" secondItem="pqP-5l-nXW" secondAttribute="leading" id="PBu-Hb-EsF"/>
                             <constraint firstItem="7dF-dD-bR7" firstAttribute="leading" secondItem="Cva-an-rJj" secondAttribute="trailing" constant="8" id="UWL-Ki-Pcp"/>
@@ -94,6 +93,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="BpC-bR-zFw"/>
+                                <exclude reference="UWL-Ki-Pcp"/>
                             </mask>
                         </variation>
                     </view>
