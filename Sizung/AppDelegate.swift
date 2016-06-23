@@ -79,12 +79,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
   
   func showLogin(){
-    let loginViewController = R.storyboard.login.initialViewController()!
-    loginViewController.loginDelegate = self
-    loginViewController.modalPresentationStyle = .OverCurrentContext
-    loginViewController.modalTransitionStyle = .CoverVertical
-    
-    self.window?.rootViewController = loginViewController
+    // make sure we are on main thread
+    dispatch_async(dispatch_get_main_queue()) {
+      let loginViewController = R.storyboard.login.initialViewController()!
+      loginViewController.loginDelegate = self
+      loginViewController.modalPresentationStyle = .OverCurrentContext
+      loginViewController.modalTransitionStyle = .CoverVertical
+      
+      self.window?.rootViewController = loginViewController
+    }
   }
   
   func loginSuccess(loginViewController: LoginViewController) {
