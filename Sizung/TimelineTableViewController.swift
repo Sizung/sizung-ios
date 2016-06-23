@@ -61,6 +61,10 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     
     // mark unseenObjects as read
     StorageManager.sharedInstance.sawTimeLineFor(self.timelineParent)
+    
+    if let selection = self.tableView.indexPathForSelectedRow {
+      self.tableView.deselectRowAtIndexPath(selection, animated: true)
+    }
   }
   
   override func viewWillDisappear(animated: Bool) {
