@@ -41,6 +41,7 @@
 		5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B13A1CE60634001C2E7A /* Organization.swift */; };
 		5A8F79071CFF0E6B00953495 /* AgendaItemsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F79061CFF0E6B00953495 /* AgendaItemsResponse.swift */; };
 		5A8F79091CFF14BF00953495 /* DeliverablesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F79081CFF14BF00953495 /* DeliverablesResponse.swift */; };
+		5A99BFD51D1BDD8800BA5647 /* Brandon_reg.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EF21D12066E00037589 /* Brandon_reg.otf */; };
 		5A9D0EDC1D11998D00037589 /* Organizations.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EDB1D11998D00037589 /* Organizations.storyboard */; };
 		5A9D0EE11D119DD000037589 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D0EE01D119DD000037589 /* R.generated.swift */; };
 		5A9D0EE31D119E8700037589 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EE21D119E8700037589 /* Login.storyboard */; };
@@ -707,6 +708,7 @@
 				5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */,
 				5ADC88381D105F3300596D67 /* DeliverableTableViewCell.xib in Resources */,
 				5A9D0EEF1D11FEC200037589 /* Gotham-Light.otf in Resources */,
+				5A99BFD51D1BDD8800BA5647 /* Brandon_reg.otf in Resources */,
 				5A304B3B1D18367F009CBBAD /* StartOfConversationView.xib in Resources */,
 				5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */,
 				5A7329F91D05B1FC006531A5 /* Brandon_bld.otf in Resources */,

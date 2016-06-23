@@ -16,7 +16,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.file` struct is generated, and contains static references to 7 files.
+  /// This `R.file` struct is generated, and contains static references to 8 files.
   struct file {
     /// Resource file `Brandon Text W01 Medium.ttf`.
     static let brandonTextW01MediumTtf = FileResource(bundle: _R.hostingBundle, name: "Brandon Text W01 Medium", pathExtension: "ttf")
@@ -24,6 +24,8 @@ struct R: Rswift.Validatable {
     static let brandon_bldOtf = FileResource(bundle: _R.hostingBundle, name: "Brandon_bld", pathExtension: "otf")
     /// Resource file `Brandon_med.otf`.
     static let brandon_medOtf = FileResource(bundle: _R.hostingBundle, name: "Brandon_med", pathExtension: "otf")
+    /// Resource file `Brandon_reg.otf`.
+    static let brandon_regOtf = FileResource(bundle: _R.hostingBundle, name: "Brandon_reg", pathExtension: "otf")
     /// Resource file `Configurations.plist`.
     static let configurationsPlist = FileResource(bundle: _R.hostingBundle, name: "Configurations", pathExtension: "plist")
     /// Resource file `Gotham-Light.otf`.
@@ -48,6 +50,12 @@ struct R: Rswift.Validatable {
     /// `bundle.URLForResource("Brandon_med", withExtension: "otf")`
     static func brandon_medOtf(_: Void) -> NSURL? {
       let fileResource = R.file.brandon_medOtf
+      return fileResource.bundle.URLForResource(fileResource)
+    }
+    
+    /// `bundle.URLForResource("Brandon_reg", withExtension: "otf")`
+    static func brandon_regOtf(_: Void) -> NSURL? {
+      let fileResource = R.file.brandon_regOtf
       return fileResource.bundle.URLForResource(fileResource)
     }
     
@@ -78,12 +86,14 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.font` struct is generated, and contains static references to 5 fonts.
+  /// This `R.font` struct is generated, and contains static references to 6 fonts.
   struct font {
     /// Font `BrandonGrotesque-Bold`.
     static let brandonGrotesqueBold = FontResource(fontName: "BrandonGrotesque-Bold")
     /// Font `BrandonGrotesque-Medium`.
     static let brandonGrotesqueMedium = FontResource(fontName: "BrandonGrotesque-Medium")
+    /// Font `BrandonText-Regular`.
+    static let brandonTextRegular = FontResource(fontName: "BrandonText-Regular")
     /// Font `BrandonTextW01-Medium`.
     static let brandonTextW01Medium = FontResource(fontName: "BrandonTextW01-Medium")
     /// Font `Gotham-Light`.
@@ -99,6 +109,11 @@ struct R: Rswift.Validatable {
     /// `UIFont(name: "BrandonGrotesque-Medium", size: ...)`
     static func brandonGrotesqueMedium(size size: CGFloat) -> UIFont? {
       return UIFont(resource: brandonGrotesqueMedium, size: size)
+    }
+    
+    /// `UIFont(name: "BrandonText-Regular", size: ...)`
+    static func brandonTextRegular(size size: CGFloat) -> UIFont? {
+      return UIFont(resource: brandonTextRegular, size: size)
     }
     
     /// `UIFont(name: "BrandonTextW01-Medium", size: ...)`

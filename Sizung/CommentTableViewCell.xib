@@ -44,7 +44,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Ql-9M-Sj6">
-                        <rect key="frame" x="33" y="6" width="25" height="25"/>
+                        <rect key="frame" x="33" y="8" width="25" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="3Ql-9M-Sj6" secondAttribute="height" multiplier="1:1" id="Un1-gb-4me"/>
                             <constraint firstAttribute="width" constant="25" id="Uzh-Sq-vg9"/>
@@ -54,10 +54,12 @@
                 <constraints>
                     <constraint firstItem="ftr-Rj-ahp" firstAttribute="centerY" secondItem="3Ql-9M-Sj6" secondAttribute="centerY" id="44F-QA-N4g"/>
                     <constraint firstItem="ftr-Rj-ahp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="4lY-mQ-p2c"/>
+                    <constraint firstItem="ftr-Rj-ahp" firstAttribute="top" secondItem="3Ql-9M-Sj6" secondAttribute="top" id="8jU-4t-Aae"/>
                     <constraint firstItem="ftr-Rj-ahp" firstAttribute="leading" secondItem="Gqw-p9-EwV" secondAttribute="leading" id="Bxg-pG-MDe"/>
                     <constraint firstAttribute="bottomMargin" secondItem="ftr-Rj-ahp" secondAttribute="bottom" id="DoE-EP-CMS"/>
                     <constraint firstItem="Gqw-p9-EwV" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="F3j-Kg-JsG"/>
                     <constraint firstAttribute="trailingMargin" secondItem="ftr-Rj-ahp" secondAttribute="trailing" constant="25" id="FB7-zi-zDQ"/>
+                    <constraint firstItem="ftr-Rj-ahp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Icx-Zb-uy7"/>
                     <constraint firstItem="Gqw-p9-EwV" firstAttribute="top" secondItem="ftr-Rj-ahp" secondAttribute="bottom" constant="8" id="PXI-Eq-lbw"/>
                     <constraint firstItem="3Ql-9M-Sj6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="UFX-cj-Vtc"/>
                     <constraint firstItem="Gqw-p9-EwV" firstAttribute="top" secondItem="ftr-Rj-ahp" secondAttribute="bottom" constant="8" id="ZEu-Aw-fzU"/>
@@ -71,7 +73,9 @@
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="UFX-cj-Vtc"/>
                         <exclude reference="nfr-gx-wNP"/>
+                        <exclude reference="44F-QA-N4g"/>
                         <exclude reference="4lY-mQ-p2c"/>
                         <exclude reference="DoE-EP-CMS"/>
                         <exclude reference="PXI-Eq-lbw"/>
