@@ -294,10 +294,14 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 7 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 9 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell: ReuseIdentifier<AgendaItemTableViewCell> = ReuseIdentifier(identifier: "AgendaItemTableViewCell")
+    /// Reuse identifier `AutoCompletionTableCell`.
+    static let autoCompletionTableCell: ReuseIdentifier<AutoCompletionTableCell> = ReuseIdentifier(identifier: "AutoCompletionTableCell")
+    /// Reuse identifier `CommentTableViewCell`.
+    static let commentTableViewCell: ReuseIdentifier<CommentTableViewCell> = ReuseIdentifier(identifier: "CommentTableViewCell")
     /// Reuse identifier `ConversationTableViewCell`.
     static let conversationTableViewCell: ReuseIdentifier<ConversationTableViewCell> = ReuseIdentifier(identifier: "ConversationTableViewCell")
     /// Reuse identifier `DeliverableTableViewCell`.
@@ -480,8 +484,11 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
-    struct _AutoCompletionTableCell: NibResourceType {
+    struct _AutoCompletionTableCell: NibResourceType, ReuseIdentifierType {
+      typealias ReusableType = AutoCompletionTableCell
+      
       let bundle = _R.hostingBundle
+      let identifier = "AutoCompletionTableCell"
       let name = "AutoCompletionTableCell"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> AutoCompletionTableCell? {
@@ -491,8 +498,11 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
-    struct _CommentTableViewCell: NibResourceType {
+    struct _CommentTableViewCell: NibResourceType, ReuseIdentifierType {
+      typealias ReusableType = CommentTableViewCell
+      
       let bundle = _R.hostingBundle
+      let identifier = "CommentTableViewCell"
       let name = "CommentTableViewCell"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> CommentTableViewCell? {

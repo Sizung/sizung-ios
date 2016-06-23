@@ -160,16 +160,16 @@
                                 </variation>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TB0-zF-qAL">
-                                <rect key="frame" x="0.0" y="99" width="600" height="433"/>
+                                <rect key="frame" x="0.0" y="115" width="600" height="417"/>
                                 <connections>
                                     <segue destination="Ha3-re-njZ" kind="embed" identifier="embed" id="JIf-fK-bgh"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AcP-EV-3zR">
-                                <rect key="frame" x="0.0" y="60" width="600" height="39"/>
+                                <rect key="frame" x="0.0" y="60" width="600" height="55"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QLa-5u-Uwr" customClass="SizungSegmentedControl" customModule="Sizung" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="8" width="560" height="25"/>
+                                        <rect key="frame" x="20" y="15" width="560" height="25"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="wqh-b0-Y1N"/>
@@ -183,9 +183,9 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="QLa-5u-Uwr" firstAttribute="top" secondItem="AcP-EV-3zR" secondAttribute="top" constant="8" id="1aK-Os-gHf"/>
+                                    <constraint firstItem="QLa-5u-Uwr" firstAttribute="top" secondItem="AcP-EV-3zR" secondAttribute="top" constant="15" id="1aK-Os-gHf"/>
                                     <constraint firstAttribute="trailing" secondItem="QLa-5u-Uwr" secondAttribute="trailing" constant="20" id="3ht-Mc-zUx"/>
-                                    <constraint firstAttribute="bottom" secondItem="QLa-5u-Uwr" secondAttribute="bottom" constant="6" id="es3-oG-5OA"/>
+                                    <constraint firstAttribute="bottom" secondItem="QLa-5u-Uwr" secondAttribute="bottom" constant="15" id="es3-oG-5OA"/>
                                     <constraint firstItem="QLa-5u-Uwr" firstAttribute="leading" secondItem="AcP-EV-3zR" secondAttribute="leading" constant="20" id="f3V-5g-1HK"/>
                                 </constraints>
                             </view>
