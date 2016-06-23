@@ -121,7 +121,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
         case let comment as Comment:
           return comment.commentable.id == self.timelineParent.id
         case let deliverable as Deliverable:
-          return deliverable.conversation.id == self.timelineParent.id
+          return deliverable.parent.id == self.timelineParent.id
         case let agendaItem as AgendaItem:
           return agendaItem.conversation.id == self.timelineParent.id
         default:
