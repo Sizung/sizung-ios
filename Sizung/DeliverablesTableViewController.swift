@@ -76,7 +76,7 @@ class DeliverablesTableViewController: UITableViewController {
       }.disposeIn(rBag)
     
     sortedAndFilteredCollection.observeNext { _ in
-        self.tableView.tableFooterView?.hidden = self.sortedAndFilteredCollection.count >= 0
+        self.tableView.tableFooterView?.hidden = self.sortedAndFilteredCollection.count > 0
     }.disposeIn(rBag)
     
     let storageManager = StorageManager.sharedInstance

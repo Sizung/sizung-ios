@@ -63,9 +63,9 @@ class AgendaItemsTableViewController: UITableViewController {
   func initData(){
     
     sortedAndFilteredCollection.observeNext { _ in
-      self.tableView.tableFooterView?.hidden = self.sortedAndFilteredCollection.count >= 0
+      self.tableView.tableFooterView?.hidden = self.sortedAndFilteredCollection.count > 0
     }.disposeIn(rBag)
-    
+  
     let storageManager = StorageManager.sharedInstance
     
     storageManager.isLoading.observeNext { isLoading in
