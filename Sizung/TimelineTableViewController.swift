@@ -71,7 +71,9 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
     
-    StorageManager.sharedInstance.websocket!.unfollowConversation(self.conversation.id)
+    if let socket = StorageManager.sharedInstance.websocket {
+      socket.unfollowConversation(self.conversation.id)
+    }
   }
   
   override var tableView: UITableView {
