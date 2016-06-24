@@ -9,6 +9,7 @@
     <customFonts key="customFonts">
         <mutableArray key="Brandon_reg.otf">
             <string>BrandonText-Regular</string>
+            <string>BrandonText-Regular</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -42,11 +43,11 @@
                         </constraints>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="priority_bg_middle" translatesAutoresizingMaskIntoConstraints="NO" id="4cX-d0-cxu">
-                        <rect key="frame" x="101" y="31" width="39" height="30"/>
+                        <rect key="frame" x="101" y="31" width="34" height="30"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FwZ-U2-Vnb">
-                        <rect key="frame" x="106" y="35" width="34" height="20"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="106" y="35" width="29" height="20"/>
+                        <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -57,7 +58,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="priority_bg_right" translatesAutoresizingMaskIntoConstraints="NO" id="FBm-af-z3H">
-                        <rect key="frame" x="140" y="31" width="17" height="30"/>
+                        <rect key="frame" x="135" y="31" width="17" height="30"/>
                     </imageView>
                 </subviews>
                 <constraints>

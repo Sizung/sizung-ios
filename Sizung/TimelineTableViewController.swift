@@ -464,36 +464,28 @@ extension TimelineTableViewController {
     
     if tableView == self.tableView {
       switch sortedCollection[indexPath.row] {
-      case let comment as Comment:
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .ByWordWrapping
-        paragraphStyle.alignment = .Left
-        
-        let width = CGRectGetWidth(tableView.frame)-58-25
-        
-        //      guard let author = StorageManager.sharedInstance.getUser(comment.author!.id) else {
-        //        return 0
-        //      }
-        
-        //      let titleBounds = (author.name).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, attributes: attributes, context: nil)
-        let bodyBounds = textParser.parseMarkdown(comment.body).boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, context: nil)
-        let datetimeBounds = textParser.parseMarkdown("singleline").boundingRectWithSize(CGSize(width: width, height: CGFloat.max), options: .UsesLineFragmentOrigin, context: nil)
-        
-        if comment.body!.characters.count == 0 {
-          return 0
-        }
-        
-        //      var height = CGRectGetHeight(titleBounds)
-        var height = CGRectGetHeight(bodyBounds)
-        height += CGRectGetHeight(datetimeBounds)
-        height += 24
-        
-        if height < CommentTableViewCell.kMinimumHeight {
-          height = CommentTableViewCell.kMinimumHeight
-        }
-        
-        return height
+      case _ as Comment:
+        return UITableViewAutomaticDimension
+      case _ as AgendaItem:
+        return TimelineAgendaItemTableViewCell.kHeight
+      case let deliverable as Deliverable where deliverable.due_on != nil:
+        return TimelineDeliverableTableViewCell.kHeight
+      case _ as Deliverable:
+        return TimelineDeliverableTableViewCell.kHeightWithoutDueDate
+      default:
+        return 0;
+      }
+    }
+    else {
+      return AutoCompletionTableCell.kMinimumHeight
+    }
+  }
+  
+  override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    if tableView == self.tableView {
+      switch sortedCollection[indexPath.row] {
+      case _ as Comment:
+        return CommentTableViewCell.kMinimumHeight
       case _ as AgendaItem:
         return TimelineAgendaItemTableViewCell.kHeight
       case let deliverable as Deliverable where deliverable.due_on != nil:
