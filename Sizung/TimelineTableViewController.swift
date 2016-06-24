@@ -265,7 +265,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   
   override func keyForTextCaching() -> String? {
     
-    return NSBundle.mainBundle().bundleIdentifier
+    return "\(NSBundle.mainBundle().bundleIdentifier)\(self.timelineParent.id)"
   }
   
   override func heightForAutoCompletionView() -> CGFloat {
