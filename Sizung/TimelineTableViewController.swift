@@ -40,7 +40,8 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     self.tableView.registerNib(R.nib.commentTableViewCell(), forCellReuseIdentifier: R.nib.commentTableViewCell.identifier )
     self.tableView.registerNib(R.nib.timelineAgendaItemTableViewCell(), forCellReuseIdentifier: R.nib.timelineAgendaItemTableViewCell.identifier )
     self.tableView.registerNib(R.nib.timelineDeliverableTableViewCell(), forCellReuseIdentifier: R.nib.timelineDeliverableTableViewCell.identifier )
-    self.tableView.registerNib(R.nib.autoCompletionTableCell(), forCellReuseIdentifier: R.nib.autoCompletionTableCell.identifier )
+    
+    self.autoCompletionView.registerNib(R.nib.autoCompletionTableCell(), forCellReuseIdentifier: R.nib.autoCompletionTableCell.identifier )
     
     self.textView.registerMarkdownFormattingSymbol("**", withTitle: "Bold")
     self.textView.registerMarkdownFormattingSymbol("*", withTitle: "Italics")
