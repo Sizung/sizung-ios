@@ -12,6 +12,47 @@ import SlackTextViewController
 import DateTools
 import ReactiveKit
 
+class TimelineObject: Hashable, DateSortable {
+  let model: BaseModel?
+  let newMessagesDate: NSDate?
+  
+  init(model: BaseModel){
+    self.model = model
+    self.newMessagesDate = nil
+  }
+  
+  init(newMessagesDate: NSDate){
+    self.newMessagesDate = newMessagesDate
+    self.model = nil
+  }
+  
+  var hashValue: Int {
+    get {
+      if let hashValue = model?.hashValue{
+        return hashValue
+      } else if let hashValue = newMessagesDate?.hashValue {
+        return hashValue
+      } else {
+        return 0
+      }
+    }
+  }
+  
+  var sortDate: NSDate {
+    get {
+      if let date = model?.sortDate {
+        return date
+      } else {
+        return newMessagesDate!
+      }
+    }
+  }
+}
+
+func ==(lhs: TimelineObject, rhs: TimelineObject) -> Bool {
+  return lhs.hashValue == rhs.hashValue
+}
+
 class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   
   var conversation: Conversation!
@@ -23,8 +64,8 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   
   let textParser: SizungMarkdownParser = SizungMarkdownParser()
   
-  let collection: CollectionProperty <[BaseModel]> = CollectionProperty([])
-  let sortedCollection: CollectionProperty <[BaseModel]> = CollectionProperty([])
+  let collection: CollectionProperty <[TimelineObject]> = CollectionProperty([])
+  let sortedCollection: CollectionProperty <[TimelineObject]> = CollectionProperty([])
   
   var nextPage: Int? = 0
   
@@ -40,6 +81,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     self.tableView.registerNib(R.nib.commentTableViewCell(), forCellReuseIdentifier: R.nib.commentTableViewCell.identifier )
     self.tableView.registerNib(R.nib.timelineAgendaItemTableViewCell(), forCellReuseIdentifier: R.nib.timelineAgendaItemTableViewCell.identifier )
     self.tableView.registerNib(R.nib.timelineDeliverableTableViewCell(), forCellReuseIdentifier: R.nib.timelineDeliverableTableViewCell.identifier )
+    self.tableView.registerNib(R.nib.newMessageSeparatorCell(), forCellReuseIdentifier: R.nib.newMessageSeparatorCell.identifier )
     
     self.autoCompletionView.registerNib(R.nib.autoCompletionTableCell(), forCellReuseIdentifier: R.nib.autoCompletionTableCell.identifier )
     
@@ -60,6 +102,35 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     StorageManager.sharedInstance.websocket!.conversationWebsocketDelegate = self
     StorageManager.sharedInstance.websocket!.followConversation(self.conversation.id)
     
+    // calculate current unread count for comments
+    let lastUnseenMessageDate: NSDate = StorageManager.sharedInstance.unseenObjects.collection.filter({ $0.target is Comment }).reduce(NSDate.distantFuture(), combine: { earliestDate, unseenObject in
+      var comparisonObject: BaseModel?
+      switch timelineParent {
+      case is Deliverable:
+        comparisonObject = StorageManager.sharedInstance.fillDeliverable(unseenObject.deliverable)
+      case is AgendaItem:
+        comparisonObject = StorageManager.sharedInstance.fillAgendaItem(unseenObject.agendaItem)
+      case is Conversation:
+        comparisonObject = StorageManager.sharedInstance.fillConversation(unseenObject.conversation)
+      default:
+        comparisonObject = nil
+      }
+    
+      if comparisonObject != nil && comparisonObject == timelineParent {
+        if unseenObject.created_at.isEarlierThan(earliestDate) {
+          // remove one second to guarantee sort order
+          return unseenObject.created_at.dateByAddingSeconds(-1)
+        }
+      }
+      return earliestDate
+    })
+  
+    if lastUnseenMessageDate != NSDate.distantFuture() {
+      print("unseenDate: \(lastUnseenMessageDate)")
+      self.collection.insertOrUpdate([TimelineObject(newMessagesDate: lastUnseenMessageDate)])
+    }
+    
+    
     // mark unseenObjects as read
     StorageManager.sharedInstance.sawTimeLineFor(self.timelineParent)
     
@@ -70,6 +141,9 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
+    
+    // remove all created unseen objects while view was visible
+    StorageManager.sharedInstance.sawTimeLineFor(self.timelineParent)
     
     if let socket = StorageManager.sharedInstance.websocket {
       socket.unfollowConversation(self.conversation.id)
@@ -95,7 +169,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   func initData(){
     //    sort by date
     collection
-      .sort({ $0.created_at!.compare($1.created_at!) == NSComparisonResult.OrderedDescending })
+      .sort({ $0.sortDate.isLaterThan($1.sortDate)})
       .bindTo(sortedCollection)
     
     sortedCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
@@ -136,7 +210,9 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
         }
       })
     
-    collection.insertOrUpdate(filteredItems)
+    collection.insertOrUpdate(filteredItems.map { baseModel in
+      return TimelineObject(model: baseModel)
+      })
   }
   
   func didLongPressCell(gesture: UIGestureRecognizer) {
@@ -155,10 +231,13 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     
     if let indexPath = self.tableView.indexPathForCell(cell) {
       
-      self.editingMessage = sortedCollection[indexPath.row] as? Comment
-      self.editText(self.editingMessage!.body)
-      
-      self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+      if let comment = sortedCollection[indexPath.row].model as? Comment {
+        self.editingMessage = comment
+        
+        self.editText(self.editingMessage!.body)
+        
+        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+      }
     }
   }
   
@@ -367,7 +446,7 @@ extension TimelineTableViewController {
     
     var cell: UITableViewCell
     
-    switch sortedCollection[indexPath.row] {
+    switch sortedCollection[indexPath.row].model {
     case let deliverable as Deliverable:
       cell = self.cellForDeliverable(deliverable)
     case let agendaItem as AgendaItem:
@@ -375,15 +454,24 @@ extension TimelineTableViewController {
     case let comment as Comment:
       cell = self.cellForComment(comment)
     default:
-      fatalError("unkown row type for \(self)")
+      if (sortedCollection[indexPath.row].newMessagesDate != nil){
+        cell = self.cellForNewMessageSeparator()
+      } else {
+        fatalError("unkown row type for \(self)")
+      }
     }
     
     // Cells must inherit the table view's transform
     // This is very important, since the main table view may be inverted
     cell.transform = self.tableView.transform
     
+    cell.backgroundColor = UIColor.clearColor()
     
     return cell
+  }
+  
+  func cellForNewMessageSeparator() -> UITableViewCell {
+    return tableView.dequeueReusableCellWithIdentifier(R.nib.newMessageSeparatorCell.identifier)!
   }
   
   func cellForDeliverable(deliverable: Deliverable) -> TimelineDeliverableTableViewCell {
@@ -465,7 +553,7 @@ extension TimelineTableViewController {
   override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     
     if tableView == self.tableView {
-      switch sortedCollection[indexPath.row] {
+      switch sortedCollection[indexPath.row].model {
       case _ as Comment:
         return UITableViewAutomaticDimension
       case _ as AgendaItem:
@@ -475,7 +563,7 @@ extension TimelineTableViewController {
       case _ as Deliverable:
         return TimelineDeliverableTableViewCell.kHeightWithoutDueDate
       default:
-        return 0;
+        return UITableViewAutomaticDimension;
       }
     }
     else {
@@ -485,7 +573,7 @@ extension TimelineTableViewController {
   
   override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     if tableView == self.tableView {
-      switch sortedCollection[indexPath.row] {
+      switch sortedCollection[indexPath.row].model {
       case _ as Comment:
         return CommentTableViewCell.kMinimumHeight
       case _ as AgendaItem:
@@ -495,7 +583,7 @@ extension TimelineTableViewController {
       case _ as Deliverable:
         return TimelineDeliverableTableViewCell.kHeightWithoutDueDate
       default:
-        return 0;
+        return self.tableView.rowHeight;
       }
     }
     else {
@@ -528,7 +616,7 @@ extension TimelineTableViewController {
       
       self.acceptAutoCompletionWithString(text, keepPrefix: false)
     } else {
-      switch sortedCollection[indexPath.row]{
+      switch sortedCollection[indexPath.row].model{
       case let agendaItem as AgendaItem:
         
         let agendaItemViewController = UIStoryboard(name: "AgendaItem", bundle: nil).instantiateInitialViewController() as! AgendaItemViewController

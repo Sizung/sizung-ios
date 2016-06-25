@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-class BaseModel: Mappable, Equatable, Hashable {
+class BaseModel: Mappable, Equatable, Hashable, DateSortable {
   
   // a UUID String
   var id: String!
@@ -23,6 +23,10 @@ class BaseModel: Mappable, Equatable, Hashable {
   
   var hashValue: Int {
     return id.hashValue
+  }
+  
+  var sortDate: NSDate {
+    return created_at
   }
   
   required init?(_ map: Map) {
