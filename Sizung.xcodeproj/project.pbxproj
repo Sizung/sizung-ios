@@ -26,6 +26,8 @@
 		5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E971CD7A96000FB3DEB /* Assets.xcassets */; };
 		5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E991CD7A96000FB3DEB /* LaunchScreen.storyboard */; };
 		5A653EB11CD7A96000FB3DEB /* SizungUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */; };
+		5A6D37101D1E7E0200F00B87 /* NewMessageSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6D370F1D1E7E0200F00B87 /* NewMessageSeparatorCell.xib */; };
+		5A6D37121D1E90DE00F00B87 /* DateSortable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6D37111D1E90DE00F00B87 /* DateSortable.swift */; };
 		5A7329EE1D058574006531A5 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7329ED1D058574006531A5 /* ConversationTableViewCell.swift */; };
 		5A7329F01D05877D006531A5 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7329EF1D05877D006531A5 /* CardView.swift */; };
 		5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7329F11D0592E0006531A5 /* Gravatar.swift */; };
@@ -150,6 +152,8 @@
 		5A653EAC1CD7A96000FB3DEB /* SizungUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SizungUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizungUITests.swift; sourceTree = "<group>"; };
 		5A653EB21CD7A96000FB3DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A6D370F1D1E7E0200F00B87 /* NewMessageSeparatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewMessageSeparatorCell.xib; sourceTree = "<group>"; };
+		5A6D37111D1E90DE00F00B87 /* DateSortable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateSortable.swift; sourceTree = "<group>"; };
 		5A7329ED1D058574006531A5 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		5A7329EF1D05877D006531A5 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		5A7329F11D0592E0006531A5 /* Gravatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gravatar.swift; sourceTree = "<group>"; };
@@ -412,6 +416,7 @@
 				5A9D0EEB1D11BCAB00037589 /* StreamTableViewCell.xib */,
 				5AF36B991D12FBC300A1581F /* OrganizationTableViewCell.swift */,
 				5AF36B9A1D12FBC300A1581F /* OrganizationTableViewCell.xib */,
+				5A6D370F1D1E7E0200F00B87 /* NewMessageSeparatorCell.xib */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -466,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				5AA890FB1CF4D1B900ED391B /* TableViewCellDisplayable.swift */,
+				5A6D37111D1E90DE00F00B87 /* DateSortable.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -704,6 +710,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A42707F1D095A7000B294DF /* Settings.bundle in Resources */,
+				5A6D37101D1E7E0200F00B87 /* NewMessageSeparatorCell.xib in Resources */,
 				5ADC882D1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib in Resources */,
 				5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */,
 				5ADC88381D105F3300596D67 /* DeliverableTableViewCell.xib in Resources */,
@@ -936,6 +943,7 @@
 				5AE8839A1D09A5460044364B /* CollectionPropertyExtension.swift in Sources */,
 				5AD9F1B31CE9C09200455D98 /* Conversation.swift in Sources */,
 				5A7B95A41CF8E58B00FE36CB /* MainPageViewController.swift in Sources */,
+				5A6D37121D1E90DE00F00B87 /* DateSortable.swift in Sources */,
 				5AC0E5E11CF04D8D00BBEF45 /* OrganizationsTableViewController.swift in Sources */,
 				5ABE8E351CDB5AC9004537C6 /* LoginViewController.swift in Sources */,
 				5ADC88401D109FD500596D67 /* DeliverableViewController.swift in Sources */,

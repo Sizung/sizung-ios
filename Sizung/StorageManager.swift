@@ -60,9 +60,41 @@ class StorageManager {
     return foundConversation.first
   }
   
+  func getDeliverable(id: String) -> Deliverable? {
+    let foundDeliverable = deliverables.collection.filter { deliverable in
+      deliverable.id == id
+    }
+    
+    return foundDeliverable.first
+  }
+  
   func getAgendaItem(id: String) -> AgendaItem? {
     let foundAgendaItem = agendaItems.collection.filter { agendaItem in
       agendaItem.id == id
+    }
+    
+    return foundAgendaItem.first
+  }
+  
+  func fillConversation(item: Conversation?) -> Conversation? {
+    let foundConversation = conversations.collection.filter { conversation in
+      conversation.id == item?.id
+    }
+    
+    return foundConversation.first
+  }
+  
+  func fillDeliverable(item: Deliverable?) -> Deliverable? {
+    let foundDeliverable = deliverables.collection.filter { deliverable in
+      deliverable.id == item?.id
+    }
+    
+    return foundDeliverable.first
+  }
+  
+  func fillAgendaItem(item: AgendaItem?) -> AgendaItem? {
+    let foundAgendaItem = agendaItems.collection.filter { agendaItem in
+      agendaItem.id == item?.id
     }
     
     return foundAgendaItem.first

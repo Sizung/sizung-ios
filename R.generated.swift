@@ -218,7 +218,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 10 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 11 nibs.
   struct nib {
     /// Nib `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell = _R.nib._AgendaItemTableViewCell()
@@ -230,6 +230,8 @@ struct R: Rswift.Validatable {
     static let conversationTableViewCell = _R.nib._ConversationTableViewCell()
     /// Nib `DeliverableTableViewCell`.
     static let deliverableTableViewCell = _R.nib._DeliverableTableViewCell()
+    /// Nib `NewMessageSeparatorCell`.
+    static let newMessageSeparatorCell = _R.nib._NewMessageSeparatorCell()
     /// Nib `OrganizationTableViewCell`.
     static let organizationTableViewCell = _R.nib._OrganizationTableViewCell()
     /// Nib `StartOfConversationView`.
@@ -266,6 +268,11 @@ struct R: Rswift.Validatable {
       return UINib(resource: R.nib.deliverableTableViewCell)
     }
     
+    /// `UINib(name: "NewMessageSeparatorCell", bundle: ...)`
+    static func newMessageSeparatorCell(_: Void) -> UINib {
+      return UINib(resource: R.nib.newMessageSeparatorCell)
+    }
+    
     /// `UINib(name: "OrganizationTableViewCell", bundle: ...)`
     static func organizationTableViewCell(_: Void) -> UINib {
       return UINib(resource: R.nib.organizationTableViewCell)
@@ -294,7 +301,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 9 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 10 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell: ReuseIdentifier<AgendaItemTableViewCell> = ReuseIdentifier(identifier: "AgendaItemTableViewCell")
@@ -306,6 +313,8 @@ struct R: Rswift.Validatable {
     static let conversationTableViewCell: ReuseIdentifier<ConversationTableViewCell> = ReuseIdentifier(identifier: "ConversationTableViewCell")
     /// Reuse identifier `DeliverableTableViewCell`.
     static let deliverableTableViewCell: ReuseIdentifier<DeliverableTableViewCell> = ReuseIdentifier(identifier: "DeliverableTableViewCell")
+    /// Reuse identifier `NewMessageSeparatorCell`.
+    static let newMessageSeparatorCell: ReuseIdentifier<UITableViewCell> = ReuseIdentifier(identifier: "NewMessageSeparatorCell")
     /// Reuse identifier `OrganizationTableViewCell`.
     static let organizationTableViewCell: ReuseIdentifier<OrganizationTableViewCell> = ReuseIdentifier(identifier: "OrganizationTableViewCell")
     /// Reuse identifier `StreamTableViewCell`.
@@ -535,6 +544,20 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> DeliverableTableViewCell? {
         return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? DeliverableTableViewCell
+      }
+      
+      private init() {}
+    }
+    
+    struct _NewMessageSeparatorCell: NibResourceType, ReuseIdentifierType {
+      typealias ReusableType = UITableViewCell
+      
+      let bundle = _R.hostingBundle
+      let identifier = "NewMessageSeparatorCell"
+      let name = "NewMessageSeparatorCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UITableViewCell? {
+        return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? UITableViewCell
       }
       
       private init() {}
