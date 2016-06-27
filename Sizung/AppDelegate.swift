@@ -46,6 +46,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       self.showLogin()
     }
     
+    // handle remote notification from launch
+    if let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [String: AnyObject] {
+      self.application(application, didReceiveRemoteNotification: userInfo)
+    }
+    
     return true
   }
   
@@ -158,9 +163,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   
   func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
     if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
-      let url = userActivity.webpageURL
-      
-      print("received URL:\(url)")
+      if let url = userActivity.webpageURL {
+        self.loadUrl(url)
+      }
     }
     return true
   }
@@ -196,8 +201,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     print("Failed to register:", error)
   }
   
+  // foreground notification received
+  func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
+    
+    print("handleRemoteActionWithIdentifier \(identifier) notification: \(userInfo)")
+    
+    completionHandler()
+  }
+  
   func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-    print("received remote notification: \(userInfo)")
+    if let urlString = userInfo["link"] as? String {
+      if let url = NSURL(string: urlString) {
+        // generate local notification if application is active
+        if (application.applicationState == .Active){
+//          if let message = userInfo["aps"]!["alert"] as? String {
+//            let localNotification = UILocalNotification()
+//            localNotification.userInfo = userInfo
+//            localNotification.soundName = UILocalNotificationDefaultSoundName;
+//            localNotification.alertBody = message;
+//            UIApplication.sharedApplication().presentLocalNotificationNow(localNotification)
+//          }
+        } else {
+          self.loadUrl(url)
+        }
+      }
+    }
   }
   
   func onReceived(unseenObject: BaseModel) {
@@ -210,6 +238,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   
   func onFollowSuccess(channelName: String) {
     print("follow user channel \(channelName)")
+  }
+  
+  private func loadUrl(url: NSURL){
+    
+    if let pathComponents = url.pathComponents {
+      guard pathComponents.count == 3 else {
+        print("loadURL wrong number of path components: \(url)")
+        return
+      }
+      
+      let type = pathComponents[1]
+      let id = pathComponents[2]
+      
+      let alertController = UIAlertController(title: "Opening \(type)", message:
+        "Id: \(id)", preferredStyle: UIAlertControllerStyle.Alert)
+      alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+      
+      self.window?.rootViewController?.showViewController(alertController, sender: self)
+      
+      print("link to \(type) with id:\(id)")
+      
+      switch type {
+      case "agenda_items":
+        StorageManager.sharedInstance.getAgendaItem(id)
+        break
+      case "deliverables":
+        StorageManager.sharedInstance.getDeliverable(id)
+        break
+      case "conversation":
+        StorageManager.sharedInstance.getConversation(id)
+        break
+      default:
+        print("link to \(type) with id:\(id)")
+      }
+      
+    }
   }
   
 }
