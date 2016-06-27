@@ -13,6 +13,7 @@ class AgendaItem: BaseModel {
   var status: String!
   var archived: Bool!
   var conversation: Conversation!
+  var organization: Organization!
   
   var owner: User!
   
@@ -23,5 +24,6 @@ class AgendaItem: BaseModel {
     archived <- map["attributes.archived"]
     conversation <- map["relationships.conversation.data"]
     owner <- map["relationships.owner.data"]
+    organization <- map["relationships.organization.data"]
   }
 }

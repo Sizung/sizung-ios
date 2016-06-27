@@ -75,9 +75,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   
   func loadInitialViewController() {
     
-    if let selectedOrganization = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
-      StorageManager.sharedInstance.updateOrganization(selectedOrganization)
-    } else {
+//  show organization list if no organization is selected  
+    if !KeychainWrapper.hasValueForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
       let organizationViewController = R.storyboard.organizations.initialViewController()!
       self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
     }
@@ -146,7 +145,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     // update unseenobjects
     let authToken = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
     if let userId = authToken.getUserId() {
-      StorageManager.sharedInstance.updateUnseenObjects(userId)
+      StorageManager.sharedInstance.listUnseenObjects(userId)
       
       // subscribe to user channel
       StorageManager.sharedInstance.websocket?.userWebsocketDelegate = self
@@ -251,17 +250,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       let type = pathComponents[1]
       let id = pathComponents[2]
       
-      let alertController = UIAlertController(title: "Opening \(type)", message:
-        "Id: \(id)", preferredStyle: UIAlertControllerStyle.Alert)
-      alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-      
-      self.window?.rootViewController?.showViewController(alertController, sender: self)
-      
       print("link to \(type) with id:\(id)")
       
       switch type {
       case "agenda_items":
-        StorageManager.sharedInstance.getAgendaItem(id)
+        if let agendaItem = StorageManager.sharedInstance.getAgendaItem(id) {
+          let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
+          agendaItemViewController.agendaItem = agendaItem
+          
+          self.window?.rootViewController?.showViewController(agendaItemViewController, sender: self)
+        }
         break
       case "deliverables":
         StorageManager.sharedInstance.getDeliverable(id)

@@ -10,136 +10,97 @@ import Alamofire
 import ObjectMapper
 import ReactiveKit
 import BrightFutures
+import SwiftKeychainWrapper
 
 class StorageManager {
-  //  singleton
+  
+  static var storages: [String: OrganizationStorageManager] = [:]
+  
+  static func storageForSelectedOrganization() -> OrganizationStorageManager {
+    let orgId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION)!
+    return storageForOrganizationId(orgId)
+  }
+  
+  static func storageForOrganizationId(id: String) -> OrganizationStorageManager {
+    if storages[id] != nil {
+      storages[id] = OrganizationStorageManager(organizationId: id)
+    }
+    return storages[id]!
+  }
+  
+  // Singleton
   static let sharedInstance = StorageManager()
-  private init() {}
-  
-  var isInitialized = false
-  var isLoading = Property(false)
-  
-  let organizations: CollectionProperty <[Organization]> = CollectionProperty([])
-  let conversations: CollectionProperty <[Conversation]> = CollectionProperty([])
-  let agendaItems: CollectionProperty <[AgendaItem]> = CollectionProperty([])
-  let deliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
-  
-  let organizationUsers: CollectionProperty <[User]> = CollectionProperty([])
-  
-  let unseenObjects: CollectionProperty <Set<UnseenObject>> = CollectionProperty([])
-  
-  var websocket: Websocket?
+  private init(){}
   
   // networking queue
-  let networkQueue = dispatch_queue_create("\(NSBundle.mainBundle().bundleIdentifier).networking-queue", DISPATCH_QUEUE_CONCURRENT)
+  static let networkQueue = dispatch_queue_create("\(NSBundle.mainBundle().bundleIdentifier).networking-queue", DISPATCH_QUEUE_CONCURRENT)
+  
+  let unseenObjects: CollectionProperty <Set<UnseenObject>> = CollectionProperty([])
+  var websocket: Websocket?
   
   func reset() {
-    isInitialized = false
-    isLoading.value = false
-    organizations.removeAll()
-    conversations.removeAll()
-    agendaItems.removeAll()
-    deliverables.removeAll()
-    organizationUsers.removeAll()
-    //    organizationMembers.removeAll()
+    unseenObjects.replace([])
+    StorageManager.storages = [:]
   }
   
-  func getOrganization(id: String) -> Organization? {
-    let foundOrganizations = organizations.collection.filter { organization in
-      organization.id == id
-    }
+  func listUnseenObjects(userId: String) -> Future<[UnseenObject], NSError> {
+    let promise = Promise<[UnseenObject], NSError>()
     
-    return foundOrganizations.first
-  }
-  
-  func getConversation(id: String) -> Conversation? {
-    let foundConversation = conversations.collection.filter { conversation in
-      conversation.id == id
-    }
-    
-    return foundConversation.first
-  }
-  
-  func getDeliverable(id: String) -> Deliverable? {
-    let foundDeliverable = deliverables.collection.filter { deliverable in
-      deliverable.id == id
-    }
-    
-    return foundDeliverable.first
-  }
-  
-  func getAgendaItem(id: String) -> AgendaItem? {
-    let foundAgendaItem = agendaItems.collection.filter { agendaItem in
-      agendaItem.id == id
-    }
-    
-    return foundAgendaItem.first
-  }
-  
-  func fillConversation(item: Conversation?) -> Conversation? {
-    let foundConversation = conversations.collection.filter { conversation in
-      conversation.id == item?.id
-    }
-    
-    return foundConversation.first
-  }
-  
-  func fillDeliverable(item: Deliverable?) -> Deliverable? {
-    let foundDeliverable = deliverables.collection.filter { deliverable in
-      deliverable.id == item?.id
-    }
-    
-    return foundDeliverable.first
-  }
-  
-  func fillAgendaItem(item: AgendaItem?) -> AgendaItem? {
-    let foundAgendaItem = agendaItems.collection.filter { agendaItem in
-      agendaItem.id == item?.id
-    }
-    
-    return foundAgendaItem.first
-  }
-  
-  func getUser(id: String) -> User? {
-    let foundUsers = organizationUsers.collection.filter { user in
-      user.id == id
-    }
-    
-    return foundUsers.first
-  }
-  
-  func updateOrganizations() {
-    
-    self.isLoading.value = true
-    Alamofire.request(SizungHttpRouter.Organizations())
+    Alamofire.request(SizungHttpRouter.UnseenObjects(userId: userId))
       .validate()
-      .responseJSON(queue: networkQueue) { response in
+      .responseJSON(queue: StorageManager.networkQueue){ response in
         switch response.result {
         case .Success(let JSON):
-          if let organizationResponse = Mapper<OrganizationsResponse>().map(JSON) {
-            self.organizations.insertOrUpdate(organizationResponse.organizations)
+          if let unseenObjectResponse = Mapper<UnseenObjectsResponse>().map(JSON) {
+            dispatch_async(dispatch_get_main_queue()) {
+              promise.success(unseenObjectResponse.unseenObjects)
+              unseenObjectResponse.unseenObjects.forEach { unseenObject in
+                self.unseenObjects.insert(unseenObject)
+              }
+            }
           }
         case .Failure
           where response.response?.statusCode == 401:
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          promise.failure(response.result.error!)
         default:
-          print(response.response)
+          print("error \(response.result)")
+          promise.failure(response.result.error!)
         }
-        self.isLoading.value = false
     }
+    
+    return promise.future
+  }
+}
+
+class OrganizationStorageManager {
+  
+  let organization: Organization!
+  
+  private init(organizationId: String){
+    getOrganization(organizationId)
+      .onSuccess { self.organization = $0 }
   }
   
-  func updateOrganization(organizationId: String) {
+  let conversations: CollectionProperty <[Conversation]> = CollectionProperty([])
+  let agendaItems: CollectionProperty <[AgendaItem]> = CollectionProperty([])
+  let deliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
+  
+  let users: CollectionProperty <[User]> = CollectionProperty([])
+  
+  func getOrganization(id: String) -> Future<Organization, NSError> {
+    let promise = Promise<Organization, NSError>()
     
-    self.isLoading.value = true
-    Alamofire.request(SizungHttpRouter.Organization(id: organizationId))
+    Alamofire.request(SizungHttpRouter.Organization(id: id))
       .validate()
-      .responseJSON(queue: networkQueue) { response in
+      .responseJSON(queue: StorageManager.networkQueue) { response in
         switch response.result {
         case .Success(let JSON):
           if let organizationResponse = Mapper<OrganizationResponse>().map(JSON) {
             dispatch_async(dispatch_get_main_queue()) {
-              self.organizations.insertOrUpdate([organizationResponse.organization])
+              
+              promise.success(organizationResponse.organization)
+              
               self.conversations.insertOrUpdate(organizationResponse.conversationsResponse.conversations)
               self.agendaItems.insertOrUpdate(organizationResponse.agendaItemsResponse.agendaItems)
               
@@ -149,9 +110,8 @@ class StorageManager {
               for include in organizationResponse.included {
                 switch include {
                 case let user as User:
-                  self.organizationUsers.insertOrUpdate([user])
+                  self.users.insertOrUpdate([user])
                 default:
-                  //                print("Unknown organization include \(include.type)")
                   break;
                 }
               }
@@ -160,36 +120,164 @@ class StorageManager {
         case .Failure
           where response.response?.statusCode == 401:
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          promise.failure(response.result.error!)
         default:
           print("error \(response.result)")
+          promise.failure(response.result.error!)
         }
-        self.isLoading.value = false
-        self.isInitialized = true
     }
+    return promise.future
   }
   
-  func updateConversation(conversationId: String) {
-    self.isLoading.value = true
-    Alamofire.request(SizungHttpRouter.Conversation(id: conversationId))
+  func getConversation(id: String) -> Future<Conversation, NSError> {
+    let promise = Promise<Conversation, NSError>()
+    let foundConversations = conversations.collection.filter { conversation in
+      conversation.id == id
+    }
+    
+    if let foundConversation = foundConversations.first {
+      promise.success(foundConversation)
+    } else {
+      Alamofire.request(SizungHttpRouter.Conversation(id: id))
+        .validate()
+        .responseJSON(queue: StorageManager.networkQueue) {response in
+          switch response.result {
+          case .Success(let JSON):
+            if let conversationResponse = Mapper<ConversationResponse>().map(JSON) {
+              dispatch_async(dispatch_get_main_queue()) {
+                
+                self.conversations.insertOrUpdate([conversationResponse.conversation])
+                promise.success(conversationResponse.conversation)
+                
+                self.agendaItems.insertOrUpdate(conversationResponse.conversation.agenda_items)
+                self.deliverables.insertOrUpdate(conversationResponse.conversation.deliverables)
+              }
+            }
+          case .Failure
+            where response.response?.statusCode == 401:
+            NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+            promise.failure(response.result.error!)
+          default:
+            print("error \(response.result)")
+            promise.failure(response.result.error!)
+          }
+      }
+    }
+    
+    return promise.future
+  }
+  
+  func getDeliverable(id: String) -> Future<Deliverable, NSError> {
+    let promise = Promise<Deliverable, NSError>()
+    
+    let foundDeliverables = deliverables.collection.filter { deliverable in
+      deliverable.id == id
+    }
+    
+    if let foundDeliverable = foundDeliverables.first {
+      promise.success(foundDeliverable)
+    } else {
+      Alamofire.request(SizungHttpRouter.Deliverable(id: id))
+        .validate()
+        .responseJSON(queue: StorageManager.networkQueue) {response in
+          switch response.result {
+          case .Success(let JSON):
+            if let deliverableResponse = Mapper<DeliverableResponse>().map(JSON) {
+              dispatch_async(dispatch_get_main_queue()) {
+                
+                self.deliverables.insertOrUpdate([deliverableResponse.deliverable])
+                promise.success(deliverableResponse.deliverable)
+              }
+            }
+          case .Failure
+            where response.response?.statusCode == 401:
+            NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+            promise.failure(response.result.error!)
+          default:
+            print("error \(response.result)")
+            promise.failure(response.result.error!)
+          }
+      }
+    }
+    
+    return promise.future
+  }
+  
+  func getAgendaItem(id: String) -> Future<AgendaItem, NSError> {
+    let promise = Promise<AgendaItem, NSError>()
+    let foundAgendaItems = agendaItems.collection.filter { agendaItem in
+      agendaItem.id == id
+    }
+    
+    if let foundAgendaItem = foundAgendaItems.first {
+      promise.success(foundAgendaItem)
+    } else {
+      Alamofire.request(SizungHttpRouter.AgendaItem(id: id))
+        .validate()
+        .responseJSON(queue: StorageManager.networkQueue) {response in
+          switch response.result {
+          case .Success(let JSON):
+            if let agendaItemResponse = Mapper<AgendaItemResponse>().map(JSON) {
+              dispatch_async(dispatch_get_main_queue()) {
+                
+                self.agendaItems.insertOrUpdate([agendaItemResponse.agendaItem])
+                promise.success(agendaItemResponse.agendaItem)
+              }
+            }
+          case .Failure
+            where response.response?.statusCode == 401:
+            NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+            promise.failure(response.result.error!)
+          default:
+            print("error \(response.result)")
+            promise.failure(response.result.error!)
+          }
+      }
+    }
+    
+    return promise.future
+  }
+  
+  func getUser(id: String) -> Future<User, NSError> {
+    let promise = Promise<User, NSError>()
+    
+    getOrganization(self.organization.id)
+      .onSuccess { _ in
+        let foundUsers = self.users.collection.filter { user in
+          user.id == id
+        }
+        if let foundUser = foundUsers.first {
+          promise.success(foundUser)
+        } else {
+          promise.failure()
+        }
+    }
+    
+    return promise.future
+  }
+  
+  func listOrganizations() -> Future<[Organization], NSError> {
+    let promise = Promise<[Organization], NSError>()
+    
+    Alamofire.request(SizungHttpRouter.Organizations())
       .validate()
-      .responseJSON(queue: networkQueue) {response in
+      .responseJSON(queue: StorageManager.networkQueue) { response in
         switch response.result {
         case .Success(let JSON):
-          if let conversationResponse = Mapper<ConversationResponse>().map(JSON) {
-            dispatch_async(dispatch_get_main_queue()) {
-              self.agendaItems.insertOrUpdate(conversationResponse.conversation.agenda_items)
-              self.deliverables.insertOrUpdate(conversationResponse.conversation.deliverables)
-            }
+          if let organizationResponse = Mapper<OrganizationsResponse>().map(JSON) {
+            promise.success(organizationResponse.organizations)
           }
         case .Failure
           where response.response?.statusCode == 401:
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          promise.failure(response.result.error!)
         default:
-          print("error \(response.result)")
+          print(response.response)
+          promise.failure(response.result.error!)
         }
-        self.isLoading.value = false
-        self.isInitialized = true
     }
+    
+    return promise.future
   }
   
   // conversationObjects are handled per entity
@@ -197,10 +285,9 @@ class StorageManager {
     
     let promise = Promise<([BaseModel], Int?), NSError>()
     
-    self.isLoading.value = true
     Alamofire.request(SizungHttpRouter.ConversationObjects(parent: parent, page: page))
       .validate()
-      .responseJSON(queue: networkQueue) { response in
+      .responseJSON(queue: StorageManager.networkQueue) { response in
         switch response.result {
         case .Success(let JSON):
           if let conversationObjectsResponse = Mapper<ConversationObjectsResponse>().map(JSON) {
@@ -220,8 +307,6 @@ class StorageManager {
             promise.failure(response.result.error!)
           }
         }
-        self.isLoading.value = false
-        self.isInitialized = true
     }
     
     
@@ -254,28 +339,6 @@ class StorageManager {
         }
     }
     return promise.future
-  }
-  
-  func updateUnseenObjects(userId: String) {
-    Alamofire.request(SizungHttpRouter.UnseenObjects(userId: userId))
-      .validate()
-      .responseJSON(queue: networkQueue){ response in
-        switch response.result {
-        case .Success(let JSON):
-          if let unseenObjectResponse = Mapper<UnseenObjectsResponse>().map(JSON) {
-            dispatch_async(dispatch_get_main_queue()) {
-              unseenObjectResponse.unseenObjects.forEach { unseenObject in
-                self.unseenObjects.insert(unseenObject)
-              }
-            }
-          }
-        case .Failure
-          where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
-        default:
-          print("error \(response.result)")
-        }
-    }
   }
   
   func sawTimeLineFor(object: BaseModel) {

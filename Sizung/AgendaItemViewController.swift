@@ -19,8 +19,10 @@ class AgendaItemViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    if let conversation = StorageManager.sharedInstance.getConversation(agendaItem.conversation.id) {
-      titleButton.setTitle("@\(conversation.title)", forState: .Normal)
+    
+    StorageManager.storageForOrganizationId(agendaItem.organization.id).getConversation(agendaItem.conversation.id)
+      .onSuccess { conversation in
+      self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
     }
     backButton.setTitle("< \(agendaItem.title)", forState: .Normal)
     

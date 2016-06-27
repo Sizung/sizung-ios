@@ -24,22 +24,12 @@ class ConversationsTableViewController: UITableViewController {
   
   func initData(){
     
-    let storageManager = StorageManager.sharedInstance
-    
-    storageManager.isLoading.observeNext { isLoading in
-      if isLoading {
-        self.refreshControl?.beginRefreshing()
-      } else {
-        self.refreshControl?.endRefreshing()
-      }
-      }.disposeIn(rBag)
-    
     // listen to unseenObject changes
-    storageManager.unseenObjects.observeNext { _ in
+    StorageManager.sharedInstance.unseenObjects.observeNext { _ in
       self.tableView.reloadData()
     }.disposeIn(rBag)
     
-    storageManager.conversations.bindTo(self.tableView) { indexPath, conversations, tableView in
+    StorageManager.storageForSelectedOrganization().conversations.bindTo(self.tableView) { indexPath, conversations, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.conversationTableViewCell.identifier, forIndexPath: indexPath) as! ConversationTableViewCell
       let conversation = conversations[indexPath.row]
       cell.nameLabel.text = conversation.title
@@ -88,21 +78,11 @@ class ConversationsTableViewController: UITableViewController {
     }
   }
   
-  override func viewDidAppear(animated: Bool) {
-    if !StorageManager.sharedInstance.isInitialized {
-      self.updateData()
-    }
-  }
-  
   func updateData(){
-    if let organizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
-      StorageManager.sharedInstance.updateOrganization(organizationId)
-      
-      //      fetch organizations
-      StorageManager.sharedInstance.updateOrganizations()
-    } else {
-      print("no organization selected in \(self)")
-    }
+    
+    self.refreshControl?.beginRefreshing()
+    
+    StorageManager.storageForSelectedOrganization()
   }
   
   // MARK: - Navigation

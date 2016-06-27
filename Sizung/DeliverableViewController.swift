@@ -21,17 +21,35 @@ class DeliverableViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    if let conversation = StorageManager.sharedInstance.getConversation(deliverable.conversation.id) {
-      titleButton.setTitle("@\(conversation.title)", forState: .Normal)
+    let storageManager = StorageManager.storageForOrganizationId(deliverable.organization.id)
+    
+    switch deliverable.parent {
+    case let conversation as Conversation:
+      storageManager.getConversation(conversation.id)
+        .onSuccess { conversation in
+          self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
+      }
+    case let agendaItem as AgendaItem:
+      storageManager.getAgendaItem(agendaItem.id)
+        .onSuccess { agendaItem in
+          storageManager.getConversation(agendaItem.conversation.id)
+            .onSuccess { conversation in
+              self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
+          }
+      }
+    default:
+      break
     }
+    
     backButton.setTitle("< \(deliverable.title)", forState: .Normal)
     
-    if let user = StorageManager.sharedInstance.getUser((deliverable.assignee.id)!) {
+    storageManager.getUser(deliverable.assignee.id)
+      .onSuccess { user in
       let gravatar = Gravatar(emailAddress: user.email, defaultImage: .Identicon)
       
-      let size = assigneeImageView.frame.size
+      let size = self.assigneeImageView.frame.size
       
-      assigneeImageView.af_setImageWithURL(
+      self.assigneeImageView.af_setImageWithURL(
         gravatar.URL(size: size.height),
         placeholderImage: nil,
         filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),

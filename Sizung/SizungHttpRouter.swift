@@ -18,6 +18,8 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Organizations()
   case Organization(id: String)
   case Conversation(id: String)
+  case AgendaItem(id: String)
+  case Deliverable(id: String)
   case ConversationObjects(parent: BaseModel, page: Int)
   case Comments(comment: Comment)
   case UnseenObjects(userId: String)
@@ -51,11 +53,15 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/organizations/\(id)"
     case .Conversation(let id):
       return "/conversations/\(id)"
+    case .AgendaItem(let id):
+      return "/agenda_items/\(id)"
+    case .Deliverable(let id):
+      return "/deliverables/\(id)"
     case .ConversationObjects(let conversation as Sizung.Conversation, _):
       return "/conversations/\(conversation.id)/conversation_objects"
-    case .ConversationObjects(let agendaItem as AgendaItem, _):
+    case .ConversationObjects(let agendaItem as Sizung.AgendaItem, _):
       return "/agenda_items/\(agendaItem.id)/conversation_objects"
-    case .ConversationObjects(let deliverable as Deliverable, _):
+    case .ConversationObjects(let deliverable as Sizung.Deliverable, _):
       return "/deliverables/\(deliverable.id)/conversation_objects"
     case .ConversationObjects:
       fatalError("unkown router call to .ConversationObjects")

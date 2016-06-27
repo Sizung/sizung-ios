@@ -15,21 +15,9 @@ class Deliverable: BaseModel {
   var due_on: NSDate?
   
   var owner: User!
+  var organization: Organization!
   var assignee: User!
   var parent: BaseModel!
-  
-  var conversation: Conversation {
-    get {
-      switch parent {
-      case let conversation as Conversation:
-        return conversation
-      case let agendaItem as AgendaItem:
-        return StorageManager.sharedInstance.getAgendaItem(agendaItem.id)!.conversation
-      default:
-        fatalError("unkown parent object in Deliverable \(self.id)")
-      }
-    }
-  }
   
   var sort_date: NSDate! {
     get {
@@ -58,5 +46,6 @@ class Deliverable: BaseModel {
     owner <- map["relationships.owner.data"]
     assignee <- map["relationships.assignee.data"]
     parent <- map["relationships.parent.data"]
+    organization <- map["relationships.organization.data"]
   }
 }

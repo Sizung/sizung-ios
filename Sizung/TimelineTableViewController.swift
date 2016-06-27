@@ -619,12 +619,12 @@ extension TimelineTableViewController {
       switch sortedCollection[indexPath.row].model{
       case let agendaItem as AgendaItem:
         
-        let agendaItemViewController = UIStoryboard(name: "AgendaItem", bundle: nil).instantiateInitialViewController() as! AgendaItemViewController
+        let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
         agendaItemViewController.agendaItem = agendaItem
         
         self.showViewController(agendaItemViewController, sender: self)
       case let deliverable as Deliverable:
-        let deliverableViewController = UIStoryboard(name: "Deliverable", bundle: nil).instantiateInitialViewController() as! DeliverableViewController
+        let deliverableViewController = R.storyboard.deliverable.initialViewController()!
         deliverableViewController.deliverable = deliverable
         
         self.showViewController(deliverableViewController, sender: self)
