@@ -108,14 +108,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
   
   func applicationDidEnterBackground(application: UIApplication) {
-    print("applicationDidEnterBackground")
     
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
   }
   
   func applicationWillEnterForeground(application: UIApplication) {
-    print("applicationWillEnterForeground")
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
   }
   
@@ -124,11 +122,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     //ensure websocket connection is open
     if let websocket = StorageManager.sharedInstance.websocket {
       if !websocket.client.connected {
-        print("websocket not connected - reconnecting")
         initWebsocketConnection()
       }
     } else {
-      print("websocket not initialized - connecting")
       initWebsocketConnection()
     }
     
@@ -154,7 +150,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
   
   func applicationWillTerminate(application: UIApplication) {
-    print("applicationWillTerminate")
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
   
@@ -192,12 +187,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     Alamofire.request(SizungHttpRouter.RegisterDevice(token: tokenString))
       .validate()
       .responseJSON { response in
-        print(response)
+        if let error = response.result.error {
+          Error.log(error)
+        }
     }
   }
   
   func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-    print("Failed to register:", error)
+    Crashlytics.sharedInstance().recordError(error)
   }
   
   // foreground notification received
@@ -230,20 +227,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   func onReceived(unseenObject: BaseModel) {
     if let unseenObject = unseenObject as? UnseenObject {
       StorageManager.sharedInstance.unseenObjects.insert(unseenObject)
-    } else {
-      print(unseenObject)
     }
   }
   
   func onFollowSuccess(channelName: String) {
-    print("follow user channel \(channelName)")
   }
   
   private func loadUrl(url: NSURL){
     
     if let pathComponents = url.pathComponents {
       guard pathComponents.count == 3 else {
-        print("loadURL wrong number of path components: \(url)")
+        
+        let message = "loadURL wrong number of path components: \(url)"
+        Error.log(message)
         return
       }
       
@@ -255,8 +251,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
             
             let type = pathComponents[1]
             let id = pathComponents[2]
-            
-            print("link to \(type) with id:\(id)")
             
             // simplify organization loading
             switch type {
@@ -311,7 +305,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
               }
               break
             default:
-              print("link to \(type) with id:\(id)")
+              let message = "link to unknown type \(type) with id:\(id)"
+              Error.log(message)
             }
             
             

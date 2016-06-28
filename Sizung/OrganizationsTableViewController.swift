@@ -51,7 +51,8 @@ class OrganizationsTableViewController: UITableViewController {
           .onSuccess { organizations in
             self.organizations.replace(organizations, performDiff: true)
           }.onFailure { error in
-            print(error)
+            let message = "\(error)"
+            Error.log(message)
           }.onComplete { _ in
             self.refreshControl?.endRefreshing()
         }

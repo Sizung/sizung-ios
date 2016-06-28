@@ -45,7 +45,8 @@ class Websocket {
     }
     
     client.onDisconnected = {(error: ErrorType?) in
-      print("Websocket disconnected! \(error)")
+      let message = "Websocket disconnected! \(error)"
+      Error.log(message)
     }
     
     client.onRejected = {
@@ -68,7 +69,9 @@ class Websocket {
         case _ as UnseenObject:
           self.userWebsocketDelegate?.onReceived(websocketResponse.payload)
         default:
-          print("Received", JSON, error)
+          let message = "unkown onReceive: \(JSON) error: \(error)"
+          Error.log(message)
+          
         }
       }
     }
@@ -85,18 +88,19 @@ class Websocket {
           self.followUser(channelId)
         }
       default:
-        print("Subscribed to \(channel.name)")
+        break
       }
     }
     
     // A channel was unsubscribed, either manually or from a client disconnect.
     channel.onUnsubscribed = {
-      print("Unsubscribed from \(channel.name)")
+      
     }
     
     // The attempt at subscribing to a channel was rejected by the server.
     channel.onRejected = {
-      print("Rejected subscribe to \(channel.name)")
+      let message = "Rejected subscribe to \(channel.name)"
+      Error.log(message)
     }
     
     channel.subscribe()
@@ -128,20 +132,16 @@ class Websocket {
     willFollowConversationChannels.remove(id)
     
     guard client.connected else {
-      print("Websocket client not connected")
       return
     }
     
     guard conversationChannel != nil && conversationChannel!.subscribed else {
-      print("Conversationchannel not subscribed")
       return
     }
     
     guard conversationChannel!.action("unfollow", params: ["conversation_id": id]) == nil else {
       fatalError("error disconnecting")
     }
-    
-    print("Unfollowing conversation \(id)")
   }
   
   func followUser(id: String){

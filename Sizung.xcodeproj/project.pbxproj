@@ -100,6 +100,7 @@
 		5AE24D0C1D216BD200FB691B /* DeliverableResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE24D0B1D216BD200FB691B /* DeliverableResponse.swift */; };
 		5AE24D0E1D216C1100FB691B /* AgendaItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE24D0D1D216C1100FB691B /* AgendaItemResponse.swift */; };
 		5AE24D101D22540F00FB691B /* LoadingScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AE24D0F1D22540F00FB691B /* LoadingScreen.xib */; };
+		5AE24D121D22571300FB691B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE24D111D22571300FB691B /* Error.swift */; };
 		5AE8839A1D09A5460044364B /* CollectionPropertyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */; };
 		5AE8839D1D09A56C0044364B /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */; };
 		5AE8839E1D09A56C0044364B /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AE8839C1D09A56C0044364B /* CommentTableViewCell.xib */; };
@@ -232,6 +233,7 @@
 		5AE24D0B1D216BD200FB691B /* DeliverableResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverableResponse.swift; sourceTree = "<group>"; };
 		5AE24D0D1D216C1100FB691B /* AgendaItemResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemResponse.swift; sourceTree = "<group>"; };
 		5AE24D0F1D22540F00FB691B /* LoadingScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingScreen.xib; sourceTree = "<group>"; };
+		5AE24D111D22571300FB691B /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionPropertyExtension.swift; sourceTree = "<group>"; };
 		5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		5AE8839C1D09A56C0044364B /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				5A9EDEBB1D01CEB900D389EC /* Color.swift */,
 				5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */,
 				5AA983F11D13E4C200A9C2EE /* DateHelper */,
+				5AE24D111D22571300FB691B /* Error.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -979,6 +982,7 @@
 				5AC0E5E81CF33C8300BBEF45 /* Comment.swift in Sources */,
 				5A504B071CEF0FDC001BEFA3 /* StorageManager.swift in Sources */,
 				5A504B141CEF2413001BEFA3 /* AuthToken.swift in Sources */,
+				5AE24D121D22571300FB691B /* Error.swift in Sources */,
 				5A9EDEB81D01BB5C00D389EC /* SizungSegmentedControl.swift in Sources */,
 				5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */,
 				5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */,

@@ -51,7 +51,8 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
             .onSuccess() { _ in
               self.loginDelegate?.loginSuccess(self)
             }.onFailure() { error in
-              print(error)
+              let message = "login error: \(error)"
+              Error.log(message)
               self.showAlert("Something went wrong. Please try again")
           }
           
@@ -59,7 +60,8 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
           where response.response?.statusCode == 401:
           self.showAlert("username/password")
         default:
-          print(response.response)
+          let message = "login error: \(response.response)"
+          Error.log(message)
           self.showAlert("Something went wrong")
         }
         

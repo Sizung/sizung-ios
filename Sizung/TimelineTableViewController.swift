@@ -131,7 +131,6 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
         })
         
         if lastUnseenMessageDate != NSDate.distantFuture() {
-          print("unseenDate: \(lastUnseenMessageDate)")
           self.collection.insertOrUpdate([TimelineObject(newMessagesDate: lastUnseenMessageDate)])
         }
     }
@@ -202,7 +201,6 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   }
   
   func onFollowSuccess(id: String) {
-    print("Following conversation \(id)")
     self.updateData()
   }
   
@@ -298,10 +296,9 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     StorageManager.storageForSelectedOrganization()
       .onSuccess{ storageManager in
         storageManager.createComment(comment)
-          .onSuccess { comment in
-            print("Comment successfully created")
-          } .onFailure { error in
-            print("Comment creation failed: \(error)")
+          .onFailure { error in
+            let message = "comment creation failed: \(error)"
+            Error.log(message)
         }
     }
     //
@@ -655,7 +652,8 @@ extension TimelineTableViewController {
         
         self.showViewController(deliverableViewController, sender: self)
       case let comment as Comment:
-        print("selected comment \(comment)")
+        // don't react to comment clicks
+        break
       default:
         fatalError("unkown row at didSelectRowAtIndexPath \(indexPath)")
       }
