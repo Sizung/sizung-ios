@@ -25,16 +25,21 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
   var organizationsViewController: UIViewController?
   var groupsViewController: UIViewController?
   
+  var loadingScreen = R.nib.loadingScreen.firstView(owner: nil)!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     groupsBadgeView.userInteractionEnabled = false
     self.groupsButton.addSubview(groupsBadgeView)
     
+    loadingScreen.frame = self.view.frame
+    self.view.addSubview(loadingScreen)
+    
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
-        UIView.animateWithDuration(1, animations: {
-          self.titleButton.alpha = 1
+        UIView.animateWithDuration(0.3, animations: {
+          self.loadingScreen.alpha = 0
         })
         self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
     }

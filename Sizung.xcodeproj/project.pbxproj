@@ -99,6 +99,7 @@
 		5AE0CCA11D0AEF3900690C72 /* CommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */; };
 		5AE24D0C1D216BD200FB691B /* DeliverableResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE24D0B1D216BD200FB691B /* DeliverableResponse.swift */; };
 		5AE24D0E1D216C1100FB691B /* AgendaItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE24D0D1D216C1100FB691B /* AgendaItemResponse.swift */; };
+		5AE24D101D22540F00FB691B /* LoadingScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AE24D0F1D22540F00FB691B /* LoadingScreen.xib */; };
 		5AE8839A1D09A5460044364B /* CollectionPropertyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */; };
 		5AE8839D1D09A56C0044364B /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */; };
 		5AE8839E1D09A56C0044364B /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AE8839C1D09A56C0044364B /* CommentTableViewCell.xib */; };
@@ -230,6 +231,7 @@
 		5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentResponse.swift; sourceTree = "<group>"; };
 		5AE24D0B1D216BD200FB691B /* DeliverableResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverableResponse.swift; sourceTree = "<group>"; };
 		5AE24D0D1D216C1100FB691B /* AgendaItemResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemResponse.swift; sourceTree = "<group>"; };
+		5AE24D0F1D22540F00FB691B /* LoadingScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingScreen.xib; sourceTree = "<group>"; };
 		5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionPropertyExtension.swift; sourceTree = "<group>"; };
 		5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		5AE8839C1D09A56C0044364B /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 				5A9EDEB71D01BB5C00D389EC /* SizungSegmentedControl.swift */,
 				5A7329EF1D05877D006531A5 /* CardView.swift */,
 				5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */,
+				5AE24D0F1D22540F00FB691B /* LoadingScreen.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -739,6 +742,7 @@
 				5A3FC58F1D11385B0084FF2F /* Deliverable.storyboard in Resources */,
 				5A7329FA1D05B1FC006531A5 /* Brandon_med.otf in Resources */,
 				5AF36B9E1D13024D00A1581F /* Webdings.ttf in Resources */,
+				5AE24D101D22540F00FB691B /* LoadingScreen.xib in Resources */,
 				5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */,
 				5AECC1D81D115CBD00AD8ACE /* AgendaItem.storyboard in Resources */,
 				5A9D0EED1D11BCAB00037589 /* StreamTableViewCell.xib in Resources */,
