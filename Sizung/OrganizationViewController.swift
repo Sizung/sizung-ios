@@ -36,14 +36,6 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     loadingScreen.frame = self.view.frame
     self.view.addSubview(loadingScreen)
     
-    StorageManager.storageForSelectedOrganization()
-      .onSuccess { storageManager in
-        UIView.animateWithDuration(0.3, animations: {
-          self.loadingScreen.alpha = 0
-        })
-        self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
-      }
-    
     StorageManager.sharedInstance.unseenObjects.observeNext { _ in
       self.groupsBadgeView.badgeValue = self.calculateUnseenConversations()
       }.disposeIn(rBag)
@@ -51,6 +43,18 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     segmentedControl.items = ["PRIORITY", "STREAM", "ACTION"]
     segmentedControl.thumbColors = [Color.TODISCUSS, Color.STREAM, Color.TODO]
     segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged);
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        UIView.animateWithDuration(0.3, animations: {
+          self.loadingScreen.alpha = 0
+        })
+        self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
+    }
+
   }
   
   func calculateUnseenConversations() -> Int {
