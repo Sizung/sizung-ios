@@ -11,7 +11,7 @@ import ObjectMapper
 class Conversation: BaseModel {
   var title: String!
   var archived: Bool!
-  var organization: Organization!
+  var organizationId: String!
   var agenda_items: [AgendaItem]!
   var deliverables: [Deliverable]!
   var agenda_item_deliverables: [AgendaItemDeliverable]!
@@ -21,8 +21,7 @@ class Conversation: BaseModel {
     super.mapping(map)
     title <- map["attributes.title"]
     archived <- map["attributes.archived"]
-    archived <- map["attributes.archived"]
-    organization <- map["attributes.organization"]
+    organizationId <- map["relationships.organization.data.id"]
     members <- map["relationships.members.data"]
   }
 }

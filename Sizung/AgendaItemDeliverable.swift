@@ -8,15 +8,11 @@
 
 import ObjectMapper
 
-class AgendaItemDeliverable: BaseModel {
-  var name: String?
-  var agendaItem: AgendaItem?
+class AgendaItemDeliverable: Deliverable {
+  var agendaItemId: String!
   
   override func mapping(map: Map) {
     super.mapping(map)
-    name    <- map["name"]
-    agendaItem <- map["relationships.parent.data"]
+    agendaItemId <- map["relationships.parent.data.id"]
   }
-  
-  
 }

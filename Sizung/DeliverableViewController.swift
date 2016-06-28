@@ -21,23 +21,43 @@ class DeliverableViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    if let conversation = StorageManager.sharedInstance.getConversation(deliverable.conversation.id) {
-      titleButton.setTitle("@\(conversation.title)", forState: .Normal)
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        
+        
+        switch self.deliverable {
+        case let agendaItemDeliverable as AgendaItemDeliverable:
+          
+          storageManager.getAgendaItem(agendaItemDeliverable.agendaItemId)
+            .onSuccess { agendaItem in
+              storageManager.getConversation(agendaItem.conversationId)
+                .onSuccess { conversation in
+                  self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
+              }
+          }
+        default:
+          storageManager.getConversation(self.deliverable.parentId)
+            .onSuccess { conversation in
+              self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
+          }
+        }
+        
+        storageManager.getUser(self.deliverable.assigneeId)
+          .onSuccess { user in
+            let gravatar = Gravatar(emailAddress: user.email, defaultImage: .Identicon)
+            
+            let size = self.assigneeImageView.frame.size
+            
+            self.assigneeImageView.af_setImageWithURL(
+              gravatar.URL(size: size.height),
+              placeholderImage: nil,
+              filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
+              imageTransition: .CrossDissolve(0.2)
+            )
+        }
     }
-    backButton.setTitle("< \(deliverable.title)", forState: .Normal)
     
-    if let user = StorageManager.sharedInstance.getUser((deliverable.assignee.id)!) {
-      let gravatar = Gravatar(emailAddress: user.email, defaultImage: .Identicon)
-      
-      let size = assigneeImageView.frame.size
-      
-      assigneeImageView.af_setImageWithURL(
-        gravatar.URL(size: size.height),
-        placeholderImage: nil,
-        filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
-        imageTransition: .CrossDissolve(0.2)
-      )
-    }
+    backButton.setTitle("< \(deliverable.title)", forState: .Normal)
     
     var statusString = deliverable.status
     
@@ -59,7 +79,6 @@ class DeliverableViewController: UIViewController {
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
     if let timelineTableViewController = segue.destinationViewController as? TimelineTableViewController {
-      timelineTableViewController.conversation = deliverable?.conversation
       timelineTableViewController.timelineParent = deliverable
     }
   }

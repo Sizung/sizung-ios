@@ -12,16 +12,16 @@ class AgendaItem: BaseModel {
   var title: String!
   var status: String!
   var archived: Bool!
-  var conversation: Conversation!
+  var conversationId: String!
   
-  var owner: User!
+  var ownerId: String!
   
   override func mapping(map: Map) {
     super.mapping(map)
     title <- map["attributes.title"]
     status <- map["attributes.status"]
     archived <- map["attributes.archived"]
-    conversation <- map["relationships.conversation.data"]
-    owner <- map["relationships.owner.data"]
+    conversationId <- map["relationships.conversation.data.id"]
+    ownerId <- map["relationships.owner.data.id"]
   }
 }

@@ -19,8 +19,13 @@ class AgendaItemViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    if let conversation = StorageManager.sharedInstance.getConversation(agendaItem.conversation.id) {
-      titleButton.setTitle("@\(conversation.title)", forState: .Normal)
+    
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        storageManager.getConversation(self.agendaItem.conversationId)
+          .onSuccess { conversation in
+            self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
+        }
     }
     backButton.setTitle("< \(agendaItem.title)", forState: .Normal)
     
@@ -38,7 +43,6 @@ class AgendaItemViewController: UIViewController {
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
     if let timelineTableViewController = segue.destinationViewController as? TimelineTableViewController {
-      timelineTableViewController.conversation = agendaItem?.conversation
       timelineTableViewController.timelineParent = agendaItem
     }
   }

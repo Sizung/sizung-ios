@@ -10,14 +10,14 @@ import ObjectMapper
 
 class Comment: BaseModel {
   var body: String!
-  var author: User!
+  var authorId: String!
   var commentable: BaseModel!
   var offline = false
   
-  init(author: User, body: String, commentable: BaseModel){
+  init(authorId: String, body: String, commentable: BaseModel){
     super.init(type: "comments")
     self.offline = true
-    self.author = author
+    self.authorId = authorId
     self.body = body
     self.commentable = commentable
   }
@@ -29,7 +29,7 @@ class Comment: BaseModel {
   override func mapping(map: Map) {
     super.mapping(map)
     body <- map["attributes.body"]
-    author <- map["relationships.author.data"]
+    authorId <- map["relationships.author.data.id"]
     commentable <- map["relationships.commentable.data"]
   }
 }

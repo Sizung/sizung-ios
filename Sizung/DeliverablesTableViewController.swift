@@ -51,52 +51,39 @@ class DeliverablesTableViewController: UITableViewController {
   }
   
   func filterCollection(){
-    StorageManager.sharedInstance.deliverables.filter { deliverable in
-      
-      if self.conversation != nil && self.conversation!.id != deliverable.conversation.id {
-        return false
-      }
-      
-      if self.filter == .Mine {
-        return deliverable.owner.id == self.userId
-      } else {
-        return true
-      }
-      }.bindTo(filteredCollection)
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        storageManager.deliverables.filter { deliverable in
+          
+          if self.conversation != nil && self.conversation!.id != deliverable.parentId {
+            return false
+          }
+          
+          if self.filter == .Mine {
+            return deliverable.ownerId == self.userId
+          } else {
+            return true
+          }
+          }.bindTo(self.filteredCollection)
+    }
   }
   
   func initData(){
     
-    StorageManager.sharedInstance.isLoading.observeNext { isLoading in
-      if isLoading {
-        self.refreshControl?.beginRefreshing()
-      } else {
-        self.refreshControl?.endRefreshing()
-      }
-      }.disposeIn(rBag)
+    self.refreshControl?.beginRefreshing()
     
     sortedAndFilteredCollection.observeNext { _ in
-        self.tableView.tableFooterView?.hidden = self.sortedAndFilteredCollection.count > 0
-    }.disposeIn(rBag)
-    
-    let storageManager = StorageManager.sharedInstance
-    
-    storageManager.isLoading.observeNext { isLoading in
-      if isLoading {
-        self.refreshControl?.beginRefreshing()
-      } else {
-        self.refreshControl?.endRefreshing()
-      }
+      self.tableView.tableFooterView?.hidden = self.sortedAndFilteredCollection.count > 0
       }.disposeIn(rBag)
     
     // listen to unseenObject changes
-    storageManager.unseenObjects.observeNext { _ in
+    StorageManager.sharedInstance.unseenObjects.observeNext { _ in
       self.tableView.reloadData()
       }.disposeIn(rBag)
     
     filterCollection()
     
-//    sort
+    //    sort
     filteredCollection
       .sort({ left, right in
         //        sort completed to bottom of list
@@ -115,60 +102,66 @@ class DeliverablesTableViewController: UITableViewController {
         }
       }).bindTo(sortedAndFilteredCollection)
     
-    sortedAndFilteredCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
-      let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.deliverableTableViewCell.identifier, forIndexPath: indexPath) as! DeliverableTableViewCell
-      let deliverable = deliverables[indexPath.row]
-      cell.titleLabel.text = deliverable.title
-      
-      cell.conversationLabel.text = StorageManager.sharedInstance.getConversation(deliverable.conversation.id)?.title
-      
-      if deliverable.due_on != nil && !deliverable.isCompleted() {
-        cell.statusLabel.text = DueDateHelper.getDueDateString(deliverable.due_on!)
-      } else {
-        cell.statusLabel.text = deliverable.getStatus()
-      }
-      
-      var statusColor = UIColor(red:0.88, green:0.67, blue:0.71, alpha:1.0)
-      var textStatusColor = UIColor.darkTextColor()
-      
-      if deliverable.isCompleted() {
-        statusColor = UIColor(red:0.33, green:0.75, blue:0.59, alpha:1.0)
-        textStatusColor = statusColor
-      } else if deliverable.due_on != nil && deliverable.due_on?.daysAgo() >= 0 {
-        //overdue or today
-        statusColor = UIColor(red:0.98, green:0.40, blue:0.38, alpha:1.0)
-        textStatusColor = statusColor
-      }
-      
-      cell.statusView.backgroundColor = statusColor
-      cell.statusView.layer.borderColor = statusColor.CGColor
-      cell.statusLabel.textColor = textStatusColor
-      
-      let hasUnseenObjects = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
-        return obj.deliverable?.id == deliverable.id
-      }
-      
-      if !deliverable.isCompleted() && !hasUnseenObjects {
-        cell.statusView.backgroundColor = UIColor.clearColor()
-      }
-      cell.unreadStatusView.alpha = hasUnseenObjects ? 1 : 0
-      
-      return cell
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        
+        self.sortedAndFilteredCollection.bindTo(self.tableView) { indexPath, deliverables, tableView in
+          let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.deliverableTableViewCell.identifier, forIndexPath: indexPath) as! DeliverableTableViewCell
+          let deliverable = deliverables[indexPath.row]
+          cell.titleLabel.text = deliverable.title
+          
+          cell.conversationLabel.text = storageManager.conversations[deliverable.parentId]?.title
+          
+          if deliverable.due_on != nil && !deliverable.isCompleted() {
+            cell.statusLabel.text = DueDateHelper.getDueDateString(deliverable.due_on!)
+          } else {
+            cell.statusLabel.text = deliverable.getStatus()
+          }
+          
+          var statusColor = UIColor(red:0.88, green:0.67, blue:0.71, alpha:1.0)
+          var textStatusColor = UIColor.darkTextColor()
+          
+          if deliverable.isCompleted() {
+            statusColor = UIColor(red:0.33, green:0.75, blue:0.59, alpha:1.0)
+            textStatusColor = statusColor
+          } else if deliverable.due_on != nil && deliverable.due_on?.daysAgo() >= 0 {
+            //overdue or today
+            statusColor = UIColor(red:0.98, green:0.40, blue:0.38, alpha:1.0)
+            textStatusColor = statusColor
+          }
+          
+          cell.statusView.backgroundColor = statusColor
+          cell.statusView.layer.borderColor = statusColor.CGColor
+          cell.statusLabel.textColor = textStatusColor
+          
+          let hasUnseenObjects = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
+            return obj.deliverableId == deliverable.id
+          }
+          
+          if !deliverable.isCompleted() && !hasUnseenObjects {
+            cell.statusView.backgroundColor = UIColor.clearColor()
+          }
+          cell.unreadStatusView.alpha = hasUnseenObjects ? 1 : 0
+          
+          return cell
+        }
     }
     
   }
   
   override func viewDidAppear(animated: Bool) {
-    if !StorageManager.sharedInstance.isInitialized {
-      self.updateData()
-    }
+    self.updateData()
   }
   
   func updateData(){
-    if let organizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
-      StorageManager.sharedInstance.updateOrganization(organizationId)
-    } else {
-      fatalError("no organization selected in \(self)")
+    
+    self.refreshControl?.beginRefreshing()
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        storageManager.listDeliverables()
+          .onComplete { _ in
+            self.refreshControl?.endRefreshing()
+        }
     }
   }
   

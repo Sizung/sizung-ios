@@ -75,9 +75,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   
   func loadInitialViewController() {
     
-    if let selectedOrganization = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
-      StorageManager.sharedInstance.updateOrganization(selectedOrganization)
-    } else {
+    //  show organization list if no organization is selected
+    if !KeychainWrapper.hasValueForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
       let organizationViewController = R.storyboard.organizations.initialViewController()!
       self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
     }
@@ -146,7 +145,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     // update unseenobjects
     let authToken = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
     if let userId = authToken.getUserId() {
-      StorageManager.sharedInstance.updateUnseenObjects(userId)
+      StorageManager.sharedInstance.listUnseenObjects(userId)
       
       // subscribe to user channel
       StorageManager.sharedInstance.websocket?.userWebsocketDelegate = self
@@ -214,13 +213,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       if let url = NSURL(string: urlString) {
         // generate local notification if application is active
         if (application.applicationState == .Active){
-//          if let message = userInfo["aps"]!["alert"] as? String {
-//            let localNotification = UILocalNotification()
-//            localNotification.userInfo = userInfo
-//            localNotification.soundName = UILocalNotificationDefaultSoundName;
-//            localNotification.alertBody = message;
-//            UIApplication.sharedApplication().presentLocalNotificationNow(localNotification)
-//          }
+          //          if let message = userInfo["aps"]!["alert"] as? String {
+          //            let localNotification = UILocalNotification()
+          //            localNotification.userInfo = userInfo
+          //            localNotification.soundName = UILocalNotificationDefaultSoundName;
+          //            localNotification.alertBody = message;
+          //            UIApplication.sharedApplication().presentLocalNotificationNow(localNotification)
+          //          }
         } else {
           self.loadUrl(url)
         }
@@ -248,32 +247,91 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         return
       }
       
-      let type = pathComponents[1]
-      let id = pathComponents[2]
-      
-      let alertController = UIAlertController(title: "Opening \(type)", message:
-        "Id: \(id)", preferredStyle: UIAlertControllerStyle.Alert)
-      alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-      
-      self.window?.rootViewController?.showViewController(alertController, sender: self)
-      
-      print("link to \(type) with id:\(id)")
-      
-      switch type {
-      case "agenda_items":
-        StorageManager.sharedInstance.getAgendaItem(id)
-        break
-      case "deliverables":
-        StorageManager.sharedInstance.getDeliverable(id)
-        break
-      case "conversation":
-        StorageManager.sharedInstance.getConversation(id)
-        break
-      default:
-        print("link to \(type) with id:\(id)")
+      // check if logged in
+      if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+        let token = AuthToken(data: authToken)
+        token.validate()
+          .onSuccess { _ in
+            
+            let type = pathComponents[1]
+            let id = pathComponents[2]
+            
+            print("link to \(type) with id:\(id)")
+            
+            // simplify organization loading
+            switch type {
+            case "agenda_items":
+              StorageManager.sharedInstance.getAgendaItem(id)
+                .onSuccess { agendaItem in
+                  
+                  StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
+                    .onSuccess { conversation in
+                      // set selected organization according to entity
+                      KeychainWrapper.setString(conversation.organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+                      
+                      let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
+                      agendaItemViewController.agendaItem = agendaItem
+                      
+                      self.window?.rootViewController?.showViewController(agendaItemViewController, sender: self)
+                  }
+              }
+              break
+            case "deliverables":
+              StorageManager.sharedInstance.getDeliverable(id)
+                .onSuccess { deliverable in
+                  
+                  switch deliverable {
+                  case let agendaItemDeliverable as AgendaItemDeliverable:
+                    StorageManager.sharedInstance.getAgendaItem(agendaItemDeliverable.agendaItemId)
+                      .onSuccess { agendaItem in
+                        StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
+                          .onSuccess { conversation in
+                            self.openDeliverable(deliverable, organizationId: conversation.organizationId)
+                        }
+                        
+                    }
+                  default:
+                    StorageManager.sharedInstance.getConversation(deliverable.parentId)
+                      .onSuccess { conversation in
+                        self.openDeliverable(deliverable, organizationId: conversation.organizationId)
+                    }
+                  }
+              }
+              break
+            case "conversation":
+              StorageManager.sharedInstance.getConversation(id)
+                .onSuccess { conversation in
+                  // set selected organization according to entity
+                  KeychainWrapper.setString(conversation.organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+                  
+                  let conversationsViewController = R.storyboard.conversations.conversationViewController()!
+                  conversationsViewController.conversation = conversation
+                  
+                  self.window?.rootViewController?.showViewController(conversationsViewController, sender: self)
+              }
+              break
+            default:
+              print("link to \(type) with id:\(id)")
+            }
+            
+            
+          }.onFailure { error in
+            self.showLogin()
+        }
+      } else {
+        self.showLogin()
       }
-      
     }
+  }
+  
+  func openDeliverable(deliverable: Deliverable, organizationId: String) {
+    // set selected organization according to entity
+    KeychainWrapper.setString(organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+    
+    let deliverableViewController = R.storyboard.deliverable.initialViewController()!
+    deliverableViewController.deliverable = deliverable
+    
+    self.window?.rootViewController?.showViewController(deliverableViewController, sender: self)
   }
   
 }
