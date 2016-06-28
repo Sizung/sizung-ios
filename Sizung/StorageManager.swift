@@ -23,8 +23,13 @@ class StorageManager {
   static var storages: [String: OrganizationStorageManager] = [:]
   
   static func storageForSelectedOrganization() -> Future<OrganizationStorageManager, StorageError> {
-    let orgId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION)!
-    return storageForOrganizationId(orgId)
+    if let orgId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
+      return storageForOrganizationId(orgId)
+    } else {
+      let promise = Promise<OrganizationStorageManager, StorageError>()
+      promise.failure(.Other)
+      return promise.future
+    }
   }
   
   private static func storageForOrganizationId(id: String) -> Future<OrganizationStorageManager, StorageError> {
@@ -100,6 +105,31 @@ class StorageManager {
     }
     return promise.future
   }
+  
+  func listOrganizations() -> Future<[Organization], StorageError> {
+    let promise = Promise<[Organization], StorageError>()
+    
+    Alamofire.request(SizungHttpRouter.Organizations())
+      .validate()
+      .responseJSON(queue: StorageManager.networkQueue) { response in
+        switch response.result {
+        case .Success(let JSON):
+          if let organizationResponse = Mapper<OrganizationsResponse>().map(JSON) {
+            promise.success(organizationResponse.organizations)
+          }
+        case .Failure
+          where response.response?.statusCode == 401:
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          promise.failure(StorageError.NotAuthenticated)
+        default:
+          Error.log("unkown error \(response.result)")
+          promise.failure(StorageError.Other)
+        }
+    }
+    
+    return promise.future
+  }
+
   
   func listUnseenObjects(userId: String) -> Future<[UnseenObject], StorageError> {
     let promise = Promise<[UnseenObject], StorageError>()
@@ -460,30 +490,6 @@ class OrganizationStorageManager {
           promise.failure(StorageError.Other)
         }
     }
-    return promise.future
-  }
-  
-  func listOrganizations() -> Future<[Organization], StorageError> {
-    let promise = Promise<[Organization], StorageError>()
-    
-    Alamofire.request(SizungHttpRouter.Organizations())
-      .validate()
-      .responseJSON(queue: StorageManager.networkQueue) { response in
-        switch response.result {
-        case .Success(let JSON):
-          if let organizationResponse = Mapper<OrganizationsResponse>().map(JSON) {
-            promise.success(organizationResponse.organizations)
-          }
-        case .Failure
-          where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
-          promise.failure(StorageError.NotAuthenticated)
-        default:
-          Error.log("unkown error \(response.result)")
-          promise.failure(StorageError.Other)
-        }
-    }
-    
     return promise.future
   }
   

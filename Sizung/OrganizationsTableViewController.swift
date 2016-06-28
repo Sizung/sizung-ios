@@ -45,17 +45,14 @@ class OrganizationsTableViewController: UITableViewController {
   
   func updateData(){
     self.refreshControl?.beginRefreshing()
-    StorageManager.storageForSelectedOrganization()
-      .onSuccess { storageManager in
-        storageManager.listOrganizations()
-          .onSuccess { organizations in
-            self.organizations.replace(organizations, performDiff: true)
-          }.onFailure { error in
-            let message = "\(error)"
-            Error.log(message)
-          }.onComplete { _ in
-            self.refreshControl?.endRefreshing()
-        }
+    StorageManager.sharedInstance.listOrganizations()
+      .onSuccess { organizations in
+        self.organizations.replace(organizations, performDiff: true)
+      }.onFailure { error in
+        let message = "\(error)"
+        Error.log(message)
+      }.onComplete { _ in
+        self.refreshControl?.endRefreshing()
     }
   }
   

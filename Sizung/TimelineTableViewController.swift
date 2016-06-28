@@ -651,7 +651,7 @@ extension TimelineTableViewController {
         deliverableViewController.deliverable = deliverable
         
         self.showViewController(deliverableViewController, sender: self)
-      case let comment as Comment:
+      case is Comment:
         // don't react to comment clicks
         break
       default:

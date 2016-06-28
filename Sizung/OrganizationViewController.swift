@@ -42,7 +42,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
           self.loadingScreen.alpha = 0
         })
         self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
-    }
+      }
     
     StorageManager.sharedInstance.unseenObjects.observeNext { _ in
       self.groupsBadgeView.badgeValue = self.calculateUnseenConversations()
