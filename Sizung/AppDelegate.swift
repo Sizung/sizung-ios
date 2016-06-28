@@ -247,53 +247,91 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         return
       }
       
-      let type = pathComponents[1]
-      let id = pathComponents[2]
-      
-      print("link to \(type) with id:\(id)")
-      
-      switch type {
-      case "agenda_items":
-        StorageManager.sharedInstance.getAgendaItem(id)
-          .onSuccess { agendaItem, organizationId in
-            // set selected organization according to entity
-            KeychainWrapper.setString(organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+      // check if logged in
+      if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+        let token = AuthToken(data: authToken)
+        token.validate()
+          .onSuccess { _ in
             
-            let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
-            agendaItemViewController.agendaItem = agendaItem
+            let type = pathComponents[1]
+            let id = pathComponents[2]
             
-            self.window?.rootViewController?.showViewController(agendaItemViewController, sender: self)
+            print("link to \(type) with id:\(id)")
+            
+            // simplify organization loading
+            switch type {
+            case "agenda_items":
+              StorageManager.sharedInstance.getAgendaItem(id)
+                .onSuccess { agendaItem in
+                  
+                  StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
+                    .onSuccess { conversation in
+                      // set selected organization according to entity
+                      KeychainWrapper.setString(conversation.organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+                      
+                      let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
+                      agendaItemViewController.agendaItem = agendaItem
+                      
+                      self.window?.rootViewController?.showViewController(agendaItemViewController, sender: self)
+                  }
+              }
+              break
+            case "deliverables":
+              StorageManager.sharedInstance.getDeliverable(id)
+                .onSuccess { deliverable in
+                  
+                  switch deliverable {
+                  case let agendaItemDeliverable as AgendaItemDeliverable:
+                    StorageManager.sharedInstance.getAgendaItem(agendaItemDeliverable.agendaItemId)
+                      .onSuccess { agendaItem in
+                        StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
+                          .onSuccess { conversation in
+                            self.openDeliverable(deliverable, organizationId: conversation.organizationId)
+                        }
+                        
+                    }
+                  default:
+                    StorageManager.sharedInstance.getConversation(deliverable.parentId)
+                      .onSuccess { conversation in
+                        self.openDeliverable(deliverable, organizationId: conversation.organizationId)
+                    }
+                  }
+              }
+              break
+            case "conversation":
+              StorageManager.sharedInstance.getConversation(id)
+                .onSuccess { conversation in
+                  // set selected organization according to entity
+                  KeychainWrapper.setString(conversation.organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+                  
+                  let conversationsViewController = R.storyboard.conversations.conversationViewController()!
+                  conversationsViewController.conversation = conversation
+                  
+                  self.window?.rootViewController?.showViewController(conversationsViewController, sender: self)
+              }
+              break
+            default:
+              print("link to \(type) with id:\(id)")
+            }
+            
+            
+          }.onFailure { error in
+            self.showLogin()
         }
-        break
-      case "deliverables":
-        StorageManager.sharedInstance.getDeliverable(id)
-          .onSuccess { deliverable, organizationId in
-            // set selected organization according to entity
-            KeychainWrapper.setString(organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
-            
-            let deliverableViewController = R.storyboard.deliverable.initialViewController()!
-            deliverableViewController.deliverable = deliverable
-            
-            self.window?.rootViewController?.showViewController(deliverableViewController, sender: self)
-        }
-        break
-      case "conversation":
-        StorageManager.sharedInstance.getConversation(id)
-          .onSuccess { conversation, organizationId in
-            // set selected organization according to entity
-            KeychainWrapper.setString(organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
-            
-            let conversationsViewController = R.storyboard.conversations.conversationViewController()!
-            conversationsViewController.conversation = conversation
-            
-            self.window?.rootViewController?.showViewController(conversationsViewController, sender: self)
-        }
-        break
-      default:
-        print("link to \(type) with id:\(id)")
+      } else {
+        self.showLogin()
       }
-      
     }
+  }
+  
+  func openDeliverable(deliverable: Deliverable, organizationId: String) {
+    // set selected organization according to entity
+    KeychainWrapper.setString(organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+    
+    let deliverableViewController = R.storyboard.deliverable.initialViewController()!
+    deliverableViewController.deliverable = deliverable
+    
+    self.window?.rootViewController?.showViewController(deliverableViewController, sender: self)
   }
   
 }

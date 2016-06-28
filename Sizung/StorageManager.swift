@@ -152,8 +152,8 @@ class StorageManager {
     }
   }
   
-  func getAgendaItem(id: String) -> Future<(AgendaItem, String), StorageError> {
-    let promise = Promise<(AgendaItem, String), StorageError>()
+  func getAgendaItem(id: String) -> Future<AgendaItem, StorageError> {
+    let promise = Promise<AgendaItem, StorageError>()
     Alamofire.request(SizungHttpRouter.AgendaItem(id: id))
       .validate()
       .responseJSON(queue: StorageManager.networkQueue) {response in
@@ -161,7 +161,7 @@ class StorageManager {
         case .Success(let JSON):
           if let agendaItemResponse = Mapper<AgendaItemResponse>().map(JSON) {
             dispatch_async(dispatch_get_main_queue()) {
-              promise.success((agendaItemResponse.agendaItem, agendaItemResponse.organizationId))
+              promise.success(agendaItemResponse.agendaItem)
             }
           }
         case .Failure
@@ -176,8 +176,8 @@ class StorageManager {
     return promise.future
   }
   
-  func getDeliverable(id: String) -> Future<(Deliverable, String), StorageError> {
-    let promise = Promise<(Deliverable, String), StorageError>()
+  func getDeliverable(id: String) -> Future<Deliverable, StorageError> {
+    let promise = Promise<Deliverable, StorageError>()
     
     Alamofire.request(SizungHttpRouter.Deliverable(id: id))
       .validate()
@@ -186,7 +186,7 @@ class StorageManager {
         case .Success(let JSON):
           if let deliverableResponse = Mapper<DeliverableResponse>().map(JSON) {
             dispatch_async(dispatch_get_main_queue()) {
-              promise.success((deliverableResponse.deliverable, deliverableResponse.organizationId))
+              promise.success(deliverableResponse.deliverable)
             }
           }
         case .Failure
@@ -202,8 +202,8 @@ class StorageManager {
     return promise.future
   }
   
-  func getConversation(id: String) -> Future<(Conversation, String), StorageError> {
-    let promise = Promise<(Conversation, String), StorageError>()
+  func getConversation(id: String) -> Future<Conversation, StorageError> {
+    let promise = Promise<Conversation, StorageError>()
     
     Alamofire.request(SizungHttpRouter.Conversation(id: id))
       .validate()
@@ -212,7 +212,7 @@ class StorageManager {
         case .Success(let JSON):
           if let conversationResponse = Mapper<ConversationResponse>().map(JSON) {
             dispatch_async(dispatch_get_main_queue()) {
-              promise.success((conversationResponse.conversation, conversationResponse.organizationId))
+              promise.success(conversationResponse.conversation)
             }
           }
         case .Failure
@@ -292,7 +292,7 @@ class OrganizationStorageManager {
       promise.success(foundDeliverable)
     } else {
       StorageManager.sharedInstance.getDeliverable(id)
-        .onSuccess { deliverable, _ in
+        .onSuccess { deliverable in
           
           self.deliverables.insertOrUpdate([deliverable])
           promise.success(deliverable)
@@ -312,7 +312,7 @@ class OrganizationStorageManager {
       promise.success(foundAgendaItem)
     } else {
       StorageManager.sharedInstance.getAgendaItem(id)
-        .onSuccess { agendaItem, _ in
+        .onSuccess { agendaItem in
           self.agendaItems.insertOrUpdate([agendaItem])
           promise.success(agendaItem)
       }

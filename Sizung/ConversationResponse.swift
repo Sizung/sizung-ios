@@ -11,7 +11,6 @@ import ObjectMapper
 class ConversationResponse: Mappable {
   
   var conversation: Conversation!
-  var organizationId: String!
   
   required init?(_ map: Map) {
     
@@ -19,6 +18,5 @@ class ConversationResponse: Mappable {
   
   func mapping(map: Map) {
     conversation <- map["data"]
-    organizationId <- map["included.0.id"]
   }
 }
