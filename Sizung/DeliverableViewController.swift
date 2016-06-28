@@ -21,41 +21,43 @@ class DeliverableViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    let storageManager = StorageManager.storageForOrganizationId(deliverable.organization.id)
-    
-    switch deliverable.parent {
-    case let conversation as Conversation:
-      storageManager.getConversation(conversation.id)
-        .onSuccess { conversation in
-          self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
-      }
-    case let agendaItem as AgendaItem:
-      storageManager.getAgendaItem(agendaItem.id)
-        .onSuccess { agendaItem in
-          storageManager.getConversation(agendaItem.conversation.id)
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        
+        
+        switch self.deliverable {
+        case let agendaItemDeliverable as AgendaItemDeliverable:
+          
+          storageManager.getAgendaItem(agendaItemDeliverable.agendaItemId)
+            .onSuccess { agendaItem in
+              storageManager.getConversation(agendaItem.conversationId)
+                .onSuccess { conversation in
+                  self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
+              }
+          }
+        default:
+          storageManager.getConversation(self.deliverable.parentId)
             .onSuccess { conversation in
               self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
           }
-      }
-    default:
-      break
+        }
+        
+        storageManager.getUser(self.deliverable.assigneeId)
+          .onSuccess { user in
+            let gravatar = Gravatar(emailAddress: user.email, defaultImage: .Identicon)
+            
+            let size = self.assigneeImageView.frame.size
+            
+            self.assigneeImageView.af_setImageWithURL(
+              gravatar.URL(size: size.height),
+              placeholderImage: nil,
+              filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
+              imageTransition: .CrossDissolve(0.2)
+            )
+        }
     }
     
     backButton.setTitle("< \(deliverable.title)", forState: .Normal)
-    
-    storageManager.getUser(deliverable.assignee.id)
-      .onSuccess { user in
-      let gravatar = Gravatar(emailAddress: user.email, defaultImage: .Identicon)
-      
-      let size = self.assigneeImageView.frame.size
-      
-      self.assigneeImageView.af_setImageWithURL(
-        gravatar.URL(size: size.height),
-        placeholderImage: nil,
-        filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
-        imageTransition: .CrossDissolve(0.2)
-      )
-    }
     
     var statusString = deliverable.status
     
@@ -77,7 +79,6 @@ class DeliverableViewController: UIViewController {
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
     if let timelineTableViewController = segue.destinationViewController as? TimelineTableViewController {
-      timelineTableViewController.conversation = deliverable?.conversation
       timelineTableViewController.timelineParent = deliverable
     }
   }

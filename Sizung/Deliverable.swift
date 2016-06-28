@@ -14,10 +14,9 @@ class Deliverable: BaseModel {
   var archived: Bool!
   var due_on: NSDate?
   
-  var owner: User!
-  var organization: Organization!
-  var assignee: User!
-  var parent: BaseModel!
+  var ownerId: String!
+  var assigneeId: String!
+  var parentId: String!
   
   var sort_date: NSDate! {
     get {
@@ -43,9 +42,23 @@ class Deliverable: BaseModel {
     status <- map["attributes.status"]
     due_on <- (map["attributes.due_on"], ISODateTransform())
     archived <- map["attributes.archived"]
-    owner <- map["relationships.owner.data"]
-    assignee <- map["relationships.assignee.data"]
-    parent <- map["relationships.parent.data"]
-    organization <- map["relationships.organization.data"]
+    ownerId <- map["relationships.owner.data.id"]
+    assigneeId <- map["relationships.assignee.data.id"]
+    parentId <- map["relationships.parent.data.id"]
+  }
+  
+  //  polymorphic stuff
+  override class func objectForMapping(map: Map) -> Mappable? {
+    if let parentType: String = map["relationships.parent.data.type"].value() {
+      switch parentType {
+      case "conversations":
+        return Deliverable(map)
+      case "agenda_items":
+        return AgendaItemDeliverable(map)
+      default:
+        return nil
+      }
+    }
+    return nil
   }
 }

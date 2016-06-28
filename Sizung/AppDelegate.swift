@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   
   func loadInitialViewController() {
     
-//  show organization list if no organization is selected  
+    //  show organization list if no organization is selected
     if !KeychainWrapper.hasValueForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
       let organizationViewController = R.storyboard.organizations.initialViewController()!
       self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
@@ -213,13 +213,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       if let url = NSURL(string: urlString) {
         // generate local notification if application is active
         if (application.applicationState == .Active){
-//          if let message = userInfo["aps"]!["alert"] as? String {
-//            let localNotification = UILocalNotification()
-//            localNotification.userInfo = userInfo
-//            localNotification.soundName = UILocalNotificationDefaultSoundName;
-//            localNotification.alertBody = message;
-//            UIApplication.sharedApplication().presentLocalNotificationNow(localNotification)
-//          }
+          //          if let message = userInfo["aps"]!["alert"] as? String {
+          //            let localNotification = UILocalNotification()
+          //            localNotification.userInfo = userInfo
+          //            localNotification.soundName = UILocalNotificationDefaultSoundName;
+          //            localNotification.alertBody = message;
+          //            UIApplication.sharedApplication().presentLocalNotificationNow(localNotification)
+          //          }
         } else {
           self.loadUrl(url)
         }
@@ -254,18 +254,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       
       switch type {
       case "agenda_items":
-        if let agendaItem = StorageManager.sharedInstance.getAgendaItem(id) {
-          let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
-          agendaItemViewController.agendaItem = agendaItem
-          
-          self.window?.rootViewController?.showViewController(agendaItemViewController, sender: self)
+        StorageManager.sharedInstance.getAgendaItem(id)
+          .onSuccess { agendaItem, organizationId in
+            // set selected organization according to entity
+            KeychainWrapper.setString(organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+            
+            let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
+            agendaItemViewController.agendaItem = agendaItem
+            
+            self.window?.rootViewController?.showViewController(agendaItemViewController, sender: self)
         }
         break
       case "deliverables":
         StorageManager.sharedInstance.getDeliverable(id)
+          .onSuccess { deliverable, organizationId in
+            // set selected organization according to entity
+            KeychainWrapper.setString(organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+            
+            let deliverableViewController = R.storyboard.deliverable.initialViewController()!
+            deliverableViewController.deliverable = deliverable
+            
+            self.window?.rootViewController?.showViewController(deliverableViewController, sender: self)
+        }
         break
       case "conversation":
         StorageManager.sharedInstance.getConversation(id)
+          .onSuccess { conversation, organizationId in
+            // set selected organization according to entity
+            KeychainWrapper.setString(organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+            
+            let conversationsViewController = R.storyboard.conversations.conversationViewController()!
+            conversationsViewController.conversation = conversation
+            
+            self.window?.rootViewController?.showViewController(conversationsViewController, sender: self)
+        }
         break
       default:
         print("link to \(type) with id:\(id)")

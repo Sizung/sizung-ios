@@ -11,6 +11,7 @@ import ObjectMapper
 class AgendaItemResponse: Mappable {
   
   var agendaItem: AgendaItem!
+  var organizationId: String!
   
   required init?(_ map: Map) {
     
@@ -19,5 +20,6 @@ class AgendaItemResponse: Mappable {
   // Mappable
   func mapping(map: Map) {
     agendaItem <- map["data"]
+    organizationId <- map["included.0.id"]
   }
 }

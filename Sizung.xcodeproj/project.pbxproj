@@ -87,7 +87,7 @@
 		5AD9F1B91CE9D3D700455D98 /* ConversationMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1B81CE9D3D700455D98 /* ConversationMember.swift */; };
 		5AD9F1BB1CE9D5E600455D98 /* AgendaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1BA1CE9D5E600455D98 /* AgendaItem.swift */; };
 		5AD9F1BD1CE9D63300455D98 /* Deliverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1BC1CE9D63300455D98 /* Deliverable.swift */; };
-		5AD9F1BF1CE9D65900455D98 /* AgendaItemDeliverables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverables.swift */; };
+		5AD9F1BF1CE9D65900455D98 /* AgendaItemDeliverable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverable.swift */; };
 		5ADC882B1D0F57D400596D67 /* WebsocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC882A1D0F57D400596D67 /* WebsocketResponse.swift */; };
 		5ADC882D1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ADC882C1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib */; };
 		5ADC882F1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ADC882E1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib */; };
@@ -218,7 +218,7 @@
 		5AD9F1B81CE9D3D700455D98 /* ConversationMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationMember.swift; sourceTree = "<group>"; };
 		5AD9F1BA1CE9D5E600455D98 /* AgendaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItem.swift; sourceTree = "<group>"; };
 		5AD9F1BC1CE9D63300455D98 /* Deliverable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deliverable.swift; sourceTree = "<group>"; };
-		5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemDeliverables.swift; sourceTree = "<group>"; };
+		5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemDeliverable.swift; sourceTree = "<group>"; };
 		5ADC882A1D0F57D400596D67 /* WebsocketResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebsocketResponse.swift; sourceTree = "<group>"; };
 		5ADC882C1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineAgendaItemTableViewCell.xib; sourceTree = "<group>"; };
 		5ADC882E1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineDeliverableTableViewCell.xib; sourceTree = "<group>"; };
@@ -459,7 +459,7 @@
 				5A86B13A1CE60634001C2E7A /* Organization.swift */,
 				5AD9F1B21CE9C09200455D98 /* Conversation.swift */,
 				5AD9F1BA1CE9D5E600455D98 /* AgendaItem.swift */,
-				5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverables.swift */,
+				5AD9F1BE1CE9D65900455D98 /* AgendaItemDeliverable.swift */,
 				5AD9F1BC1CE9D63300455D98 /* Deliverable.swift */,
 				5AD9F1B41CE9D03000455D98 /* User.swift */,
 				5AD9F1B61CE9D0A100455D98 /* OrganzationMember.swift */,
@@ -497,13 +497,13 @@
 				5AE8839F1D09A5990044364B /* ConversationObjectsResponse.swift */,
 				5ABA4FB51CFDCD7C00110030 /* OrganizationsResponse.swift */,
 				5ABA4FBA1CFEBE3500110030 /* OrganizationResponse.swift */,
+				5A9EDEB51D01621200D389EC /* ConversationResponse.swift */,
 				5ABA4FBC1CFEBF1600110030 /* ConversationsResponse.swift */,
 				5AE24D0D1D216C1100FB691B /* AgendaItemResponse.swift */,
 				5A8F79061CFF0E6B00953495 /* AgendaItemsResponse.swift */,
 				5AE24D0B1D216BD200FB691B /* DeliverableResponse.swift */,
 				5A8F79081CFF14BF00953495 /* DeliverablesResponse.swift */,
 				5A9EDEAF1D00232100D389EC /* UserResponse.swift */,
-				5A9EDEB51D01621200D389EC /* ConversationResponse.swift */,
 				5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */,
 				5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */,
 			);
@@ -924,7 +924,7 @@
 				5AF36B9B1D12FBC300A1581F /* OrganizationTableViewCell.swift in Sources */,
 				5ABA4FBD1CFEBF1600110030 /* ConversationsResponse.swift in Sources */,
 				5AA806E01D130E7300788DDF /* OrganizationsViewController.swift in Sources */,
-				5AD9F1BF1CE9D65900455D98 /* AgendaItemDeliverables.swift in Sources */,
+				5AD9F1BF1CE9D65900455D98 /* AgendaItemDeliverable.swift in Sources */,
 				5A8F79091CFF14BF00953495 /* DeliverablesResponse.swift in Sources */,
 				5A8F79071CFF0E6B00953495 /* AgendaItemsResponse.swift in Sources */,
 				5AE0CCA11D0AEF3900690C72 /* CommentResponse.swift in Sources */,

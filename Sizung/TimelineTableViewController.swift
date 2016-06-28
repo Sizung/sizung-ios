@@ -55,8 +55,8 @@ func ==(lhs: TimelineObject, rhs: TimelineObject) -> Bool {
 
 class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   
-  var conversation: Conversation!
   var timelineParent: BaseModel!
+  var storageManager: OrganizationStorageManager!
   
   var searchResult: [AnyObject]?
   
@@ -98,36 +98,42 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     
-    // to prevent missing items first connect to websocket, than fetch current state
-    StorageManager.sharedInstance.websocket!.conversationWebsocketDelegate = self
-    StorageManager.sharedInstance.websocket!.followConversation(self.conversation.id)
-    
-    // calculate current unread count for comments
-    let lastUnseenMessageDate: NSDate = StorageManager.sharedInstance.unseenObjects.collection.filter({ $0.target is Comment }).reduce(NSDate.distantFuture(), combine: { earliestDate, unseenObject in
-      var comparisonObject: BaseModel?
-      switch timelineParent {
-      case is Deliverable:
-        comparisonObject = StorageManager.sharedInstance.fillDeliverable(unseenObject.deliverable)
-      case is AgendaItem:
-        comparisonObject = StorageManager.sharedInstance.fillAgendaItem(unseenObject.agendaItem)
-      case is Conversation:
-        comparisonObject = StorageManager.sharedInstance.fillConversation(unseenObject.conversation)
-      default:
-        comparisonObject = nil
-      }
-    
-      if comparisonObject != nil && comparisonObject == timelineParent {
-        if unseenObject.created_at.isEarlierThan(earliestDate) {
-          // remove one second to guarantee sort order
-          return unseenObject.created_at.dateByAddingSeconds(-1)
+    // init storagemanager
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        self.storageManager = storageManager
+        
+        // to prevent missing items first connect to websocket, than fetch current state
+        StorageManager.sharedInstance.websocket!.conversationWebsocketDelegate = self
+        StorageManager.sharedInstance.websocket!.followConversation(self.getConversationId())
+        
+        // calculate current unread count for comments
+        let lastUnseenMessageDate: NSDate = StorageManager.sharedInstance.unseenObjects.collection.reduce(NSDate.distantFuture(), combine: { earliestDate, unseenObject in
+          var comparisonObject: BaseModel?
+          switch self.timelineParent {
+          case is Deliverable:
+            comparisonObject = storageManager.deliverables[unseenObject.deliverableId]
+          case is AgendaItem:
+            comparisonObject = storageManager.agendaItems[unseenObject.agendaItemId]
+          case is Conversation:
+            comparisonObject = storageManager.conversations[unseenObject.conversationId]
+          default:
+            comparisonObject = nil
+          }
+          
+          if comparisonObject != nil && comparisonObject == self.timelineParent {
+            if unseenObject.created_at.isEarlierThan(earliestDate) {
+              // remove one second to guarantee sort order
+              return unseenObject.created_at.dateByAddingSeconds(-1)
+            }
+          }
+          return earliestDate
+        })
+        
+        if lastUnseenMessageDate != NSDate.distantFuture() {
+          print("unseenDate: \(lastUnseenMessageDate)")
+          self.collection.insertOrUpdate([TimelineObject(newMessagesDate: lastUnseenMessageDate)])
         }
-      }
-      return earliestDate
-    })
-  
-    if lastUnseenMessageDate != NSDate.distantFuture() {
-      print("unseenDate: \(lastUnseenMessageDate)")
-      self.collection.insertOrUpdate([TimelineObject(newMessagesDate: lastUnseenMessageDate)])
     }
     
     
@@ -146,13 +152,26 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     StorageManager.sharedInstance.sawTimeLineFor(self.timelineParent)
     
     if let socket = StorageManager.sharedInstance.websocket {
-      socket.unfollowConversation(self.conversation.id)
+      socket.unfollowConversation(getConversationId())
     }
   }
   
   override var tableView: UITableView {
     get {
       return super.tableView!
+    }
+  }
+  
+  func getConversationId() -> String {
+    switch self.timelineParent {
+    case let agendaItem as AgendaItem:
+      return agendaItem.conversationId
+    case let agendaItemDeliverable as AgendaItemDeliverable:
+      return storageManager.agendaItems[agendaItemDeliverable.agendaItemId]!.conversationId
+    case let deliverable as Deliverable:
+      return deliverable.parentId
+    default:
+      return timelineParent.id
     }
   }
   
@@ -202,9 +221,9 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
         case let comment as Comment:
           return comment.commentable.id == self.timelineParent.id
         case let deliverable as Deliverable:
-          return deliverable.parent.id == self.timelineParent.id
+          return deliverable.parentId == self.timelineParent.id
         case let agendaItem as AgendaItem:
-          return agendaItem.conversation.id == self.timelineParent.id
+          return agendaItem.conversationId == self.timelineParent.id
         default:
           return false
         }
@@ -260,7 +279,6 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     self.textView.refreshFirstResponder()
     
     let authToken = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
-    let user = User(id: authToken.getUserId()!)
     
     // parse mentions
     let fulltext = self.textView.text
@@ -271,17 +289,20 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     //
     //    mentions = []
     
-    let comment = Comment(author: user, body: fulltext, commentable: self.timelineParent)
+    let comment = Comment(authorId: authToken.getUserId()!, body: fulltext, commentable: self.timelineParent)
     //    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
     //    let rowAnimation: UITableViewRowAnimation = self.inverted ? .Bottom : .Top
     //    let scrollPosition: UITableViewScrollPosition = self.inverted ? .Bottom : .Top
     
     // push it to server. Ignore result -> will be pushed over websocket connection
-    StorageManager.sharedInstance.createComment(comment)
-      .onSuccess { comment in
-        print("Comment successfully created")
-      } .onFailure { error in
-        print("Comment creation failed: \(error)")
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess{ storageManager in
+        storageManager.createComment(comment)
+          .onSuccess { comment in
+            print("Comment successfully created")
+          } .onFailure { error in
+            print("Comment creation failed: \(error)")
+        }
     }
     //
     //    self.tableView.beginUpdates()
@@ -323,24 +344,28 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     
     self.searchResult = nil
     
-    if prefix == "@" {
-      if word.characters.count > 0 {
-        array = StorageManager.sharedInstance.organizationUsers.filter { user in
-          return user.name.lowercaseString.hasPrefix(word.lowercaseString)
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        if prefix == "@" {
+          if word.characters.count > 0 {
+            array = storageManager.users.filter { user in
+              return user.name.lowercaseString.hasPrefix(word.lowercaseString)
+            }
+          }
+          else {
+            array = storageManager.users.collection
+          }
         }
-      }
-      else {
-        array = StorageManager.sharedInstance.organizationUsers.collection
-      }
-    }
-    var show = false
-    
-    if  array?.count > 0 {
-      self.searchResult = array
-      show = (self.searchResult?.count > 0)
+        var show = false
+        
+        if  array?.count > 0 {
+          self.searchResult = array
+          show = (self.searchResult?.count > 0)
+        }
+        
+        self.showAutoCompletionView(show)
     }
     
-    self.showAutoCompletionView(show)
   }
   
   
@@ -364,9 +389,8 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
-    if !StorageManager.sharedInstance.isInitialized {
-      self.updateData()
-    }
+    
+    self.updateData()
   }
   
   override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -381,20 +405,23 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
       return
     }
     
-    StorageManager.sharedInstance.updateConversationObjects(self.timelineParent, page: self.nextPage!)
-      .onSuccess { conversationObjects, nextPage in
-        
-        // hide top loading view if no further data is available
-        if nextPage == nil && self.nextPage > 0 {
-          let reachedStartOfConversationView = R.nib.startOfConversationView.firstView(owner: nil)
-          reachedStartOfConversationView?.transform = self.tableView.transform
-          self.tableView.tableFooterView = reachedStartOfConversationView
-        } else if nextPage == nil {
-          self.tableView.tableFooterView = nil
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        storageManager.updateConversationObjects(self.timelineParent, page: self.nextPage!)
+          .onSuccess { conversationObjects, nextPage in
+            
+            // hide top loading view if no further data is available
+            if nextPage == nil && self.nextPage > 0 {
+              let reachedStartOfConversationView = R.nib.startOfConversationView.firstView(owner: nil)
+              reachedStartOfConversationView?.transform = self.tableView.transform
+              self.tableView.tableFooterView = reachedStartOfConversationView
+            } else if nextPage == nil {
+              self.tableView.tableFooterView = nil
+            }
+            
+            self.nextPage = nextPage
+            self.addItemsToCollection(conversationObjects)
         }
-        
-        self.nextPage = nextPage
-        self.addItemsToCollection(conversationObjects)
     }
   }
   
@@ -481,12 +508,12 @@ extension TimelineTableViewController {
     cell.dueDateLabel.text = deliverable.due_on?.timeAgoSinceNow()
     cell.dateLabel.text = deliverable.created_at?.timeAgoSinceNow()
     
-    if let author = StorageManager.sharedInstance.getUser(deliverable.owner.id) {
+    if let author = storageManager.users[deliverable.ownerId] {
       let authorGravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
       cell.configureAuthorImageWithURLString(authorGravatar.URL(size: cell.bounds.width).URLString)
     }
     
-    if let assignee = StorageManager.sharedInstance.getUser(deliverable.assignee.id) {
+    if let assignee = storageManager.users[deliverable.assigneeId] {
       let assigneeGravatar = Gravatar(emailAddress: assignee.email, defaultImage: .Identicon)
       cell.configureAssigneeImageWithURLString(assigneeGravatar.URL(size: cell.bounds.width).URLString)
     }
@@ -500,8 +527,7 @@ extension TimelineTableViewController {
     cell.titleLabel.text = agendaItem.title
     cell.dateLabel.text = agendaItem.created_at?.timeAgoSinceNow()
     
-    if let author = StorageManager.sharedInstance.getUser(agendaItem.owner.id) {
-      
+    if let author = storageManager.users[agendaItem.ownerId]{
       let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
       cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
     }
@@ -516,7 +542,7 @@ extension TimelineTableViewController {
     cell.bodyLabel.textColor = (comment.offline ? UIColor.grayColor() : UIColor.blackColor())
     cell.datetimeLabel.text = comment.created_at?.timeAgoSinceNow()
     
-    if let author = StorageManager.sharedInstance.getUser(comment.author.id) {
+    if let author = storageManager.users[comment.authorId] {
       let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
       cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
     }

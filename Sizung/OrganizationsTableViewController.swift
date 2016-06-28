@@ -31,7 +31,7 @@ class OrganizationsTableViewController: UITableViewController {
       cell.nameLabel.text = organization.name
       
       let hasUnseenObject = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
-        return obj.organization?.id == organization.id
+        return obj.organizationId == organization.id
       }
       
       cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
@@ -45,13 +45,16 @@ class OrganizationsTableViewController: UITableViewController {
   
   func updateData(){
     self.refreshControl?.beginRefreshing()
-    StorageManager.storageForSelectedOrganization().listOrganizations()
-      .onSuccess { organizations in
-        self.organizations.replace(organizations, performDiff: true)
-      }.onFailure { error in
-        print(error)
-      }.onComplete { _ in
-        self.refreshControl?.endRefreshing()
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        storageManager.listOrganizations()
+          .onSuccess { organizations in
+            self.organizations.replace(organizations, performDiff: true)
+          }.onFailure { error in
+            print(error)
+          }.onComplete { _ in
+            self.refreshControl?.endRefreshing()
+        }
     }
   }
   

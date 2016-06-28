@@ -660,6 +660,7 @@ struct _R: Rswift.Validatable {
       let agendaItemsTableViewController = StoryboardViewControllerResource<AgendaItemsTableViewController>(identifier: "AgendaItemsTableViewController")
       let bundle = _R.hostingBundle
       let conversationDeliverablesTableViewController = StoryboardViewControllerResource<DeliverablesTableViewController>(identifier: "ConversationDeliverablesTableViewController")
+      let conversationViewController = StoryboardViewControllerResource<ConversationViewController>(identifier: "ConversationViewController")
       let conversationsTableViewController = StoryboardViewControllerResource<ConversationsTableViewController>(identifier: "ConversationsTableViewController")
       let name = "Conversations"
       let timelineTableViewController = StoryboardViewControllerResource<TimelineTableViewController>(identifier: "TimelineTableViewController")
@@ -670,6 +671,10 @@ struct _R: Rswift.Validatable {
       
       func conversationDeliverablesTableViewController(_: Void) -> DeliverablesTableViewController? {
         return UIStoryboard(resource: self).instantiateViewController(conversationDeliverablesTableViewController)
+      }
+      
+      func conversationViewController(_: Void) -> ConversationViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(conversationViewController)
       }
       
       func conversationsTableViewController(_: Void) -> ConversationsTableViewController? {
@@ -683,6 +688,7 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Conversations', but couldn't be loaded.") }
         if _R.storyboard.conversations().conversationsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationsTableViewController' could not be loaded from storyboard 'Conversations' as 'ConversationsTableViewController'.") }
+        if _R.storyboard.conversations().conversationViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationViewController' could not be loaded from storyboard 'Conversations' as 'ConversationViewController'.") }
         if _R.storyboard.conversations().timelineTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'timelineTableViewController' could not be loaded from storyboard 'Conversations' as 'TimelineTableViewController'.") }
         if _R.storyboard.conversations().conversationDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationDeliverablesTableViewController' could not be loaded from storyboard 'Conversations' as 'DeliverablesTableViewController'.") }
         if _R.storyboard.conversations().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Conversations' as 'AgendaItemsTableViewController'.") }

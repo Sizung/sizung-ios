@@ -36,4 +36,12 @@ extension CollectionPropertyType where Collection == Array<Member>, Member : Equ
     
     update(CollectionChangeset(collection: updatedCollection, inserts: inserts, deletes: [], updates: updates))
   }
+  
+  subscript(id: String?) -> Self.Member? {
+    let foundElements = self.collection.filter{ element in
+      return element.hashValue == id?.hashValue
+    }
+    
+    return foundElements.first
+  }
 }

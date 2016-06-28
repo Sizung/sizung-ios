@@ -11,6 +11,7 @@ import ObjectMapper
 class DeliverableResponse: Mappable {
   
   var deliverable: Deliverable!
+  var organizationId: String!
   
   required init?(_ map: Map) {
     
@@ -19,5 +20,6 @@ class DeliverableResponse: Mappable {
   // Mappable
   func mapping(map: Map) {
     deliverable <- map["data"]
+    organizationId <- map["included.0.id"]
   }
 }
