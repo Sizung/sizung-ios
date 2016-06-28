@@ -10,20 +10,20 @@ import ObjectMapper
 
 class UnseenObject: BaseModel {
   
-  var agendaItem: AgendaItem?
-  var conversation: Conversation?
-  var deliverable: Deliverable?
-  var organization: Organization?
-  var target: BaseModel!
-  var user: User!
+  var agendaItemId: String?
+  var conversationId: String?
+  var deliverableId: String?
+  var organizationId: String?
+  var targetId: String!
+  var userId: String!
   
   override func mapping(map: Map) {
     super.mapping(map)
-    agendaItem <- map["relationships.agenda_item.data"]
-    conversation <- map["relationships.conversation.data"]
-    deliverable <- map["relationships.deliverable.data"]
-    organization <- map["relationships.organization.data"]
-    target <- map["relationships.target.data"]
-    user <- map["relationships.user.data"]
+    agendaItemId <- map["relationships.agenda_item.data.id"]
+    conversationId <- map["relationships.conversation.data.id"]
+    deliverableId <- map["relationships.deliverable.data.id"]
+    organizationId <- map["relationships.organization.data.id"]
+    targetId <- map["relationships.target.data.id"]
+    userId <- map["relationships.user.data.id"]
   }
 }

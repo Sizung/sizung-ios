@@ -53,83 +53,81 @@ class AgendaItemsTableViewController: UITableViewController {
   func filterCollection(){
     conversationFilteredCollection.filter { agendaItem in
       if self.filter == .Mine {
-        return agendaItem.owner.id == self.userId
+        return agendaItem.ownerId == self.userId
       } else {
         return true
       }
-    }.bindTo(filteredCollection)
+      }.bindTo(filteredCollection)
   }
   
   func initData(){
     
     sortedAndFilteredCollection.observeNext { _ in
       self.tableView.tableFooterView?.hidden = self.sortedAndFilteredCollection.count > 0
-    }.disposeIn(rBag)
-  
-    let storageManager = StorageManager.sharedInstance
-    
-    storageManager.isLoading.observeNext { isLoading in
-      if isLoading {
-        self.refreshControl?.beginRefreshing()
-      } else {
-        self.refreshControl?.endRefreshing()
-      }
       }.disposeIn(rBag)
+    
+    let storageManager = StorageManager.sharedInstance
     
     // listen to unseenObject changes
     storageManager.unseenObjects.observeNext { _ in
       self.tableView.reloadData()
       }.disposeIn(rBag)
     
-    storageManager.agendaItems
-      .filter({ agendaItem in
-        if let conversationId = self.conversation?.id {
-          return agendaItem.conversation.id == conversationId
-        } else {
-          return true
+    self.refreshControl?.beginRefreshing()
+    
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        storageManager.agendaItems
+          .filter({ agendaItem in
+            if let conversationId = self.conversation?.id {
+              return agendaItem.conversationId == conversationId
+            } else {
+              return true
+            }
+          }).bindTo(self.conversationFilteredCollection)
+        
+        self.filterCollection()
+        
+        //    sort by created at date
+        self.filteredCollection
+          .sort({ left, right in
+            return left.created_at.compare(right.created_at) == NSComparisonResult.OrderedDescending
+          }).bindTo(self.sortedAndFilteredCollection)
+        
+        self.sortedAndFilteredCollection.bindTo(self.tableView) { indexPath, agendaItems, tableView in
+          let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.agendaItemTableViewCell.identifier, forIndexPath: indexPath) as! AgendaItemTableViewCell
+          let agendaItem = agendaItems[indexPath.row]
+          cell.titleLabel.text = agendaItem.title
+          
+          cell.conversationLabel.text = ""
+          
+          if let conversationTitle = storageManager.conversations[agendaItem.conversationId]?.title {
+            cell.conversationLabel.text = "@\(conversationTitle)"
+          }
+          
+          let hasUnseenObject = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
+            return obj.agendaItemId == agendaItem.id
+          }
+          
+          cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
+          
+          return cell
         }
-      }).bindTo(conversationFilteredCollection)
-    
-    filterCollection()
-    
-    //    sort by created at date
-    filteredCollection
-      .sort({ left, right in
-        return left.created_at.compare(right.created_at) == NSComparisonResult.OrderedDescending
-      }).bindTo(sortedAndFilteredCollection)
-    
-    sortedAndFilteredCollection.bindTo(self.tableView) { indexPath, agendaItems, tableView in
-      let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.agendaItemTableViewCell.identifier, forIndexPath: indexPath) as! AgendaItemTableViewCell
-      let agendaItem = agendaItems[indexPath.row]
-      cell.titleLabel.text = agendaItem.title
-      
-      cell.conversationLabel.text = ""
-      
-      if let conversationTitle = storageManager.getConversation(agendaItem.conversation.id)?.title {
-        cell.conversationLabel.text = "@\(conversationTitle)"
-      }
-      
-      let hasUnseenObject = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
-        return obj.agendaItem?.id == agendaItem.id
-      }
-      
-      cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
-      
-      return cell
     }
   }
   
   override func viewDidAppear(animated: Bool) {
-    if !StorageManager.sharedInstance.isInitialized {
-      self.updateData()
-    }
+    self.updateData()
   }
   
   func updateData(){
-    if let organizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
-      StorageManager.sharedInstance.updateOrganization(organizationId)
-    } else {
-      fatalError("no organization selected in \(self)")
+    self.refreshControl?.beginRefreshing()
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess{ storageManager in
+        storageManager.listAgendaItems()
+          .onSuccess { _ in
+            self.refreshControl?.endRefreshing()
+        }
     }
   }
   

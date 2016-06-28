@@ -13,6 +13,8 @@ import ReactiveUIKit
 
 class OrganizationsTableViewController: UITableViewController {
   
+  let organizations: CollectionProperty <[Organization]> = CollectionProperty([])
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -23,24 +25,13 @@ class OrganizationsTableViewController: UITableViewController {
   }
   
   func initData(){
-    
-    let storageManager = StorageManager.sharedInstance
-    
-    storageManager.isLoading.observeNext { isLoading in
-      if isLoading {
-        self.refreshControl?.beginRefreshing()
-      } else {
-        self.refreshControl?.endRefreshing()
-      }
-      }.disposeIn(rBag)
-    
-    storageManager.organizations.bindTo(self.tableView) { indexPath, organizations, tableView in
+    organizations.bindTo(self.tableView) { indexPath, organizations, tableView in
       let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.organizationTableViewCell.identifier, forIndexPath: indexPath) as! OrganizationTableViewCell
       let organization = organizations[indexPath.row]
       cell.nameLabel.text = organization.name
       
       let hasUnseenObject = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
-        return obj.organization?.id == organization.id
+        return obj.organizationId == organization.id
       }
       
       cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
@@ -53,20 +44,26 @@ class OrganizationsTableViewController: UITableViewController {
   }
   
   func updateData(){
-    StorageManager.sharedInstance.updateOrganizations()
+    self.refreshControl?.beginRefreshing()
+    StorageManager.sharedInstance.listOrganizations()
+      .onSuccess { organizations in
+        self.organizations.replace(organizations, performDiff: true)
+      }.onFailure { error in
+        let message = "\(error)"
+        Error.log(message)
+      }.onComplete { _ in
+        self.refreshControl?.endRefreshing()
+    }
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let selectedOrganization = StorageManager.sharedInstance.organizations[indexPath.row]
+    let selectedOrganization = organizations[indexPath.row]
     
     // reset storage
     StorageManager.sharedInstance.reset()
     
     KeychainWrapper.setString(selectedOrganization.id!, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
     self.dismissViewControllerAnimated(true, completion: nil)
-    
-    // updateOrganizations
-    StorageManager.sharedInstance.updateOrganization(selectedOrganization.id)
   }
   
   // MARK: - Navigation

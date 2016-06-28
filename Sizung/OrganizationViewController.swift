@@ -25,18 +25,18 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
   var organizationsViewController: UIViewController?
   var groupsViewController: UIViewController?
   
+  var loadingScreen = R.nib.loadingScreen.firstView(owner: nil)!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     groupsBadgeView.userInteractionEnabled = false
     self.groupsButton.addSubview(groupsBadgeView)
     
-    let storageManager = StorageManager.sharedInstance
-    storageManager.organizations.observeNext { _ in
-      self.setTitle()
-      }.disposeIn(rBag)
+    loadingScreen.frame = self.view.frame
+    self.view.addSubview(loadingScreen)
     
-    storageManager.unseenObjects.observeNext { _ in
+    StorageManager.sharedInstance.unseenObjects.observeNext { _ in
       self.groupsBadgeView.badgeValue = self.calculateUnseenConversations()
       }.disposeIn(rBag)
     
@@ -45,25 +45,26 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged);
   }
   
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        UIView.animateWithDuration(0.3, animations: {
+          self.loadingScreen.alpha = 0
+        })
+        self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
+    }
+
+  }
+  
   func calculateUnseenConversations() -> Int {
     var unseenConversationSet = Set<String>()
     StorageManager.sharedInstance.unseenObjects.collection.forEach { unseenObject in
-      if let conversation = unseenObject.conversation {
-        unseenConversationSet.insert(conversation.id)
+      if let conversationId = unseenObject.conversationId {
+        unseenConversationSet.insert(conversationId)
       }
     }
     return unseenConversationSet.count
-  }
-  
-  func setTitle(){
-    if let selectedOrganizationId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
-      if let selectedOrganization = StorageManager.sharedInstance.getOrganization(selectedOrganizationId) {
-        UIView.animateWithDuration(1, animations: {
-          self.titleButton.alpha = 1
-        })
-        self.titleButton.setTitle(selectedOrganization.name, forState: .Normal)
-      }
-    }
   }
   
   func segmentedControlDidChange(sender: SizungSegmentedControl){

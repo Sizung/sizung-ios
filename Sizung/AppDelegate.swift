@@ -46,6 +46,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       self.showLogin()
     }
     
+    // handle remote notification from launch
+    if let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [String: AnyObject] {
+      self.application(application, didReceiveRemoteNotification: userInfo)
+    }
+    
     return true
   }
   
@@ -70,9 +75,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   
   func loadInitialViewController() {
     
-    if let selectedOrganization = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
-      StorageManager.sharedInstance.updateOrganization(selectedOrganization)
-    } else {
+    //  show organization list if no organization is selected
+    if !KeychainWrapper.hasValueForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
       let organizationViewController = R.storyboard.organizations.initialViewController()!
       self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
     }
@@ -104,14 +108,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
   
   func applicationDidEnterBackground(application: UIApplication) {
-    print("applicationDidEnterBackground")
     
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
   }
   
   func applicationWillEnterForeground(application: UIApplication) {
-    print("applicationWillEnterForeground")
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
   }
   
@@ -120,11 +122,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     //ensure websocket connection is open
     if let websocket = StorageManager.sharedInstance.websocket {
       if !websocket.client.connected {
-        print("websocket not connected - reconnecting")
         initWebsocketConnection()
       }
     } else {
-      print("websocket not initialized - connecting")
       initWebsocketConnection()
     }
     
@@ -141,7 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     // update unseenobjects
     let authToken = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
     if let userId = authToken.getUserId() {
-      StorageManager.sharedInstance.updateUnseenObjects(userId)
+      StorageManager.sharedInstance.listUnseenObjects(userId)
       
       // subscribe to user channel
       StorageManager.sharedInstance.websocket?.userWebsocketDelegate = self
@@ -150,7 +150,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
   
   func applicationWillTerminate(application: UIApplication) {
-    print("applicationWillTerminate")
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
   
@@ -158,9 +157,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   
   func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
     if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
-      let url = userActivity.webpageURL
-      
-      print("received URL:\(url)")
+      if let url = userActivity.webpageURL {
+        self.loadUrl(url)
+      }
     }
     return true
   }
@@ -188,28 +187,146 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     Alamofire.request(SizungHttpRouter.RegisterDevice(token: tokenString))
       .validate()
       .responseJSON { response in
-        print(response)
+        if let error = response.result.error {
+          Error.log(error)
+        }
     }
   }
   
   func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-    print("Failed to register:", error)
+    Crashlytics.sharedInstance().recordError(error)
+  }
+  
+  // foreground notification received
+  func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
+    
+    print("handleRemoteActionWithIdentifier \(identifier) notification: \(userInfo)")
+    
+    completionHandler()
   }
   
   func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-    print("received remote notification: \(userInfo)")
+    if let urlString = userInfo["link"] as? String {
+      if let url = NSURL(string: urlString) {
+        // generate local notification if application is active
+        if (application.applicationState == .Active){
+          //          if let message = userInfo["aps"]!["alert"] as? String {
+          //            let localNotification = UILocalNotification()
+          //            localNotification.userInfo = userInfo
+          //            localNotification.soundName = UILocalNotificationDefaultSoundName;
+          //            localNotification.alertBody = message;
+          //            UIApplication.sharedApplication().presentLocalNotificationNow(localNotification)
+          //          }
+        } else {
+          self.loadUrl(url)
+        }
+      }
+    }
   }
   
   func onReceived(unseenObject: BaseModel) {
     if let unseenObject = unseenObject as? UnseenObject {
       StorageManager.sharedInstance.unseenObjects.insert(unseenObject)
-    } else {
-      print(unseenObject)
     }
   }
   
   func onFollowSuccess(channelName: String) {
-    print("follow user channel \(channelName)")
+  }
+  
+  private func loadUrl(url: NSURL){
+    
+    if let pathComponents = url.pathComponents {
+      guard pathComponents.count == 3 else {
+        
+        let message = "loadURL wrong number of path components: \(url)"
+        Error.log(message)
+        return
+      }
+      
+      // check if logged in
+      if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+        let token = AuthToken(data: authToken)
+        token.validate()
+          .onSuccess { _ in
+            
+            let type = pathComponents[1]
+            let id = pathComponents[2]
+            
+            // simplify organization loading
+            switch type {
+            case "agenda_items":
+              StorageManager.sharedInstance.getAgendaItem(id)
+                .onSuccess { agendaItem in
+                  
+                  StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
+                    .onSuccess { conversation in
+                      // set selected organization according to entity
+                      KeychainWrapper.setString(conversation.organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+                      
+                      let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
+                      agendaItemViewController.agendaItem = agendaItem
+                      
+                      self.window?.rootViewController?.showViewController(agendaItemViewController, sender: self)
+                  }
+              }
+              break
+            case "deliverables":
+              StorageManager.sharedInstance.getDeliverable(id)
+                .onSuccess { deliverable in
+                  
+                  switch deliverable {
+                  case let agendaItemDeliverable as AgendaItemDeliverable:
+                    StorageManager.sharedInstance.getAgendaItem(agendaItemDeliverable.agendaItemId)
+                      .onSuccess { agendaItem in
+                        StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
+                          .onSuccess { conversation in
+                            self.openDeliverable(deliverable, organizationId: conversation.organizationId)
+                        }
+                        
+                    }
+                  default:
+                    StorageManager.sharedInstance.getConversation(deliverable.parentId)
+                      .onSuccess { conversation in
+                        self.openDeliverable(deliverable, organizationId: conversation.organizationId)
+                    }
+                  }
+              }
+              break
+            case "conversations":
+              StorageManager.sharedInstance.getConversation(id)
+                .onSuccess { conversation in
+                  // set selected organization according to entity
+                  KeychainWrapper.setString(conversation.organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+                  
+                  let conversationsViewController = R.storyboard.conversations.conversationViewController()!
+                  conversationsViewController.conversation = conversation
+                  
+                  self.window?.rootViewController?.showViewController(conversationsViewController, sender: self)
+              }
+              break
+            default:
+              let message = "link to unknown type \(type) with id:\(id)"
+              Error.log(message)
+            }
+            
+            
+          }.onFailure { error in
+            self.showLogin()
+        }
+      } else {
+        self.showLogin()
+      }
+    }
+  }
+  
+  func openDeliverable(deliverable: Deliverable, organizationId: String) {
+    // set selected organization according to entity
+    KeychainWrapper.setString(organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+    
+    let deliverableViewController = R.storyboard.deliverable.initialViewController()!
+    deliverableViewController.deliverable = deliverable
+    
+    self.window?.rootViewController?.showViewController(deliverableViewController, sender: self)
   }
   
 }

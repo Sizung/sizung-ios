@@ -50,7 +50,6 @@ class ConversationViewController: UIViewController, MainPageViewControllerDelega
       self.mainPageViewController.orderedViewControllers.append(agendaItemsTableViewController)
       
       let timelineTableViewController = R.storyboard.conversations.timelineTableViewController()!
-      timelineTableViewController.conversation = self.conversation
       timelineTableViewController.timelineParent = self.conversation
       self.mainPageViewController.orderedViewControllers.append(timelineTableViewController)
       

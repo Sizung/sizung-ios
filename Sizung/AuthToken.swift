@@ -58,7 +58,7 @@ class AuthToken {
       }
     }
     catch let error as NSError {
-      print(error)
+      Error.log(error)
       return nil
     }
   }
