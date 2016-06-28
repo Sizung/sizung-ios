@@ -292,7 +292,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
                   }
               }
               break
-            case "conversation":
+            case "conversations":
               StorageManager.sharedInstance.getConversation(id)
                 .onSuccess { conversation in
                   // set selected organization according to entity
