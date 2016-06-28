@@ -6,7 +6,7 @@
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
-import Foundation
+import Crashlytics
 
 enum Error {
   
