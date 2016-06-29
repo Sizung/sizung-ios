@@ -117,7 +117,9 @@ class AgendaItemsTableViewController: UITableViewController {
   }
   
   override func viewDidAppear(animated: Bool) {
-    self.updateData()
+    if self.conversationFilteredCollection.count == 0 {
+      self.updateData()
+    }
   }
   
   func updateData(){

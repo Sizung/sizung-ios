@@ -150,7 +150,9 @@ class DeliverablesTableViewController: UITableViewController {
   }
   
   override func viewDidAppear(animated: Bool) {
-    self.updateData()
+    if self.filteredCollection.count == 0 {
+      self.updateData()
+    }
   }
   
   func updateData(){
