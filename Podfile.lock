@@ -29,9 +29,9 @@ PODS:
   - OHHTTPStubs/NSURLSession (5.1.0):
     - OHHTTPStubs/Core
   - OHHTTPStubs/OHPathHelpers (5.1.0)
-  - R.swift (2.3.0):
-    - R.swift.Library (~> 2.1.0)
-  - R.swift.Library (2.1.0)
+  - R.swift (2.4.0):
+    - R.swift.Library (~> 2.2.0)
+  - R.swift.Library (2.2.0)
   - ReactiveKit (2.1.0)
   - ReactiveUIKit (2.0.1):
     - ReactiveKit (~> 2.0)
@@ -77,8 +77,8 @@ SPEC CHECKSUMS:
   Nimble: 97a0a4cae5124c117115634b2d055d8c97d0af19
   ObjectMapper: 4eb08a726e9791a93b2632049951b56a7c17e471
   OHHTTPStubs: 592f74439d2d72615115cf99a954237a3fbe26e5
-  R.swift: 38b2191a603c3d491a09baddfb4ccc7aa9be4d9d
-  R.swift.Library: e5e077ed04f6867a95676af491650091b23518e9
+  R.swift: 0ef9c42dc6c94ac44a3c78a7639c73f855a8e159
+  R.swift.Library: 31a487b65381f37a7d203a6f1f935b43c9be35b0
   ReactiveKit: fe3c5d480ed904ce6d6d99cc94ccf568d5c48c5c
   ReactiveUIKit: af6e401a61d196502267ff216b7ac6f4c37c0dc5
   Result: 822c879f145943320cc80a9a8372378e3d699fe4

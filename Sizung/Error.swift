@@ -28,7 +28,9 @@ enum Error {
   
   private static func getError(message: String) -> NSError {
     
-    let userInfo = ["message": message]
+    let userInfo = [
+      NSLocalizedDescriptionKey: message
+    ]
     
     return NSError(domain: "SizungErrorDomain", code: -message.hash, userInfo: userInfo)
   }

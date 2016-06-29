@@ -14,19 +14,39 @@ import JWTDecode
 
 enum TokenError : ErrorType {
   case InvalidToken
+  case Expired
 }
 
 class AuthToken {
   
   var data: String?
+  var jwt: JWT?
   
   init(data: String?) {
+    
     self.data = data
+    
+    do {
+      if self.data != nil {
+        self.jwt = try decode(data!)
+      }
+    }
+    catch let error as NSError {
+      Error.log(error)
+    }
   }
   
   func validate() -> Future<String, TokenError> {
     let promise = Promise<String, TokenError>()
-    if let userId = self.getUserId() {
+    
+    guard jwt != nil else {
+      promise.failure(.InvalidToken)
+      return promise.future
+    }
+    
+    if jwt!.expired {
+      promise.failure(.Expired)
+    } else if let userId = self.getUserId() {
       promise.success(userId)
     } else {
       promise.failure(TokenError.InvalidToken)
@@ -49,17 +69,10 @@ class AuthToken {
   }
   
   func getUserId() -> String? {
-    do {
-      if let data = self.data {
-        let jwt = try decode(data)
-        return jwt.claim("user_id")
-      } else {
-        return nil
-      }
-    }
-    catch let error as NSError {
-      Error.log(error)
+    guard jwt != nil else {
       return nil
     }
+    
+    return jwt!.claim("user_id")
   }
 }
