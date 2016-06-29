@@ -44,11 +44,6 @@ class Websocket {
       self.userChannel = self.initChannel(.User)
     }
     
-    client.onDisconnected = {(error: ErrorType?) in
-      let message = "Websocket disconnected! \(error)"
-      Error.log(message)
-    }
-    
     client.onRejected = {
       fatalError("Websocket connection rejected!")
     }
