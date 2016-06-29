@@ -70,8 +70,6 @@ class DeliverablesTableViewController: UITableViewController {
   
   func initData(){
     
-    self.refreshControl?.beginRefreshing()
-    
     sortedAndFilteredCollection.observeNext { _ in
       self.tableView.tableFooterView?.hidden = self.sortedAndFilteredCollection.count > 0
       }.disposeIn(rBag)

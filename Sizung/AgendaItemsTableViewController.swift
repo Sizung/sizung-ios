@@ -73,8 +73,6 @@ class AgendaItemsTableViewController: UITableViewController {
       self.tableView.reloadData()
       }.disposeIn(rBag)
     
-    self.refreshControl?.beginRefreshing()
-    
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         storageManager.agendaItems
