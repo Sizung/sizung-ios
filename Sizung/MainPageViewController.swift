@@ -40,7 +40,7 @@ class MainPageViewController: UIPageViewController, UIPageViewControllerDataSour
       direction = .Reverse
     }
     
-    if orderedViewControllers.count > index {
+    if self.isViewLoaded() && orderedViewControllers.count > index {
       setViewControllers([orderedViewControllers[index]],
                          direction: direction,
                          animated: true,
