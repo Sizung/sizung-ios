@@ -29,7 +29,7 @@ import AlamofireImage
         let gravatar = Gravatar(emailAddress: user!.email, defaultImage: .Identicon)
         self.af_setBackgroundImageForState(.Normal, URL: gravatar.URL(size: size))
         
-        self.setTitle(user!.name, forState: .Highlighted)
+        self.setTitle(user!.getInitials(), forState: .Highlighted)
       }
     }
   }
