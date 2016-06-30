@@ -14,7 +14,7 @@ class OrganizationResponse: Mappable {
   var conversationsResponse: ConversationsResponse!
   var agendaItemsResponse: AgendaItemsResponse!
   var deliverablesResponse: DeliverablesResponse!
-  var organizationDeliverablesResponse: DeliverablesResponse!
+  var conversationDeliverablesResponse: DeliverablesResponse!
   var included: [BaseModel]!
   
   required init?(_ map: Map) {
@@ -25,7 +25,8 @@ class OrganizationResponse: Mappable {
     organization <- map["data"]
     conversationsResponse <- map["meta.conversations"]
     agendaItemsResponse <- map["meta.agenda_items"]
-    organizationDeliverablesResponse <- map["meta.organization_deliverables"]
+    deliverablesResponse <- map["meta.deliverables"]
+    conversationDeliverablesResponse <- map["meta.conversation_deliverables"]
     included <- map["included"]
   }
 }

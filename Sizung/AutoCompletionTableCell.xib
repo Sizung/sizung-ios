@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,31 +16,31 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="egK-Bv-dna">
-                        <rect key="frame" x="4" y="4" width="35" height="35"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="egK-Bv-dna" secondAttribute="height" multiplier="1:1" id="J13-Xv-tU3"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vIl-uP-NNW">
-                        <rect key="frame" x="47" y="11" width="265" height="21"/>
+                        <rect key="frame" x="43" y="11" width="269" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VYW-4S-y1Z" customClass="AvatarImageView" customModule="Sizung" customModuleProvider="target">
+                        <rect key="frame" x="8" y="8" width="27" height="27"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="VYW-4S-y1Z" secondAttribute="height" multiplier="1:1" id="VCP-em-f6T"/>
+                        </constraints>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="egK-Bv-dna" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="4CT-fK-6zd"/>
                     <constraint firstItem="vIl-uP-NNW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="5QZ-EH-93r"/>
-                    <constraint firstItem="vIl-uP-NNW" firstAttribute="leading" secondItem="egK-Bv-dna" secondAttribute="trailing" constant="8" id="B0N-jf-ulG"/>
-                    <constraint firstAttribute="bottom" secondItem="egK-Bv-dna" secondAttribute="bottom" constant="4" id="D9S-5P-Ob9"/>
-                    <constraint firstItem="egK-Bv-dna" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="4" id="EdG-eM-xuj"/>
+                    <constraint firstItem="VYW-4S-y1Z" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="8KT-Ek-XO3"/>
+                    <constraint firstItem="vIl-uP-NNW" firstAttribute="leading" secondItem="VYW-4S-y1Z" secondAttribute="trailing" constant="8" id="Nyl-om-hku"/>
                     <constraint firstAttribute="bottom" secondItem="vIl-uP-NNW" secondAttribute="bottom" constant="11" id="OVM-Zz-ttb"/>
                     <constraint firstAttribute="trailing" secondItem="vIl-uP-NNW" secondAttribute="trailing" constant="8" id="YQI-t6-soA"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="VYW-4S-y1Z" secondAttribute="bottom" id="qLq-20-mMd"/>
+                    <constraint firstItem="VYW-4S-y1Z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="xRU-qY-O5Y"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="userImage" destination="egK-Bv-dna" id="uWK-4f-He5"/>
+                <outlet property="userImage" destination="VYW-4S-y1Z" id="PR4-8N-j8q"/>
                 <outlet property="usernameLabel" destination="vIl-uP-NNW" id="sCD-gR-jUO"/>
             </connections>
         </tableViewCell>

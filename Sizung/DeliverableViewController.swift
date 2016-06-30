@@ -14,7 +14,7 @@ class DeliverableViewController: UIViewController {
   @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var statusButton: UIButton!
   @IBOutlet weak var backButton: UIButton!
-  @IBOutlet weak var assigneeImageView: UIImageView!
+  @IBOutlet weak var assigneeImageView: AvatarImageView!
   
   var deliverable: Deliverable!
   
@@ -44,16 +44,7 @@ class DeliverableViewController: UIViewController {
         
         storageManager.getUser(self.deliverable.assigneeId)
           .onSuccess { user in
-            let gravatar = Gravatar(emailAddress: user.email, defaultImage: .Identicon)
-            
-            let size = self.assigneeImageView.frame.size
-            
-            self.assigneeImageView.af_setImageWithURL(
-              gravatar.URL(size: size.height),
-              placeholderImage: nil,
-              filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
-              imageTransition: .CrossDissolve(0.2)
-            )
+            self.assigneeImageView.user = user
         }
     }
     

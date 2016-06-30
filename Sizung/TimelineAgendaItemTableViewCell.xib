@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -22,13 +21,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="106"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2AC-Kj-0y3">
-                        <rect key="frame" x="33" y="8" width="30" height="30"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="2AC-Kj-0y3" secondAttribute="height" multiplier="1:1" id="MWQ-Jh-cG4"/>
-                            <constraint firstAttribute="width" constant="30" id="fZI-7u-XO0"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="added a new Priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMX-i8-hMZ">
                         <rect key="frame" x="71" y="8" width="241" height="19"/>
                         <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="13"/>
@@ -60,6 +52,13 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="priority_bg_right" translatesAutoresizingMaskIntoConstraints="NO" id="FBm-af-z3H">
                         <rect key="frame" x="135" y="31" width="17" height="30"/>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ovJ-0g-VRe" customClass="AvatarImageView" customModule="Sizung" customModuleProvider="target">
+                        <rect key="frame" x="33" y="8" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="lTn-ME-a0I"/>
+                            <constraint firstAttribute="height" constant="30" id="yS9-PC-89T"/>
+                        </constraints>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="oMX-i8-hMZ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7Lt-2D-bCh" secondAttribute="trailingMargin" id="0ch-aM-Crv"/>
@@ -67,12 +66,13 @@
                     <constraint firstItem="mQH-e3-644" firstAttribute="top" secondItem="FBm-af-z3H" secondAttribute="bottom" constant="20" id="4IK-OE-jZ5"/>
                     <constraint firstItem="mQH-e3-644" firstAttribute="leading" secondItem="oMX-i8-hMZ" secondAttribute="leading" id="6Xn-8G-EUO"/>
                     <constraint firstItem="mQH-e3-644" firstAttribute="leading" secondItem="7Lt-2D-bCh" secondAttribute="leadingMargin" constant="38" id="781-B3-ERf"/>
+                    <constraint firstItem="oMX-i8-hMZ" firstAttribute="leading" secondItem="ovJ-0g-VRe" secondAttribute="trailing" constant="8" id="9TD-09-YRB"/>
                     <constraint firstItem="4cX-d0-cxu" firstAttribute="leading" secondItem="0Ga-1d-xDl" secondAttribute="trailing" id="ASr-iX-jhL"/>
                     <constraint firstItem="mQH-e3-644" firstAttribute="top" secondItem="FBm-af-z3H" secondAttribute="bottom" constant="20" id="CAx-MM-kQx"/>
-                    <constraint firstItem="2AC-Kj-0y3" firstAttribute="leading" secondItem="7Lt-2D-bCh" secondAttribute="leadingMargin" constant="25" id="D5I-8W-woJ"/>
+                    <constraint firstItem="ovJ-0g-VRe" firstAttribute="top" secondItem="7Lt-2D-bCh" secondAttribute="topMargin" id="Eh0-eB-j7C"/>
+                    <constraint firstItem="ovJ-0g-VRe" firstAttribute="leading" secondItem="7Lt-2D-bCh" secondAttribute="leadingMargin" constant="25" id="Gtn-jY-PAd"/>
                     <constraint firstItem="FwZ-U2-Vnb" firstAttribute="leading" secondItem="0Ga-1d-xDl" secondAttribute="trailing" constant="5" id="Uha-Jg-UOp"/>
                     <constraint firstItem="0Ga-1d-xDl" firstAttribute="top" secondItem="oMX-i8-hMZ" secondAttribute="bottom" constant="4" id="XJP-Kv-0ja"/>
-                    <constraint firstItem="2AC-Kj-0y3" firstAttribute="top" secondItem="7Lt-2D-bCh" secondAttribute="topMargin" id="ZGE-1b-nhB"/>
                     <constraint firstItem="0Ga-1d-xDl" firstAttribute="leading" secondItem="oMX-i8-hMZ" secondAttribute="leading" id="Zb3-rJ-Jql"/>
                     <constraint firstItem="mQH-e3-644" firstAttribute="bottom" secondItem="7Lt-2D-bCh" secondAttribute="bottomMargin" id="bVU-M6-v1u"/>
                     <constraint firstItem="FwZ-U2-Vnb" firstAttribute="trailing" secondItem="4cX-d0-cxu" secondAttribute="trailing" id="gGA-BA-X1i"/>
@@ -83,7 +83,6 @@
                     <constraint firstItem="oMX-i8-hMZ" firstAttribute="top" secondItem="7Lt-2D-bCh" secondAttribute="topMargin" id="kW8-Oi-2en"/>
                     <constraint firstItem="mQH-e3-644" firstAttribute="trailing" secondItem="7Lt-2D-bCh" secondAttribute="trailingMargin" id="pBP-o1-AT9"/>
                     <constraint firstItem="FwZ-U2-Vnb" firstAttribute="top" secondItem="oMX-i8-hMZ" secondAttribute="bottom" constant="8" id="tmt-YR-QAz"/>
-                    <constraint firstItem="oMX-i8-hMZ" firstAttribute="leading" secondItem="2AC-Kj-0y3" secondAttribute="trailing" constant="8" id="ytC-X4-f1P"/>
                     <constraint firstItem="FwZ-U2-Vnb" firstAttribute="centerY" secondItem="0Ga-1d-xDl" secondAttribute="centerY" constant="-1" id="zxq-kE-aBa"/>
                 </constraints>
                 <variation key="default">
@@ -97,7 +96,7 @@
                 </variation>
             </tableViewCellContentView>
             <connections>
-                <outlet property="authorImage" destination="2AC-Kj-0y3" id="gWA-WL-EJm"/>
+                <outlet property="authorImage" destination="ovJ-0g-VRe" id="vy4-CD-lPl"/>
                 <outlet property="dateLabel" destination="mQH-e3-644" id="VR3-W7-4P9"/>
                 <outlet property="titleLabel" destination="FwZ-U2-Vnb" id="0us-rT-I4B"/>
             </connections>

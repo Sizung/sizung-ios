@@ -11,7 +11,7 @@ import AlamofireImage
 
 class TimelineAgendaItemTableViewCell: UITableViewCell {
 
-  @IBOutlet weak var authorImage: UIImageView!
+  @IBOutlet weak var authorImage: AvatarImageView!
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var dateLabel: UILabel!
   
@@ -21,17 +21,6 @@ class TimelineAgendaItemTableViewCell: UITableViewCell {
   
   // MARK: - Lifecycle Methods
   
-  func configureCellWithURLString(URLString: String, placeholderImage: UIImage? = nil) {
-    let size = authorImage.frame.size
-    
-    authorImage.af_setImageWithURL(
-      NSURL(string: URLString)!,
-      placeholderImage: placeholderImage,
-      filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
-      imageTransition: .CrossDissolve(0.2)
-    )
-  }
-  
   override func prepareForReuse() {
     super.prepareForReuse()
     
@@ -39,8 +28,6 @@ class TimelineAgendaItemTableViewCell: UITableViewCell {
       return
     }
     
-    authorImage.af_cancelImageRequest()
-    authorImage.layer.removeAllAnimations()
-    authorImage.image = nil
+    authorImage.user = nil
   }
 }

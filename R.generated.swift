@@ -134,7 +134,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 11 images.
+  /// This `R.image` struct is generated, and contains static references to 12 images.
   struct image {
     /// Image `action_bg_left`.
     static let action_bg_left = ImageResource(bundle: _R.hostingBundle, name: "action_bg_left")
@@ -144,6 +144,8 @@ struct R: Rswift.Validatable {
     static let action_bg_right = ImageResource(bundle: _R.hostingBundle, name: "action_bg_right")
     /// Image `close`.
     static let close = ImageResource(bundle: _R.hostingBundle, name: "close")
+    /// Image `default_avatar`.
+    static let default_avatar = ImageResource(bundle: _R.hostingBundle, name: "default_avatar")
     /// Image `groups`.
     static let groups = ImageResource(bundle: _R.hostingBundle, name: "groups")
     /// Image `logo`.
@@ -177,6 +179,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "close", bundle: ..., traitCollection: ...)`
     static func close(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.close, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "default_avatar", bundle: ..., traitCollection: ...)`
+    static func default_avatar(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.default_avatar, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "groups", bundle: ..., traitCollection: ...)`

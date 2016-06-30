@@ -66,11 +66,10 @@ class ConversationsTableViewController: UITableViewController {
             
             let imageWidth = cell.activeImageViewsContainerView.frame.height
             
-            let gravatar = Gravatar(emailAddress: user.email, defaultImage: .Identicon)
-            let imageView = UIImageView()
+            let imageView = AvatarImageView()
             imageView.frame = CGRect(x: currentPos, y: 0, width: imageWidth, height: imageWidth)
             cell.activeImageViewsContainerView.addSubview(imageView)
-            cell.configureImageViewWithURLString(imageView, URLString: gravatar.URL(size: cell.bounds.width).URLString)
+            imageView.user = user
             
             currentPos += imageWidth
           }
