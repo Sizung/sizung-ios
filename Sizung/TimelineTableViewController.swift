@@ -506,13 +506,11 @@ extension TimelineTableViewController {
     cell.dateLabel.text = deliverable.created_at?.timeAgoSinceNow()
     
     if let author = storageManager.users[deliverable.ownerId] {
-      let authorGravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
-      cell.configureAuthorImageWithURLString(authorGravatar.URL(size: cell.bounds.width).URLString)
+      cell.authorImage.user = author
     }
     
     if let assignee = storageManager.users[deliverable.assigneeId] {
-      let assigneeGravatar = Gravatar(emailAddress: assignee.email, defaultImage: .Identicon)
-      cell.configureAssigneeImageWithURLString(assigneeGravatar.URL(size: cell.bounds.width).URLString)
+      cell.assigneeImage.user = assignee
     }
     
     return cell
