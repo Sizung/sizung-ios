@@ -537,8 +537,7 @@ extension TimelineTableViewController {
     cell.datetimeLabel.text = comment.created_at?.timeAgoSinceNow()
     
     if let author = storageManager.users[comment.authorId] {
-      let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
-      cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+      cell.authorImage.user = author
     }
     
     //    if cell.gestureRecognizers?.count == nil {

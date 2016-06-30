@@ -10,7 +10,7 @@ import AlamofireImage
 import UIKit
 
 class CommentTableViewCell: UITableViewCell {
-  @IBOutlet weak var authorImage: UIImageView!
+  @IBOutlet weak var authorImage: AvatarImageView!
   @IBOutlet weak var bodyLabel: UILabel!
   @IBOutlet weak var datetimeLabel: UILabel!
   
@@ -18,18 +18,6 @@ class CommentTableViewCell: UITableViewCell {
   
   class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
   
-  // MARK: - Lifecycle Methods
-  
-  func configureCellWithURLString(URLString: String, placeholderImage: UIImage? = nil) {
-    let size = authorImage.frame.size
-    
-    authorImage.af_setImageWithURL(
-      NSURL(string: URLString)!,
-      placeholderImage: placeholderImage,
-      filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
-      imageTransition: .CrossDissolve(0.2)
-    )
-  }
   
   override func prepareForReuse() {
     super.prepareForReuse()
@@ -37,9 +25,6 @@ class CommentTableViewCell: UITableViewCell {
     guard authorImage != nil else {
       return
     }
-    
-    authorImage.af_cancelImageRequest()
-    authorImage.layer.removeAllAnimations()
-    authorImage.image = nil
+    authorImage.user = nil
   }
 }
