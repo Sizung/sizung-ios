@@ -523,8 +523,7 @@ extension TimelineTableViewController {
     cell.dateLabel.text = agendaItem.created_at?.timeAgoSinceNow()
     
     if let author = storageManager.users[agendaItem.ownerId]{
-      let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
-      cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+      cell.authorImage.user = author
     }
     
     return cell
