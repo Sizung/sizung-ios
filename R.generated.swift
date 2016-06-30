@@ -348,7 +348,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.segue` struct is generated, and contains static references to 5 view controllers.
+  /// This `R.segue` struct is generated, and contains static references to 4 view controllers.
   struct segue {
     /// This struct is generated for `AgendaItemViewController`, and contains static references to 1 segues.
     struct agendaItemViewController {
@@ -375,21 +375,6 @@ struct R: Rswift.Validatable {
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
       static func embed(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, ConversationViewController, MainPageViewController>? {
         return TypedStoryboardSegueInfo(segueIdentifier: R.segue.conversationViewController.embed, segue: segue)
-      }
-      
-      private init() {}
-    }
-    
-    /// This struct is generated for `ConversationsTableViewController`, and contains static references to 1 segues.
-    struct conversationsTableViewController {
-      /// Segue identifier `showConversation`.
-      static let showConversation: StoryboardSegueIdentifier<UIStoryboardSegue, ConversationsTableViewController, ConversationViewController> = StoryboardSegueIdentifier(identifier: "showConversation")
-      
-      /// Optionally returns a typed version of segue `showConversation`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func showConversation(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, ConversationsTableViewController, ConversationViewController>? {
-        return TypedStoryboardSegueInfo(segueIdentifier: R.segue.conversationsTableViewController.showConversation, segue: segue)
       }
       
       private init() {}

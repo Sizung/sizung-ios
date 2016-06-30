@@ -91,11 +91,6 @@
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="GyN-kU-b5m">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
-                    <connections>
-                        <segue destination="5cy-e1-rho" kind="show" identifier="showConversation" id="bFW-Q0-NQ5">
-                            <nil key="action"/>
-                        </segue>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iyy-dy-QUv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -118,11 +113,11 @@
                         <viewControllerLayoutGuide type="bottom" id="t6g-lJ-FEA"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="C6j-TQ-k5y">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="532"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7o-Ag-7yC">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDU-Hc-gUX">
                                         <rect key="frame" x="20" y="12" width="30" height="37"/>
@@ -160,13 +155,13 @@
                                 </variation>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TB0-zF-qAL">
-                                <rect key="frame" x="0.0" y="115" width="600" height="417"/>
+                                <rect key="frame" x="0.0" y="135" width="600" height="465"/>
                                 <connections>
                                     <segue destination="Ha3-re-njZ" kind="embed" identifier="embed" id="JIf-fK-bgh"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AcP-EV-3zR">
-                                <rect key="frame" x="0.0" y="60" width="600" height="55"/>
+                                <rect key="frame" x="0.0" y="80" width="600" height="55"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QLa-5u-Uwr" customClass="SizungSegmentedControl" customModule="Sizung" customModuleProvider="target">
                                         <rect key="frame" x="20" y="15" width="560" height="25"/>
@@ -193,7 +188,7 @@
                         <color key="backgroundColor" red="0.10196078568696976" green="0.11372549086809158" blue="0.14117647707462311" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="t6g-lJ-FEA" firstAttribute="top" secondItem="TB0-zF-qAL" secondAttribute="bottom" id="2Lq-Xr-6qh"/>
-                            <constraint firstItem="TB0-zF-qAL" firstAttribute="leading" secondItem="C6j-TQ-k5y" secondAttribute="leadingMargin" constant="-20" id="5QF-16-wXC"/>
+                            <constraint firstItem="TB0-zF-qAL" firstAttribute="leading" secondItem="C6j-TQ-k5y" secondAttribute="leading" id="5QF-16-wXC"/>
                             <constraint firstItem="C7o-Ag-7yC" firstAttribute="top" secondItem="PpM-yN-Gfn" secondAttribute="bottom" id="8ew-PB-CCf"/>
                             <constraint firstItem="C7o-Ag-7yC" firstAttribute="leading" secondItem="C6j-TQ-k5y" secondAttribute="leadingMargin" constant="-20" id="AYm-P8-IaR"/>
                             <constraint firstItem="AcP-EV-3zR" firstAttribute="top" secondItem="C7o-Ag-7yC" secondAttribute="bottom" id="AiS-KP-EUb"/>
@@ -201,7 +196,7 @@
                             <constraint firstItem="AcP-EV-3zR" firstAttribute="leading" secondItem="C6j-TQ-k5y" secondAttribute="leadingMargin" constant="-20" id="Lqp-1I-Bbd"/>
                             <constraint firstItem="TB0-zF-qAL" firstAttribute="top" secondItem="AcP-EV-3zR" secondAttribute="bottom" id="RbQ-cx-jfv"/>
                             <constraint firstAttribute="trailingMargin" secondItem="AcP-EV-3zR" secondAttribute="trailing" constant="-20" id="clu-ub-lRd"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="TB0-zF-qAL" secondAttribute="trailing" constant="-20" id="h4z-II-ESV"/>
+                            <constraint firstAttribute="trailing" secondItem="TB0-zF-qAL" secondAttribute="trailing" id="h4z-II-ESV"/>
                             <constraint firstItem="TB0-zF-qAL" firstAttribute="top" secondItem="AcP-EV-3zR" secondAttribute="bottom" id="n2f-So-yg5"/>
                             <constraint firstItem="C7o-Ag-7yC" firstAttribute="top" secondItem="PpM-yN-Gfn" secondAttribute="bottom" id="yjY-cF-PMK"/>
                         </constraints>

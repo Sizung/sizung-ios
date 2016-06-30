@@ -102,8 +102,12 @@ class ConversationsTableViewController: UITableViewController {
   // MARK: - Navigation
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let cell = tableView.cellForRowAtIndexPath(indexPath)
-    self.performSegueWithIdentifier("showConversation", sender: cell)
+    let conversationViewController = R.storyboard.conversations.conversationViewController()!
+    let selectedConversation = sortedCollection[indexPath.row]
+    conversationViewController.conversation = selectedConversation
+    
+    self.showViewController(conversationViewController, sender: self)
+    
   }
   
   // In a storyboard-based application, you will often want to do a little preparation before navigation
