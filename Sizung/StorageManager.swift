@@ -79,7 +79,9 @@ class StorageManager {
               organizationStorageManager.conversations.insertOrUpdate(organizationResponse.conversationsResponse.conversations)
               organizationStorageManager.agendaItems.insertOrUpdate(organizationResponse.agendaItemsResponse.agendaItems)
               
-              organizationStorageManager.deliverables.insertOrUpdate(organizationResponse.organizationDeliverablesResponse.deliverables)
+              let deliverables = organizationResponse.deliverablesResponse.deliverables + organizationResponse.conversationDeliverablesResponse.deliverables
+              
+              organizationStorageManager.deliverables.insertOrUpdate(deliverables)
               
               for include in organizationResponse.included {
                 switch include {
@@ -444,7 +446,7 @@ class OrganizationStorageManager {
           if let organizationResponse = Mapper<OrganizationResponse>().map(JSON) {
             dispatch_async(dispatch_get_main_queue()) {
               
-              let newDeliverables = organizationResponse.organizationDeliverablesResponse.deliverables
+              let newDeliverables = organizationResponse.deliverablesResponse.deliverables + organizationResponse.conversationDeliverablesResponse.deliverables
               
               self.deliverables.insertOrUpdate(newDeliverables)
               
