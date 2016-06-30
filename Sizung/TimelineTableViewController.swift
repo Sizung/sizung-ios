@@ -563,8 +563,7 @@ extension TimelineTableViewController {
     
     cell.usernameLabel.text = user.name
     
-    let gravatar = Gravatar(emailAddress: user.email, defaultImage: .Identicon)
-    cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+    cell.userImage.user = user
     
     return cell
   }
