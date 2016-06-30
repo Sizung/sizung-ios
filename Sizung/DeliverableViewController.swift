@@ -73,4 +73,9 @@ class DeliverableViewController: UIViewController {
       timelineTableViewController.timelineParent = deliverable
     }
   }
+  
+  // show previous view controller
+  @IBAction func back(sender: AnyObject) {
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
 }

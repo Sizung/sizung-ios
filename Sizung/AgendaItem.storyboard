@@ -67,6 +67,9 @@
                                         <state key="normal" title="back">
                                             <color key="titleColor" red="0.0" green="0.31764705879999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="back:" destination="GPy-5R-nwL" eventType="touchUpInside" id="LSR-AZ-d48"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg1-da-c05">
                                         <rect key="frame" x="551" y="10" width="40" height="30"/>

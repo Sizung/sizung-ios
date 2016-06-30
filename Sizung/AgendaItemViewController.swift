@@ -46,4 +46,8 @@ class AgendaItemViewController: UIViewController {
       timelineTableViewController.timelineParent = agendaItem
     }
   }
+  
+  @IBAction func back(sender: AnyObject) {
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
 }
