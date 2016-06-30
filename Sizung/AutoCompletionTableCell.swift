@@ -11,7 +11,7 @@ import AlamofireImage
 
 class AutoCompletionTableCell: UITableViewCell {
 
-  @IBOutlet weak var userImage: UIImageView!
+  @IBOutlet weak var userImage: AvatarImageView!
   @IBOutlet weak var usernameLabel: UILabel!
   
   static let kMinimumHeight: CGFloat = 43
@@ -20,17 +20,6 @@ class AutoCompletionTableCell: UITableViewCell {
   
   // MARK: - Lifecycle Methods
   
-  func configureCellWithURLString(URLString: String, placeholderImage: UIImage? = nil) {
-    let size = userImage.frame.size
-    
-    userImage.af_setImageWithURL(
-      NSURL(string: URLString)!,
-      placeholderImage: placeholderImage,
-      filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
-      imageTransition: .CrossDissolve(0.2)
-    )
-  }
-  
   override func prepareForReuse() {
     super.prepareForReuse()
     
@@ -38,9 +27,7 @@ class AutoCompletionTableCell: UITableViewCell {
       return
     }
     
-    userImage.af_cancelImageRequest()
-    userImage.layer.removeAllAnimations()
-    userImage.image = nil
+    userImage.user = nil
   }
   
 }

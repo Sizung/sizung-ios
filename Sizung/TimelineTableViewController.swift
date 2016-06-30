@@ -506,13 +506,11 @@ extension TimelineTableViewController {
     cell.dateLabel.text = deliverable.created_at?.timeAgoSinceNow()
     
     if let author = storageManager.users[deliverable.ownerId] {
-      let authorGravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
-      cell.configureAuthorImageWithURLString(authorGravatar.URL(size: cell.bounds.width).URLString)
+      cell.authorImage.user = author
     }
     
     if let assignee = storageManager.users[deliverable.assigneeId] {
-      let assigneeGravatar = Gravatar(emailAddress: assignee.email, defaultImage: .Identicon)
-      cell.configureAssigneeImageWithURLString(assigneeGravatar.URL(size: cell.bounds.width).URLString)
+      cell.assigneeImage.user = assignee
     }
     
     return cell
@@ -525,8 +523,7 @@ extension TimelineTableViewController {
     cell.dateLabel.text = agendaItem.created_at?.timeAgoSinceNow()
     
     if let author = storageManager.users[agendaItem.ownerId]{
-      let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
-      cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+      cell.authorImage.user = author
     }
     
     return cell
@@ -540,8 +537,7 @@ extension TimelineTableViewController {
     cell.datetimeLabel.text = comment.created_at?.timeAgoSinceNow()
     
     if let author = storageManager.users[comment.authorId] {
-      let gravatar = Gravatar(emailAddress: author.email, defaultImage: .Identicon)
-      cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+      cell.authorImage.user = author
     }
     
     //    if cell.gestureRecognizers?.count == nil {
@@ -567,8 +563,7 @@ extension TimelineTableViewController {
     
     cell.usernameLabel.text = user.name
     
-    let gravatar = Gravatar(emailAddress: user.email, defaultImage: .Identicon)
-    cell.configureCellWithURLString(gravatar.URL(size: cell.bounds.width).URLString)
+    cell.userImage.user = user
     
     return cell
   }

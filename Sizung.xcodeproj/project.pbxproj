@@ -41,6 +41,7 @@
 		5A86B12E1CE5CF19001C2E7A /* AlamofireManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B12D1CE5CF19001C2E7A /* AlamofireManagerExtension.swift */; };
 		5A86B1311CE5D035001C2E7A /* SizungHttpRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B1301CE5D035001C2E7A /* SizungHttpRouter.swift */; };
 		5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B13A1CE60634001C2E7A /* Organization.swift */; };
+		5A8C4B491D242BA0004EA24D /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8C4B481D242BA0004EA24D /* AvatarImageView.swift */; };
 		5A8F79071CFF0E6B00953495 /* AgendaItemsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F79061CFF0E6B00953495 /* AgendaItemsResponse.swift */; };
 		5A8F79091CFF14BF00953495 /* DeliverablesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8F79081CFF14BF00953495 /* DeliverablesResponse.swift */; };
 		5A99BFD51D1BDD8800BA5647 /* Brandon_reg.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EF21D12066E00037589 /* Brandon_reg.otf */; };
@@ -173,6 +174,7 @@
 		5A86B1301CE5D035001C2E7A /* SizungHttpRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungHttpRouter.swift; sourceTree = "<group>"; };
 		5A86B1321CE5E2FC001C2E7A /* Sizung-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sizung-Bridging-Header.h"; sourceTree = "<group>"; };
 		5A86B13A1CE60634001C2E7A /* Organization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
+		5A8C4B481D242BA0004EA24D /* AvatarImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		5A8F79061CFF0E6B00953495 /* AgendaItemsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemsResponse.swift; sourceTree = "<group>"; };
 		5A8F79081CFF14BF00953495 /* DeliverablesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverablesResponse.swift; sourceTree = "<group>"; };
 		5A9D0EDB1D11998D00037589 /* Organizations.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Organizations.storyboard; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 				5A7329EF1D05877D006531A5 /* CardView.swift */,
 				5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */,
 				5AE24D0F1D22540F00FB691B /* LoadingScreen.xib */,
+				5A8C4B481D242BA0004EA24D /* AvatarImageView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -985,6 +988,7 @@
 				5AE24D121D22571300FB691B /* Error.swift in Sources */,
 				5A9EDEB81D01BB5C00D389EC /* SizungSegmentedControl.swift in Sources */,
 				5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */,
+				5A8C4B491D242BA0004EA24D /* AvatarImageView.swift in Sources */,
 				5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */,
 				5A304B3D1D1843DE009CBBAD /* UnseenObjectsResponse.swift in Sources */,
 				5AC0E5E61CF2F5C200BBEF45 /* TimelineTableViewController.swift in Sources */,
