@@ -9,6 +9,7 @@
 import UIKit
 import SwiftKeychainWrapper
 import Sheriff
+import KCFloatingActionButton
 
 class OrganizationViewController: UIViewController, MainPageViewControllerDelegate {
   
@@ -17,6 +18,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
   
   @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var groupsButton: UIButton!
+  @IBOutlet weak var floatingActionButton: KCFloatingActionButton!
   
   var groupsBadgeView = GIBadgeView()
   
@@ -43,6 +45,37 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     segmentedControl.items = ["PRIORITY", "STREAM", "ACTION"]
     segmentedControl.thumbColors = [Color.TODISCUSS, Color.STREAM, Color.TODO]
     segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged);
+    
+    self.initFloatingActionButton()
+  }
+  
+  func initFloatingActionButton(){
+    
+    let priorityItem = KCFloatingActionButtonItem()
+    priorityItem.buttonColor = Color.TODISCUSS
+    priorityItem.title = "PRIORITY"
+    priorityItem.icon = R.image.priority()
+    priorityItem.handler = addItem
+    self.floatingActionButton.addItem(item: priorityItem)
+    
+    let groupItem = KCFloatingActionButtonItem()
+    groupItem.buttonColor = Color.STREAM
+    groupItem.title = "GROUP"
+    priorityItem.icon = R.image.group()
+    groupItem.handler = addItem
+    self.floatingActionButton.addItem(item: groupItem)
+    
+    let deliverableItem = KCFloatingActionButtonItem()
+    deliverableItem.buttonColor = Color.TODO
+    deliverableItem.title = "TASK"
+    priorityItem.icon = R.image.action()
+    deliverableItem.handler = addItem
+    self.floatingActionButton.addItem(item: deliverableItem)
+    
+  }
+  
+  func addItem(buttonItem: KCFloatingActionButtonItem){
+    print("add \(buttonItem.title)")
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -54,7 +87,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
         })
         self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
     }
-
+    
   }
   
   func calculateUnseenConversations() -> Int {

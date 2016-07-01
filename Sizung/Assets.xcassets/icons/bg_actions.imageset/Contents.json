@@ -5,8 +5,19 @@
       "scale" : "1x"
     },
     {
+      "resizing" : {
+        "mode" : "3-part-horizontal",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1
+        },
+        "cap-insets" : {
+          "right" : 30,
+          "left" : 60
+        }
+      },
       "idiom" : "universal",
-      "filename" : "close.pdf",
+      "filename" : "bg_actions.pdf",
       "scale" : "2x"
     },
     {

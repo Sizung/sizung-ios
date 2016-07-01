@@ -12,7 +12,7 @@ import AlamofireImage
 class TimelineAgendaItemTableViewCell: UITableViewCell {
 
   @IBOutlet weak var authorImage: AvatarImageView!
-  @IBOutlet weak var titleLabel: UILabel!
+  @IBOutlet weak var titleLabel: UIButton!
   @IBOutlet weak var dateLabel: UILabel!
   
   static let kHeight:CGFloat = 107

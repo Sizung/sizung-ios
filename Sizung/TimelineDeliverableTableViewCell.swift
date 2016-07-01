@@ -13,7 +13,7 @@ class TimelineDeliverableTableViewCell: UITableViewCell {
 
   @IBOutlet weak var authorImage: AvatarImageView!
   @IBOutlet weak var assigneeImage: AvatarImageView!
-  @IBOutlet weak var titleLabel: UILabel!
+  @IBOutlet weak var titleLabel: UIButton!
   @IBOutlet weak var dueDateLabel: UILabel!
   @IBOutlet weak var dateLabel: UILabel!
   
