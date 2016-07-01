@@ -61,7 +61,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     let groupItem = KCFloatingActionButtonItem()
     groupItem.buttonColor = Color.STREAM
     groupItem.title = "GROUP"
-    priorityItem.icon = R.image.groups()
+    priorityItem.icon = R.image.group()
     groupItem.handler = addItem
     self.floatingActionButton.addItem(item: groupItem)
     

@@ -134,32 +134,34 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 13 images.
+  /// This `R.image` struct is generated, and contains static references to 14 images.
   struct image {
     /// Image `action`.
     static let action = ImageResource(bundle: _R.hostingBundle, name: "action")
-    /// Image `action_bg_left`.
-    static let action_bg_left = ImageResource(bundle: _R.hostingBundle, name: "action_bg_left")
-    /// Image `action_bg_middle`.
-    static let action_bg_middle = ImageResource(bundle: _R.hostingBundle, name: "action_bg_middle")
-    /// Image `action_bg_right`.
-    static let action_bg_right = ImageResource(bundle: _R.hostingBundle, name: "action_bg_right")
+    /// Image `actions_filter_all`.
+    static let actions_filter_all = ImageResource(bundle: _R.hostingBundle, name: "actions_filter_all")
+    /// Image `actions_filter_mine`.
+    static let actions_filter_mine = ImageResource(bundle: _R.hostingBundle, name: "actions_filter_mine")
+    /// Image `bg_actions`.
+    static let bg_actions = ImageResource(bundle: _R.hostingBundle, name: "bg_actions")
+    /// Image `bg_priorities`.
+    static let bg_priorities = ImageResource(bundle: _R.hostingBundle, name: "bg_priorities")
     /// Image `close`.
     static let close = ImageResource(bundle: _R.hostingBundle, name: "close")
     /// Image `default_avatar`.
     static let default_avatar = ImageResource(bundle: _R.hostingBundle, name: "default_avatar")
-    /// Image `groups`.
-    static let groups = ImageResource(bundle: _R.hostingBundle, name: "groups")
+    /// Image `group`.
+    static let group = ImageResource(bundle: _R.hostingBundle, name: "group")
+    /// Image `group_list`.
+    static let group_list = ImageResource(bundle: _R.hostingBundle, name: "group_list")
     /// Image `logo`.
     static let logo = ImageResource(bundle: _R.hostingBundle, name: "logo")
+    /// Image `priorities_filter_all`.
+    static let priorities_filter_all = ImageResource(bundle: _R.hostingBundle, name: "priorities_filter_all")
+    /// Image `priorities_filter_mine`.
+    static let priorities_filter_mine = ImageResource(bundle: _R.hostingBundle, name: "priorities_filter_mine")
     /// Image `priority`.
     static let priority = ImageResource(bundle: _R.hostingBundle, name: "priority")
-    /// Image `priority_bg_left`.
-    static let priority_bg_left = ImageResource(bundle: _R.hostingBundle, name: "priority_bg_left")
-    /// Image `priority_bg_middle`.
-    static let priority_bg_middle = ImageResource(bundle: _R.hostingBundle, name: "priority_bg_middle")
-    /// Image `priority_bg_right`.
-    static let priority_bg_right = ImageResource(bundle: _R.hostingBundle, name: "priority_bg_right")
     /// Image `search`.
     static let search = ImageResource(bundle: _R.hostingBundle, name: "search")
     
@@ -168,19 +170,24 @@ struct R: Rswift.Validatable {
       return UIImage(resource: R.image.action, compatibleWithTraitCollection: traitCollection)
     }
     
-    /// `UIImage(named: "action_bg_left", bundle: ..., traitCollection: ...)`
-    static func action_bg_left(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
-      return UIImage(resource: R.image.action_bg_left, compatibleWithTraitCollection: traitCollection)
+    /// `UIImage(named: "actions_filter_all", bundle: ..., traitCollection: ...)`
+    static func actions_filter_all(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.actions_filter_all, compatibleWithTraitCollection: traitCollection)
     }
     
-    /// `UIImage(named: "action_bg_middle", bundle: ..., traitCollection: ...)`
-    static func action_bg_middle(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
-      return UIImage(resource: R.image.action_bg_middle, compatibleWithTraitCollection: traitCollection)
+    /// `UIImage(named: "actions_filter_mine", bundle: ..., traitCollection: ...)`
+    static func actions_filter_mine(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.actions_filter_mine, compatibleWithTraitCollection: traitCollection)
     }
     
-    /// `UIImage(named: "action_bg_right", bundle: ..., traitCollection: ...)`
-    static func action_bg_right(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
-      return UIImage(resource: R.image.action_bg_right, compatibleWithTraitCollection: traitCollection)
+    /// `UIImage(named: "bg_actions", bundle: ..., traitCollection: ...)`
+    static func bg_actions(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.bg_actions, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "bg_priorities", bundle: ..., traitCollection: ...)`
+    static func bg_priorities(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.bg_priorities, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "close", bundle: ..., traitCollection: ...)`
@@ -193,9 +200,14 @@ struct R: Rswift.Validatable {
       return UIImage(resource: R.image.default_avatar, compatibleWithTraitCollection: traitCollection)
     }
     
-    /// `UIImage(named: "groups", bundle: ..., traitCollection: ...)`
-    static func groups(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
-      return UIImage(resource: R.image.groups, compatibleWithTraitCollection: traitCollection)
+    /// `UIImage(named: "group", bundle: ..., traitCollection: ...)`
+    static func group(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.group, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "group_list", bundle: ..., traitCollection: ...)`
+    static func group_list(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.group_list, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "logo", bundle: ..., traitCollection: ...)`
@@ -203,24 +215,19 @@ struct R: Rswift.Validatable {
       return UIImage(resource: R.image.logo, compatibleWithTraitCollection: traitCollection)
     }
     
+    /// `UIImage(named: "priorities_filter_all", bundle: ..., traitCollection: ...)`
+    static func priorities_filter_all(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.priorities_filter_all, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "priorities_filter_mine", bundle: ..., traitCollection: ...)`
+    static func priorities_filter_mine(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.priorities_filter_mine, compatibleWithTraitCollection: traitCollection)
+    }
+    
     /// `UIImage(named: "priority", bundle: ..., traitCollection: ...)`
     static func priority(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.priority, compatibleWithTraitCollection: traitCollection)
-    }
-    
-    /// `UIImage(named: "priority_bg_left", bundle: ..., traitCollection: ...)`
-    static func priority_bg_left(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
-      return UIImage(resource: R.image.priority_bg_left, compatibleWithTraitCollection: traitCollection)
-    }
-    
-    /// `UIImage(named: "priority_bg_middle", bundle: ..., traitCollection: ...)`
-    static func priority_bg_middle(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
-      return UIImage(resource: R.image.priority_bg_middle, compatibleWithTraitCollection: traitCollection)
-    }
-    
-    /// `UIImage(named: "priority_bg_right", bundle: ..., traitCollection: ...)`
-    static func priority_bg_right(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
-      return UIImage(resource: R.image.priority_bg_right, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "search", bundle: ..., traitCollection: ...)`
@@ -802,7 +809,7 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
-        if UIImage(named: "groups") == nil { throw ValidationError(description: "[R.swift] Image named 'groups' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIImage(named: "group_list") == nil { throw ValidationError(description: "[R.swift] Image named 'group_list' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIImage(named: "priority") == nil { throw ValidationError(description: "[R.swift] Image named 'priority' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIImage(named: "search") == nil { throw ValidationError(description: "[R.swift] Image named 'search' is used in storyboard 'Main', but couldn't be loaded.") }

@@ -170,7 +170,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ExN-PN-ATf">
-                                <rect key="frame" x="543" y="40" width="17" height="22"/>
+                                <rect key="frame" x="528" y="40" width="32" height="32"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="close"/>
                                 <connections>
@@ -217,14 +217,14 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEE-d2-7Nm">
-                                        <rect key="frame" x="516" y="7" width="20" height="22"/>
+                                        <rect key="frame" x="474" y="-2" width="40" height="40"/>
                                         <state key="normal" image="search">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8D-8A-foB">
-                                        <rect key="frame" x="556" y="7" width="24" height="22"/>
-                                        <state key="normal" image="groups">
+                                        <rect key="frame" x="534" y="3" width="46" height="31"/>
+                                        <state key="normal" image="group_list">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -476,9 +476,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="close" width="17" height="17"/>
-        <image name="groups" width="24" height="16"/>
-        <image name="priority" width="15" height="10"/>
-        <image name="search" width="20" height="21"/>
+        <image name="close" width="32" height="32"/>
+        <image name="group_list" width="46" height="31"/>
+        <image name="priority" width="30" height="20"/>
+        <image name="search" width="40" height="40"/>
     </resources>
 </document>
