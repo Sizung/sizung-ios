@@ -36,9 +36,8 @@
                             </mask>
                         </variation>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="priority" translatesAutoresizingMaskIntoConstraints="NO" id="tNm-Vk-XoJ">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="priority_color" translatesAutoresizingMaskIntoConstraints="NO" id="tNm-Vk-XoJ">
                         <rect key="frame" x="13" y="14" width="15" height="10"/>
-                        <color key="tintColor" red="0.0" green="0.31764705879999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="EV2-mi-HC5"/>
                             <constraint firstAttribute="width" constant="15" id="Mco-G7-3bH"/>
@@ -94,6 +93,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="priority" width="30" height="20"/>
+        <image name="priority_color" width="30" height="20"/>
     </resources>
 </document>

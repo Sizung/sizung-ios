@@ -134,7 +134,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 14 images.
+  /// This `R.image` struct is generated, and contains static references to 15 images.
   struct image {
     /// Image `action`.
     static let action = ImageResource(bundle: _R.hostingBundle, name: "action")
@@ -162,6 +162,8 @@ struct R: Rswift.Validatable {
     static let priorities_filter_mine = ImageResource(bundle: _R.hostingBundle, name: "priorities_filter_mine")
     /// Image `priority`.
     static let priority = ImageResource(bundle: _R.hostingBundle, name: "priority")
+    /// Image `priority_color`.
+    static let priority_color = ImageResource(bundle: _R.hostingBundle, name: "priority_color")
     /// Image `search`.
     static let search = ImageResource(bundle: _R.hostingBundle, name: "search")
     
@@ -228,6 +230,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "priority", bundle: ..., traitCollection: ...)`
     static func priority(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.priority, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "priority_color", bundle: ..., traitCollection: ...)`
+    static func priority_color(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.priority_color, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "search", bundle: ..., traitCollection: ...)`
