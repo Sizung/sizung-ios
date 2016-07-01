@@ -232,12 +232,14 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 12 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 13 nibs.
   struct nib {
     /// Nib `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell = _R.nib._AgendaItemTableViewCell()
     /// Nib `AutoCompletionTableCell`.
     static let autoCompletionTableCell = _R.nib._AutoCompletionTableCell()
+    /// Nib `CalendarViewController`.
+    static let calendarViewController = _R.nib._CalendarViewController()
     /// Nib `CommentTableViewCell`.
     static let commentTableViewCell = _R.nib._CommentTableViewCell()
     /// Nib `ConversationTableViewCell`.
@@ -267,6 +269,11 @@ struct R: Rswift.Validatable {
     /// `UINib(name: "AutoCompletionTableCell", bundle: ...)`
     static func autoCompletionTableCell(_: Void) -> UINib {
       return UINib(resource: R.nib.autoCompletionTableCell)
+    }
+    
+    /// `UINib(name: "CalendarViewController", bundle: ...)`
+    static func calendarViewController(_: Void) -> UINib {
+      return UINib(resource: R.nib.calendarViewController)
     }
     
     /// `UINib(name: "CommentTableViewCell", bundle: ...)`
@@ -513,6 +520,17 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
+    struct _CalendarViewController: NibResourceType {
+      let bundle = _R.hostingBundle
+      let name = "CalendarViewController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> CalendarViewController? {
+        return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? CalendarViewController
+      }
+      
+      private init() {}
+    }
+    
     struct _CommentTableViewCell: NibResourceType, ReuseIdentifierType {
       typealias ReusableType = CommentTableViewCell
       
@@ -718,16 +736,10 @@ struct _R: Rswift.Validatable {
       typealias InitialController = DeliverableViewController
       
       let bundle = _R.hostingBundle
-      let calendarController = StoryboardViewControllerResource<CalendarViewController>(identifier: "CalendarController")
       let name = "Deliverable"
-      
-      func calendarController(_: Void) -> CalendarViewController? {
-        return UIStoryboard(resource: self).instantiateViewController(calendarController)
-      }
       
       static func validate() throws {
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Deliverable', but couldn't be loaded.") }
-        if _R.storyboard.deliverable().calendarController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'calendarController' could not be loaded from storyboard 'Deliverable' as 'CalendarViewController'.") }
       }
       
       private init() {}

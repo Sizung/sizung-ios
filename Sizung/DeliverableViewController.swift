@@ -82,7 +82,7 @@ class DeliverableViewController: UIViewController, UIPopoverPresentationControll
     
     if !deliverable.isCompleted() {
       
-      let optionMenu = UIAlertController(title: nil, message: "Edit Deliverable", preferredStyle: .ActionSheet)
+      let optionMenu = UIAlertController(title: nil, message: "Edit", preferredStyle: .ActionSheet)
       
       let dateAction = UIAlertAction(title: "Change due date", style: .Default, handler: { _ in
         self.showDatePicker(sender)
@@ -120,7 +120,7 @@ class DeliverableViewController: UIViewController, UIPopoverPresentationControll
   
   func showDatePicker(sender: UIButton) {
     
-    let calendarController = R.storyboard.deliverable.calendarController()!
+    let calendarController = R.nib.calendarViewController.firstView(owner: nil)!
     calendarController.calendarViewDelegate = self
     calendarController.currentDate = deliverable.due_on
     

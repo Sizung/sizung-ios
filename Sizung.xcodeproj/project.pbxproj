@@ -83,6 +83,7 @@
 		5AC0E5E61CF2F5C200BBEF45 /* TimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */; };
 		5AC0E5E81CF33C8300BBEF45 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0E5E71CF33C8300BBEF45 /* Comment.swift */; };
 		5ACBA0BD1D2675D3007BC605 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACBA0BC1D2675D3007BC605 /* CalendarViewController.swift */; };
+		5ACBA0BF1D26A962007BC605 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ACBA0BE1D26A962007BC605 /* CalendarViewController.xib */; };
 		5AD9F1B31CE9C09200455D98 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1B21CE9C09200455D98 /* Conversation.swift */; };
 		5AD9F1B51CE9D03000455D98 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1B41CE9D03000455D98 /* User.swift */; };
 		5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1B61CE9D0A100455D98 /* OrganzationMember.swift */; };
@@ -218,6 +219,7 @@
 		5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineTableViewController.swift; sourceTree = "<group>"; };
 		5AC0E5E71CF33C8300BBEF45 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		5ACBA0BC1D2675D3007BC605 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		5ACBA0BE1D26A962007BC605 /* CalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
 		5AD9F1B21CE9C09200455D98 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		5AD9F1B41CE9D03000455D98 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5AD9F1B61CE9D0A100455D98 /* OrganzationMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganzationMember.swift; sourceTree = "<group>"; };
@@ -554,6 +556,7 @@
 				5AECC1D51D115C8700AD8ACE /* AgendaItemViewController.swift */,
 				5ADC883D1D109E3F00596D67 /* TableViews */,
 				5ACBA0BC1D2675D3007BC605 /* CalendarViewController.swift */,
+				5ACBA0BE1D26A962007BC605 /* CalendarViewController.xib */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -728,6 +731,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A42707F1D095A7000B294DF /* Settings.bundle in Resources */,
+				5ACBA0BF1D26A962007BC605 /* CalendarViewController.xib in Resources */,
 				5A6D37101D1E7E0200F00B87 /* NewMessageSeparatorCell.xib in Resources */,
 				5ADC882D1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib in Resources */,
 				5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */,

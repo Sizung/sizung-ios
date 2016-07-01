@@ -25,6 +25,7 @@ enum SizungHttpRouter: URLRequestConvertible {
   case UnseenObjects(userId: String)
   case DeleteUnseenObjects(type: String, id: String)
   case UpdateDeliverable(deliverable: Sizung.Deliverable)
+  case UpdateAgendaItem(agendaItem: Sizung.AgendaItem)
   
   
   var method: Alamofire.Method {
@@ -33,7 +34,8 @@ enum SizungHttpRouter: URLRequestConvertible {
          .RegisterDevice,
          .Comments:
       return .POST
-    case .UpdateDeliverable:
+    case .UpdateDeliverable,
+         .UpdateAgendaItem:
       return .PUT
     case .Logout,
          .DeleteUnseenObjects:
@@ -58,6 +60,8 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/conversations/\(id)"
     case .AgendaItem(let id):
       return "/agenda_items/\(id)"
+    case .UpdateAgendaItem(let agendaItem):
+      return "/agenda_items/\(agendaItem.id)"
     case .Deliverable(let id):
       return "/deliverables/\(id)"
     case .UpdateDeliverable(let deliverable):
@@ -131,7 +135,16 @@ enum SizungHttpRouter: URLRequestConvertible {
       return [
         "deliverable": deliverableJSON
       ]
+    case .UpdateAgendaItem(let agendaItem):
       
+      let agendaItemJSON: Dictionary<String, AnyObject> = [
+        "status": agendaItem.status,
+        "archived": agendaItem.archived
+      ]
+      
+      return [
+        "agenda_item": agendaItemJSON
+      ]
       
     default:
       return nil
@@ -166,6 +179,7 @@ enum SizungHttpRouter: URLRequestConvertible {
     case .Login,
          .RegisterDevice,
          .UpdateDeliverable,
+         .UpdateAgendaItem,
          .Comments:
       return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: self.jsonParameters).0
     case .ConversationObjects:
