@@ -33,6 +33,7 @@ class CalendarViewController: UIViewController, RSDFDatePickerViewDelegate, RSDF
   
   func datePickerView(view: RSDFDatePickerView, didSelectDate date: NSDate) {
     calendarViewDelegate?.didSelectDate(date)
+    self.dismissViewControllerAnimated(true, completion: nil)
   }
   
   @IBAction func close(sender: AnyObject) {
@@ -55,5 +56,5 @@ class CalendarViewController: UIViewController, RSDFDatePickerViewDelegate, RSDF
 }
 
 protocol CalendarViewDelegate {
-  func didSelectDate(date: NSDate?)
+  func didSelectDate(date: NSDate)
 }

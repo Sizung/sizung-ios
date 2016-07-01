@@ -50,9 +50,13 @@ class DeliverableViewController: UIViewController, UIPopoverPresentationControll
     
     backButton.setTitle("< \(deliverable.title)", forState: .Normal)
     
+    updateStatusText()
+  }
+  
+  func updateStatusText(){
     var statusString = deliverable.status
     
-    if let dueDate = deliverable.due_on {
+    if !deliverable.isCompleted(), let dueDate = deliverable.due_on {
       statusString = DueDateHelper.getDueDateString(dueDate)
     }
     
@@ -85,11 +89,13 @@ class DeliverableViewController: UIViewController, UIPopoverPresentationControll
       })
       
       let completeAction = UIAlertAction(title: "Mark as complete", style: .Default, handler: { _ in
-        print("complete")
+        self.deliverable.setCompleted()
+        self.updateDeliverable()
       })
       
       let archiveAction = UIAlertAction(title: "Archive", style: .Default, handler: { _ in
-        print("ARCHIVE")
+        self.deliverable.archived = true
+        self.updateDeliverable()
       })
       
       let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -125,12 +131,24 @@ class DeliverableViewController: UIViewController, UIPopoverPresentationControll
     popoverController.permittedArrowDirections = .Any
     popoverController.sourceView = sender
     popoverController.delegate = self
-    
-    
   }
   
-  func didSelectDate(date: NSDate?) {
-    print("delegate \(date)")
+  func didSelectDate(date: NSDate) {
+    self.deliverable.due_on = date
+    self.updateDeliverable()
   }
+  
+  func updateDeliverable(){
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        storageManager.updateDeliverable(self.deliverable)
+          .onSuccess { deliverable in
+            storageManager.deliverables.insertOrUpdate([deliverable])
+            self.updateStatusText()
+        }
+    }
+  }
+  
+  
   
 }

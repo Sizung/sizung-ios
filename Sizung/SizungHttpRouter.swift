@@ -24,6 +24,7 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Comments(comment: Comment)
   case UnseenObjects(userId: String)
   case DeleteUnseenObjects(type: String, id: String)
+  case UpdateDeliverable(deliverable: Sizung.Deliverable)
   
   
   var method: Alamofire.Method {
@@ -32,6 +33,8 @@ enum SizungHttpRouter: URLRequestConvertible {
          .RegisterDevice,
          .Comments:
       return .POST
+    case .UpdateDeliverable:
+      return .PUT
     case .Logout,
          .DeleteUnseenObjects:
       return .DELETE
@@ -57,6 +60,8 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/agenda_items/\(id)"
     case .Deliverable(let id):
       return "/deliverables/\(id)"
+    case .UpdateDeliverable(let deliverable):
+      return "/deliverables/\(deliverable.id)"
     case .ConversationObjects(let conversation as Sizung.Conversation, _):
       return "/conversations/\(conversation.id)/conversation_objects"
     case .ConversationObjects(let agendaItem as Sizung.AgendaItem, _):
@@ -113,6 +118,21 @@ enum SizungHttpRouter: URLRequestConvertible {
           "body": comment.body
         ]
       ]
+    case .UpdateDeliverable(let deliverable):
+      
+      var deliverableJSON: Dictionary<String, AnyObject> = [
+        "status": deliverable.status,
+        "archived": deliverable.archived
+      ]
+      
+      let dateString = ISODateTransform().transformToJSON(deliverable.due_on)
+      deliverableJSON["due_on"] = dateString
+      
+      return [
+        "deliverable": deliverableJSON
+      ]
+      
+      
     default:
       return nil
     }
@@ -145,6 +165,7 @@ enum SizungHttpRouter: URLRequestConvertible {
     switch self {
     case .Login,
          .RegisterDevice,
+         .UpdateDeliverable,
          .Comments:
       return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: self.jsonParameters).0
     case .ConversationObjects:
