@@ -134,8 +134,10 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 12 images.
+  /// This `R.image` struct is generated, and contains static references to 13 images.
   struct image {
+    /// Image `action`.
+    static let action = ImageResource(bundle: _R.hostingBundle, name: "action")
     /// Image `action_bg_left`.
     static let action_bg_left = ImageResource(bundle: _R.hostingBundle, name: "action_bg_left")
     /// Image `action_bg_middle`.
@@ -160,6 +162,11 @@ struct R: Rswift.Validatable {
     static let priority_bg_right = ImageResource(bundle: _R.hostingBundle, name: "priority_bg_right")
     /// Image `search`.
     static let search = ImageResource(bundle: _R.hostingBundle, name: "search")
+    
+    /// `UIImage(named: "action", bundle: ..., traitCollection: ...)`
+    static func action(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.action, compatibleWithTraitCollection: traitCollection)
+    }
     
     /// `UIImage(named: "action_bg_left", bundle: ..., traitCollection: ...)`
     static func action_bg_left(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
