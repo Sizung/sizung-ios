@@ -718,16 +718,16 @@ struct _R: Rswift.Validatable {
       typealias InitialController = DeliverableViewController
       
       let bundle = _R.hostingBundle
-      let calendarController = StoryboardViewControllerResource<UIViewController>(identifier: "CalendarController")
+      let calendarController = StoryboardViewControllerResource<CalendarViewController>(identifier: "CalendarController")
       let name = "Deliverable"
       
-      func calendarController(_: Void) -> UIViewController? {
+      func calendarController(_: Void) -> CalendarViewController? {
         return UIStoryboard(resource: self).instantiateViewController(calendarController)
       }
       
       static func validate() throws {
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Deliverable', but couldn't be loaded.") }
-        if _R.storyboard.deliverable().calendarController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'calendarController' could not be loaded from storyboard 'Deliverable' as 'UIViewController'.") }
+        if _R.storyboard.deliverable().calendarController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'calendarController' could not be loaded from storyboard 'Deliverable' as 'CalendarViewController'.") }
       }
       
       private init() {}

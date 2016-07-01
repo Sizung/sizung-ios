@@ -9,7 +9,7 @@
 import UIKit
 import AlamofireImage
 
-class DeliverableViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class DeliverableViewController: UIViewController, UIPopoverPresentationControllerDelegate, CalendarViewDelegate {
   
   @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var statusButton: UIButton!
@@ -113,19 +113,10 @@ class DeliverableViewController: UIViewController, UIPopoverPresentationControll
   }
   
   func showDatePicker(sender: UIButton) {
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"Pop"];
-//
-//    controller.modalPresentationStyle = UIModalPresentationPopover;
-//    [self presentViewController:controller animated:YES completion:nil];
-//    
-//    // configure the Popover presentation controller
-//    UIPopoverPresentationController *popController = [controller popoverPresentationController];
-//    popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-//    popController.barButtonItem = self.leftButton;
-//    popController.delegate = self;
     
     let calendarController = R.storyboard.deliverable.calendarController()!
+    calendarController.calendarViewDelegate = self
+    calendarController.currentDate = deliverable.due_on
     
     calendarController.modalPresentationStyle = .Popover
     self.presentViewController(calendarController, animated: true, completion: nil)
@@ -138,12 +129,8 @@ class DeliverableViewController: UIViewController, UIPopoverPresentationControll
     
   }
   
-  func datePickerValueChanged(sender:UIDatePicker) {
-    print(sender.date)
-  }
-  
-  func donePickerDate(){
-    print("done")
+  func didSelectDate(date: NSDate?) {
+    print("delegate \(date)")
   }
   
 }
