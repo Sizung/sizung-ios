@@ -158,7 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
     if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
       if let url = userActivity.webpageURL {
-        self.loadUrl(url)
+        return self.loadUrl(url)
       }
     }
     return true
@@ -233,14 +233,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   func onFollowSuccess(channelName: String) {
   }
   
-  private func loadUrl(url: NSURL){
+  private func loadUrl(url: NSURL) -> Bool{
     
     if let pathComponents = url.pathComponents {
       guard pathComponents.count == 3 else {
         
         let message = "loadURL wrong number of path components: \(url)"
         Error.log(message)
-        return
+        return false
+      }
+      
+      let type = pathComponents[1]
+      let id = pathComponents[2]
+      
+      // check for known types only
+      guard ["agenda_items", "deliverables", "conversations"].contains(type) else {
+        let message = "link to unknown type \(type) with id:\(id)"
+        Error.log(message)
+        return false
       }
       
       // check if logged in
@@ -248,9 +258,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         let token = AuthToken(data: authToken)
         token.validate()
           .onSuccess { _ in
-            
-            let type = pathComponents[1]
-            let id = pathComponents[2]
             
             // simplify organization loading
             switch type {
@@ -309,7 +316,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
               Error.log(message)
             }
             
-            
           }.onFailure { error in
             self.showLogin()
         }
@@ -317,6 +323,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         self.showLogin()
       }
     }
+    
+    return true
   }
   
   func openDeliverable(deliverable: Deliverable, organizationId: String) {

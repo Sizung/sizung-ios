@@ -73,6 +73,9 @@
                                         <state key="normal" title="back">
                                             <color key="titleColor" red="0.97647058959999999" green="0.40000000600000002" blue="0.37647059560000001" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="back:" destination="GPy-5R-nwL" eventType="touchUpInside" id="Xgd-IB-ZSR"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg1-da-c05">
                                         <rect key="frame" x="540" y="9" width="40" height="37"/>
@@ -80,6 +83,9 @@
                                         <state key="normal" title="status">
                                             <color key="titleColor" red="0.97647058959999999" green="0.40000000600000002" blue="0.37647059560000001" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="showStatusPopover:" destination="GPy-5R-nwL" eventType="touchUpInside" id="dyV-Io-6hk"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BtO-YG-58F" customClass="AvatarImageView" customModule="Sizung" customModuleProvider="target">
                                         <rect key="frame" x="490" y="13" width="30" height="30"/>

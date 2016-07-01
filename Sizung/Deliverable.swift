@@ -28,6 +28,10 @@ class Deliverable: BaseModel {
     }
   }
   
+  func setCompleted() {
+    self.status = "resolved"
+  }
+  
   func isCompleted() -> Bool {
     return "resolved" == self.status
   }

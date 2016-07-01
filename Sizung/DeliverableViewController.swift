@@ -9,7 +9,7 @@
 import UIKit
 import AlamofireImage
 
-class DeliverableViewController: UIViewController {
+class DeliverableViewController: UIViewController, UIPopoverPresentationControllerDelegate, CalendarViewDelegate {
   
   @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var statusButton: UIButton!
@@ -50,9 +50,13 @@ class DeliverableViewController: UIViewController {
     
     backButton.setTitle("< \(deliverable.title)", forState: .Normal)
     
+    updateStatusText()
+  }
+  
+  func updateStatusText(){
     var statusString = deliverable.status
     
-    if let dueDate = deliverable.due_on {
+    if !deliverable.isCompleted(), let dueDate = deliverable.due_on {
       statusString = DueDateHelper.getDueDateString(dueDate)
     }
     
@@ -73,4 +77,78 @@ class DeliverableViewController: UIViewController {
       timelineTableViewController.timelineParent = deliverable
     }
   }
+  
+  @IBAction func showStatusPopover(sender: UIButton) {
+    
+    if !deliverable.isCompleted() {
+      
+      let optionMenu = UIAlertController(title: nil, message: "Edit", preferredStyle: .ActionSheet)
+      
+      let dateAction = UIAlertAction(title: "Change due date", style: .Default, handler: { _ in
+        self.showDatePicker(sender)
+      })
+      
+      let completeAction = UIAlertAction(title: "Mark as complete", style: .Default, handler: { _ in
+        self.deliverable.setCompleted()
+        self.updateDeliverable()
+      })
+      
+      let archiveAction = UIAlertAction(title: "Archive", style: .Default, handler: { _ in
+        self.deliverable.archived = true
+        self.updateDeliverable()
+      })
+      
+      let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+      
+      optionMenu.addAction(dateAction)
+      optionMenu.addAction(completeAction)
+      optionMenu.addAction(archiveAction)
+      optionMenu.addAction(cancelAction)
+      
+      self.presentViewController(optionMenu, animated: true, completion: nil)
+    }
+  }
+  
+  func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
+    print("dismiss popover")
+  }
+  
+  // show previous view controller
+  @IBAction func back(sender: AnyObject) {
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  func showDatePicker(sender: UIButton) {
+    
+    let calendarController = R.nib.calendarViewController.firstView(owner: nil)!
+    calendarController.calendarViewDelegate = self
+    calendarController.currentDate = deliverable.due_on
+    
+    calendarController.modalPresentationStyle = .Popover
+    self.presentViewController(calendarController, animated: true, completion: nil)
+    
+    let popoverController = calendarController.popoverPresentationController!
+    popoverController.permittedArrowDirections = .Any
+    popoverController.sourceView = sender
+    popoverController.delegate = self
+  }
+  
+  func didSelectDate(date: NSDate) {
+    self.deliverable.due_on = date
+    self.updateDeliverable()
+  }
+  
+  func updateDeliverable(){
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        storageManager.updateDeliverable(self.deliverable)
+          .onSuccess { deliverable in
+            storageManager.deliverables.insertOrUpdate([deliverable])
+            self.updateStatusText()
+        }
+    }
+  }
+  
+  
+  
 }

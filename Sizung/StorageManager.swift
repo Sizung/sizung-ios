@@ -100,7 +100,7 @@ class StorageManager {
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
-          Error.log("unkown error in get organization \(response.result)")
+          Error.log(response.result.error!)
           promise.failure(StorageError.Other)
         }
     }
@@ -123,7 +123,7 @@ class StorageManager {
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
-          Error.log("unkown error \(response.result)")
+          Error.log(response.result.error!)
           promise.failure(StorageError.Other)
         }
     }
@@ -153,7 +153,7 @@ class StorageManager {
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
-          Error.log("unkown error in get unseenObjects \(response.result)")
+          Error.log(response.result.error!)
           promise.failure(StorageError.Other)
         }
     }
@@ -178,7 +178,7 @@ class StorageManager {
           where response.response?.statusCode == 401:
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
         default:
-          Error.log("unkown error \(response.result)")
+          Error.log(response.result.error!)
         }
     }
   }
@@ -200,7 +200,7 @@ class StorageManager {
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
-          Error.log("unkown error \(response.result)")
+          Error.log(response.result.error!)
           promise.failure(StorageError.Other)
         }
     }
@@ -225,7 +225,7 @@ class StorageManager {
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
-          Error.log("unkown error \(response.result)")
+          Error.log(response.result.error!)
           promise.failure(StorageError.Other)
         }
     }
@@ -251,7 +251,7 @@ class StorageManager {
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
-          Error.log("unkown error \(response.result)")
+          Error.log(response.result.error!)
           promise.failure(StorageError.Other)
         }
     }
@@ -303,7 +303,7 @@ class OrganizationStorageManager {
             NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
             promise.failure(StorageError.NotAuthenticated)
           default:
-            Error.log("unkown error \(response.result)")
+            Error.log(response.result.error!)
             promise.failure(StorageError.Other)
           }
       }
@@ -400,7 +400,7 @@ class OrganizationStorageManager {
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
-          Error.log("unkown error \(response.result)")
+          Error.log(response.result.error!)
           promise.failure(StorageError.Other)
         }
     }
@@ -429,7 +429,7 @@ class OrganizationStorageManager {
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
-          Error.log("unkown error \(response.result)")
+          Error.log(response.result.error!)
           promise.failure(StorageError.Other)
         }
     }
@@ -458,7 +458,7 @@ class OrganizationStorageManager {
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
-          Error.log("unkown error \(response.result)")
+          Error.log(response.result.error!)
           promise.failure(StorageError.Other)
         }
     }
@@ -487,7 +487,7 @@ class OrganizationStorageManager {
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
-          Error.log("unkown error \(response.result)")
+          Error.log(response.result.error!)
           promise.failure(StorageError.Other)
         }
     }
@@ -514,7 +514,7 @@ class OrganizationStorageManager {
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
-          Error.log("unkown error \(response.result)")
+          Error.log(response.result.error!)
           promise.failure(StorageError.Other)
         }
     }
@@ -540,7 +540,55 @@ class OrganizationStorageManager {
           NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
-          Error.log("unkown error \(response.result)")
+          Error.log(response.result.error!)
+          promise.failure(StorageError.Other)
+        }
+    }
+    return promise.future
+  }
+  
+  func updateDeliverable(deliverable: Deliverable) -> Future<Deliverable, StorageError> {
+    let promise = Promise<Deliverable, StorageError>()
+    Alamofire.request(SizungHttpRouter.UpdateDeliverable(deliverable: deliverable))
+      .validate()
+      .responseJSON(queue: StorageManager.networkQueue) { response in
+        switch response.result {
+        case .Success(let JSON):
+          if let deliverableResponse = Mapper<DeliverableResponse>().map(JSON) {
+            dispatch_async(dispatch_get_main_queue()) {
+              promise.success(deliverableResponse.deliverable)
+            }
+          }
+        case .Failure
+          where response.response?.statusCode == 401:
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          promise.failure(StorageError.NotAuthenticated)
+        default:
+          Error.log(response.result.error!)
+          promise.failure(StorageError.Other)
+        }
+    }
+    return promise.future
+  }
+  
+  func updateAgendaItem(agendaItem: AgendaItem) -> Future<AgendaItem, StorageError> {
+    let promise = Promise<AgendaItem, StorageError>()
+    Alamofire.request(SizungHttpRouter.UpdateAgendaItem(agendaItem: agendaItem))
+      .validate()
+      .responseJSON(queue: StorageManager.networkQueue) { response in
+        switch response.result {
+        case .Success(let JSON):
+          if let agendaItemResponse = Mapper<AgendaItemResponse>().map(JSON) {
+            dispatch_async(dispatch_get_main_queue()) {
+              promise.success(agendaItemResponse.agendaItem)
+            }
+          }
+        case .Failure
+          where response.response?.statusCode == 401:
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          promise.failure(StorageError.NotAuthenticated)
+        default:
+          Error.log(response.result.error!)
           promise.failure(StorageError.Other)
         }
     }

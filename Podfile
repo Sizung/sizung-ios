@@ -20,7 +20,8 @@ target 'Sizung' do
   pod 'ActionCableClient', '= 0.1.3'
   pod 'Sheriff'
   pod 'KCFloatingActionButton'
-
+  pod 'RSDayFlow'
+  
   pod 'R.swift', '~> 2.3'
 
   pod 'Fabric', '~> 1.6'
