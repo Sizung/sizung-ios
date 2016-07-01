@@ -10,6 +10,7 @@ PODS:
   - Bumblebee (1.0.1)
   - Crashlytics (3.7.2):
     - Fabric (~> 1.6.3)
+  - CVCalendar (1.2.9)
   - DateTools (1.7.0)
   - Fabric (1.6.7)
   - JWTDecode (1.0.0)
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - BrightFutures (~> 4.0)
   - Bumblebee (~> 1.0)
   - Crashlytics (~> 3.7)
+  - CVCalendar
   - DateTools (~> 1.0)
   - Fabric (~> 1.6)
   - JWTDecode (~> 1.0)
@@ -70,6 +72,7 @@ SPEC CHECKSUMS:
   BrightFutures: e18b83fd6fa8562ceb9902ee609f0de23b0ee110
   Bumblebee: 0249c65d409431276ced68734f96a96708e2e9f2
   Crashlytics: 130ab943f8c78cda7a814b434f270b2e2c8a3cba
+  CVCalendar: 0799256e0bc3b43e83b7e86c0729ce9ff0624cb6
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   JWTDecode: d172edcb1607cc15aed85d58eceedcbb675a4534
@@ -88,6 +91,6 @@ SPEC CHECKSUMS:
   SwiftKeychainWrapper: 011a6946923948ffa49708014dd691164d7621d1
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 5fdc5207910ed0c23e2ad5f6b0d379263f8f58d2
+PODFILE CHECKSUM: f99b8479cd8c962d1a36cfc38e8c39d8c7c61292
 
 COCOAPODS: 1.0.1

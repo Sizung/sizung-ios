@@ -23,5 +23,8 @@ class Conversation: BaseModel {
     archived <- map["attributes.archived"]
     organizationId <- map["relationships.organization.data.id"]
     members <- map["relationships.members.data"]
+    agenda_items <- map["relationships.agenda_items.data"]
+    deliverables <- map["relationships.deliverables.data"]
+    agenda_item_deliverables <- map["relationships.agenda_item_deliverables.data"]
   }
 }

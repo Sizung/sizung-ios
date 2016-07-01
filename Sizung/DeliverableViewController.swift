@@ -9,7 +9,7 @@
 import UIKit
 import AlamofireImage
 
-class DeliverableViewController: UIViewController {
+class DeliverableViewController: UIViewController, UIPopoverPresentationControllerDelegate {
   
   @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var statusButton: UIButton!
@@ -74,8 +74,76 @@ class DeliverableViewController: UIViewController {
     }
   }
   
+  @IBAction func showStatusPopover(sender: UIButton) {
+    
+    if !deliverable.isCompleted() {
+      
+      let optionMenu = UIAlertController(title: nil, message: "Edit Deliverable", preferredStyle: .ActionSheet)
+      
+      let dateAction = UIAlertAction(title: "Change due date", style: .Default, handler: { _ in
+        self.showDatePicker(sender)
+      })
+      
+      let completeAction = UIAlertAction(title: "Mark as complete", style: .Default, handler: { _ in
+        print("complete")
+      })
+      
+      let archiveAction = UIAlertAction(title: "Archive", style: .Default, handler: { _ in
+        print("ARCHIVE")
+      })
+      
+      let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+      
+      optionMenu.addAction(dateAction)
+      optionMenu.addAction(completeAction)
+      optionMenu.addAction(archiveAction)
+      optionMenu.addAction(cancelAction)
+      
+      self.presentViewController(optionMenu, animated: true, completion: nil)
+    }
+  }
+  
+  func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
+    print("dismiss popover")
+  }
+  
   // show previous view controller
   @IBAction func back(sender: AnyObject) {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
+  
+  func showDatePicker(sender: UIButton) {
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    UIViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"Pop"];
+//
+//    controller.modalPresentationStyle = UIModalPresentationPopover;
+//    [self presentViewController:controller animated:YES completion:nil];
+//    
+//    // configure the Popover presentation controller
+//    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+//    popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+//    popController.barButtonItem = self.leftButton;
+//    popController.delegate = self;
+    
+    let calendarController = R.storyboard.deliverable.calendarController()!
+    
+    calendarController.modalPresentationStyle = .Popover
+    self.presentViewController(calendarController, animated: true, completion: nil)
+    
+    let popoverController = calendarController.popoverPresentationController!
+    popoverController.permittedArrowDirections = .Any
+    popoverController.sourceView = sender
+    popoverController.delegate = self
+    
+    
+  }
+  
+  func datePickerValueChanged(sender:UIDatePicker) {
+    print(sender.date)
+  }
+  
+  func donePickerDate(){
+    print("done")
+  }
+  
 }
