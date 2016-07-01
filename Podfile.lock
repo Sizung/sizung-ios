@@ -36,6 +36,7 @@ PODS:
   - ReactiveUIKit (2.0.1):
     - ReactiveKit (~> 2.0)
   - Result (2.1.1)
+  - RSDayFlow (1.5.1)
   - Sheriff (0.3.2)
   - SlackTextViewController (1.9.3)
   - Starscream (1.1.3)
@@ -59,6 +60,7 @@ DEPENDENCIES:
   - R.swift (~> 2.3)
   - ReactiveKit (~> 2.0)
   - ReactiveUIKit (~> 2.0)
+  - RSDayFlow
   - Sheriff
   - SlackTextViewController (~> 1.9)
   - SwiftKeychainWrapper (~> 1.0)
@@ -82,12 +84,13 @@ SPEC CHECKSUMS:
   ReactiveKit: fe3c5d480ed904ce6d6d99cc94ccf568d5c48c5c
   ReactiveUIKit: af6e401a61d196502267ff216b7ac6f4c37c0dc5
   Result: 822c879f145943320cc80a9a8372378e3d699fe4
+  RSDayFlow: dac09ceeef8a37badc403779875017d4953c6a5a
   Sheriff: d3d03fe6d35aa781e3f42d48f3fb53ed7d04958d
   SlackTextViewController: bd2a34c188d4f7dec93cf42388f38551263fac82
   Starscream: d662732354b40dd19ed1ece3e3c44c80b536b83c
   SwiftKeychainWrapper: 011a6946923948ffa49708014dd691164d7621d1
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 5fdc5207910ed0c23e2ad5f6b0d379263f8f58d2
+PODFILE CHECKSUM: 9dae682ea07bdcbabd8c1661fecd3b277bce804b
 
 COCOAPODS: 1.0.1

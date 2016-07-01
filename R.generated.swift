@@ -232,12 +232,14 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 12 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 13 nibs.
   struct nib {
     /// Nib `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell = _R.nib._AgendaItemTableViewCell()
     /// Nib `AutoCompletionTableCell`.
     static let autoCompletionTableCell = _R.nib._AutoCompletionTableCell()
+    /// Nib `CalendarViewController`.
+    static let calendarViewController = _R.nib._CalendarViewController()
     /// Nib `CommentTableViewCell`.
     static let commentTableViewCell = _R.nib._CommentTableViewCell()
     /// Nib `ConversationTableViewCell`.
@@ -267,6 +269,11 @@ struct R: Rswift.Validatable {
     /// `UINib(name: "AutoCompletionTableCell", bundle: ...)`
     static func autoCompletionTableCell(_: Void) -> UINib {
       return UINib(resource: R.nib.autoCompletionTableCell)
+    }
+    
+    /// `UINib(name: "CalendarViewController", bundle: ...)`
+    static func calendarViewController(_: Void) -> UINib {
+      return UINib(resource: R.nib.calendarViewController)
     }
     
     /// `UINib(name: "CommentTableViewCell", bundle: ...)`
@@ -508,6 +515,17 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> AutoCompletionTableCell? {
         return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? AutoCompletionTableCell
+      }
+      
+      private init() {}
+    }
+    
+    struct _CalendarViewController: NibResourceType {
+      let bundle = _R.hostingBundle
+      let name = "CalendarViewController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> CalendarViewController? {
+        return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? CalendarViewController
       }
       
       private init() {}
