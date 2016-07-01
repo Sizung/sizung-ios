@@ -11,6 +11,8 @@
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
         </mutableArray>
         <mutableArray key="Brandon_reg.otf">
             <string>BrandonText-Regular</string>
@@ -160,8 +162,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ojd-fT-4s6">
-                                <rect key="frame" x="276" y="285" width="48" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <rect key="frame" x="279" y="283" width="42" height="34"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
                                 <state key="normal" title="Logout">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -177,15 +179,26 @@
                                     <action selector="close:" destination="60j-uB-VEk" eventType="touchUpInside" id="E40-Hv-3ud"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iN9-kd-sHh">
+                                <rect key="frame" x="559" y="577" width="21" height="15"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="10"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.086274509799999996" green="0.086274509799999996" blue="0.094117647060000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ExN-PN-ATf" firstAttribute="top" secondItem="zam-WZ-pgD" secondAttribute="bottom" constant="20" id="0e9-ch-w9D"/>
                             <constraint firstItem="Ojd-fT-4s6" firstAttribute="centerX" secondItem="iMU-ar-89F" secondAttribute="centerX" id="H4E-Kv-lmG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ExN-PN-ATf" secondAttribute="trailing" constant="20" id="Noj-uJ-493"/>
+                            <constraint firstItem="iN9-kd-sHh" firstAttribute="trailing" secondItem="iMU-ar-89F" secondAttribute="trailingMargin" id="PrK-ke-1CQ"/>
+                            <constraint firstItem="HVF-Hw-ybt" firstAttribute="top" secondItem="iN9-kd-sHh" secondAttribute="bottom" constant="8" id="QAh-mq-y4P"/>
                             <constraint firstItem="Ojd-fT-4s6" firstAttribute="centerY" secondItem="iMU-ar-89F" secondAttribute="centerY" id="z4n-3U-tnb"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="versionLabel" destination="iN9-kd-sHh" id="2F4-7W-nUc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DDK-H2-xdr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

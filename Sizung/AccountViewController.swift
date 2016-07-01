@@ -10,18 +10,19 @@ import UIKit
 import SwiftKeychainWrapper
 
 class AccountViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+  
+  @IBOutlet weak var versionLabel: UILabel!
+  override func viewDidLoad() {
+    super.viewDidLoad()
     
+    self.versionLabel.text = version()
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
   @IBAction func logoutClicked(sender: AnyObject) {
     KeychainWrapper.removeObjectForKey(Configuration.Settings.AUTH_TOKEN)
     KeychainWrapper.removeObjectForKey(Configuration.Settings.SELECTED_ORGANIZATION)
@@ -29,8 +30,15 @@ class AccountViewController: UIViewController {
     
     NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
   }
-
+  
   @IBAction func close(sender: AnyObject) {
     self.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  func version() -> String {
+    let dictionary = NSBundle.mainBundle().infoDictionary!
+    let version = dictionary["CFBundleShortVersionString"] as! String
+    let build = dictionary["CFBundleVersion"] as! String
+    return "v\(version) - build #\(build)"
   }
 }
