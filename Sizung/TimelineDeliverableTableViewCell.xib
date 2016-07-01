@@ -4,11 +4,12 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="Brandon Text W01 Medium.ttf">
+            <string>BrandonTextW01-Medium</string>
+        </mutableArray>
         <mutableArray key="Brandon_reg.otf">
-            <string>BrandonText-Regular</string>
             <string>BrandonText-Regular</string>
             <string>BrandonText-Regular</string>
             <string>BrandonText-Regular</string>
@@ -30,21 +31,6 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="action_bg_left" translatesAutoresizingMaskIntoConstraints="NO" id="WFi-PG-d50">
-                        <rect key="frame" x="71" y="43" width="30" height="30"/>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="action_bg_middle" translatesAutoresizingMaskIntoConstraints="NO" id="M71-X9-9PR">
-                        <rect key="frame" x="101" y="43" width="34" height="30"/>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18h-am-TDr">
-                        <rect key="frame" x="106" y="36" width="29" height="42"/>
-                        <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="15"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="action_bg_right" translatesAutoresizingMaskIntoConstraints="NO" id="6RW-TU-v77">
-                        <rect key="frame" x="135" y="43" width="15" height="30"/>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOa-qg-ZsR">
                         <rect key="frame" x="71" y="85" width="30" height="19"/>
                         <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="13"/>
@@ -71,39 +57,34 @@
                             <constraint firstAttribute="width" constant="25" id="yCS-99-soX"/>
                         </constraints>
                     </button>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4uu-Xz-o3o">
+                        <rect key="frame" x="71" y="40" width="87" height="29"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="29" id="myJ-wM-lSS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="BrandonTextW01-Medium" family="BrandonTextW01-Medium" pointSize="15"/>
+                        <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="20" maxY="0.0"/>
+                        <state key="normal" title="title" backgroundImage="bg_actions">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="iOa-qg-ZsR" firstAttribute="top" secondItem="WFi-PG-d50" secondAttribute="bottom" constant="12" id="1sp-zE-NFQ"/>
-                    <constraint firstItem="18h-am-TDr" firstAttribute="leading" secondItem="WFi-PG-d50" secondAttribute="trailing" constant="5" id="3Hp-y7-fcB"/>
-                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="6RW-TU-v77" secondAttribute="trailing" constant="8" id="5Fc-D9-ppx"/>
-                    <constraint firstItem="M71-X9-9PR" firstAttribute="centerY" secondItem="WFi-PG-d50" secondAttribute="centerY" id="9JZ-bs-Pm0"/>
-                    <constraint firstItem="18h-am-TDr" firstAttribute="trailing" secondItem="M71-X9-9PR" secondAttribute="trailing" id="AFI-Ms-4mJ"/>
+                    <constraint firstItem="iOa-qg-ZsR" firstAttribute="top" secondItem="4uu-Xz-o3o" secondAttribute="bottom" constant="16" id="2jW-lK-Z8h"/>
                     <constraint firstItem="Vbe-2h-B4C" firstAttribute="leading" secondItem="e1q-2V-W0z" secondAttribute="leadingMargin" constant="25" id="CId-qS-yLc"/>
                     <constraint firstItem="40f-HR-LfM" firstAttribute="trailing" secondItem="e1q-2V-W0z" secondAttribute="trailingMargin" id="CzY-FL-oMr"/>
                     <constraint firstItem="40f-HR-LfM" firstAttribute="top" secondItem="e1q-2V-W0z" secondAttribute="topMargin" id="ExC-oj-h8h"/>
+                    <constraint firstItem="4uu-Xz-o3o" firstAttribute="leading" secondItem="40f-HR-LfM" secondAttribute="leading" id="IaM-UW-0dR"/>
                     <constraint firstItem="Qdt-Au-z7S" firstAttribute="leading" secondItem="40f-HR-LfM" secondAttribute="trailing" constant="8" id="J0m-zd-AAf"/>
-                    <constraint firstItem="18h-am-TDr" firstAttribute="centerY" secondItem="WFi-PG-d50" secondAttribute="centerY" constant="-1" id="Jrn-QD-yar"/>
-                    <constraint firstItem="18h-am-TDr" firstAttribute="leading" secondItem="WFi-PG-d50" secondAttribute="trailing" id="O3X-4t-ItN"/>
-                    <constraint firstItem="WFi-PG-d50" firstAttribute="leading" secondItem="e1q-2V-W0z" secondAttribute="leadingMargin" multiplier="20" id="OWt-ba-cfe"/>
+                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="4uu-Xz-o3o" secondAttribute="trailing" constant="70" id="OgA-Sc-mbp"/>
                     <constraint firstItem="iOa-qg-ZsR" firstAttribute="leading" secondItem="40f-HR-LfM" secondAttribute="leading" id="Ohf-qh-Uh7"/>
                     <constraint firstItem="Vbe-2h-B4C" firstAttribute="top" secondItem="e1q-2V-W0z" secondAttribute="topMargin" id="R2T-eD-fdz"/>
                     <constraint firstItem="Qdt-Au-z7S" firstAttribute="top" secondItem="e1q-2V-W0z" secondAttribute="topMargin" id="Rbp-c8-53Q"/>
-                    <constraint firstItem="M71-X9-9PR" firstAttribute="leading" secondItem="WFi-PG-d50" secondAttribute="trailing" id="TEJ-OB-I1b"/>
-                    <constraint firstItem="6RW-TU-v77" firstAttribute="leading" secondItem="M71-X9-9PR" secondAttribute="trailing" id="XJe-ny-pHS"/>
-                    <constraint firstItem="WFi-PG-d50" firstAttribute="top" secondItem="40f-HR-LfM" secondAttribute="bottom" constant="16" id="Ya9-Ee-8pa"/>
                     <constraint firstItem="t8I-UH-Bva" firstAttribute="leading" secondItem="40f-HR-LfM" secondAttribute="leading" id="ZyY-Sb-bkk"/>
-                    <constraint firstItem="18h-am-TDr" firstAttribute="centerY" secondItem="M71-X9-9PR" secondAttribute="centerY" id="geF-sX-VPQ"/>
                     <constraint firstItem="40f-HR-LfM" firstAttribute="top" secondItem="e1q-2V-W0z" secondAttribute="topMargin" id="iBP-Bx-Dun"/>
                     <constraint firstItem="40f-HR-LfM" firstAttribute="leading" secondItem="Vbe-2h-B4C" secondAttribute="trailing" constant="8" id="idB-Df-uL3"/>
-                    <constraint firstItem="6RW-TU-v77" firstAttribute="leading" secondItem="18h-am-TDr" secondAttribute="trailing" id="jDb-E8-XoE"/>
-                    <constraint firstItem="WFi-PG-d50" firstAttribute="leading" secondItem="40f-HR-LfM" secondAttribute="leading" id="m4S-dm-cQk"/>
+                    <constraint firstItem="4uu-Xz-o3o" firstAttribute="top" secondItem="40f-HR-LfM" secondAttribute="bottom" constant="13" id="kBF-ST-iz9"/>
                     <constraint firstItem="40f-HR-LfM" firstAttribute="top" secondItem="e1q-2V-W0z" secondAttribute="topMargin" constant="2" id="mIP-dd-NNW"/>
-                    <constraint firstItem="6RW-TU-v77" firstAttribute="centerY" secondItem="M71-X9-9PR" secondAttribute="centerY" id="pzi-Gs-TLt"/>
-                    <constraint firstItem="18h-am-TDr" firstAttribute="centerY" secondItem="WFi-PG-d50" secondAttribute="centerY" id="qE8-MH-CPd"/>
-                    <constraint firstItem="18h-am-TDr" firstAttribute="baseline" secondItem="WFi-PG-d50" secondAttribute="baseline" id="qPI-wL-3tm"/>
-                    <constraint firstItem="18h-am-TDr" firstAttribute="centerY" secondItem="WFi-PG-d50" secondAttribute="centerY" id="thm-Ib-CYn"/>
-                    <constraint firstItem="6RW-TU-v77" firstAttribute="centerY" secondItem="18h-am-TDr" secondAttribute="centerY" id="ucP-cS-yme"/>
-                    <constraint firstItem="18h-am-TDr" firstAttribute="leading" secondItem="M71-X9-9PR" secondAttribute="leading" id="xDe-RX-NLs"/>
                     <constraint firstItem="t8I-UH-Bva" firstAttribute="top" secondItem="iOa-qg-ZsR" secondAttribute="bottom" constant="30" id="zR9-XF-URb"/>
                 </constraints>
                 <variation key="default">
@@ -111,13 +92,6 @@
                         <exclude reference="CzY-FL-oMr"/>
                         <exclude reference="ExC-oj-h8h"/>
                         <exclude reference="mIP-dd-NNW"/>
-                        <exclude reference="OWt-ba-cfe"/>
-                        <exclude reference="O3X-4t-ItN"/>
-                        <exclude reference="geF-sX-VPQ"/>
-                        <exclude reference="qE8-MH-CPd"/>
-                        <exclude reference="thm-Ib-CYn"/>
-                        <exclude reference="xDe-RX-NLs"/>
-                        <exclude reference="ucP-cS-yme"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
@@ -126,14 +100,12 @@
                 <outlet property="authorImage" destination="Vbe-2h-B4C" id="fIG-Ga-RqD"/>
                 <outlet property="dateLabel" destination="t8I-UH-Bva" id="hsg-YD-Kex"/>
                 <outlet property="dueDateLabel" destination="iOa-qg-ZsR" id="7jm-1l-CHa"/>
-                <outlet property="titleLabel" destination="18h-am-TDr" id="IKU-I4-EDO"/>
+                <outlet property="titleLabel" destination="4uu-Xz-o3o" id="VpM-b2-y8s"/>
             </connections>
             <point key="canvasLocation" x="155" y="453"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="action_bg_left" width="30" height="30"/>
-        <image name="action_bg_middle" width="1" height="30"/>
-        <image name="action_bg_right" width="15" height="30"/>
+        <image name="bg_actions" width="45" height="29"/>
     </resources>
 </document>

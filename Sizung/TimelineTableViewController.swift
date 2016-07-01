@@ -501,7 +501,7 @@ extension TimelineTableViewController {
   func cellForDeliverable(deliverable: Deliverable) -> TimelineDeliverableTableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.timelineDeliverableTableViewCell.identifier) as! TimelineDeliverableTableViewCell
     
-    cell.titleLabel.text = deliverable.title
+    cell.titleLabel.setTitle(deliverable.title, forState: .Normal)
     cell.dueDateLabel.text = deliverable.due_on?.timeAgoSinceNow()
     cell.dateLabel.text = deliverable.created_at?.timeAgoSinceNow()
     
@@ -519,7 +519,7 @@ extension TimelineTableViewController {
   func cellForAgendaItem(agendaItem: AgendaItem) -> TimelineAgendaItemTableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.timelineAgendaItemTableViewCell.identifier) as! TimelineAgendaItemTableViewCell
     
-    cell.titleLabel.text = agendaItem.title
+    cell.titleLabel.setTitle(agendaItem.title, forState: .Normal)
     cell.dateLabel.text = agendaItem.created_at?.timeAgoSinceNow()
     
     if let author = storageManager.users[agendaItem.ownerId]{
