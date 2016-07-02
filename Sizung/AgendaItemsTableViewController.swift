@@ -134,6 +134,10 @@ class AgendaItemsTableViewController: UITableViewController {
     
     cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
     
+    if let user = storageManager?.users[agendaItem.ownerId] {
+      cell.authorImageView.user = user
+    }
+    
     return cell
   }
   
