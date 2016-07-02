@@ -31,7 +31,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQH-e3-644">
-                        <rect key="frame" x="71" y="77" width="241" height="16"/>
+                        <rect key="frame" x="71" y="78" width="241" height="16"/>
                         <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="11"/>
                         <color key="textColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -44,9 +44,9 @@
                         </constraints>
                     </button>
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNc-hB-KFr">
-                        <rect key="frame" x="71" y="35" width="84" height="29"/>
+                        <rect key="frame" x="71" y="35" width="84" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="29" id="mgL-TP-QLR"/>
+                            <constraint firstAttribute="height" constant="30" id="mgL-TP-QLR"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="sc8-zW-GeJ"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
@@ -94,6 +94,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="bg_priorities" width="48" height="29"/>
+        <image name="bg_priorities" width="45" height="30"/>
     </resources>
 </document>
