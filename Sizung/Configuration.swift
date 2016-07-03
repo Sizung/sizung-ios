@@ -8,13 +8,13 @@
 
 
 #if RELEASE_VERSION
-let SERVER_URL = "https://app.sizung.com/api"
-let WEBSOCKET_ORIGIN_URL = "https://app.sizung.com"
-let WEBSOCKET_URL = "wss://app.sizung.com/websocket"
+let kServerUrl = "https://app.sizung.com/api"
+let kWebSocketOriginUrl = "https://app.sizung.com"
+let kWebsocketUrl = "wss://app.sizung.com/websocket"
 #else
-let SERVER_URL = "https://staging-sizung.herokuapp.com/api"
-let WEBSOCKET_ORIGIN_URL = "https://staging-sizung.herokuapp.com"
-let WEBSOCKET_URL = "wss://staging-sizung.herokuapp.com/websocket"
+let kServerUrl = "https://staging-sizung.herokuapp.com/api"
+let kWebSocketOriginUrl = "https://staging-sizung.herokuapp.com"
+let kWebsocketUrl = "wss://staging-sizung.herokuapp.com/websocket"
 #endif
 
 
@@ -22,36 +22,58 @@ import Foundation
 import SwiftKeychainWrapper
 
 class Configuration: NSObject {
-  
+
   class func APIEndpoint() -> String {
-    return SERVER_URL
+    return kServerUrl
   }
-  
+
   class func websocketEndpoint() -> String {
-    return WEBSOCKET_URL
+    return kWebsocketUrl
   }
-  
-  // remove path components from api endpoint
+
   class func websocketOrigin() -> String {
-    return WEBSOCKET_ORIGIN_URL
+    return kWebSocketOriginUrl
   }
-  
+
+  class func reset() {
+    KeychainWrapper.removeObjectForKey(Configuration.Settings.kAuthToken)
+    KeychainWrapper.removeObjectForKey(Configuration.Settings.kSelectedOrganization)
+  }
+
   class func getDeviceId() -> String {
-    
-    if let deviceId = KeychainWrapper.stringForKey(Configuration.Settings.DEVICE_ID) {
+
+    if let deviceId = KeychainWrapper.stringForKey(Configuration.Settings.kDeviceId) {
       return deviceId
-    }else {
+    } else {
       let deviceId = NSUUID().UUIDString
-      KeychainWrapper.setString(deviceId, forKey: Configuration.Settings.DEVICE_ID)
+      KeychainWrapper.setString(deviceId, forKey: Configuration.Settings.kDeviceId)
       return deviceId
     }
   }
-  
-  struct Settings {
-    static let AUTH_TOKEN = "AUTH_TOKEN"
-    static let DEVICE_ID = "DEVICE_ID"
-    static let SELECTED_ORGANIZATION = "SELECTED_ORGANIZATION"
-    
-    static let NOTIFICATION_KEY_AUTH_ERROR = "NOTIFICATION_KEY_AUTH_ERROR"
+
+  class func getAuthToken() -> String? {
+    return KeychainWrapper.stringForKey(Configuration.Settings.kAuthToken)
+  }
+
+  class func setAuthToken(data: String) {
+    KeychainWrapper.setString(data, forKey: Configuration.Settings.kAuthToken)
+  }
+
+  class func getSelectedOrganization() -> String? {
+  return KeychainWrapper.stringForKey(Configuration.Settings.kSelectedOrganization)
+  }
+
+  class func setSelectedOrganization(data: String) {
+    KeychainWrapper.setString(data, forKey: Configuration.Settings.kSelectedOrganization)
+  }
+
+  private struct Settings {
+    static let kAuthToken = "AUTH_TOKEN"
+    static let kDeviceId = "DEVICE_ID"
+    static let kSelectedOrganization = "SELECTED_ORGANIZATION"
+  }
+
+  struct NotificationConstants {
+    static let kNotificationKeyAuthError = "NOTIFICATION_KEY_AUTH_ERROR"
   }
 }

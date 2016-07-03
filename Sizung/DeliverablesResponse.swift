@@ -9,13 +9,13 @@
 import ObjectMapper
 
 class DeliverablesResponse: Mappable {
-  
+
   var deliverables: [Deliverable]!
-  
+
   required init?(_ map: Map) {
-    
+
   }
-  
+
   // Mappable
   func mapping(map: Map) {
     deliverables <- map["data"]

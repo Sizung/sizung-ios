@@ -9,13 +9,13 @@
 import ObjectMapper
 
 class UnseenObjectsResponse: Mappable {
-  
+
   var unseenObjects: [UnseenObject]!
-  
+
   required init?(_ map: Map) {
-    
+
   }
-  
+
   func mapping(map: Map) {
     unseenObjects <- map["data"]
   }

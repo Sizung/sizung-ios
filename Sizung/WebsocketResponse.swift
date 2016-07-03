@@ -9,14 +9,14 @@
 import ObjectMapper
 
 class WebsocketResponse: Mappable {
-  
+
   var payload: BaseModel!
   var action: String!
-  
+
   required init?(_ map: Map) {
-    
+
   }
-  
+
   func mapping(map: Map) {
     payload <- map["payload.data"]
     action <- map["action"]

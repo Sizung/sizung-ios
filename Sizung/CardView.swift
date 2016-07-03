@@ -16,14 +16,14 @@ class CardView: UIView {
       layer.borderWidth = 0.5
     }
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    
+
     layer.shadowOffset = CGSize(width: -0.2, height: 0.2)
     layer.shadowRadius = 1
-    layer.shadowOpacity = 0.2;
+    layer.shadowOpacity = 0.2
   }
 
-  
+
 }

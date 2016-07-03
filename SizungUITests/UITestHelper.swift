@@ -8,7 +8,7 @@
 
 import XCTest
 
-public class UITestHelper{
+public class UITestHelper {
     static func hasFocus(textField: XCUIElement) -> Bool {
         let hasFocus = (textField.valueForKey("hasKeyboardFocus") as? Bool) ?? false
         return hasFocus

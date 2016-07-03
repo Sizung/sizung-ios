@@ -12,19 +12,19 @@ class Conversation: BaseModel {
   var title: String!
   var archived: Bool!
   var organizationId: String!
-  var agenda_items: [AgendaItem]!
+  var agendaItems: [AgendaItem]!
   var deliverables: [Deliverable]!
-  var agenda_item_deliverables: [AgendaItemDeliverable]!
+  var agendaItemDeliverables: [AgendaItemDeliverable]!
   var members: [User]!
-  
+
   override func mapping(map: Map) {
     super.mapping(map)
     title <- map["attributes.title"]
     archived <- map["attributes.archived"]
     organizationId <- map["relationships.organization.data.id"]
     members <- map["relationships.members.data"]
-    agenda_items <- map["relationships.agenda_items.data"]
+    agendaItems <- map["relationships.agenda_items.data"]
     deliverables <- map["relationships.deliverables.data"]
-    agenda_item_deliverables <- map["relationships.agenda_item_deliverables.data"]
+    agendaItemDeliverables <- map["relationships.agenda_item_deliverables.data"]
   }
 }

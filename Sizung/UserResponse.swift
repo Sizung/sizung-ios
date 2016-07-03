@@ -9,13 +9,13 @@
 import ObjectMapper
 
 class UserResponse: Mappable {
-  
+
   var user: User!
-  
+
   required init?(_ map: Map) {
-    
+
   }
-  
+
   func mapping(map: Map) {
     user <- map["data"]
   }

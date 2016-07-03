@@ -104,6 +104,7 @@
 		5AE24D0E1D216C1100FB691B /* AgendaItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE24D0D1D216C1100FB691B /* AgendaItemResponse.swift */; };
 		5AE24D101D22540F00FB691B /* LoadingScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AE24D0F1D22540F00FB691B /* LoadingScreen.xib */; };
 		5AE24D121D22571300FB691B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE24D111D22571300FB691B /* Error.swift */; };
+		5AE3FB701D2973AB00B2BEEC /* InAppMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE3FB6F1D2973AB00B2BEEC /* InAppMessage.swift */; };
 		5AE8839A1D09A5460044364B /* CollectionPropertyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */; };
 		5AE8839D1D09A56C0044364B /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */; };
 		5AE8839E1D09A56C0044364B /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AE8839C1D09A56C0044364B /* CommentTableViewCell.xib */; };
@@ -240,6 +241,7 @@
 		5AE24D0D1D216C1100FB691B /* AgendaItemResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemResponse.swift; sourceTree = "<group>"; };
 		5AE24D0F1D22540F00FB691B /* LoadingScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingScreen.xib; sourceTree = "<group>"; };
 		5AE24D111D22571300FB691B /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		5AE3FB6F1D2973AB00B2BEEC /* InAppMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppMessage.swift; sourceTree = "<group>"; };
 		5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionPropertyExtension.swift; sourceTree = "<group>"; };
 		5AE8839B1D09A56C0044364B /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		5AE8839C1D09A56C0044364B /* CommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -448,6 +450,7 @@
 				5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */,
 				5AA983F11D13E4C200A9C2EE /* DateHelper */,
 				5AE24D111D22571300FB691B /* Error.swift */,
+				5AE3FB6F1D2973AB00B2BEEC /* InAppMessage.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 			buildPhases = (
 				E105DE57700466360BCC015A /* [CP] Check Pods Manifest.lock */,
 				5A9D0EDD1D119A3100037589 /* ShellScript */,
+				5AE3FB6E1D28FAEE00B2BEEC /* ShellScript */,
 				5A653E871CD7A96000FB3DEB /* Sources */,
 				5A653E881CD7A96000FB3DEB /* Frameworks */,
 				5A653E891CD7A96000FB3DEB /* Resources */,
@@ -850,6 +854,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 3208098f00747de220b43db580d23fdbf34edab8 631964a97b41ca94b39712c00c08ebb46a7253d16d4a8a666008a9b3b406fb21";
 		};
+		5AE3FB6E1D28FAEE00B2BEEC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
 		81A3DE7BC0440625DB88B805 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -940,6 +957,7 @@
 				5AE8839D1D09A56C0044364B /* CommentTableViewCell.swift in Sources */,
 				5AF36B9B1D12FBC300A1581F /* OrganizationTableViewCell.swift in Sources */,
 				5ABA4FBD1CFEBF1600110030 /* ConversationsResponse.swift in Sources */,
+				5AE3FB701D2973AB00B2BEEC /* InAppMessage.swift in Sources */,
 				5AA806E01D130E7300788DDF /* OrganizationsViewController.swift in Sources */,
 				5AD9F1BF1CE9D65900455D98 /* AgendaItemDeliverable.swift in Sources */,
 				5A8F79091CFF14BF00953495 /* DeliverablesResponse.swift in Sources */,

@@ -32,13 +32,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOa-qg-ZsR">
-                        <rect key="frame" x="71" y="85" width="30" height="19"/>
+                        <rect key="frame" x="71" y="86" width="30" height="19"/>
                         <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="13"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8I-UH-Bva">
-                        <rect key="frame" x="71" y="134" width="26" height="16"/>
+                        <rect key="frame" x="71" y="135" width="26" height="16"/>
                         <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="11"/>
                         <color key="textColor" red="0.83529412746429443" green="0.84705883264541626" blue="0.81960785388946533" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -58,9 +58,9 @@
                         </constraints>
                     </button>
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4uu-Xz-o3o">
-                        <rect key="frame" x="71" y="40" width="87" height="29"/>
+                        <rect key="frame" x="71" y="40" width="87" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="29" id="myJ-wM-lSS"/>
+                            <constraint firstAttribute="height" constant="30" id="myJ-wM-lSS"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="BrandonTextW01-Medium" family="BrandonTextW01-Medium" pointSize="15"/>
                         <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="20" maxY="0.0"/>
@@ -106,6 +106,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="bg_actions" width="45" height="29"/>
+        <image name="bg_actions" width="45" height="30"/>
     </resources>
 </document>

@@ -11,7 +11,7 @@ import ObjectMapper
 import SwiftKeychainWrapper
 
 enum SizungHttpRouter: URLRequestConvertible {
-  
+
   case Login(email: String, password: String)
   case RegisterDevice(token: String)
   case Logout()
@@ -26,8 +26,8 @@ enum SizungHttpRouter: URLRequestConvertible {
   case DeleteUnseenObjects(type: String, id: String)
   case UpdateDeliverable(deliverable: Sizung.Deliverable)
   case UpdateAgendaItem(agendaItem: Sizung.AgendaItem)
-  
-  
+
+
   var method: Alamofire.Method {
     switch self {
     case .Login,
@@ -44,7 +44,7 @@ enum SizungHttpRouter: URLRequestConvertible {
       return .GET
     }
   }
-  
+
   var path: String {
     switch self {
     case .Login,
@@ -82,20 +82,20 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/\(type)/\(id)/unseen_objects"
     }
   }
-  
+
   var authentication: String? {
     switch self {
     case .Login:
       return nil
     default:
-      if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+      if let authToken = Configuration.getAuthToken() {
         return "Bearer \(authToken))"
-      }else {
+      } else {
         return nil
       }
     }
   }
-  
+
   var jsonParameters: [String: AnyObject]? {
     switch self {
     case .Login(let email, let password):
@@ -112,7 +112,7 @@ enum SizungHttpRouter: URLRequestConvertible {
         ]
       ]
     case .Comments(let comment):
-      
+
       // TODO: workaround for incorrect type
       let commentableType = String(comment.commentable.type.capitalizedString.characters.dropLast()).stringByReplacingOccurrencesOfString("_", withString: "")
       return [
@@ -123,34 +123,34 @@ enum SizungHttpRouter: URLRequestConvertible {
         ]
       ]
     case .UpdateDeliverable(let deliverable):
-      
+
       var deliverableJSON: Dictionary<String, AnyObject> = [
         "status": deliverable.status,
         "archived": deliverable.archived
       ]
-      
-      let dateString = ISODateTransform().transformToJSON(deliverable.due_on)
+
+      let dateString = ISODateTransform().transformToJSON(deliverable.dueOn)
       deliverableJSON["due_on"] = dateString
-      
+
       return [
         "deliverable": deliverableJSON
       ]
     case .UpdateAgendaItem(let agendaItem):
-      
+
       let agendaItemJSON: Dictionary<String, AnyObject> = [
         "status": agendaItem.status,
         "archived": agendaItem.archived
       ]
-      
+
       return [
         "agenda_item": agendaItemJSON
       ]
-      
+
     default:
       return nil
     }
   }
-  
+
   var urlParams: [String: AnyObject]? {
     switch self {
     case .ConversationObjects(_, let page):
@@ -162,28 +162,34 @@ enum SizungHttpRouter: URLRequestConvertible {
       return nil
     }
   }
-  
+
   // MARK: URLRequestConvertible
-  
+
   var URLRequest: NSMutableURLRequest {
-    
+
     let URL = NSURL(string: Configuration.APIEndpoint())!
     let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
     mutableURLRequest.HTTPMethod = method.rawValue
     mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Accept")
     mutableURLRequest.setValue(Configuration.getDeviceId(), forHTTPHeaderField: "X-DEVICE")
-    
+
     mutableURLRequest.setValue(self.authentication, forHTTPHeaderField: "Authorization")
-    
+
     switch self {
     case .Login,
          .RegisterDevice,
          .UpdateDeliverable,
          .UpdateAgendaItem,
          .Comments:
-      return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: self.jsonParameters).0
+      return Alamofire.ParameterEncoding.JSON.encode(
+        mutableURLRequest,
+        parameters: self.jsonParameters
+        ).0
     case .ConversationObjects:
-      return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: self.urlParams).0
+      return Alamofire.ParameterEncoding.URL.encode(
+        mutableURLRequest,
+        parameters: self.urlParams
+        ).0
     default:
       return mutableURLRequest
     }
