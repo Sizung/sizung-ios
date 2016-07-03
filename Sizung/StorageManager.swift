@@ -84,7 +84,11 @@ class StorageManager {
           where response.response?.statusCode == 404:
           promise.failure(.NotFound)
         case .Failure:
-          Error.log(response.result.error!)
+          if let error = response.result.error {
+            Error.log(error)
+          } else {
+            Error.log("Something failed")
+          }
           promise.failure(.Other)
         }
     }
