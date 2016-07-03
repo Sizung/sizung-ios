@@ -420,20 +420,22 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
 
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
-        storageManager.updateConversationObjects(self.timelineParent, page: self.nextPage!)
-          .onSuccess { conversationObjects, nextPage in
+        if let nextPage = self.nextPage {
+          storageManager.updateConversationObjects(self.timelineParent, page: nextPage)
+            .onSuccess { conversationObjects, nextPage in
 
-            // hide top loading view if no further data is available
-            if nextPage == nil && self.nextPage > 0 {
-              let reachedStartOfConversationView = R.nib.startOfConversationView.firstView(owner: nil)
-              reachedStartOfConversationView?.transform = self.tableView.transform
-              self.tableView.tableFooterView = reachedStartOfConversationView
-            } else if nextPage == nil {
-              self.tableView.tableFooterView = nil
-            }
+              // hide top loading view if no further data is available
+              if nextPage == nil && self.nextPage > 0 {
+                let reachedStartOfConversationView = R.nib.startOfConversationView.firstView(owner: nil)
+                reachedStartOfConversationView?.transform = self.tableView.transform
+                self.tableView.tableFooterView = reachedStartOfConversationView
+              } else if nextPage == nil {
+                self.tableView.tableFooterView = nil
+              }
 
-            self.nextPage = nextPage
-            self.addItemsToCollection(conversationObjects)
+              self.nextPage = nextPage
+              self.addItemsToCollection(conversationObjects)
+          }
         }
     }
   }
