@@ -11,6 +11,7 @@ import Alamofire
 import SwiftKeychainWrapper
 import Fabric
 import Crashlytics
+import ActionCableClient
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketDelegate {
@@ -125,8 +126,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
 
   func initWebsocketConnection() {
-    if let authToken = Configuration.getAuthToken() {
-      StorageManager.sharedInstance.websocket = Websocket(authToken: authToken)
+    let authToken = AuthToken(data: Configuration.getAuthToken())
+
+    authToken.validate()
+      .onSuccess { _ in
+        let websocket =  Websocket(authToken: authToken.data!)
+        websocket.userWebsocketDelegate = self
+        StorageManager.sharedInstance.websocket = websocket
     }
   }
 
@@ -229,6 +235,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         }
       }
     }
+  }
+
+// websocket delegate
+
+  func onDisconnected() {
+    InAppMessage.showErrorMessage("There was an error connecting to Sizung")
   }
 
   func onReceived(unseenObject: BaseModel) {

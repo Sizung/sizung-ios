@@ -138,6 +138,9 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
 
     // mark unseenObjects as read
     StorageManager.sharedInstance.sawTimeLineFor(self.timelineParent)
+      .onFailure { error in
+        InAppMessage.showErrorMessage("There was an error marking everything as seen")
+    }
 
     if let selection = self.tableView.indexPathForSelectedRow {
       self.tableView.deselectRowAtIndexPath(selection, animated: true)
@@ -149,6 +152,10 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
 
     // remove all created unseen objects while view was visible
     StorageManager.sharedInstance.sawTimeLineFor(self.timelineParent)
+      .onFailure { error in
+        InAppMessage.showErrorMessage("There was an error marking everything as seen")
+    }
+
 
     if let socket = StorageManager.sharedInstance.websocket {
       socket.unfollowConversation(getConversationId())
@@ -197,6 +204,11 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
         return self.autoCompletionCellForRowAtIndexPath(indexPath)
       }
     }
+  }
+
+  func onDisconnected() {
+//    var title = "There was an error while connecting to Sizung"
+//    Whistle(Murmur(title: title))
   }
 
   func onFollowSuccess(itemId: String) {
@@ -298,6 +310,12 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
           .onFailure { error in
             let message = "comment creation failed: \(error)"
             Error.log(message)
+
+
+            InAppMessage.showErrorMessage("There has been an error. Please try again")
+
+            // set message again
+            self.textView.text = comment.body
         }
     }
     //

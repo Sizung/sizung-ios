@@ -42,6 +42,7 @@ PODS:
   - Starscream (1.1.3)
   - SwiftKeychainWrapper (1.0.11)
   - SwiftyJSON (2.3.2)
+  - Whisper (3.0.0)
 
 DEPENDENCIES:
   - ActionCableClient (= 0.1.3)
@@ -64,6 +65,7 @@ DEPENDENCIES:
   - Sheriff
   - SlackTextViewController (~> 1.9)
   - SwiftKeychainWrapper (~> 1.0)
+  - Whisper
 
 SPEC CHECKSUMS:
   ActionCableClient: a267d85d8eed1749f83cbc63596da3edf1e7945a
@@ -90,7 +92,8 @@ SPEC CHECKSUMS:
   Starscream: d662732354b40dd19ed1ece3e3c44c80b536b83c
   SwiftKeychainWrapper: 011a6946923948ffa49708014dd691164d7621d1
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  Whisper: 42a3ee7c2936f861b23d41bd6cd7dfd22f102405
 
-PODFILE CHECKSUM: 9dae682ea07bdcbabd8c1661fecd3b277bce804b
+PODFILE CHECKSUM: 46ee4d74b202c38f481e42dd0d8b62a4cb5798f0
 
 COCOAPODS: 1.0.1
