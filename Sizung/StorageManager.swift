@@ -115,6 +115,8 @@ class StorageManager {
           }
         }
         promise.success(organizationStorageManager)
+      }.onFailure { error in
+        promise.failure(error)
     }
 
     return promise.future
@@ -126,6 +128,8 @@ class StorageManager {
     StorageManager.makeRequest(SizungHttpRouter.Organizations())
       .onSuccess { (organizationsResponse: OrganizationsResponse) in
         promise.success(organizationsResponse.organizations)
+      }.onFailure { error in
+        promise.failure(error)
     }
 
     return promise.future
@@ -142,17 +146,26 @@ class StorageManager {
         unseenObjects.forEach { unseenObject in
           self.unseenObjects.insert(unseenObject)
         }
+      }.onFailure { error in
+        promise.failure(error)
     }
     return promise.future
   }
 
-  func sawTimeLineFor(object: BaseModel) {
+  func sawTimeLineFor(object: BaseModel) -> Future<[UnseenObject], StorageError> {
+    let promise = Promise<[UnseenObject], StorageError>()
+
     StorageManager.makeRequest(SizungHttpRouter.DeleteUnseenObjects(type: object.type, id: object.id))
       .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
         unseenObjectsResponse.unseenObjects.forEach { unseenObject in
           self.unseenObjects.remove(unseenObject)
         }
+        promise.success(unseenObjectsResponse.unseenObjects)
+      }.onFailure { error in
+        promise.failure(error)
     }
+
+    return promise.future
   }
 
   func getAgendaItem(itemId: String) -> Future<AgendaItem, StorageError> {
@@ -160,6 +173,8 @@ class StorageManager {
     StorageManager.makeRequest(SizungHttpRouter.AgendaItem(id: itemId))
       .onSuccess { (agendaItemResponse: AgendaItemResponse) in
         promise.success(agendaItemResponse.agendaItem)
+      }.onFailure { error in
+        promise.failure(error)
     }
     return promise.future
   }
@@ -170,6 +185,8 @@ class StorageManager {
     StorageManager.makeRequest(SizungHttpRouter.Deliverable(id: itemId))
       .onSuccess { (deliverableResponse: DeliverableResponse) in
         promise.success(deliverableResponse.deliverable)
+      }.onFailure { error in
+        promise.failure(error)
     }
 
     return promise.future
@@ -181,6 +198,8 @@ class StorageManager {
     StorageManager.makeRequest(SizungHttpRouter.Conversation(id: itemId))
       .onSuccess { (conversationResponse: ConversationResponse) in
         promise.success(conversationResponse.conversation)
+      }.onFailure { error in
+        promise.failure(error)
     }
 
     return promise.future
@@ -221,6 +240,8 @@ class OrganizationStorageManager {
 
           promise.success(conversation)
 
+        }.onFailure { error in
+          promise.failure(error)
       }
     }
 
@@ -242,6 +263,8 @@ class OrganizationStorageManager {
 
           self.deliverables.insertOrUpdate([deliverable])
           promise.success(deliverable)
+        }.onFailure { error in
+          promise.failure(error)
       }
     }
 
@@ -261,6 +284,8 @@ class OrganizationStorageManager {
         .onSuccess { agendaItem in
           self.agendaItems.insertOrUpdate([agendaItem])
           promise.success(agendaItem)
+        }.onFailure { error in
+          promise.failure(error)
       }
     }
 
@@ -288,6 +313,8 @@ class OrganizationStorageManager {
           }
         }.onFailure { _ in
           promise.failure(StorageError.Other)
+        }.onFailure { error in
+          promise.failure(error)
       }
 
     }
@@ -307,6 +334,8 @@ class OrganizationStorageManager {
           // this should never happen, because we filter for users
           fatalError()
         }
+      }.onFailure { error in
+        promise.failure(error)
     }
     return promise.future
   }
@@ -320,6 +349,8 @@ class OrganizationStorageManager {
         self.agendaItems.insertOrUpdate(agendaItems)
 
         promise.success(agendaItems)
+      }.onFailure { error in
+        promise.failure(error)
     }
 
     return promise.future
@@ -335,6 +366,8 @@ class OrganizationStorageManager {
         self.deliverables.insertOrUpdate(newDeliverables)
 
         promise.success(newDeliverables)
+      }.onFailure { error in
+        promise.failure(error)
     }
     return promise.future
   }
@@ -349,6 +382,8 @@ class OrganizationStorageManager {
         self.conversations.insertOrUpdate(conversations)
 
         promise.success(conversations)
+      }.onFailure { error in
+        promise.failure(error)
     }
     return promise.future
   }
@@ -361,6 +396,8 @@ class OrganizationStorageManager {
     StorageManager.makeRequest(SizungHttpRouter.ConversationObjects(parent: parent, page: page))
       .onSuccess { (conversationObjectsResponse: ConversationObjectsResponse) in
         promise.success((conversationObjectsResponse.conversationObjects, conversationObjectsResponse.nextPage))
+      }.onFailure { error in
+        promise.failure(error)
     }
 
 
@@ -372,6 +409,8 @@ class OrganizationStorageManager {
     StorageManager.makeRequest(SizungHttpRouter.Comments(comment: comment))
       .onSuccess { (commentResponse: CommentResponse) in
         promise.success(commentResponse.comment)
+      }.onFailure { error in
+        promise.failure(error)
     }
     return promise.future
   }
@@ -382,6 +421,8 @@ class OrganizationStorageManager {
       .onSuccess { (deliverableResponse: DeliverableResponse) in
 
         promise.success(deliverableResponse.deliverable)
+      }.onFailure { error in
+        promise.failure(error)
     }
     return promise.future
   }
@@ -391,6 +432,8 @@ class OrganizationStorageManager {
     StorageManager.makeRequest(SizungHttpRouter.UpdateAgendaItem(agendaItem: agendaItem))
       .onSuccess { ( agendaItemResponse: AgendaItemResponse ) in
         promise.success(agendaItemResponse.agendaItem)
+      }.onFailure { error in
+        promise.failure(error)
     }
     return promise.future
   }
