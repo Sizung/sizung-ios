@@ -13,21 +13,21 @@ class AgendaItem: BaseModel {
   var status: String!
   var archived: Bool!
   var conversationId: String!
-  
+
   var ownerId: String!
-  
+
   func setCompleted() {
     self.status = "resolved"
   }
-  
+
   func isCompleted() -> Bool {
     return "resolved" == self.status
   }
-  
+
   func getStatus() -> String {
     return self.status.capitalizedString
   }
-  
+
   override func mapping(map: Map) {
     super.mapping(map)
     title <- map["attributes.title"]

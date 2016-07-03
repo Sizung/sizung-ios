@@ -9,13 +9,13 @@
 import ObjectMapper
 
 class ConversationResponse: Mappable {
-  
+
   var conversation: Conversation!
-  
+
   required init?(_ map: Map) {
-    
+
   }
-  
+
   func mapping(map: Map) {
     conversation <- map["data"]
   }

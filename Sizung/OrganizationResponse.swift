@@ -9,18 +9,18 @@
 import ObjectMapper
 
 class OrganizationResponse: Mappable {
-  
+
   var organization: Organization!
   var conversationsResponse: ConversationsResponse!
   var agendaItemsResponse: AgendaItemsResponse!
   var deliverablesResponse: DeliverablesResponse!
   var conversationDeliverablesResponse: DeliverablesResponse!
   var included: [BaseModel]!
-  
+
   required init?(_ map: Map) {
-    
+
   }
-  
+
   func mapping(map: Map) {
     organization <- map["data"]
     conversationsResponse <- map["meta.conversations"]

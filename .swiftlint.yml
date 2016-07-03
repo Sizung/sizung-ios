@@ -1,0 +1,11 @@
+disabled_rules: # disable line length for now
+  - line_length
+excluded:
+  - Pods
+  - R.generated.swift
+  - SizungTests
+  - SizungUITests
+function_body_length:
+  - 50 # warning
+  - 100
+

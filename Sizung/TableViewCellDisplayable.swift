@@ -10,6 +10,6 @@ import Foundation
 
 @objc protocol TableViewCellDisplayable {
   func getTableViewCellTitle() -> String
-  
+
   optional func getTableViewCellSubtitle() -> String
 }

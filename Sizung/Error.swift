@@ -9,7 +9,7 @@
 import Crashlytics
 
 enum Error {
-  
+
   static func log(error: NSError) {
     #if RELEASE_VERSION
       Crashlytics.sharedInstance().recordError(error)
@@ -17,7 +17,7 @@ enum Error {
       print("error: \(error)")
     #endif
   }
-  
+
   static func log(message: String) {
     #if RELEASE_VERSION
       Crashlytics.sharedInstance().recordError(Error.getError(message))
@@ -25,13 +25,13 @@ enum Error {
       print("error: \(message)")
     #endif
   }
-  
+
   private static func getError(message: String) -> NSError {
-    
+
     let userInfo = [
       NSLocalizedDescriptionKey: message
     ]
-    
+
     return NSError(domain: "SizungErrorDomain", code: -message.hash, userInfo: userInfo)
   }
 }

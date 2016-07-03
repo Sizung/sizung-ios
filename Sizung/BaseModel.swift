@@ -9,37 +9,38 @@
 import ObjectMapper
 
 class BaseModel: Mappable, Equatable, Hashable, DateSortable {
-  
+
   // a UUID String
+  // swiftlint:disable:next variable_name
   var id: String!
   var type: String!
-  var created_at: NSDate!
-  var updated_at: NSDate!
-  
+  var createdAt: NSDate!
+  var updatedAt: NSDate!
+
   init(type: String) {
     id = NSUUID().UUIDString
     self.type = type
   }
-  
+
   var hashValue: Int {
     return id.hashValue
   }
-  
+
   var sortDate: NSDate {
-    return created_at
+    return createdAt
   }
-  
+
   required init?(_ map: Map) {
-    
+
   }
-  
+
   func mapping(map: Map) {
     id <- map["id"]
     type <- map["type"]
-    created_at <- (map["attributes.created_at"], ISODateTimeTransform())
-    updated_at <- (map["attributes.updated_at"], ISODateTimeTransform())
+    createdAt <- (map["attributes.created_at"], ISODateTimeTransform())
+    updatedAt <- (map["attributes.updated_at"], ISODateTimeTransform())
   }
-  
+
 //  polymorphic stuff
   class func objectForMapping(map: Map) -> Mappable? {
     if let type: String = map["type"].value() {
@@ -64,6 +65,6 @@ class BaseModel: Mappable, Equatable, Hashable, DateSortable {
   }
 }
 
-func ==(lhs: BaseModel, rhs: BaseModel) -> Bool {
+func == (lhs: BaseModel, rhs: BaseModel) -> Bool {
   return lhs.id == rhs.id
 }

@@ -9,13 +9,13 @@
 import ObjectMapper
 
 class CommentResponse: Mappable {
-  
+
   var comment: Comment!
-  
+
   required init?(_ map: Map) {
-    
+
   }
-  
+
   func mapping(map: Map) {
     comment <- map["data"]
   }

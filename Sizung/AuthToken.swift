@@ -12,38 +12,37 @@ import Result
 import SwiftKeychainWrapper
 import JWTDecode
 
-enum TokenError : ErrorType {
+enum TokenError: ErrorType {
   case InvalidToken
   case Expired
 }
 
 class AuthToken {
-  
+
   var data: String?
   var jwt: JWT?
-  
+
   init(data: String?) {
-    
+
     self.data = data
-    
+
     do {
       if self.data != nil {
         self.jwt = try decode(data!)
       }
-    }
-    catch let error as NSError {
+    } catch let error as NSError {
       Error.log(error)
     }
   }
-  
+
   func validate() -> Future<String, TokenError> {
     let promise = Promise<String, TokenError>()
-    
+
     guard jwt != nil else {
       promise.failure(.InvalidToken)
       return promise.future
     }
-    
+
     if jwt!.expired {
       promise.failure(.Expired)
     } else if let userId = self.getUserId() {
@@ -53,26 +52,26 @@ class AuthToken {
     }
     return promise.future
   }
-  
+
   func validateAndStore() -> Future<Void, TokenError> {
     let promise = Promise<Void, TokenError>()
-    
+
     self.validate()
       .onSuccess() { userId in
-        KeychainWrapper.setString(self.data!, forKey: Configuration.Settings.AUTH_TOKEN)
+        Configuration.setAuthToken(self.data!)
         promise.success()
       }.onFailure() { error in
         promise.failure(error)
     }
-    
+
     return promise.future
   }
-  
+
   func getUserId() -> String? {
     guard jwt != nil else {
       return nil
     }
-    
+
     return jwt!.claim("user_id")
   }
 }
