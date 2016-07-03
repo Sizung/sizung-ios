@@ -9,8 +9,8 @@
 import UIKit
 
 class AgendaItemTableViewCell: UITableViewCell {
-  
-  
+
+
   @IBOutlet weak var unreadStatusView: UIView!
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var conversationLabel: UILabel!

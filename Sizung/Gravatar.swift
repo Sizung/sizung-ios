@@ -23,7 +23,7 @@
 import Foundation
 import UIKit
 
-private extension String  {
+private extension String {
     var md5_hash: String {
         let trimmedString = lowercaseString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         let utf8String = trimmedString.cStringUsingEncoding(NSUTF8StringEncoding)!
@@ -90,8 +90,7 @@ public struct Gravatar {
         emailAddress: String,
         defaultImage: DefaultImage = .MysteryMan,
         forceDefault: Bool = false,
-        rating: Rating = .PG)
-    {
+        rating: Rating = .PG) {
         self.email = emailAddress
         self.defaultImage = defaultImage
         self.forceDefault = forceDefault
@@ -104,7 +103,7 @@ public struct Gravatar {
 
         var queryItems = [defaultImage.queryItem, rating.queryItem]
 //        queryItems.append(NSURLQueryItem(name: "f", value: forceDefault ? "y" : "n"))
-        queryItems.append(NSURLQueryItem(name: "s", value: String(format: "%.0f",size * scale)))
+        queryItems.append(NSURLQueryItem(name: "s", value: String(format: "%.0f", size * scale)))
 
         components.queryItems = queryItems
 

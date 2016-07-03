@@ -22,36 +22,36 @@ import Foundation
 import SwiftKeychainWrapper
 
 class Configuration: NSObject {
-  
+
   class func APIEndpoint() -> String {
     return SERVER_URL
   }
-  
+
   class func websocketEndpoint() -> String {
     return WEBSOCKET_URL
   }
-  
+
   // remove path components from api endpoint
   class func websocketOrigin() -> String {
     return WEBSOCKET_ORIGIN_URL
   }
-  
+
   class func getDeviceId() -> String {
-    
+
     if let deviceId = KeychainWrapper.stringForKey(Configuration.Settings.DEVICE_ID) {
       return deviceId
-    }else {
+    } else {
       let deviceId = NSUUID().UUIDString
       KeychainWrapper.setString(deviceId, forKey: Configuration.Settings.DEVICE_ID)
       return deviceId
     }
   }
-  
+
   struct Settings {
     static let AUTH_TOKEN = "AUTH_TOKEN"
     static let DEVICE_ID = "DEVICE_ID"
     static let SELECTED_ORGANIZATION = "SELECTED_ORGANIZATION"
-    
+
     static let NOTIFICATION_KEY_AUTH_ERROR = "NOTIFICATION_KEY_AUTH_ERROR"
   }
 }

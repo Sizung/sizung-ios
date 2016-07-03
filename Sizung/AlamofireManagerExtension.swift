@@ -16,8 +16,7 @@ extension Manager {
       parameters: [String: AnyObject]? = nil,
       encoding: ParameterEncoding = .URL,
       headers: [String: String]? = ["Accept" : "application/json"])
-    -> Request
-  {
+    -> Request {
     return Manager.sharedInstance.request(
       method,
       URLString,

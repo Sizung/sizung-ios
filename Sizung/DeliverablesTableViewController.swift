@@ -12,38 +12,38 @@ import ReactiveKit
 import DateTools
 
 class DeliverablesTableViewController: UITableViewController {
-  
+
   var collection: [Deliverable]?
-  
+
   var conversation: Conversation?
-  
+
   var storageManager: OrganizationStorageManager?
-  
+
   var userId: String?
   var filter: Filter = .Mine
-  
+
   enum Filter {
     case Mine
     case All
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    
+
+
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         self.storageManager = storageManager
     }
-    
+
     self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
     self.tableView.registerNib(R.nib.deliverableTableViewCell(), forCellReuseIdentifier: R.nib.deliverableTableViewCell.identifier)
-    
+
     userId = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN)).getUserId()
-    
+
     self.initData()
   }
-  
+
   @IBAction func filterValueChanged(sender: UISegmentedControl) {
     switch sender.selectedSegmentIndex {
     case 0:
@@ -53,26 +53,26 @@ class DeliverablesTableViewController: UITableViewController {
     default:
       break
     }
-    
+
     updateCollection()
   }
-  
-  func updateCollection(){
+
+  func updateCollection() {
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         self.collection = storageManager.deliverables.collection.filter { deliverable in
-          
+
           if self.conversation != nil && self.conversation!.id != deliverable.parentId {
             return false
           }
-          
+
           if self.filter == .Mine {
             return deliverable.assigneeId == self.userId
           } else {
             return true
           }
         }
-        
+
         self.collection!.sortInPlace { left, right in
           //        sort completed to bottom of list
           if left.isCompleted() && !right.isCompleted() {
@@ -89,21 +89,21 @@ class DeliverablesTableViewController: UITableViewController {
             return left.sort_date.isEarlierThan(right.sort_date)
           }
         }
-        
-        
+
+
         self.tableView.tableFooterView?.hidden = self.collection!.count > 0
-        
+
         self.tableView.reloadData()
     }
   }
-  
-  func initData(){
-    
+
+  func initData() {
+
     // listen to unseenObject changes
     StorageManager.sharedInstance.unseenObjects.observeNext { _ in
       self.tableView.reloadData()
       }.disposeIn(rBag)
-    
+
     // listen to deliverable changes
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
@@ -111,42 +111,42 @@ class DeliverablesTableViewController: UITableViewController {
         self.tableView.reloadData()
       }.disposeIn(self.rBag)
     }
-    
+
     updateCollection()
-    
+
   }
-  
+
   override func viewDidAppear(animated: Bool) {
     if self.collection == nil || self.collection?.count == 0 {
       self.updateData()
     }
   }
-  
+
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
-  
+
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return self.collection?.count ?? 0
   }
-  
+
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.deliverableTableViewCell.identifier, forIndexPath: indexPath) as! DeliverableTableViewCell
     let deliverable = self.collection![indexPath.row]
-    
+
     cell.titleLabel.text = deliverable.title
-    
+
     cell.conversationLabel.text = self.storageManager?.conversations[deliverable.parentId]?.title
-    
+
     if deliverable.due_on != nil && !deliverable.isCompleted() {
       cell.statusLabel.text = DueDateHelper.getDueDateString(deliverable.due_on!)
     } else {
       cell.statusLabel.text = deliverable.getStatus()
     }
-    
+
     var statusColor = UIColor(red:0.88, green:0.67, blue:0.71, alpha:1.0)
     var textStatusColor = UIColor.darkTextColor()
-    
+
     if deliverable.isCompleted() {
       statusColor = UIColor(red:0.33, green:0.75, blue:0.59, alpha:1.0)
       textStatusColor = statusColor
@@ -155,25 +155,25 @@ class DeliverablesTableViewController: UITableViewController {
       statusColor = UIColor(red:0.98, green:0.40, blue:0.38, alpha:1.0)
       textStatusColor = statusColor
     }
-    
+
     cell.statusView.backgroundColor = statusColor
     cell.statusView.layer.borderColor = statusColor.CGColor
     cell.statusLabel.textColor = textStatusColor
-    
+
     let hasUnseenObjects = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
       return obj.deliverableId == deliverable.id
     }
-    
+
     if !deliverable.isCompleted() && !hasUnseenObjects {
       cell.statusView.backgroundColor = UIColor.clearColor()
     }
     cell.unreadStatusView.alpha = hasUnseenObjects ? 1 : 0
-    
+
     return cell
   }
-  
-  func updateData(){
-    
+
+  func updateData() {
+
     self.refreshControl?.beginRefreshing()
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
@@ -183,14 +183,14 @@ class DeliverablesTableViewController: UITableViewController {
         }
     }
   }
-  
+
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    
+
     if let selectedDeliverable = collection?[indexPath.row] {
-      
+
       let deliverableViewController = R.storyboard.deliverable.initialViewController()!
       deliverableViewController.deliverable = selectedDeliverable
-      
+
       self.showViewController(deliverableViewController, sender: self)
     }
   }

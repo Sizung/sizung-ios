@@ -10,11 +10,11 @@ import Foundation
 import DateTools
 
 class DueDateHelper {
-  
-  
+
+
   // Formats an incoming due date as String
-  class func getDueDateString(dueDate: NSDate) -> String{
-    if dueDate.isToday(){ 
+  class func getDueDateString(dueDate: NSDate) -> String {
+    if dueDate.isToday() {
       return "Due Today"
     } else if dueDate.isTomorrow() {
       return "Tomorrow"

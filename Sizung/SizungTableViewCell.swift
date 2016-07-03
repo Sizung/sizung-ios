@@ -8,6 +8,6 @@
 
 import UIKit
 
-class SizungTableViewCell: UITableViewCell{
-  
+class SizungTableViewCell: UITableViewCell {
+
 }

@@ -9,13 +9,13 @@
 import ObjectMapper
 
 class AgendaItemResponse: Mappable {
-  
+
   var agendaItem: AgendaItem!
-  
+
   required init?(_ map: Map) {
-    
+
   }
-  
+
   // Mappable
   func mapping(map: Map) {
     agendaItem <- map["data"]

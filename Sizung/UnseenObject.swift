@@ -9,14 +9,14 @@
 import ObjectMapper
 
 class UnseenObject: BaseModel {
-  
+
   var agendaItemId: String?
   var conversationId: String?
   var deliverableId: String?
   var organizationId: String?
   var targetId: String!
   var userId: String!
-  
+
   override func mapping(map: Map) {
     super.mapping(map)
     agendaItemId <- map["relationships.agenda_item.data.id"]

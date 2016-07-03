@@ -16,7 +16,7 @@ class Conversation: BaseModel {
   var deliverables: [Deliverable]!
   var agenda_item_deliverables: [AgendaItemDeliverable]!
   var members: [User]!
-  
+
   override func mapping(map: Map) {
     super.mapping(map)
     title <- map["attributes.title"]

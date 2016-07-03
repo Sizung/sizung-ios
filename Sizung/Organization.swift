@@ -10,7 +10,7 @@ import ObjectMapper
 
 class Organization: BaseModel {
   var name: String!
-  
+
   override func mapping(map: Map) {
     super.mapping(map)
     name <- map["attributes.name"]

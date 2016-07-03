@@ -13,11 +13,11 @@ class Deliverable: BaseModel {
   var status: String!
   var archived: Bool!
   var due_on: NSDate?
-  
+
   var ownerId: String!
   var assigneeId: String!
   var parentId: String!
-  
+
   var sort_date: NSDate! {
     get {
       if let dueDate = self.due_on {
@@ -27,19 +27,19 @@ class Deliverable: BaseModel {
       }
     }
   }
-  
+
   func setCompleted() {
     self.status = "resolved"
   }
-  
+
   func isCompleted() -> Bool {
     return "resolved" == self.status
   }
-  
+
   func getStatus() -> String {
     return self.status.capitalizedString
   }
-  
+
   override func mapping(map: Map) {
     super.mapping(map)
     title <- map["attributes.title"]
@@ -50,7 +50,7 @@ class Deliverable: BaseModel {
     assigneeId <- map["relationships.assignee.data.id"]
     parentId <- map["relationships.parent.data.id"]
   }
-  
+
   //  polymorphic stuff
   override class func objectForMapping(map: Map) -> Mappable? {
     if let parentType: String = map["relationships.parent.data.type"].value() {
