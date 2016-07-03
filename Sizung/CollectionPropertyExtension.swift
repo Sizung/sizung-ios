@@ -8,7 +8,10 @@
 
 import ReactiveKit
 
-extension CollectionPropertyType where Collection == Array<Member>, Member : Equatable, Member : Hashable {
+extension CollectionPropertyType
+  where Collection == Array<Member>,
+  Member : Equatable,
+Member : Hashable {
   public func insertOrUpdate(newCollection: [Self.Member]) {
     var inserts: [Int] = []
     var updates: [Int] = []
@@ -34,12 +37,19 @@ extension CollectionPropertyType where Collection == Array<Member>, Member : Equ
       updates.append(index)
     }
 
-    update(CollectionChangeset(collection: updatedCollection, inserts: inserts, deletes: [], updates: updates))
+    update(CollectionChangeset(
+      collection: updatedCollection,
+      inserts: inserts,
+      deletes: [],
+      updates: updates
+      )
+    )
   }
 
-  subscript(id: String?) -> Self.Member? {
+  // make them accessible by subscript and id
+  subscript(itemId: String?) -> Self.Member? {
     let foundElements = self.collection.filter { element in
-      return element.hashValue == id?.hashValue
+      return element.hashValue == itemId?.hashValue
     }
 
     return foundElements.first

@@ -9,7 +9,9 @@
 import UIKit
 import RSDayFlow
 
-class CalendarViewController: UIViewController, RSDFDatePickerViewDelegate, RSDFDatePickerViewDataSource {
+class CalendarViewController: UIViewController,
+  RSDFDatePickerViewDelegate,
+  RSDFDatePickerViewDataSource {
 
   @IBOutlet weak var monthLabel: UILabel!
   @IBOutlet weak var calendarView: RSDFDatePickerView!
@@ -43,16 +45,6 @@ class CalendarViewController: UIViewController, RSDFDatePickerViewDelegate, RSDF
   @IBAction func showToday(sender: AnyObject) {
     calendarView.scrollToToday(true)
   }
-
-  /*
-   // MARK: - Navigation
-
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
 }
 
 protocol CalendarViewDelegate {

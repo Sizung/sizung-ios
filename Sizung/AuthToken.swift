@@ -58,7 +58,7 @@ class AuthToken {
 
     self.validate()
       .onSuccess() { userId in
-        KeychainWrapper.setString(self.data!, forKey: Configuration.Settings.AUTH_TOKEN)
+        Configuration.setAuthToken(self.data!)
         promise.success()
       }.onFailure() { error in
         promise.failure(error)

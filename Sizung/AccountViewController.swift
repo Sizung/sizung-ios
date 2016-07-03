@@ -25,12 +25,11 @@ class AccountViewController: UIViewController {
   }
 
   @IBAction func logoutClicked(sender: AnyObject) {
-    KeychainWrapper.removeObjectForKey(Configuration.Settings.AUTH_TOKEN)
-    KeychainWrapper.removeObjectForKey(Configuration.Settings.SELECTED_ORGANIZATION)
+    Configuration.reset()
     StorageManager.sharedInstance.reset()
 
     // send auth error notification
-    let notificationName = Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR
+    let notificationName = Configuration.NotificationConstants.kNotificationKeyAuthError
     NSNotificationCenter.defaultCenter().postNotificationName(notificationName, object: nil)
   }
 
@@ -41,9 +40,9 @@ class AccountViewController: UIViewController {
   func version() -> String {
     let dictionary = NSBundle.mainBundle().infoDictionary!
     var versionString = "Unknown Version"
-    if let version = dictionary["CFBundleShortVersionString"] as String {
+    if let version = dictionary["CFBundleShortVersionString"] as? String {
       versionString = "v\(version)"
-      if let build = dictionary["CFBundleVersion"] as String {
+      if let build = dictionary["CFBundleVersion"] as? String {
         return "v\(version) - build #\(build)"
       }
     }

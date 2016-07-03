@@ -88,7 +88,7 @@ enum SizungHttpRouter: URLRequestConvertible {
     case .Login:
       return nil
     default:
-      if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+      if let authToken = Configuration.getAuthToken() {
         return "Bearer \(authToken))"
       } else {
         return nil
@@ -129,7 +129,7 @@ enum SizungHttpRouter: URLRequestConvertible {
         "archived": deliverable.archived
       ]
 
-      let dateString = ISODateTransform().transformToJSON(deliverable.due_on)
+      let dateString = ISODateTransform().transformToJSON(deliverable.dueOn)
       deliverableJSON["due_on"] = dateString
 
       return [
@@ -181,9 +181,15 @@ enum SizungHttpRouter: URLRequestConvertible {
          .UpdateDeliverable,
          .UpdateAgendaItem,
          .Comments:
-      return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: self.jsonParameters).0
+      return Alamofire.ParameterEncoding.JSON.encode(
+        mutableURLRequest,
+        parameters: self.jsonParameters
+        ).0
     case .ConversationObjects:
-      return Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: self.urlParams).0
+      return Alamofire.ParameterEncoding.URL.encode(
+        mutableURLRequest,
+        parameters: self.urlParams
+        ).0
     default:
       return mutableURLRequest
     }

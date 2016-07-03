@@ -8,7 +8,9 @@
 
 import UIKit
 
-class MainPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+class MainPageViewController: UIPageViewController,
+  UIPageViewControllerDataSource,
+UIPageViewControllerDelegate {
 
   var previousIndex: Int = 1
   var nextIndex: Int = 1
@@ -48,8 +50,10 @@ class MainPageViewController: UIPageViewController, UIPageViewControllerDataSour
     }
   }
 
-  func pageViewController(pageViewController: UIPageViewController,
-                          viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+  func pageViewController(
+    pageViewController: UIPageViewController,
+    viewControllerBeforeViewController viewController: UIViewController
+    ) -> UIViewController? {
     guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
       return nil
     }
@@ -67,8 +71,10 @@ class MainPageViewController: UIPageViewController, UIPageViewControllerDataSour
     return orderedViewControllers[previousIndex]
   }
 
-  func pageViewController(pageViewController: UIPageViewController,
-                          viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+  func pageViewController(
+    pageViewController: UIPageViewController,
+    viewControllerAfterViewController viewController: UIViewController
+    ) -> UIViewController? {
     guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
       return nil
     }
@@ -87,20 +93,32 @@ class MainPageViewController: UIPageViewController, UIPageViewControllerDataSour
     return orderedViewControllers[nextIndex]
   }
 
-  func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+  func pageViewController(
+    pageViewController: UIPageViewController,
+    willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
     self.nextIndex = self.orderedViewControllers.indexOf(pendingViewControllers.first!)!
   }
 
-  func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-    if(finished && completed) {
+  func pageViewController(
+    pageViewController: UIPageViewController,
+    didFinishAnimating finished: Bool,
+                       previousViewControllers: [UIViewController],
+                       transitionCompleted completed: Bool) {
+    if finished && completed {
       self.previousIndex = self.orderedViewControllers.indexOf(previousViewControllers.first!)!
       if mainPageViewControllerDelegate != nil {
-        mainPageViewControllerDelegate?.mainpageViewController(self, didSwitchToIndex: self.nextIndex)
+        mainPageViewControllerDelegate?.mainpageViewController(
+          self,
+          didSwitchToIndex: self.nextIndex
+        )
       }
     }
   }
 }
 
 protocol MainPageViewControllerDelegate {
-  func mainpageViewController(mainPageViewController: MainPageViewController, didSwitchToIndex index: Int)
+  func mainpageViewController(
+    mainPageViewController: MainPageViewController,
+    didSwitchToIndex index: Int
+  )
 }

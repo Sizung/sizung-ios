@@ -20,11 +20,14 @@ class ConversationTableViewCell: UITableViewCell {
 
   var activeUsersImageViews: Array<UIImageView> = []
 
-  class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
+  class var kReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
 
   // MARK: - Lifecycle Methods
 
-  func configureImageViewWithURLString(imageView: UIImageView, URLString: String, placeholderImage: UIImage? = nil) {
+  func configureImageViewWithURLString(
+    imageView: UIImageView,
+    URLString: String,
+    placeholderImage: UIImage? = nil) {
     let imageSize = activeImageViewsContainerView.frame.height
     let size = CGSize(width: imageSize, height: imageSize)
 

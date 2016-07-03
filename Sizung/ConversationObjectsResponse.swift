@@ -15,7 +15,7 @@ class ConversationObjectsResponse: Mappable {
 
   var nextPage: Int? {
     get {
-      guard (nextPageURL != nil) else {
+      guard nextPageURL != nil else {
         return nil
       }
       if let urlComponents = NSURLComponents(string: nextPageURL!) {

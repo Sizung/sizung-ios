@@ -49,7 +49,7 @@ class TimelineObject: Hashable, DateSortable {
   }
 }
 
-func ==(lhs: TimelineObject, rhs: TimelineObject) -> Bool {
+func == (lhs: TimelineObject, rhs: TimelineObject) -> Bool {
   return lhs.hashValue == rhs.hashValue
 }
 
@@ -122,9 +122,9 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
           }
 
           if comparisonObject != nil && comparisonObject == self.timelineParent {
-            if unseenObject.created_at.isEarlierThan(earliestDate) {
+            if unseenObject.createdAt.isEarlierThan(earliestDate) {
               // remove one second to guarantee sort order
-              return unseenObject.created_at.dateByAddingSeconds(-1)
+              return unseenObject.createdAt.dateByAddingSeconds(-1)
             }
           }
           return earliestDate
@@ -199,7 +199,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     }
   }
 
-  func onFollowSuccess(id: String) {
+  func onFollowSuccess(itemId: String) {
     self.updateData()
   }
 
@@ -275,7 +275,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     // This little trick validates any pending auto-correction or auto-spelling just after hitting the 'Send' button
     self.textView.refreshFirstResponder()
 
-    let authToken = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
+    let authToken = AuthToken(data: Configuration.getAuthToken())
 
     // parse mentions
     let fulltext = self.textView.text
@@ -476,7 +476,7 @@ extension TimelineTableViewController {
     case let comment as Comment:
       cell = self.cellForComment(comment)
     default:
-      if (sortedCollection[indexPath.row].newMessagesDate != nil) {
+      if sortedCollection[indexPath.row].newMessagesDate != nil {
         cell = self.cellForNewMessageSeparator()
       } else {
         fatalError("unkown row type for \(self)")
@@ -497,73 +497,86 @@ extension TimelineTableViewController {
   }
 
   func cellForDeliverable(deliverable: Deliverable) -> TimelineDeliverableTableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.timelineDeliverableTableViewCell.identifier) as! TimelineDeliverableTableViewCell
+    if let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.timelineDeliverableTableViewCell.identifier) as? TimelineDeliverableTableViewCell {
 
-    cell.titleLabel.setTitle(deliverable.title, forState: .Normal)
-    cell.dueDateLabel.text = deliverable.due_on?.timeAgoSinceNow()
-    cell.dateLabel.text = deliverable.created_at?.timeAgoSinceNow()
+      cell.titleLabel.setTitle(deliverable.title, forState: .Normal)
+      cell.dueDateLabel.text = deliverable.dueOn?.timeAgoSinceNow()
+      cell.dateLabel.text = deliverable.createdAt?.timeAgoSinceNow()
 
-    if let author = storageManager.users[deliverable.ownerId] {
-      cell.authorImage.user = author
+      if let author = storageManager.users[deliverable.ownerId] {
+        cell.authorImage.user = author
+      }
+
+      if let assignee = storageManager.users[deliverable.assigneeId] {
+        cell.assigneeImage.user = assignee
+      }
+
+      return cell
+    } else {
+      fatalError("unexpected cell type")
     }
-
-    if let assignee = storageManager.users[deliverable.assigneeId] {
-      cell.assigneeImage.user = assignee
-    }
-
-    return cell
   }
 
   func cellForAgendaItem(agendaItem: AgendaItem) -> TimelineAgendaItemTableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.timelineAgendaItemTableViewCell.identifier) as! TimelineAgendaItemTableViewCell
+    if let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.timelineAgendaItemTableViewCell.identifier) as? TimelineAgendaItemTableViewCell {
 
-    cell.titleLabel.setTitle(agendaItem.title, forState: .Normal)
-    cell.dateLabel.text = agendaItem.created_at?.timeAgoSinceNow()
+      cell.titleLabel.setTitle(agendaItem.title, forState: .Normal)
+      cell.dateLabel.text = agendaItem.createdAt?.timeAgoSinceNow()
 
-    if let author = storageManager.users[agendaItem.ownerId] {
-      cell.authorImage.user = author
+      if let author = storageManager.users[agendaItem.ownerId] {
+        cell.authorImage.user = author
+      }
+
+      return cell
+    } else {
+      fatalError("unexpected cell type")
     }
-
-    return cell
   }
 
   func cellForComment(comment: Comment) -> CommentTableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.commentTableViewCell.identifier) as! CommentTableViewCell
+    if let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.commentTableViewCell.identifier) as? CommentTableViewCell {
 
-    cell.bodyLabel.attributedText = textParser.parseMarkdown(comment.body)
-    cell.bodyLabel.textColor = (comment.offline ? UIColor.grayColor() : UIColor.blackColor())
-    cell.datetimeLabel.text = comment.created_at?.timeAgoSinceNow()
+      cell.bodyLabel.attributedText = textParser.parseMarkdown(comment.body)
+      cell.bodyLabel.textColor = (comment.offline ? UIColor.grayColor() : UIColor.blackColor())
+      cell.datetimeLabel.text = comment.createdAt?.timeAgoSinceNow()
 
-    if let author = storageManager.users[comment.authorId] {
-      cell.authorImage.user = author
+      if let author = storageManager.users[comment.authorId] {
+        cell.authorImage.user = author
+      }
+
+      //    if cell.gestureRecognizers?.count == nil {
+      //      let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))
+      //      cell.addGestureRecognizer(longPress)
+      //    }
+
+      cell.selectionStyle = .None
+
+      return cell
+
+    } else {
+      fatalError("unexpected cell type")
     }
-
-    //    if cell.gestureRecognizers?.count == nil {
-    //      let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))
-    //      cell.addGestureRecognizer(longPress)
-    //    }
-
-    cell.selectionStyle = .None
-
-    return cell
   }
 
   func autoCompletionCellForRowAtIndexPath(indexPath: NSIndexPath) -> AutoCompletionTableCell {
 
-    let cell = self.autoCompletionView.dequeueReusableCellWithIdentifier(R.nib.autoCompletionTableCell.identifier) as! AutoCompletionTableCell
-    cell.selectionStyle = .Default
+    if let cell = self.autoCompletionView.dequeueReusableCellWithIdentifier(R.nib.autoCompletionTableCell.identifier) as? AutoCompletionTableCell {
+      cell.selectionStyle = .Default
 
-    guard let searchResult = self.searchResult as? [User] else {
+      guard let searchResult = self.searchResult as? [User] else {
+        return cell
+      }
+
+      let user = searchResult[indexPath.row]
+
+      cell.usernameLabel.text = user.name
+
+      cell.userImage.user = user
+
       return cell
+    } else {
+      fatalError("unexpected cell type")
     }
-
-    let user = searchResult[indexPath.row]
-
-    cell.usernameLabel.text = user.name
-
-    cell.userImage.user = user
-
-    return cell
   }
 
   override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -574,7 +587,7 @@ extension TimelineTableViewController {
         return UITableViewAutomaticDimension
       case _ as AgendaItem:
         return TimelineAgendaItemTableViewCell.kHeight
-      case let deliverable as Deliverable where deliverable.due_on != nil:
+      case let deliverable as Deliverable where deliverable.dueOn != nil:
         return TimelineDeliverableTableViewCell.kHeight
       case _ as Deliverable:
         return TimelineDeliverableTableViewCell.kHeightWithoutDueDate
@@ -593,7 +606,7 @@ extension TimelineTableViewController {
         return CommentTableViewCell.kMinimumHeight
       case _ as AgendaItem:
         return TimelineAgendaItemTableViewCell.kHeight
-      case let deliverable as Deliverable where deliverable.due_on != nil:
+      case let deliverable as Deliverable where deliverable.dueOn != nil:
         return TimelineDeliverableTableViewCell.kHeight
       case _ as Deliverable:
         return TimelineDeliverableTableViewCell.kHeightWithoutDueDate

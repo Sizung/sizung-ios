@@ -23,7 +23,7 @@ class StorageManager {
   static var storages: [String: OrganizationStorageManager] = [:]
 
   static func storageForSelectedOrganization() -> Future<OrganizationStorageManager, StorageError> {
-    if let orgId = KeychainWrapper.stringForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
+    if let orgId = Configuration.getSelectedOrganization() {
       return storageForOrganizationId(orgId)
     } else {
       let promise = Promise<OrganizationStorageManager, StorageError>()
@@ -32,15 +32,15 @@ class StorageManager {
     }
   }
 
-  private static func storageForOrganizationId(id: String) -> Future<OrganizationStorageManager, StorageError> {
+  private static func storageForOrganizationId(itemId: String) -> Future<OrganizationStorageManager, StorageError> {
     let promise = Promise<OrganizationStorageManager, StorageError>()
 
-    if let storage = storages[id] {
+    if let storage = storages[itemId] {
       promise.success(storage)
     } else {
-      initOrganizationStorageManager(id)
+      initOrganizationStorageManager(itemId)
         .onSuccess { orgStorageManager in
-          storages[id] = orgStorageManager
+          storages[itemId] = orgStorageManager
           promise.success(orgStorageManager)
       }
     }
@@ -63,10 +63,10 @@ class StorageManager {
     StorageManager.storages = [:]
   }
 
-  static func initOrganizationStorageManager(id: String) -> Future<OrganizationStorageManager, StorageError> {
+  static func initOrganizationStorageManager(organizationId: String) -> Future<OrganizationStorageManager, StorageError> {
     let promise = Promise<OrganizationStorageManager, StorageError>()
 
-    Alamofire.request(SizungHttpRouter.Organization(id: id))
+    Alamofire.request(SizungHttpRouter.Organization(id: organizationId))
       .validate()
       .responseJSON(queue: StorageManager.networkQueue) { response in
         switch response.result {
@@ -97,7 +97,7 @@ class StorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)
@@ -120,7 +120,7 @@ class StorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)
@@ -150,7 +150,7 @@ class StorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)
@@ -176,16 +176,16 @@ class StorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
         default:
           Error.log(response.result.error!)
         }
     }
   }
 
-  func getAgendaItem(id: String) -> Future<AgendaItem, StorageError> {
+  func getAgendaItem(itemId: String) -> Future<AgendaItem, StorageError> {
     let promise = Promise<AgendaItem, StorageError>()
-    Alamofire.request(SizungHttpRouter.AgendaItem(id: id))
+    Alamofire.request(SizungHttpRouter.AgendaItem(id: itemId))
       .validate()
       .responseJSON(queue: StorageManager.networkQueue) {response in
         switch response.result {
@@ -197,7 +197,7 @@ class StorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)
@@ -207,10 +207,10 @@ class StorageManager {
     return promise.future
   }
 
-  func getDeliverable(id: String) -> Future<Deliverable, StorageError> {
+  func getDeliverable(itemId: String) -> Future<Deliverable, StorageError> {
     let promise = Promise<Deliverable, StorageError>()
 
-    Alamofire.request(SizungHttpRouter.Deliverable(id: id))
+    Alamofire.request(SizungHttpRouter.Deliverable(id: itemId))
       .validate()
       .responseJSON(queue: StorageManager.networkQueue) {response in
         switch response.result {
@@ -222,7 +222,7 @@ class StorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)
@@ -233,10 +233,10 @@ class StorageManager {
     return promise.future
   }
 
-  func getConversation(id: String) -> Future<Conversation, StorageError> {
+  func getConversation(itemId: String) -> Future<Conversation, StorageError> {
     let promise = Promise<Conversation, StorageError>()
 
-    Alamofire.request(SizungHttpRouter.Conversation(id: id))
+    Alamofire.request(SizungHttpRouter.Conversation(id: itemId))
       .validate()
       .responseJSON(queue: StorageManager.networkQueue) {response in
         switch response.result {
@@ -248,7 +248,7 @@ class StorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)
@@ -274,16 +274,16 @@ class OrganizationStorageManager {
 
   let users: CollectionProperty <[User]> = CollectionProperty([])
 
-  func getConversation(id: String) -> Future<Conversation, StorageError> {
+  func getConversation(itemId: String) -> Future<Conversation, StorageError> {
     let promise = Promise<Conversation, StorageError>()
     let foundConversations = conversations.collection.filter { conversation in
-      conversation.id == id
+      conversation.id == itemId
     }
 
     if let foundConversation = foundConversations.first {
       promise.success(foundConversation)
     } else {
-      Alamofire.request(SizungHttpRouter.Conversation(id: id))
+      Alamofire.request(SizungHttpRouter.Conversation(id: itemId))
         .validate()
         .responseJSON(queue: StorageManager.networkQueue) {response in
           switch response.result {
@@ -294,13 +294,13 @@ class OrganizationStorageManager {
                 self.conversations.insertOrUpdate([conversationResponse.conversation])
                 promise.success(conversationResponse.conversation)
 
-                self.agendaItems.insertOrUpdate(conversationResponse.conversation.agenda_items)
+                self.agendaItems.insertOrUpdate(conversationResponse.conversation.agendaItems)
                 self.deliverables.insertOrUpdate(conversationResponse.conversation.deliverables)
               }
             }
           case .Failure
             where response.response?.statusCode == 401:
-            NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+            NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
             promise.failure(StorageError.NotAuthenticated)
           default:
             Error.log(response.result.error!)
@@ -312,17 +312,17 @@ class OrganizationStorageManager {
     return promise.future
   }
 
-  func getDeliverable(id: String) -> Future<Deliverable, StorageError> {
+  func getDeliverable(itemId: String) -> Future<Deliverable, StorageError> {
     let promise = Promise<Deliverable, StorageError>()
 
     let foundDeliverables = deliverables.collection.filter { deliverable in
-      deliverable.id == id
+      deliverable.id == itemId
     }
 
     if let foundDeliverable = foundDeliverables.first {
       promise.success(foundDeliverable)
     } else {
-      StorageManager.sharedInstance.getDeliverable(id)
+      StorageManager.sharedInstance.getDeliverable(itemId)
         .onSuccess { deliverable in
 
           self.deliverables.insertOrUpdate([deliverable])
@@ -333,16 +333,16 @@ class OrganizationStorageManager {
     return promise.future
   }
 
-  func getAgendaItem(id: String) -> Future<AgendaItem, StorageError> {
+  func getAgendaItem(itemId: String) -> Future<AgendaItem, StorageError> {
     let promise = Promise<AgendaItem, StorageError>()
     let foundAgendaItems = agendaItems.collection.filter { agendaItem in
-      agendaItem.id == id
+      agendaItem.id == itemId
     }
 
     if let foundAgendaItem = foundAgendaItems.first {
       promise.success(foundAgendaItem)
     } else {
-      StorageManager.sharedInstance.getAgendaItem(id)
+      StorageManager.sharedInstance.getAgendaItem(itemId)
         .onSuccess { agendaItem in
           self.agendaItems.insertOrUpdate([agendaItem])
           promise.success(agendaItem)
@@ -352,11 +352,11 @@ class OrganizationStorageManager {
     return promise.future
   }
 
-  func getUser(id: String) -> Future<User, StorageError> {
+  func getUser(itemId: String) -> Future<User, StorageError> {
     let promise = Promise<User, StorageError>()
 
     let foundUsers = self.users.collection.filter { user in
-      user.id == id
+      user.id == itemId
     }
     if let foundUser = foundUsers.first {
       promise.success(foundUser)
@@ -364,7 +364,7 @@ class OrganizationStorageManager {
       self.listUsers()
         .onSuccess { users in
           let foundUsers = self.users.collection.filter { user in
-            user.id == id
+            user.id == itemId
           }
           if let foundUser = foundUsers.first {
             promise.success(foundUser)
@@ -388,16 +388,20 @@ class OrganizationStorageManager {
         case .Success(let JSON):
           if let organizationResponse = Mapper<OrganizationResponse>().map(JSON) {
             dispatch_async(dispatch_get_main_queue()) {
-              let users = organizationResponse.included.filter { $0 is User } as! [User]
+              let filteredItems = organizationResponse.included.filter { $0 is User }
 
-              self.users.insertOrUpdate(users)
-
-              promise.success(users)
+              if let users = filteredItems as? [User] {
+                self.users.insertOrUpdate(users)
+                promise.success(users)
+              } else {
+                // this should never happen, because we filter for users
+                fatalError()
+              }
             }
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)
@@ -426,7 +430,7 @@ class OrganizationStorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)
@@ -455,7 +459,7 @@ class OrganizationStorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)
@@ -484,7 +488,7 @@ class OrganizationStorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)
@@ -511,7 +515,7 @@ class OrganizationStorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)
@@ -537,7 +541,7 @@ class OrganizationStorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)
@@ -561,7 +565,7 @@ class OrganizationStorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)
@@ -585,7 +589,7 @@ class OrganizationStorageManager {
           }
         case .Failure
           where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
           promise.failure(StorageError.NotAuthenticated)
         default:
           Error.log(response.result.error!)

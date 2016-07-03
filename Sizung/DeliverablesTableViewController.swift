@@ -36,10 +36,17 @@ class DeliverablesTableViewController: UITableViewController {
         self.storageManager = storageManager
     }
 
-    self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
-    self.tableView.registerNib(R.nib.deliverableTableViewCell(), forCellReuseIdentifier: R.nib.deliverableTableViewCell.identifier)
+    self.refreshControl?.addTarget(
+      self,
+      action: #selector(self.updateData),
+      forControlEvents: UIControlEvents.ValueChanged
+    )
+    self.tableView.registerNib(
+      R.nib.deliverableTableViewCell(),
+      forCellReuseIdentifier: R.nib.deliverableTableViewCell.identifier
+    )
 
-    userId = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN)).getUserId()
+    userId = AuthToken(data: Configuration.getAuthToken()).getUserId()
 
     self.initData()
   }
@@ -80,13 +87,13 @@ class DeliverablesTableViewController: UITableViewController {
           } else if !left.isCompleted() && right.isCompleted() {
             return true
             //        sort items with due date on top
-          } else if left.due_on != nil && right.due_on == nil {
+          } else if left.dueOn != nil && right.dueOn == nil {
             return true
-          } else if left.due_on == nil && right.due_on != nil {
+          } else if left.dueOn == nil && right.dueOn != nil {
             return false
             //        sort grouped items by sort_date
           } else {
-            return left.sort_date.isEarlierThan(right.sort_date)
+            return left.sortDate.isEarlierThan(right.sortDate)
           }
         }
 
@@ -107,9 +114,9 @@ class DeliverablesTableViewController: UITableViewController {
     // listen to deliverable changes
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
-      storageManager.deliverables.observeNext {_ in
-        self.tableView.reloadData()
-      }.disposeIn(self.rBag)
+        storageManager.deliverables.observeNext {_ in
+          self.tableView.reloadData()
+          }.disposeIn(self.rBag)
     }
 
     updateCollection()
@@ -130,46 +137,56 @@ class DeliverablesTableViewController: UITableViewController {
     return self.collection?.count ?? 0
   }
 
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.deliverableTableViewCell.identifier, forIndexPath: indexPath) as! DeliverableTableViewCell
-    let deliverable = self.collection![indexPath.row]
+  override func tableView(
+    tableView: UITableView,
+    cellForRowAtIndexPath indexPath: NSIndexPath
+    ) -> UITableViewCell {
+    if let cell = tableView.dequeueReusableCellWithIdentifier(
+      R.nib.deliverableTableViewCell.identifier,
+      forIndexPath: indexPath) as? DeliverableTableViewCell {
+      let deliverable = self.collection![indexPath.row]
 
-    cell.titleLabel.text = deliverable.title
+      cell.titleLabel.text = deliverable.title
 
-    cell.conversationLabel.text = self.storageManager?.conversations[deliverable.parentId]?.title
+      cell.conversationLabel.text = self.storageManager?.conversations[deliverable.parentId]?.title
 
-    if deliverable.due_on != nil && !deliverable.isCompleted() {
-      cell.statusLabel.text = DueDateHelper.getDueDateString(deliverable.due_on!)
+      if deliverable.dueOn != nil && !deliverable.isCompleted() {
+        cell.statusLabel.text = DueDateHelper.getDueDateString(deliverable.dueOn!)
+      } else {
+        cell.statusLabel.text = deliverable.getStatus()
+      }
+
+      var statusColor = UIColor(red:0.88, green:0.67, blue:0.71, alpha:1.0)
+      var textStatusColor = UIColor.darkTextColor()
+
+      if deliverable.isCompleted() {
+        statusColor = UIColor(red:0.33, green:0.75, blue:0.59, alpha:1.0)
+        textStatusColor = statusColor
+      } else if deliverable.dueOn != nil && deliverable.dueOn?.daysAgo() >= 0 {
+        //overdue or today
+        statusColor = UIColor(red:0.98, green:0.40, blue:0.38, alpha:1.0)
+        textStatusColor = statusColor
+      }
+
+      cell.statusView.backgroundColor = statusColor
+      cell.statusView.layer.borderColor = statusColor.CGColor
+      cell.statusLabel.textColor = textStatusColor
+
+      let unseenObjects = StorageManager.sharedInstance.unseenObjects
+
+      let hasUnseenObjects = unseenObjects.collection.contains { obj in
+        return obj.deliverableId == deliverable.id
+      }
+
+      if !deliverable.isCompleted() && !hasUnseenObjects {
+        cell.statusView.backgroundColor = UIColor.clearColor()
+      }
+      cell.unreadStatusView.alpha = hasUnseenObjects ? 1 : 0
+
+      return cell
     } else {
-      cell.statusLabel.text = deliverable.getStatus()
+      fatalError("Unexpected cell type")
     }
-
-    var statusColor = UIColor(red:0.88, green:0.67, blue:0.71, alpha:1.0)
-    var textStatusColor = UIColor.darkTextColor()
-
-    if deliverable.isCompleted() {
-      statusColor = UIColor(red:0.33, green:0.75, blue:0.59, alpha:1.0)
-      textStatusColor = statusColor
-    } else if deliverable.due_on != nil && deliverable.due_on?.daysAgo() >= 0 {
-      //overdue or today
-      statusColor = UIColor(red:0.98, green:0.40, blue:0.38, alpha:1.0)
-      textStatusColor = statusColor
-    }
-
-    cell.statusView.backgroundColor = statusColor
-    cell.statusView.layer.borderColor = statusColor.CGColor
-    cell.statusLabel.textColor = textStatusColor
-
-    let hasUnseenObjects = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
-      return obj.deliverableId == deliverable.id
-    }
-
-    if !deliverable.isCompleted() && !hasUnseenObjects {
-      cell.statusView.backgroundColor = UIColor.clearColor()
-    }
-    cell.unreadStatusView.alpha = hasUnseenObjects ? 1 : 0
-
-    return cell
   }
 
   func updateData() {

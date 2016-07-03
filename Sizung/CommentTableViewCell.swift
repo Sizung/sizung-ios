@@ -16,8 +16,7 @@ class CommentTableViewCell: UITableViewCell {
 
   static let kMinimumHeight: CGFloat = 65
 
-  class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
-
+  class var kReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
 
   override func prepareForReuse() {
     super.prepareForReuse()

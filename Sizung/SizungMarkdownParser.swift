@@ -17,7 +17,8 @@ class SizungMarkdownParser {
 
   init() {
     // italic pattern
-    markdown.add("*?*", recursive: false) { (pattern: String, text: String, start: Int) -> (String, [NSObject : AnyObject]?) in
+    markdown.add("*?*", recursive: false) {
+      (pattern: String, text: String, start: Int) -> (String, [NSObject : AnyObject]?) in
       if pattern == "**" {
         return (pattern, nil)
       }
@@ -25,13 +26,20 @@ class SizungMarkdownParser {
       return (replace, [NSFontAttributeName: R.font.brandonGrotesqueMedium(size: self.fontSize)!])
     }
     //bold pattern
-    markdown.add("**?**", recursive: false) { (pattern: String, text: String, start: Int) -> (String, [NSObject : AnyObject]?) in
+    markdown.add("**?**", recursive: false) {
+      (pattern: String, text: String, start: Int) -> (String, [NSObject : AnyObject]?) in
       let replace = pattern[pattern.startIndex.advancedBy(2)...pattern.endIndex.advancedBy(-3)]
       return (replace, [NSFontAttributeName: R.font.brandonTextW01Medium(size: self.fontSize)!])
     }
     //mention pattern
-    markdown.add("@[?](?)", recursive: false) { (pattern: String, text: String, start: Int) -> (String, [NSObject : AnyObject]?) in
-      let replace = pattern[pattern.rangeOfString("[")!.startIndex.advancedBy(1)...pattern.rangeOfString("]")!.endIndex.advancedBy(-2)]
+    markdown.add("@[?](?)", recursive: false) {
+      (pattern: String, text: String, start: Int) -> (String, [NSObject : AnyObject]?) in
+      let replace =
+        pattern[
+          pattern.rangeOfString("[")!.startIndex.advancedBy(1)
+          ...
+            pattern.rangeOfString("]")!.endIndex.advancedBy(-2)
+      ]
       return (replace, [NSFontAttributeName: R.font.brandonTextW01Medium(size: self.fontSize)!])
     }
 

@@ -20,7 +20,7 @@ class TimelineDeliverableTableViewCell: UITableViewCell {
   static let kHeight: CGFloat = 158
   static let kHeightWithoutDueDate: CGFloat = kHeight - 21
 
-  class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
+  class var kReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
 
   // MARK: - Lifecycle Methods
 

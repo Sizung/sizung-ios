@@ -103,10 +103,10 @@ class Websocket {
     return channel
   }
 
-  func followConversation(id: String) {
+  func followConversation(conversationId: String) {
 
     guard client.connected else {
-      willFollowConversationChannels.insert(id)
+      willFollowConversationChannels.insert(conversationId)
       client.connect()
       return
     }
@@ -115,16 +115,16 @@ class Websocket {
       fatalError("conversationchannel not subscribed")
     }
 
-    guard conversationChannel!.action("follow", params: ["conversation_id": id]) == nil else {
-      fatalError("error following conversation \(id)")
+    guard conversationChannel!.action("follow", params: ["conversation_id": conversationId]) == nil else {
+      fatalError("error following conversation \(conversationId)")
     }
 
-    self.conversationWebsocketDelegate?.onFollowSuccess(id)
+    self.conversationWebsocketDelegate?.onFollowSuccess(conversationId)
   }
 
-  func unfollowConversation(id: String) {
+  func unfollowConversation(conversationId: String) {
 
-    willFollowConversationChannels.remove(id)
+    willFollowConversationChannels.remove(conversationId)
 
     guard client.connected else {
       return
@@ -134,14 +134,14 @@ class Websocket {
       return
     }
 
-    guard conversationChannel!.action("unfollow", params: ["conversation_id": id]) == nil else {
+    guard conversationChannel!.action("unfollow", params: ["conversation_id": conversationId]) == nil else {
       fatalError("error disconnecting")
     }
   }
 
-  func followUser(id: String) {
+  func followUser(userId: String) {
     guard client.connected else {
-      willFollowUserChannels.insert(id)
+      willFollowUserChannels.insert(userId)
       client.connect()
       return
     }
@@ -150,11 +150,11 @@ class Websocket {
       fatalError("userChannel not subscribed")
     }
 
-    guard userChannel!.action("follow", params: ["user_id": id]) == nil else {
-      fatalError("error following user \(id)")
+    guard userChannel!.action("follow", params: ["user_id": userId]) == nil else {
+      fatalError("error following user \(userId)")
     }
 
-    self.userWebsocketDelegate?.onFollowSuccess(id)
+    self.userWebsocketDelegate?.onFollowSuccess(userId)
   }
 }
 

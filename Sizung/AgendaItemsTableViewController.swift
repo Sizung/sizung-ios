@@ -29,10 +29,18 @@ class AgendaItemsTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
-    self.tableView.registerNib(R.nib.agendaItemTableViewCell(), forCellReuseIdentifier: R.nib.agendaItemTableViewCell.identifier)
+    self.refreshControl?.addTarget(
+      self,
+      action: #selector(self.updateData),
+      forControlEvents: UIControlEvents.ValueChanged
+    )
+    self.tableView.registerNib(
+      R.nib.agendaItemTableViewCell(),
+      forCellReuseIdentifier: R.nib.agendaItemTableViewCell.identifier
+    )
 
-    userId = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN)).getUserId()
+    userId = AuthToken(
+      data: Configuration.getAuthToken()).getUserId()
 
     self.initData()
   }
@@ -67,14 +75,14 @@ class AgendaItemsTableViewController: UITableViewController {
             } else {
               return true
             }
-          }
+        }
 
 
         //    sort by created at date
         self.collection!
           .sortInPlace { left, right in
-            return left.created_at.compare(right.created_at) == NSComparisonResult.OrderedDescending
-          }
+            return left.createdAt.compare(right.createdAt) == NSComparisonResult.OrderedDescending
+        }
 
 
         self.tableView.tableFooterView?.hidden = self.collection!.count > 0
@@ -117,28 +125,39 @@ class AgendaItemsTableViewController: UITableViewController {
     return self.collection?.count ?? 0
   }
 
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.agendaItemTableViewCell.identifier, forIndexPath: indexPath) as! AgendaItemTableViewCell
-    let agendaItem = self.collection![indexPath.row]
-    cell.titleLabel.text = agendaItem.title
+  override func tableView(
+    tableView: UITableView,
+    cellForRowAtIndexPath indexPath: NSIndexPath)
+    -> UITableViewCell {
+      if let cell = tableView.dequeueReusableCellWithIdentifier(
+        R.nib.agendaItemTableViewCell.identifier,
+        forIndexPath: indexPath
+        ) as? AgendaItemTableViewCell {
+        let agendaItem = self.collection![indexPath.row]
+        cell.titleLabel.text = agendaItem.title
 
-    cell.conversationLabel.text = ""
+        cell.conversationLabel.text = ""
 
-    if let conversationTitle = storageManager?.conversations[agendaItem.conversationId]?.title {
-      cell.conversationLabel.text = "@\(conversationTitle)"
-    }
+        if let conversationTitle = storageManager?.conversations[agendaItem.conversationId]?.title {
+          cell.conversationLabel.text = "@\(conversationTitle)"
+        }
 
-    let hasUnseenObject = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
-      return obj.agendaItemId == agendaItem.id
-    }
+        let unseenObjects = StorageManager.sharedInstance.unseenObjects.collection
 
-    cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
+        let hasUnseenObject = unseenObjects.contains { obj in
+          return obj.agendaItemId == agendaItem.id
+        }
 
-    if let user = storageManager?.users[agendaItem.ownerId] {
-      cell.authorImageView.user = user
-    }
+        cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
 
-    return cell
+        if let user = storageManager?.users[agendaItem.ownerId] {
+          cell.authorImageView.user = user
+        }
+
+        return cell
+      } else {
+        fatalError("Unknown cell type in \(self.dynamicType)")
+      }
   }
 
   func updateData() {
@@ -156,9 +175,12 @@ class AgendaItemsTableViewController: UITableViewController {
 
     let selectedAgendaItem = self.collection![indexPath.row]
 
-    let agendaItemViewController = UIStoryboard(name: "AgendaItem", bundle: nil).instantiateInitialViewController() as! AgendaItemViewController
-    agendaItemViewController.agendaItem = selectedAgendaItem
+    if let agendaItemViewController = R.storyboard.agendaItem.initialViewController() {
+      agendaItemViewController.agendaItem = selectedAgendaItem
 
-    self.showViewController(agendaItemViewController, sender: self)
+      self.showViewController(agendaItemViewController, sender: self)
+    } else {
+      fatalError("unexpected type")
+    }
   }
 }

@@ -44,7 +44,11 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
 
     segmentedControl.items = ["PRIORITY", "STREAM", "ACTION"]
     segmentedControl.thumbColors = [Color.TODISCUSS, Color.STREAM, Color.TODO]
-    segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged)
+    segmentedControl.addTarget(
+      self, action:
+      #selector(self.segmentedControlDidChange),
+      forControlEvents: .ValueChanged
+    )
 
     self.initFloatingActionButton()
   }
@@ -129,25 +133,37 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "embed" {
-      self.mainPageViewController = segue.destinationViewController as! MainPageViewController
-      self.mainPageViewController.mainPageViewControllerDelegate = self
+      if let mainPageViewController = segue.destinationViewController as? MainPageViewController {
+        self.mainPageViewController = mainPageViewController
+        self.mainPageViewController.mainPageViewControllerDelegate = self
 
-      self.mainPageViewController.orderedViewControllers.append(R.storyboard.main.agendaItemsTableViewController()!)
-      self.mainPageViewController.orderedViewControllers.append(R.storyboard.main.streamTableViewController()!)
+        self.mainPageViewController.orderedViewControllers
+          .append(R.storyboard.main.agendaItemsTableViewController()!)
+        self.mainPageViewController.orderedViewControllers
+          .append(R.storyboard.main.streamTableViewController()!)
 
-      let deliverablesTableViewController = R.storyboard.main.userDeliverablesTableViewController()!
+        let deliverablesTableViewController =
+          R.storyboard.main.userDeliverablesTableViewController()!
 
-      let token = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
-      let userId = token.getUserId()
+        let token = AuthToken(data: Configuration.getAuthToken())
+        let userId = token.getUserId()
 
-      deliverablesTableViewController.userId = userId
+        deliverablesTableViewController.userId = userId
 
-      self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
+        self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
+      } else {
+        fatalError("unexpected segue destinationViewcontroller " +
+          "\(segue.destinationViewController.dynamicType)")
+      }
+    } else {
+      fatalError("unexpected segue \(segue.identifier)")
     }
 
   }
 
-  func mainpageViewController(mainPageViewController: MainPageViewController, didSwitchToIndex index: Int) {
+  func mainpageViewController(
+    mainPageViewController: MainPageViewController,
+    didSwitchToIndex index: Int) {
     segmentedControl.selectedIndex = index
   }
 }

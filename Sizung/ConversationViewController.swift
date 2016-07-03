@@ -25,7 +25,11 @@ class ConversationViewController: UIViewController, MainPageViewControllerDelega
 
     segmentedControl.items = ["PRIORITIES", "CHAT", "ACTIONS"]
     segmentedControl.thumbColors = [Color.TODISCUSS, Color.CHAT, Color.TODO]
-    segmentedControl.addTarget(self, action: #selector(self.segmentedControlDidChange), forControlEvents: .ValueChanged)
+    segmentedControl.addTarget(
+      self,
+      action: #selector(self.segmentedControlDidChange),
+      forControlEvents: .ValueChanged
+    )
   }
 
   func segmentedControlDidChange(sender: SizungSegmentedControl) {
@@ -41,27 +45,36 @@ class ConversationViewController: UIViewController, MainPageViewControllerDelega
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if R.segue.conversationViewController.embed(segue: segue) != nil {
-      self.mainPageViewController = segue.destinationViewController as! MainPageViewController
-      self.mainPageViewController.mainPageViewControllerDelegate = self
+      if let mainPageViewController = segue.destinationViewController as? MainPageViewController {
+        self.mainPageViewController = mainPageViewController
+        self.mainPageViewController.mainPageViewControllerDelegate = self
 
-      let agendaItemsTableViewController = R.storyboard.conversations.agendaItemsTableViewController()!
-      agendaItemsTableViewController.conversation = self.conversation
+        let agendaItemsTableViewController =
+          R.storyboard.conversations.agendaItemsTableViewController()!
+        agendaItemsTableViewController.conversation = self.conversation
 
-      self.mainPageViewController.orderedViewControllers.append(agendaItemsTableViewController)
+        self.mainPageViewController.orderedViewControllers.append(agendaItemsTableViewController)
 
-      let timelineTableViewController = R.storyboard.conversations.timelineTableViewController()!
-      timelineTableViewController.timelineParent = self.conversation
-      self.mainPageViewController.orderedViewControllers.append(timelineTableViewController)
+        let timelineTableViewController = R.storyboard.conversations.timelineTableViewController()!
+        timelineTableViewController.timelineParent = self.conversation
+        self.mainPageViewController.orderedViewControllers.append(timelineTableViewController)
 
-      let deliverablesTableViewController = R.storyboard.conversations.conversationDeliverablesTableViewController()!
-      deliverablesTableViewController.conversation = conversation
-      self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
+        let deliverablesTableViewController =
+          R.storyboard.conversations.conversationDeliverablesTableViewController()!
+        deliverablesTableViewController.conversation = conversation
+        self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
+      } else {
+        fatalError("unexpected destinationviewcontroller " +
+          "\(segue.destinationViewController.dynamicType)")
+      }
     } else {
-      fatalError("unkown segue")
+      fatalError("unkown segue \(segue.identifier)")
     }
   }
 
-  func mainpageViewController(mainPageViewController: MainPageViewController, didSwitchToIndex index: Int) {
-    segmentedControl.selectedIndex = index
+  func mainpageViewController(
+    mainPageViewController: MainPageViewController,
+    didSwitchToIndex index: Int) {
+      segmentedControl.selectedIndex = index
   }
 }

@@ -17,7 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
   var window: UIWindow?
 
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+  func application(
+    application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?
+    ) -> Bool {
 
     self.checkSettings()
 
@@ -29,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
     self.registerNotifications()
 
-    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+    if let authToken = Configuration.getAuthToken() {
       let token = AuthToken(data: authToken)
       token.validate()
         .onSuccess { _ in
@@ -47,7 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     }
 
     // handle remote notification from launch
-    if let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? [String: AnyObject] {
+    if let userInfo = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey]
+      as? [String: AnyObject] {
       self.application(application, didReceiveRemoteNotification: userInfo)
     }
 
@@ -56,8 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
   func checkSettings() {
     if NSUserDefaults.standardUserDefaults().boolForKey("reset_on_launch") {
-      KeychainWrapper.removeObjectForKey(Configuration.Settings.AUTH_TOKEN)
-      KeychainWrapper.removeObjectForKey(Configuration.Settings.SELECTED_ORGANIZATION)
+      Configuration.reset()
 
       // Reset user defaults
       let appDomain = NSBundle.mainBundle().bundleIdentifier!
@@ -70,13 +73,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
 
   func registerNotifications() {
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.showLogin), name: Configuration.Settings.NOTIFICATION_KEY_AUTH_ERROR, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(
+      self,
+      selector: #selector(self.showLogin),
+      name: Configuration.NotificationConstants.kNotificationKeyAuthError,
+      object: nil
+    )
   }
 
   func loadInitialViewController() {
 
     //  show organization list if no organization is selected
-    if !KeychainWrapper.hasValueForKey(Configuration.Settings.SELECTED_ORGANIZATION) {
+    if Configuration.getSelectedOrganization() == nil {
       let organizationViewController = R.storyboard.organizations.initialViewController()!
       self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
     }
@@ -102,21 +110,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     self.loadInitialViewController()
   }
 
-  func applicationWillResignActive(application: UIApplication) {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-  }
-
-  func applicationDidEnterBackground(application: UIApplication) {
-
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-  }
-
-  func applicationWillEnterForeground(application: UIApplication) {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-  }
-
   func applicationDidBecomeActive(application: UIApplication) {
 
     //ensure websocket connection is open
@@ -132,15 +125,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
 
   func initWebsocketConnection() {
-    if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+    if let authToken = Configuration.getAuthToken() {
       StorageManager.sharedInstance.websocket = Websocket(authToken: authToken)
     }
   }
 
   func fetchUnseenObjects() {
     // update unseenobjects
-    let authToken = AuthToken(data: KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN))
-    if let userId = authToken.getUserId() {
+    if let userId = AuthToken(data: Configuration.getAuthToken()).getUserId() {
       StorageManager.sharedInstance.listUnseenObjects(userId)
 
       // subscribe to user channel
@@ -149,13 +141,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     }
   }
 
-  func applicationWillTerminate(application: UIApplication) {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-  }
-
-  // universal links
-
-  func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+  // universal link support
+  func application(
+    application: UIApplication,
+    continueUserActivity userActivity: NSUserActivity,
+                         restorationHandler: ([AnyObject]?) -> Void
+    ) -> Bool {
     if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
       if let url = userActivity.webpageURL {
         return self.loadUrl(url)
@@ -169,14 +160,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   func registerForPushNotifications() {
     let application = UIApplication.sharedApplication()
     let notificationSettings = UIUserNotificationSettings(
-      forTypes: [.Badge, .Sound, .Alert], categories: nil)
+      forTypes: [.Badge, .Sound, .Alert],
+      categories: nil
+    )
 
     application.registerUserNotificationSettings(notificationSettings)
 
     application.registerForRemoteNotifications()
   }
 
-  func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+  func application(
+    application: UIApplication,
+    didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
     let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
     var tokenString = ""
 
@@ -193,30 +188,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     }
   }
 
-  func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+  func application(
+    application: UIApplication,
+    didFailToRegisterForRemoteNotificationsWithError error: NSError
+    ) {
     Crashlytics.sharedInstance().recordError(error)
   }
 
   // foreground notification received
-  func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
+  func application(
+    application: UIApplication,
+    handleActionWithIdentifier identifier: String?,
+                               forRemoteNotification userInfo: [NSObject : AnyObject],
+                                                     completionHandler: () -> Void
+    ) {
 
     print("handleRemoteActionWithIdentifier \(identifier) notification: \(userInfo)")
 
     completionHandler()
   }
 
-  func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+  func application(
+    application: UIApplication,
+    didReceiveRemoteNotification userInfo: [NSObject : AnyObject]
+    ) {
     if let urlString = userInfo["link"] as? String {
       if let url = NSURL(string: urlString) {
         // generate local notification if application is active
-        if (application.applicationState == .Active) {
-          //          if let message = userInfo["aps"]!["alert"] as? String {
-          //            let localNotification = UILocalNotification()
-          //            localNotification.userInfo = userInfo
-          //            localNotification.soundName = UILocalNotificationDefaultSoundName;
-          //            localNotification.alertBody = message;
-          //            UIApplication.sharedApplication().presentLocalNotificationNow(localNotification)
-          //          }
+        if application.applicationState == .Active {
+          print("received link \(url) while in foreground")
+          // if let message = userInfo["aps"]!["alert"] as? String {
+          //   let localNotification = UILocalNotification()
+          //   localNotification.userInfo = userInfo
+          //   localNotification.soundName = UILocalNotificationDefaultSoundName;
+          //   localNotification.alertBody = message;
+          //   UIApplication.sharedApplication().presentLocalNotificationNow(localNotification)
+          // }
         } else {
           self.loadUrl(url)
         }
@@ -244,78 +251,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       }
 
       let type = pathComponents[1]
-      let id = pathComponents[2]
+      let itemId = pathComponents[2]
 
       // check for known types only
       guard ["agenda_items", "deliverables", "conversations"].contains(type) else {
-        let message = "link to unknown type \(type) with id:\(id)"
+        let message = "link to unknown type \(type) with id:\(itemId)"
         Error.log(message)
         return false
       }
 
       // check if logged in
-      if let authToken = KeychainWrapper.stringForKey(Configuration.Settings.AUTH_TOKEN) {
+      if let authToken = Configuration.getAuthToken() {
         let token = AuthToken(data: authToken)
         token.validate()
           .onSuccess { _ in
-
-            // simplify organization loading
-            switch type {
-            case "agenda_items":
-              StorageManager.sharedInstance.getAgendaItem(id)
-                .onSuccess { agendaItem in
-
-                  StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
-                    .onSuccess { conversation in
-                      // set selected organization according to entity
-                      KeychainWrapper.setString(conversation.organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
-
-                      let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
-                      agendaItemViewController.agendaItem = agendaItem
-
-                      self.window?.rootViewController?.showViewController(agendaItemViewController, sender: self)
-                  }
-              }
-              break
-            case "deliverables":
-              StorageManager.sharedInstance.getDeliverable(id)
-                .onSuccess { deliverable in
-
-                  switch deliverable {
-                  case let agendaItemDeliverable as AgendaItemDeliverable:
-                    StorageManager.sharedInstance.getAgendaItem(agendaItemDeliverable.agendaItemId)
-                      .onSuccess { agendaItem in
-                        StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
-                          .onSuccess { conversation in
-                            self.openDeliverable(deliverable, organizationId: conversation.organizationId)
-                        }
-
-                    }
-                  default:
-                    StorageManager.sharedInstance.getConversation(deliverable.parentId)
-                      .onSuccess { conversation in
-                        self.openDeliverable(deliverable, organizationId: conversation.organizationId)
-                    }
-                  }
-              }
-              break
-            case "conversations":
-              StorageManager.sharedInstance.getConversation(id)
-                .onSuccess { conversation in
-                  // set selected organization according to entity
-                  KeychainWrapper.setString(conversation.organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
-
-                  let conversationsViewController = R.storyboard.conversations.conversationViewController()!
-                  conversationsViewController.conversation = conversation
-
-                  self.window?.rootViewController?.showViewController(conversationsViewController, sender: self)
-              }
-              break
-            default:
-              let message = "link to unknown type \(type) with id:\(id)"
-              Error.log(message)
-            }
-
+            self.openItem(type, itemId: itemId)
           }.onFailure { error in
             self.showLogin()
         }
@@ -327,14 +277,78 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     return true
   }
 
+  func openItem(type: String, itemId: String) {
+    // simplify organization loading
+    switch type {
+    case "agenda_items":
+      StorageManager.sharedInstance.getAgendaItem(itemId)
+        .onSuccess { agendaItem in
+
+          StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
+            .onSuccess { conversation in
+              // set selected organization according to entity
+              Configuration.setSelectedOrganization(conversation.organizationId)
+
+              let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
+              agendaItemViewController.agendaItem = agendaItem
+
+              self.window?.rootViewController?.showViewController(
+                agendaItemViewController,
+                sender: self
+              )
+          }
+      }
+      break
+    case "deliverables":
+      StorageManager.sharedInstance.getDeliverable(itemId)
+        .onSuccess { deliverable in
+
+          switch deliverable {
+          case let agendaItemDeliverable as AgendaItemDeliverable:
+            StorageManager.sharedInstance.getAgendaItem(agendaItemDeliverable.agendaItemId)
+              .onSuccess { agendaItem in
+                StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
+                  .onSuccess { conversation in
+                    self.openDeliverable(deliverable, organizationId: conversation.organizationId)
+                }
+
+            }
+          default:
+            StorageManager.sharedInstance.getConversation(deliverable.parentId)
+              .onSuccess { conversation in
+                self.openDeliverable(deliverable, organizationId: conversation.organizationId)
+            }
+          }
+      }
+      break
+    case "conversations":
+      StorageManager.sharedInstance.getConversation(itemId)
+        .onSuccess { conversation in
+          // set selected organization according to entity
+          Configuration.setSelectedOrganization(conversation.organizationId)
+
+          let conversationsViewController = R.storyboard.conversations.conversationViewController()!
+          conversationsViewController.conversation = conversation
+
+          self.window?.rootViewController?.showViewController(
+            conversationsViewController,
+            sender: self
+          )
+      }
+      break
+    default:
+      let message = "link to unknown type \(type) with id:\(itemId)"
+      Error.log(message)
+    }
+  }
+
   func openDeliverable(deliverable: Deliverable, organizationId: String) {
     // set selected organization according to entity
-    KeychainWrapper.setString(organizationId, forKey: Configuration.Settings.SELECTED_ORGANIZATION)
+    Configuration.setSelectedOrganization(organizationId)
 
     let deliverableViewController = R.storyboard.deliverable.initialViewController()!
     deliverableViewController.deliverable = deliverable
 
     self.window?.rootViewController?.showViewController(deliverableViewController, sender: self)
   }
-
 }

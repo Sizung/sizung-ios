@@ -18,7 +18,7 @@ class StreamTableViewCell: UITableViewCell {
   @IBOutlet weak var lastCommentLabel: UILabel!
   @IBOutlet weak var lastCommentAuthorImageView: UIImageView!
 
-  class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
+  class var kReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
 
   // MARK: - Lifecycle Methods
 

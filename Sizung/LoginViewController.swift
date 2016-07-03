@@ -81,7 +81,11 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
   }
 
   func showAlert(text: String) {
-    let alert = UIAlertController(title: "Error", message: text, preferredStyle: UIAlertControllerStyle.Alert)
+    let alert = UIAlertController(
+      title: "Error",
+      message: text,
+      preferredStyle: UIAlertControllerStyle.Alert
+    )
 
     let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
 
@@ -98,7 +102,7 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
 
   public func textFieldShouldReturn(textField: UITextField) -> Bool {
 
-    if (textField == self.emailTextField) {
+    if textField == self.emailTextField {
       self.passwordTextField.becomeFirstResponder()
     } else if textField == self.passwordTextField {
       self.login(textField)

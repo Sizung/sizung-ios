@@ -16,7 +16,7 @@ class AutoCompletionTableCell: UITableViewCell {
 
   static let kMinimumHeight: CGFloat = 43
 
-  class var ReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
+  class var kReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
 
   // MARK: - Lifecycle Methods
 

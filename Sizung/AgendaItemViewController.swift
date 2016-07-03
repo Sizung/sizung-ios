@@ -36,14 +36,13 @@ class AgendaItemViewController: UIViewController {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
 
-
   // MARK: - Navigation
 
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
-    if let timelineTableViewController = segue.destinationViewController as? TimelineTableViewController {
-      timelineTableViewController.timelineParent = agendaItem
+    if let timelineTableViewController = segue.destinationViewController
+      as? TimelineTableViewController {
+        timelineTableViewController.timelineParent = agendaItem
     }
   }
 

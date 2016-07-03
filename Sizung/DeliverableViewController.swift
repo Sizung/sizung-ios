@@ -9,7 +9,9 @@
 import UIKit
 import AlamofireImage
 
-class DeliverableViewController: UIViewController, UIPopoverPresentationControllerDelegate, CalendarViewDelegate {
+class DeliverableViewController: UIViewController,
+  UIPopoverPresentationControllerDelegate,
+CalendarViewDelegate {
 
   @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var statusButton: UIButton!
@@ -56,7 +58,7 @@ class DeliverableViewController: UIViewController, UIPopoverPresentationControll
   func updateStatusText() {
     var statusString = deliverable.status
 
-    if !deliverable.isCompleted(), let dueDate = deliverable.due_on {
+    if !deliverable.isCompleted(), let dueDate = deliverable.dueOn {
       statusString = DueDateHelper.getDueDateString(dueDate)
     }
 
@@ -70,10 +72,10 @@ class DeliverableViewController: UIViewController, UIPopoverPresentationControll
 
   // MARK: - Navigation
 
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
-    if let timelineTableViewController = segue.destinationViewController as? TimelineTableViewController {
+    if let timelineTableViewController = segue.destinationViewController
+      as? TimelineTableViewController {
       timelineTableViewController.timelineParent = deliverable
     }
   }
@@ -109,8 +111,10 @@ class DeliverableViewController: UIViewController, UIPopoverPresentationControll
     }
   }
 
-  func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
-    print("dismiss popover")
+  func popoverPresentationControllerDidDismissPopover(
+    popoverPresentationController: UIPopoverPresentationController
+    ) {
+      print("dismiss popover")
   }
 
   // show previous view controller
@@ -122,7 +126,7 @@ class DeliverableViewController: UIViewController, UIPopoverPresentationControll
 
     let calendarController = R.nib.calendarViewController.firstView(owner: nil)!
     calendarController.calendarViewDelegate = self
-    calendarController.currentDate = deliverable.due_on
+    calendarController.currentDate = deliverable.dueOn
 
     calendarController.modalPresentationStyle = .Popover
     self.presentViewController(calendarController, animated: true, completion: nil)
@@ -134,7 +138,7 @@ class DeliverableViewController: UIViewController, UIPopoverPresentationControll
   }
 
   func didSelectDate(date: NSDate) {
-    self.deliverable.due_on = date
+    self.deliverable.dueOn = date
     self.updateDeliverable()
   }
 
@@ -148,7 +152,4 @@ class DeliverableViewController: UIViewController, UIPopoverPresentationControll
         }
     }
   }
-
-
-
 }

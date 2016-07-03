@@ -9,15 +9,15 @@
 import ObjectMapper
 
 class User: BaseModel {
-  var first_name: String!
-  var last_name: String!
+  var firstName: String!
+  var lastName: String!
   var name: String!
   var email: String!
-  var presence_status: String?
+  var presenceStatus: String?
 
-  init(id: String) {
+  init(userId: String) {
     super.init(type: "users")
-    self.id = id
+    self.id = userId
   }
 
   required init?(_ map: Map) {
@@ -25,19 +25,19 @@ class User: BaseModel {
   }
 
   func isActive() -> Bool {
-    return "online" == self.presence_status
+    return "online" == self.presenceStatus
   }
 
   func getInitials() -> String {
-    return "\(first_name[first_name.startIndex])\(last_name[last_name.startIndex])"
+    return "\(firstName[firstName.startIndex])\(lastName[lastName.startIndex])"
   }
 
   override func mapping(map: Map) {
     super.mapping(map)
-    first_name <- map["attributes.first_name"]
-    last_name <- map["attributes.last_name"]
+    firstName <- map["attributes.first_name"]
+    lastName <- map["attributes.last_name"]
     name <- map["attributes.name"]
     email <- map["attributes.email"]
-    presence_status <- map["attributes.presence_status"]
+    presenceStatus <- map["attributes.presence_status"]
   }
 }

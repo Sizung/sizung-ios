@@ -18,7 +18,11 @@ class ConversationsTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.refreshControl?.addTarget(self, action: #selector(self.updateData), forControlEvents: UIControlEvents.ValueChanged)
+    self.refreshControl?.addTarget(
+      self,
+      action: #selector(self.updateData),
+      forControlEvents: UIControlEvents.ValueChanged
+    )
     self.tableView.registerNib(R.nib.conversationTableViewCell)
 
     self.initData()
@@ -38,50 +42,58 @@ class ConversationsTableViewController: UITableViewController {
 
 
       self.sortedCollection.bindTo(self.tableView) { indexPath, conversations, tableView in
-        let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.conversationTableViewCell.identifier, forIndexPath: indexPath) as! ConversationTableViewCell
-        let conversation = conversations[indexPath.row]
-        cell.nameLabel.text = conversation.title
+        if let cell = tableView.dequeueReusableCellWithIdentifier(
+          R.nib.conversationTableViewCell.identifier,
+          forIndexPath: indexPath)
+          as? ConversationTableViewCell {
+          let conversation = conversations[indexPath.row]
+          cell.nameLabel.text = conversation.title
 
-        let activeUsersCount = conversation.members.reduce(0, combine: {sum, member in
-          if let user = storageManager.users[member.id] {
-            return sum + (user.isActive() ? 1 : 0)
-          } else {
-            return sum
-          }
-        })
-
-
-        cell.activeCountLabel.text = "\(activeUsersCount) active"
-        // clear containerview
-        cell.activeImageViewsContainerView.subviews.forEach({$0.removeFromSuperview()})
-
-        var currentPos: CGFloat = 0
-
-        conversation.members.forEach { member in
-          if let user = storageManager.users[member.id] {
-
-            guard user.isActive() else {
-              return
+          let activeUsersCount = conversation.members.reduce(0, combine: {sum, member in
+            if let user = storageManager.users[member.id] {
+              return sum + (user.isActive() ? 1 : 0)
+            } else {
+              return sum
             }
+          })
 
-            let imageWidth = cell.activeImageViewsContainerView.frame.height
 
-            let imageView = AvatarImageView()
-            imageView.frame = CGRect(x: currentPos, y: 0, width: imageWidth, height: imageWidth)
-            cell.activeImageViewsContainerView.addSubview(imageView)
-            imageView.user = user
+          cell.activeCountLabel.text = "\(activeUsersCount) active"
+          // clear containerview
+          cell.activeImageViewsContainerView.subviews.forEach({$0.removeFromSuperview()})
 
-            currentPos += imageWidth
+          var currentPos: CGFloat = 0
+
+          conversation.members.forEach { member in
+            if let user = storageManager.users[member.id] {
+
+              guard user.isActive() else {
+                return
+              }
+
+              let imageWidth = cell.activeImageViewsContainerView.frame.height
+
+              let imageView = AvatarImageView()
+              imageView.frame = CGRect(x: currentPos, y: 0, width: imageWidth, height: imageWidth)
+              cell.activeImageViewsContainerView.addSubview(imageView)
+              imageView.user = user
+
+              currentPos += imageWidth
+            }
           }
+
+          let unseenObjects = StorageManager.sharedInstance.unseenObjects
+
+          let hasUnseenObject = unseenObjects.collection.contains { obj in
+            return obj.conversationId == conversation.id
+          }
+
+          cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
+
+          return cell
+        } else {
+          fatalError("Unknown cell type for \(self.dynamicType)")
         }
-
-        let hasUnseenObject = StorageManager.sharedInstance.unseenObjects.collection.contains { obj in
-          return obj.conversationId == conversation.id
-        }
-
-        cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
-
-        return cell
       }
     }
   }
@@ -110,10 +122,10 @@ class ConversationsTableViewController: UITableViewController {
 
   }
 
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "showConversation" {
-      let conversationViewController = segue.destinationViewController as! ConversationViewController
+      if let conversationViewController =
+        segue.destinationViewController as? ConversationViewController {
 
       // Get the cell that generated this segue.
       if let selectedCell = sender as? UITableViewCell {
@@ -121,6 +133,12 @@ class ConversationsTableViewController: UITableViewController {
         let selectedConversation = sortedCollection[indexPath.row]
         conversationViewController.conversation = selectedConversation
       }
+      } else {
+        fatalError("unexpected segue.destinationViewController " +
+          "\(segue.destinationViewController.dynamicType)")
+      }
+    } else {
+      fatalError("unexpected segue \(segue.identifier)")
     }
   }
 }
