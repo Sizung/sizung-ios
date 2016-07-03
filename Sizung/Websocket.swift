@@ -44,6 +44,11 @@ class Websocket {
       self.userChannel = self.initChannel(.User)
     }
 
+    client.onDisconnected = { error in
+      self.conversationWebsocketDelegate?.onDisconnected()
+      self.userWebsocketDelegate?.onDisconnected()
+    }
+
     client.onRejected = {
       fatalError("Websocket connection rejected!")
     }
@@ -159,6 +164,7 @@ class Websocket {
 }
 
 protocol WebsocketDelegate {
+  func onDisconnected()
   func onFollowSuccess(channelName: String)
   func onReceived(conversationObject: BaseModel)
 }
