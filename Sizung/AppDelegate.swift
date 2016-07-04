@@ -105,6 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
   func loginSuccess(loginViewController: LoginViewController) {
     self.registerForPushNotifications()
+    self.initWebsocketConnection()
 
     loginViewController.dismissViewControllerAnimated(true, completion: nil)
     self.window?.rootViewController = R.storyboard.main.initialViewController()
