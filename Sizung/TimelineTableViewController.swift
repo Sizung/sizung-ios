@@ -555,7 +555,7 @@ extension TimelineTableViewController {
   func cellForComment(comment: Comment) -> CommentTableViewCell {
     if let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.commentTableViewCell.identifier) as? CommentTableViewCell {
 
-      cell.bodyLabel.attributedText = textParser.parseMarkdown(comment.body)
+      cell.bodyLabel.setText(textParser.parseMarkdown(comment.body))
       cell.bodyLabel.textColor = (comment.offline ? UIColor.grayColor() : UIColor.blackColor())
       cell.datetimeLabel.text = comment.createdAt?.timeAgoSinceNow()
 

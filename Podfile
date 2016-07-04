@@ -22,6 +22,7 @@ target 'Sizung' do
   pod 'KCFloatingActionButton'
   pod 'RSDayFlow'
   pod 'Whisper'
+  pod 'TTTAttributedLabel'
   
   pod 'R.swift', '~> 2.3'
 

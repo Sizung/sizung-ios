@@ -42,6 +42,7 @@ PODS:
   - Starscream (1.1.3)
   - SwiftKeychainWrapper (1.0.11)
   - SwiftyJSON (2.3.2)
+  - TTTAttributedLabel (2.0.0)
   - Whisper (3.0.0)
 
 DEPENDENCIES:
@@ -65,6 +66,7 @@ DEPENDENCIES:
   - Sheriff
   - SlackTextViewController (~> 1.9)
   - SwiftKeychainWrapper (~> 1.0)
+  - TTTAttributedLabel
   - Whisper
 
 SPEC CHECKSUMS:
@@ -92,8 +94,9 @@ SPEC CHECKSUMS:
   Starscream: d662732354b40dd19ed1ece3e3c44c80b536b83c
   SwiftKeychainWrapper: 011a6946923948ffa49708014dd691164d7621d1
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   Whisper: 42a3ee7c2936f861b23d41bd6cd7dfd22f102405
 
-PODFILE CHECKSUM: 46ee4d74b202c38f481e42dd0d8b62a4cb5798f0
+PODFILE CHECKSUM: 43bea5ea7d93ee72e41d6371425876917e6b1a9e
 
 COCOAPODS: 1.0.1

@@ -16,6 +16,7 @@ class SizungMarkdownParser {
   var defaultAttr: Dictionary<String, AnyObject> = [:]
 
   init() {
+
     // italic pattern
     markdown.add("*?*", recursive: false) {
       (pattern: String, text: String, start: Int) -> (String, [NSObject : AnyObject]?) in
@@ -37,7 +38,7 @@ class SizungMarkdownParser {
       let replace =
         pattern[
           pattern.rangeOfString("[")!.startIndex.advancedBy(1)
-          ...
+            ...
             pattern.rangeOfString("]")!.endIndex.advancedBy(-2)
       ]
       return (replace, [NSFontAttributeName: R.font.brandonTextW01Medium(size: self.fontSize)!])
