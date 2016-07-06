@@ -134,6 +134,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         let websocket =  Websocket(authToken: authToken.data!)
         websocket.userWebsocketDelegate = self
         StorageManager.sharedInstance.websocket = websocket
+
+        self.fetchUnseenObjects()
     }
   }
 
@@ -143,8 +145,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       StorageManager.sharedInstance.listUnseenObjects(userId)
 
       // subscribe to user channel
-      StorageManager.sharedInstance.websocket?.userWebsocketDelegate = self
-      StorageManager.sharedInstance.websocket?.followUser(userId)
+      if let websocket = StorageManager.sharedInstance.websocket {
+        websocket.userWebsocketDelegate = self
+        websocket.followUser(userId)
+      }
     }
   }
 

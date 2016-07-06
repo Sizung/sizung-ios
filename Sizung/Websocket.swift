@@ -153,7 +153,7 @@ class Websocket {
     }
 
     guard userChannel != nil && userChannel!.subscribed else {
-      fatalError("userChannel not subscribed")
+      return
     }
 
     guard userChannel!.action("follow", params: ["user_id": userId]) == nil else {
