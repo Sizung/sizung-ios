@@ -120,24 +120,4 @@ class ConversationsTableViewController: UITableViewController {
 
     self.showViewController(conversationViewController, sender: self)
   }
-
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "showConversation" {
-      if let conversationViewController =
-        segue.destinationViewController as? ConversationContentViewController {
-
-      // Get the cell that generated this segue.
-      if let selectedCell = sender as? UITableViewCell {
-        let indexPath = tableView.indexPathForCell(selectedCell)!
-        let selectedConversation = sortedCollection[indexPath.row]
-        conversationViewController.conversation = selectedConversation
-      }
-      } else {
-        fatalError("unexpected segue.destinationViewController " +
-          "\(segue.destinationViewController.dynamicType)")
-      }
-    } else {
-      fatalError("unexpected segue \(segue.identifier)")
-    }
-  }
 }

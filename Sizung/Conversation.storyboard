@@ -63,29 +63,40 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YaN-K0-XXz">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KnW-4R-END">
                                 <rect key="frame" x="0.0" y="80" width="600" height="520"/>
-                            </view>
+                                <connections>
+                                    <segue destination="15l-Un-RUl" kind="embed" identifier="embedNavController" id="IqT-w1-NXd"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="0.10196078568696976" green="0.11372549086809158" blue="0.14117647707462311" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ie5-QN-OUa" firstAttribute="leading" secondItem="fgY-71-TsN" secondAttribute="leadingMargin" constant="-20" id="4Nt-gC-Bf6"/>
-                            <constraint firstItem="YaN-K0-XXz" firstAttribute="top" secondItem="ie5-QN-OUa" secondAttribute="bottom" id="Gkb-GI-Qhl"/>
+                            <constraint firstItem="KnW-4R-END" firstAttribute="leading" secondItem="fgY-71-TsN" secondAttribute="leadingMargin" id="TYt-Kj-KY5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ie5-QN-OUa" secondAttribute="trailing" constant="-20" id="VQr-Er-yAr"/>
+                            <constraint firstAttribute="trailing" secondItem="KnW-4R-END" secondAttribute="trailing" id="Vjr-7h-9YP"/>
+                            <constraint firstItem="KnW-4R-END" firstAttribute="top" secondItem="ie5-QN-OUa" secondAttribute="bottom" id="WtQ-2F-dIN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="KnW-4R-END" secondAttribute="trailing" id="ame-eL-I06"/>
                             <constraint firstItem="ie5-QN-OUa" firstAttribute="top" secondItem="V5S-4E-uCf" secondAttribute="bottom" id="gKO-VD-P1N"/>
-                            <constraint firstItem="YaN-K0-XXz" firstAttribute="leading" secondItem="fgY-71-TsN" secondAttribute="leading" id="keG-Mv-bgh"/>
-                            <constraint firstAttribute="trailing" secondItem="YaN-K0-XXz" secondAttribute="trailing" id="rah-Om-wgx"/>
-                            <constraint firstItem="nm7-uq-9JO" firstAttribute="top" secondItem="YaN-K0-XXz" secondAttribute="bottom" id="tHq-5y-3Kw"/>
+                            <constraint firstItem="nm7-uq-9JO" firstAttribute="top" secondItem="KnW-4R-END" secondAttribute="bottom" id="rhy-zo-ONr"/>
+                            <constraint firstItem="KnW-4R-END" firstAttribute="leading" secondItem="fgY-71-TsN" secondAttribute="leading" id="z3D-RL-Bbm"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="TYt-Kj-KY5"/>
+                                <exclude reference="ame-eL-I06"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="Ao5-cL-J90"/>
                     <connections>
-                        <outlet property="contentView" destination="YaN-K0-XXz" id="sbp-9y-6Ub"/>
                         <outlet property="titleButton" destination="7c1-Aw-ugo" id="bCz-2h-HqU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7bU-cf-Pfu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="269" y="148"/>
+            <point key="canvasLocation" x="1081" y="148"/>
         </scene>
         <!--Main Page View Controller-->
         <scene sceneID="ptY-ne-YGx">
@@ -93,7 +104,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="zzl-sP-kxf" customClass="MainPageViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2i2-4m-Uvs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1907" y="-537"/>
+            <point key="canvasLocation" x="3531" y="-537.5"/>
         </scene>
         <!--Conversation Content View Controller-->
         <scene sceneID="tA5-aB-3lt">
@@ -104,11 +115,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Ybm-Nt-eGe"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="P2o-UZ-Tyd">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="520"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWK-9Z-OOn">
-                                <rect key="frame" x="0.0" y="20" width="600" height="55"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bTo-vm-Rna" customClass="SizungSegmentedControl" customModule="Sizung" customModuleProvider="target">
                                         <rect key="frame" x="20" y="15" width="560" height="25"/>
@@ -132,7 +143,7 @@
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bVD-Gg-aU5">
-                                <rect key="frame" x="0.0" y="75" width="600" height="525"/>
+                                <rect key="frame" x="0.0" y="55" width="600" height="465"/>
                                 <connections>
                                     <segue destination="zzl-sP-kxf" kind="embed" identifier="embed" id="eaB-2n-pdt"/>
                                 </connections>
@@ -159,13 +170,14 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="SbV-lA-pPc"/>
                     <connections>
                         <outlet property="segmentedControl" destination="bTo-vm-Rna" id="2Ve-bX-Vbn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N9Q-v5-f61" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1189" y="-528"/>
+            <point key="canvasLocation" x="2811" y="-548"/>
         </scene>
         <!--Timeline Table View Controller-->
         <scene sceneID="3TM-A9-zZ2">
@@ -175,7 +187,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8RO-Dd-1PT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2553" y="-464"/>
+            <point key="canvasLocation" x="4989" y="-464"/>
         </scene>
         <!--Deliverables Table View Controller-->
         <scene sceneID="YnA-T3-up0">
@@ -228,7 +240,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LdF-ag-ydC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2565" y="-1130"/>
+            <point key="canvasLocation" x="4189" y="-1130"/>
         </scene>
         <!--Agenda Items Table View Controller-->
         <scene sceneID="1q2-lG-z9E">
@@ -278,7 +290,29 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HMl-Fn-qSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2539" y="308"/>
+            <point key="canvasLocation" x="3351" y="308"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Gbi-Qj-da2">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="15l-Un-RUl" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="568-mK-Qfs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="DLi-gK-7BP">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="bjx-xw-GGY" kind="relationship" relationship="rootViewController" id="dS5-SO-mTY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kb9-ge-MAY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2001" y="-528"/>
         </scene>
     </scenes>
     <resources>

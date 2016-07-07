@@ -178,7 +178,7 @@ class AgendaItemsTableViewController: UITableViewController {
     if let agendaItemViewController = R.storyboard.agendaItem.initialViewController() {
       agendaItemViewController.agendaItem = selectedAgendaItem
 
-      self.showViewController(agendaItemViewController, sender: self)
+      self.navigationController?.pushViewController(agendaItemViewController, animated: true)
     } else {
       fatalError("unexpected type")
     }

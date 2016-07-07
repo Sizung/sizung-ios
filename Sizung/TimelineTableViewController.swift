@@ -668,12 +668,12 @@ extension TimelineTableViewController {
         let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
         agendaItemViewController.agendaItem = agendaItem
 
-        self.showViewController(agendaItemViewController, sender: self)
+        self.navigationController?.pushViewController(agendaItemViewController, animated: true)
       case let deliverable as Deliverable:
         let deliverableViewController = R.storyboard.deliverable.initialViewController()!
         deliverableViewController.deliverable = deliverable
 
-        self.showViewController(deliverableViewController, sender: self)
+        self.navigationController?.pushViewController(deliverableViewController, animated: true)
       case is Comment:
         // don't react to comment clicks
         break

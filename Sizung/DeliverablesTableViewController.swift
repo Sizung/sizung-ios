@@ -208,7 +208,7 @@ class DeliverablesTableViewController: UITableViewController {
       let deliverableViewController = R.storyboard.deliverable.initialViewController()!
       deliverableViewController.deliverable = selectedDeliverable
 
-      self.showViewController(deliverableViewController, sender: self)
+      self.navigationController?.pushViewController(deliverableViewController, animated: true)
     }
   }
 }

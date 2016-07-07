@@ -242,7 +242,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     }
   }
 
-// websocket delegate
+  // websocket delegate
 
   func onDisconnected() {
     InAppMessage.showErrorMessage("There was an error connecting to Sizung")
@@ -344,13 +344,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
           // set selected organization according to entity
           Configuration.setSelectedOrganization(conversation.organizationId)
 
-          let conversationsViewController = R.storyboard.conversation.initialViewController()!
-          conversationsViewController.conversation = conversation
+          let conversationViewController = R.storyboard.conversation.initialViewController()!
+          conversationViewController.conversation = conversation
+
 
           self.window?.rootViewController?.showViewController(
-            conversationsViewController,
+            conversationViewController,
             sender: self
           )
+
       }
       break
     default:
@@ -365,7 +367,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
     let deliverableViewController = R.storyboard.deliverable.initialViewController()!
     deliverableViewController.deliverable = deliverable
-
+    
     self.window?.rootViewController?.showViewController(deliverableViewController, sender: self)
   }
 }

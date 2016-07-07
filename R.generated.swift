@@ -376,7 +376,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.segue` struct is generated, and contains static references to 4 view controllers.
+  /// This `R.segue` struct is generated, and contains static references to 5 view controllers.
   struct segue {
     /// This struct is generated for `AgendaItemViewController`, and contains static references to 1 segues.
     struct agendaItemViewController {
@@ -403,6 +403,21 @@ struct R: Rswift.Validatable {
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
       static func embed(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, ConversationContentViewController, MainPageViewController>? {
         return TypedStoryboardSegueInfo(segueIdentifier: R.segue.conversationContentViewController.embed, segue: segue)
+      }
+      
+      private init() {}
+    }
+    
+    /// This struct is generated for `ConversationViewController`, and contains static references to 1 segues.
+    struct conversationViewController {
+      /// Segue identifier `embedNavController`.
+      static let embedNavController: StoryboardSegueIdentifier<UIStoryboardSegue, ConversationViewController, UINavigationController> = StoryboardSegueIdentifier(identifier: "embedNavController")
+      
+      /// Optionally returns a typed version of segue `embedNavController`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      static func embedNavController(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, ConversationViewController, UINavigationController>? {
+        return TypedStoryboardSegueInfo(segueIdentifier: R.segue.conversationViewController.embedNavController, segue: segue)
       }
       
       private init() {}
@@ -698,22 +713,16 @@ struct _R: Rswift.Validatable {
   
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
-      try deliverable.validate()
-      try agendaItem.validate()
       try conversation.validate()
       try conversations.validate()
       try main.validate()
     }
     
-    struct agendaItem: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+    struct agendaItem: StoryboardResourceWithInitialControllerType {
       typealias InitialController = AgendaItemViewController
       
       let bundle = _R.hostingBundle
       let name = "AgendaItem"
-      
-      static func validate() throws {
-        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'AgendaItem', but couldn't be loaded.") }
-      }
       
       private init() {}
     }
@@ -774,15 +783,11 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
-    struct deliverable: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+    struct deliverable: StoryboardResourceWithInitialControllerType {
       typealias InitialController = DeliverableViewController
       
       let bundle = _R.hostingBundle
       let name = "Deliverable"
-      
-      static func validate() throws {
-        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Deliverable', but couldn't be loaded.") }
-      }
       
       private init() {}
     }

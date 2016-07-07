@@ -556,7 +556,6 @@
 				5AA806DF1D130E7300788DDF /* OrganizationsViewController.swift */,
 				5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */,
 				5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */,
-				5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */,
 				5AB781401CFD79D00024DFE9 /* AccountViewController.swift */,
 				5A2E3C251D2E3E1800D4D3EA /* ConversationViewController.swift */,
 				5A9EDEB31D0070C500D389EC /* ConversationContentViewController.swift */,
@@ -577,8 +576,8 @@
 				5A9D0EDB1D11998D00037589 /* Organizations.storyboard */,
 				5A3FC58E1D11385B0084FF2F /* Deliverable.storyboard */,
 				5AECC1D71D115CBD00AD8ACE /* AgendaItem.storyboard */,
-				5A9D0EE41D11B33700037589 /* Conversations.storyboard */,
 				5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */,
+				5A9D0EE41D11B33700037589 /* Conversations.storyboard */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -607,6 +606,7 @@
 		5ADC883D1D109E3F00596D67 /* TableViews */ = {
 			isa = PBXGroup;
 			children = (
+				5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */,
 				5A9D0EE81D11BB9800037589 /* StreamTableViewController.swift */,
 				5AC0E5E01CF04D8D00BBEF45 /* OrganizationsTableViewController.swift */,
 				5AC0E5E31CF0628200BBEF45 /* ConversationsTableViewController.swift */,

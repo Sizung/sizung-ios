@@ -44,7 +44,6 @@ class ConversationContentViewController: UIViewController, MainPageViewControlle
 
         let agendaItemsTableViewController =
           R.storyboard.conversation.agendaItemsTableViewController()!
-        agendaItemsTableViewController.conversation = self.conversation
 
         self.mainPageViewController.orderedViewControllers.append(agendaItemsTableViewController)
 
@@ -54,7 +53,7 @@ class ConversationContentViewController: UIViewController, MainPageViewControlle
 
         let deliverablesTableViewController =
           R.storyboard.conversation.conversationDeliverablesTableViewController()!
-        deliverablesTableViewController.conversation = conversation
+        deliverablesTableViewController.conversation = self.conversation
         self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
       } else {
         fatalError("unexpected destinationviewcontroller " +
