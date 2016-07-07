@@ -376,7 +376,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.segue` struct is generated, and contains static references to 5 view controllers.
+  /// This `R.segue` struct is generated, and contains static references to 4 view controllers.
   struct segue {
     /// This struct is generated for `AgendaItemViewController`, and contains static references to 1 segues.
     struct agendaItemViewController {
@@ -403,21 +403,6 @@ struct R: Rswift.Validatable {
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
       static func embed(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, ConversationContentViewController, MainPageViewController>? {
         return TypedStoryboardSegueInfo(segueIdentifier: R.segue.conversationContentViewController.embed, segue: segue)
-      }
-      
-      private init() {}
-    }
-    
-    /// This struct is generated for `ConversationViewController`, and contains static references to 1 segues.
-    struct conversationViewController {
-      /// Segue identifier `embed`.
-      static let embed: StoryboardSegueIdentifier<UIStoryboardSegue, ConversationViewController, ConversationContentViewController> = StoryboardSegueIdentifier(identifier: "embed")
-      
-      /// Optionally returns a typed version of segue `embed`.
-      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
-      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func embed(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, ConversationViewController, ConversationContentViewController>? {
-        return TypedStoryboardSegueInfo(segueIdentifier: R.segue.conversationViewController.embed, segue: segue)
       }
       
       private init() {}
@@ -738,12 +723,17 @@ struct _R: Rswift.Validatable {
       
       let agendaItemsTableViewController = StoryboardViewControllerResource<AgendaItemsTableViewController>(identifier: "AgendaItemsTableViewController")
       let bundle = _R.hostingBundle
+      let conversationContentViewController = StoryboardViewControllerResource<ConversationContentViewController>(identifier: "ConversationContentViewController")
       let conversationDeliverablesTableViewController = StoryboardViewControllerResource<DeliverablesTableViewController>(identifier: "ConversationDeliverablesTableViewController")
       let name = "Conversation"
       let timelineTableViewController = StoryboardViewControllerResource<TimelineTableViewController>(identifier: "TimelineTableViewController")
       
       func agendaItemsTableViewController(_: Void) -> AgendaItemsTableViewController? {
         return UIStoryboard(resource: self).instantiateViewController(agendaItemsTableViewController)
+      }
+      
+      func conversationContentViewController(_: Void) -> ConversationContentViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(conversationContentViewController)
       }
       
       func conversationDeliverablesTableViewController(_: Void) -> DeliverablesTableViewController? {
@@ -756,6 +746,7 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Conversation', but couldn't be loaded.") }
+        if _R.storyboard.conversation().conversationContentViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationContentViewController' could not be loaded from storyboard 'Conversation' as 'ConversationContentViewController'.") }
         if _R.storyboard.conversation().timelineTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'timelineTableViewController' could not be loaded from storyboard 'Conversation' as 'TimelineTableViewController'.") }
         if _R.storyboard.conversation().conversationDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationDeliverablesTableViewController' could not be loaded from storyboard 'Conversation' as 'DeliverablesTableViewController'.") }
         if _R.storyboard.conversation().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Conversation' as 'AgendaItemsTableViewController'.") }

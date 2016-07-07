@@ -63,25 +63,23 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UiK-Em-BO7">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YaN-K0-XXz">
                                 <rect key="frame" x="0.0" y="80" width="600" height="520"/>
-                                <connections>
-                                    <segue destination="bjx-xw-GGY" kind="embed" identifier="embed" id="ZKT-bq-4wJ"/>
-                                </connections>
-                            </containerView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.10196078568696976" green="0.11372549086809158" blue="0.14117647707462311" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ie5-QN-OUa" firstAttribute="leading" secondItem="fgY-71-TsN" secondAttribute="leadingMargin" constant="-20" id="4Nt-gC-Bf6"/>
-                            <constraint firstItem="UiK-Em-BO7" firstAttribute="top" secondItem="ie5-QN-OUa" secondAttribute="bottom" id="NTu-zX-zRD"/>
-                            <constraint firstItem="UiK-Em-BO7" firstAttribute="leading" secondItem="fgY-71-TsN" secondAttribute="leading" id="Qwi-hI-dpd"/>
+                            <constraint firstItem="YaN-K0-XXz" firstAttribute="top" secondItem="ie5-QN-OUa" secondAttribute="bottom" id="Gkb-GI-Qhl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ie5-QN-OUa" secondAttribute="trailing" constant="-20" id="VQr-Er-yAr"/>
-                            <constraint firstItem="nm7-uq-9JO" firstAttribute="top" secondItem="UiK-Em-BO7" secondAttribute="bottom" id="a8i-tA-T2R"/>
                             <constraint firstItem="ie5-QN-OUa" firstAttribute="top" secondItem="V5S-4E-uCf" secondAttribute="bottom" id="gKO-VD-P1N"/>
-                            <constraint firstAttribute="trailing" secondItem="UiK-Em-BO7" secondAttribute="trailing" id="j3j-eT-sKn"/>
+                            <constraint firstItem="YaN-K0-XXz" firstAttribute="leading" secondItem="fgY-71-TsN" secondAttribute="leading" id="keG-Mv-bgh"/>
+                            <constraint firstAttribute="trailing" secondItem="YaN-K0-XXz" secondAttribute="trailing" id="rah-Om-wgx"/>
+                            <constraint firstItem="nm7-uq-9JO" firstAttribute="top" secondItem="YaN-K0-XXz" secondAttribute="bottom" id="tHq-5y-3Kw"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="contentView" destination="YaN-K0-XXz" id="sbp-9y-6Ub"/>
                         <outlet property="titleButton" destination="7c1-Aw-ugo" id="bCz-2h-HqU"/>
                     </connections>
                 </viewController>
@@ -100,17 +98,17 @@
         <!--Conversation Content View Controller-->
         <scene sceneID="tA5-aB-3lt">
             <objects>
-                <viewController id="bjx-xw-GGY" customClass="ConversationContentViewController" customModule="Sizung" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConversationContentViewController" id="bjx-xw-GGY" customClass="ConversationContentViewController" customModule="Sizung" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lyN-gE-Ijk"/>
                         <viewControllerLayoutGuide type="bottom" id="Ybm-Nt-eGe"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="P2o-UZ-Tyd">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="520"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWK-9Z-OOn">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="55"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bTo-vm-Rna" customClass="SizungSegmentedControl" customModule="Sizung" customModuleProvider="target">
                                         <rect key="frame" x="20" y="15" width="560" height="25"/>
@@ -134,7 +132,7 @@
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bVD-Gg-aU5">
-                                <rect key="frame" x="0.0" y="55" width="600" height="465"/>
+                                <rect key="frame" x="0.0" y="75" width="600" height="525"/>
                                 <connections>
                                     <segue destination="zzl-sP-kxf" kind="embed" identifier="embed" id="eaB-2n-pdt"/>
                                 </connections>
@@ -145,6 +143,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="oWK-9Z-OOn" secondAttribute="trailing" constant="-20" id="92m-4m-jyb"/>
                             <constraint firstAttribute="trailing" secondItem="bVD-Gg-aU5" secondAttribute="trailing" id="9VV-9K-kPl"/>
                             <constraint firstItem="bVD-Gg-aU5" firstAttribute="top" secondItem="oWK-9Z-OOn" secondAttribute="bottom" id="EhL-Hf-ulj"/>
+                            <constraint firstItem="oWK-9Z-OOn" firstAttribute="top" secondItem="lyN-gE-Ijk" secondAttribute="bottom" id="F6A-ZP-8WM"/>
                             <constraint firstItem="bVD-Gg-aU5" firstAttribute="leading" secondItem="P2o-UZ-Tyd" secondAttribute="leading" id="QnX-LR-oiZ"/>
                             <constraint firstItem="Ybm-Nt-eGe" firstAttribute="top" secondItem="bVD-Gg-aU5" secondAttribute="bottom" id="Tia-Ia-35u"/>
                             <constraint firstItem="bVD-Gg-aU5" firstAttribute="top" secondItem="oWK-9Z-OOn" secondAttribute="bottom" id="Uet-S4-wP1"/>
@@ -154,6 +153,7 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="ipQ-X3-vF0"/>
                                 <exclude reference="EhL-Hf-ulj"/>
                                 <exclude reference="Uet-S4-wP1"/>
                             </mask>
