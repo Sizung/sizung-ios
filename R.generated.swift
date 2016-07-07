@@ -376,7 +376,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.segue` struct is generated, and contains static references to 4 view controllers.
+  /// This `R.segue` struct is generated, and contains static references to 5 view controllers.
   struct segue {
     /// This struct is generated for `AgendaItemViewController`, and contains static references to 1 segues.
     struct agendaItemViewController {
@@ -393,15 +393,30 @@ struct R: Rswift.Validatable {
       private init() {}
     }
     
-    /// This struct is generated for `ConversationViewController`, and contains static references to 1 segues.
-    struct conversationViewController {
+    /// This struct is generated for `ConversationContentViewController`, and contains static references to 1 segues.
+    struct conversationContentViewController {
       /// Segue identifier `embed`.
-      static let embed: StoryboardSegueIdentifier<UIStoryboardSegue, ConversationViewController, MainPageViewController> = StoryboardSegueIdentifier(identifier: "embed")
+      static let embed: StoryboardSegueIdentifier<UIStoryboardSegue, ConversationContentViewController, MainPageViewController> = StoryboardSegueIdentifier(identifier: "embed")
       
       /// Optionally returns a typed version of segue `embed`.
       /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func embed(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, ConversationViewController, MainPageViewController>? {
+      static func embed(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, ConversationContentViewController, MainPageViewController>? {
+        return TypedStoryboardSegueInfo(segueIdentifier: R.segue.conversationContentViewController.embed, segue: segue)
+      }
+      
+      private init() {}
+    }
+    
+    /// This struct is generated for `ConversationViewController`, and contains static references to 1 segues.
+    struct conversationViewController {
+      /// Segue identifier `embed`.
+      static let embed: StoryboardSegueIdentifier<UIStoryboardSegue, ConversationViewController, ConversationContentViewController> = StoryboardSegueIdentifier(identifier: "embed")
+      
+      /// Optionally returns a typed version of segue `embed`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      static func embed(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, ConversationViewController, ConversationContentViewController>? {
         return TypedStoryboardSegueInfo(segueIdentifier: R.segue.conversationViewController.embed, segue: segue)
       }
       
@@ -441,10 +456,12 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.storyboard` struct is generated, and contains static references to 7 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 8 storyboards.
   struct storyboard {
     /// Storyboard `AgendaItem`.
     static let agendaItem = _R.storyboard.agendaItem()
+    /// Storyboard `Conversation`.
+    static let conversation = _R.storyboard.conversation()
     /// Storyboard `Conversations`.
     static let conversations = _R.storyboard.conversations()
     /// Storyboard `Deliverable`.
@@ -461,6 +478,11 @@ struct R: Rswift.Validatable {
     /// `UIStoryboard(name: "AgendaItem", bundle: ...)`
     static func agendaItem(_: Void) -> UIStoryboard {
       return UIStoryboard(resource: R.storyboard.agendaItem)
+    }
+    
+    /// `UIStoryboard(name: "Conversation", bundle: ...)`
+    static func conversation(_: Void) -> UIStoryboard {
+      return UIStoryboard(resource: R.storyboard.conversation)
     }
     
     /// `UIStoryboard(name: "Conversations", bundle: ...)`
@@ -693,6 +715,7 @@ struct _R: Rswift.Validatable {
     static func validate() throws {
       try deliverable.validate()
       try agendaItem.validate()
+      try conversation.validate()
       try conversations.validate()
       try main.validate()
     }
@@ -710,15 +733,13 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
-    struct conversations: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = UIViewController
+    struct conversation: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = ConversationViewController
       
       let agendaItemsTableViewController = StoryboardViewControllerResource<AgendaItemsTableViewController>(identifier: "AgendaItemsTableViewController")
       let bundle = _R.hostingBundle
       let conversationDeliverablesTableViewController = StoryboardViewControllerResource<DeliverablesTableViewController>(identifier: "ConversationDeliverablesTableViewController")
-      let conversationViewController = StoryboardViewControllerResource<ConversationViewController>(identifier: "ConversationViewController")
-      let conversationsTableViewController = StoryboardViewControllerResource<ConversationsTableViewController>(identifier: "ConversationsTableViewController")
-      let name = "Conversations"
+      let name = "Conversation"
       let timelineTableViewController = StoryboardViewControllerResource<TimelineTableViewController>(identifier: "TimelineTableViewController")
       
       func agendaItemsTableViewController(_: Void) -> AgendaItemsTableViewController? {
@@ -729,25 +750,34 @@ struct _R: Rswift.Validatable {
         return UIStoryboard(resource: self).instantiateViewController(conversationDeliverablesTableViewController)
       }
       
-      func conversationViewController(_: Void) -> ConversationViewController? {
-        return UIStoryboard(resource: self).instantiateViewController(conversationViewController)
-      }
-      
-      func conversationsTableViewController(_: Void) -> ConversationsTableViewController? {
-        return UIStoryboard(resource: self).instantiateViewController(conversationsTableViewController)
-      }
-      
       func timelineTableViewController(_: Void) -> TimelineTableViewController? {
         return UIStoryboard(resource: self).instantiateViewController(timelineTableViewController)
       }
       
       static func validate() throws {
+        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Conversation', but couldn't be loaded.") }
+        if _R.storyboard.conversation().timelineTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'timelineTableViewController' could not be loaded from storyboard 'Conversation' as 'TimelineTableViewController'.") }
+        if _R.storyboard.conversation().conversationDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationDeliverablesTableViewController' could not be loaded from storyboard 'Conversation' as 'DeliverablesTableViewController'.") }
+        if _R.storyboard.conversation().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Conversation' as 'AgendaItemsTableViewController'.") }
+      }
+      
+      private init() {}
+    }
+    
+    struct conversations: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = UIViewController
+      
+      let bundle = _R.hostingBundle
+      let conversationsTableViewController = StoryboardViewControllerResource<ConversationsTableViewController>(identifier: "ConversationsTableViewController")
+      let name = "Conversations"
+      
+      func conversationsTableViewController(_: Void) -> ConversationsTableViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(conversationsTableViewController)
+      }
+      
+      static func validate() throws {
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Conversations', but couldn't be loaded.") }
         if _R.storyboard.conversations().conversationsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationsTableViewController' could not be loaded from storyboard 'Conversations' as 'ConversationsTableViewController'.") }
-        if _R.storyboard.conversations().conversationViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationViewController' could not be loaded from storyboard 'Conversations' as 'ConversationViewController'.") }
-        if _R.storyboard.conversations().timelineTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'timelineTableViewController' could not be loaded from storyboard 'Conversations' as 'TimelineTableViewController'.") }
-        if _R.storyboard.conversations().conversationDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationDeliverablesTableViewController' could not be loaded from storyboard 'Conversations' as 'DeliverablesTableViewController'.") }
-        if _R.storyboard.conversations().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Conversations' as 'AgendaItemsTableViewController'.") }
       }
       
       private init() {}

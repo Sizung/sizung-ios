@@ -344,7 +344,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
           // set selected organization according to entity
           Configuration.setSelectedOrganization(conversation.organizationId)
 
-          let conversationsViewController = R.storyboard.conversations.conversationViewController()!
+          let conversationsViewController = R.storyboard.conversation.initialViewController()!
           conversationsViewController.conversation = conversation
 
           self.window?.rootViewController?.showViewController(
