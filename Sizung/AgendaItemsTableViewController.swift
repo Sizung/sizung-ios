@@ -175,12 +175,10 @@ class AgendaItemsTableViewController: UITableViewController {
 
     let selectedAgendaItem = self.collection![indexPath.row]
 
-    if let agendaItemViewController = R.storyboard.agendaItem.initialViewController() {
-      agendaItemViewController.agendaItem = selectedAgendaItem
+    let conversationController = R.storyboard.conversation.initialViewController()!
+    conversationController.conversation = storageManager!.conversations[selectedAgendaItem.conversationId]
+    conversationController.openItem = selectedAgendaItem
+    showViewController(conversationController, sender: self)
 
-      self.navigationController?.pushViewController(agendaItemViewController, animated: true)
-    } else {
-      fatalError("unexpected type")
-    }
   }
 }
