@@ -10,6 +10,7 @@
 		2FF81000B72F237F09D8B781 /* Pods_SizungUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13B42A82CE8590D9FB4161 /* Pods_SizungUITests.framework */; };
 		5A1DDBD21D1A74700089CD45 /* AgendaItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */; };
 		5A29E0D31D2F7F3E002A7840 /* SizungButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */; };
+		5A29E0D61D2FA44A002A7840 /* OrganizationStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A29E0D51D2FA44A002A7840 /* OrganizationStorageManager.swift */; };
 		5A2E3C241D2E3A3900D4D3EA /* Conversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */; };
 		5A2E3C261D2E3E1800D4D3EA /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2E3C251D2E3E1800D4D3EA /* ConversationViewController.swift */; };
 		5A304B3B1D18367F009CBBAD /* StartOfConversationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */; };
@@ -142,6 +143,7 @@
 		40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SizungTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgendaItemTableViewCell.xib; sourceTree = "<group>"; };
 		5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungButton.swift; sourceTree = "<group>"; };
+		5A29E0D51D2FA44A002A7840 /* OrganizationStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationStorageManager.swift; sourceTree = "<group>"; };
 		5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversation.storyboard; sourceTree = "<group>"; };
 		5A2E3C251D2E3E1800D4D3EA /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartOfConversationView.xib; sourceTree = "<group>"; };
@@ -318,6 +320,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		5A29E0D41D2FA43B002A7840 /* storage */ = {
+			isa = PBXGroup;
+			children = (
+				5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */,
+				5A29E0D51D2FA44A002A7840 /* OrganizationStorageManager.swift */,
+			);
+			name = storage;
+			sourceTree = "<group>";
+		};
 		5A3B4F751CE4696B00086338 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -447,7 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				5ABACCD81D09AB1B0093CF21 /* markdown */,
-				5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */,
+				5A29E0D41D2FA43B002A7840 /* storage */,
 				5A504B151CEF2427001BEFA3 /* Token */,
 				5A86B12B1CE4BC04001C2E7A /* Configuration.swift */,
 				5A86B12F1CE5D025001C2E7A /* network */,
@@ -1027,6 +1038,7 @@
 				5A9EDEB81D01BB5C00D389EC /* SizungSegmentedControl.swift in Sources */,
 				5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */,
 				5A8C4B491D242BA0004EA24D /* AvatarImageView.swift in Sources */,
+				5A29E0D61D2FA44A002A7840 /* OrganizationStorageManager.swift in Sources */,
 				5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */,
 				5A304B3D1D1843DE009CBBAD /* UnseenObjectsResponse.swift in Sources */,
 				5AC0E5E61CF2F5C200BBEF45 /* TimelineTableViewController.swift in Sources */,
