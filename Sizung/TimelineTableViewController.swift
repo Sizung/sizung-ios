@@ -409,12 +409,6 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     return height * CGFloat(searchResult.count)
   }
 
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-
-    self.updateData()
-  }
-
   override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
     if indexPath.row >= self.sortedCollection.count - 1 {
       self.updateData()
