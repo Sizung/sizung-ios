@@ -374,11 +374,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   func openViewControllerFor(item: BaseModel, inConversation conversation: Conversation) {
     // set selected organization according to entity
     Configuration.setSelectedOrganization(conversation.organizationId)
-    
+
     let conversationController = R.storyboard.conversation.initialViewController()!
     conversationController.conversation = conversation
     conversationController.openItem = item
-    
+
     self.window?.rootViewController?.showViewController(conversationController, sender: self)
   }
 }
