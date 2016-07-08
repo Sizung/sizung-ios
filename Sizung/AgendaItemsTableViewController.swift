@@ -66,8 +66,9 @@ class AgendaItemsTableViewController: UITableViewController {
 
         self.collection = storageManager.agendaItems.collection
           .filter { agendaItem in
-            if let conversationId = self.conversation?.id {
-              return agendaItem.conversationId == conversationId
+
+            if self.conversation != nil && self.conversation!.id != agendaItem.conversationId {
+              return false
             }
 
             if self.filter == .Mine {
