@@ -124,7 +124,7 @@ class DeliverablesTableViewController: UITableViewController {
   }
 
   override func viewDidAppear(animated: Bool) {
-    if self.collection == nil || self.collection?.count == 0 {
+    if self.collection == nil {
       self.updateData()
     }
   }
