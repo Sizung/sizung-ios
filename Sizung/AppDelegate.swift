@@ -84,8 +84,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
   func loadInitialViewController() {
 
-    //  show organization list if no organization is selected
-    if Configuration.getSelectedOrganization() == nil {
+    if let selectedOrganizationId = Configuration.getSelectedOrganization() {
+      StorageManager.initOrganizationStorageManager(selectedOrganizationId)
+        .onFailure { error in
+          let organizationViewController = R.storyboard.organizations.initialViewController()!
+          self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
+          if error != StorageError.NotAuthenticated {
+            InAppMessage.showErrorMessage("The selected organization can't be found, please select one")
+          }
+      }
+    } else {
       let organizationViewController = R.storyboard.organizations.initialViewController()!
       self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
     }
@@ -347,16 +355,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
       }
       break
-      case "organizations":
-        // reset storage
-        StorageManager.sharedInstance.reset()
-        Configuration.setSelectedOrganization(itemId)
+    case "organizations":
+      // reset storage
+      StorageManager.sharedInstance.reset()
+      Configuration.setSelectedOrganization(itemId)
 
-        self.loadInitialViewController()
+      self.loadInitialViewController()
 
-      case "attachments":
-        // not yet implemented
-        break
+    case "attachments":
+      // not yet implemented
+      break
     default:
       let message = "link to unknown type \(type) with id:\(itemId)"
       Error.log(message)
@@ -366,11 +374,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   func openViewControllerFor(item: BaseModel, inConversation conversation: Conversation) {
     // set selected organization according to entity
     Configuration.setSelectedOrganization(conversation.organizationId)
-
+    
     let conversationController = R.storyboard.conversation.initialViewController()!
     conversationController.conversation = conversation
     conversationController.openItem = item
-
+    
     self.window?.rootViewController?.showViewController(conversationController, sender: self)
   }
 }
