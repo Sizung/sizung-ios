@@ -33,15 +33,4 @@ class SizungButton: UIButton {
       NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .GreaterThanOrEqual, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: minimumSize)
       ])
   }
-
-//  override func alignmentRectInsets() -> UIEdgeInsets {
-//    let verticalInset = (minimumSize - self.frame.height) / 2
-//    let horizontalInset = (minimumSize - self.frame.width) / 2
-//    self.imageEdgeInsets = UIEdgeInsets(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
-//    return super.alignmentRectInsets()
-//  }
-//
-//  override func sizeToFit() {
-//    self.sizeToFit()
-//  }
 }
