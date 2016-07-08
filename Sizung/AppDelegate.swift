@@ -271,7 +271,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       let itemId = pathComponents[2]
 
       // check for known types only
-      guard ["agenda_items", "deliverables", "conversations", "attachments"].contains(type) else {
+      guard ["agenda_items", "deliverables", "conversations", "attachments", "organizations"].contains(type) else {
         let message = "link to unknown type \(type) with id:\(itemId)"
         Error.log(message)
         return false
@@ -347,7 +347,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
       }
       break
-      case "attachements":
+      case "organizations":
+        // reset storage
+        StorageManager.sharedInstance.reset()
+        Configuration.setSelectedOrganization(itemId)
+
+        self.loadInitialViewController()
+
+      case "attachments":
         // not yet implemented
         break
     default:
