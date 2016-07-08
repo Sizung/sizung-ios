@@ -223,6 +223,11 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   }
 
   func addItemsToCollection(items: [BaseModel]) {
+
+    guard self.timelineParent != nil else {
+      fatalError("no timelineparent set ")
+    }
+
     let filteredItems = items
       .filter({ conversationObject in
         switch conversationObject {
