@@ -13,7 +13,6 @@ class DeliverableViewController: UIViewController,
   UIPopoverPresentationControllerDelegate,
 CalendarViewDelegate {
 
-  @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var statusButton: UIButton!
   @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var assigneeImageView: AvatarImageView!
@@ -25,25 +24,6 @@ CalendarViewDelegate {
 
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
-
-
-        switch self.deliverable {
-        case let agendaItemDeliverable as AgendaItemDeliverable:
-
-          storageManager.getAgendaItem(agendaItemDeliverable.agendaItemId)
-            .onSuccess { agendaItem in
-              storageManager.getConversation(agendaItem.conversationId)
-                .onSuccess { conversation in
-                  self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
-              }
-          }
-        default:
-          storageManager.getConversation(self.deliverable.parentId)
-            .onSuccess { conversation in
-              self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
-          }
-        }
-
         storageManager.getUser(self.deliverable.assigneeId)
           .onSuccess { user in
             self.assigneeImageView.user = user
@@ -119,7 +99,7 @@ CalendarViewDelegate {
 
   // show previous view controller
   @IBAction func back(sender: AnyObject) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+    self.navigationController?.popViewControllerAnimated(true)
   }
 
   func showDatePicker(sender: UIButton) {
