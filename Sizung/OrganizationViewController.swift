@@ -59,20 +59,26 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     priorityItem.buttonColor = Color.TODISCUSS
     priorityItem.title = "PRIORITY"
     priorityItem.icon = R.image.priority()
+    priorityItem.iconImageView.tintColor = UIColor.whiteColor()
+    priorityItem.iconImageView.contentMode = .ScaleAspectFit
     priorityItem.handler = addItem
     self.floatingActionButton.addItem(item: priorityItem)
 
     let groupItem = KCFloatingActionButtonItem()
     groupItem.buttonColor = Color.STREAM
     groupItem.title = "GROUP"
-    priorityItem.icon = R.image.group()
+    groupItem.icon = R.image.group()
+    groupItem.iconImageView.tintColor = UIColor.whiteColor()
+    groupItem.iconImageView.contentMode = .ScaleAspectFit
     groupItem.handler = addItem
     self.floatingActionButton.addItem(item: groupItem)
 
     let deliverableItem = KCFloatingActionButtonItem()
     deliverableItem.buttonColor = Color.TODO
     deliverableItem.title = "TASK"
-    priorityItem.icon = R.image.action()
+    deliverableItem.icon = R.image.action()
+    deliverableItem.iconImageView.tintColor = UIColor.whiteColor()
+    deliverableItem.iconImageView.contentMode = .ScaleAspectFit
     deliverableItem.handler = addItem
     self.floatingActionButton.addItem(item: deliverableItem)
 
