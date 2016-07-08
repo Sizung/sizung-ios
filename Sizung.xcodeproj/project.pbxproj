@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		2FF81000B72F237F09D8B781 /* Pods_SizungUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13B42A82CE8590D9FB4161 /* Pods_SizungUITests.framework */; };
 		5A1DDBD21D1A74700089CD45 /* AgendaItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */; };
+		5A29E0D31D2F7F3E002A7840 /* SizungButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */; };
+		5A29E0D61D2FA44A002A7840 /* OrganizationStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A29E0D51D2FA44A002A7840 /* OrganizationStorageManager.swift */; };
+		5A2E3C241D2E3A3900D4D3EA /* Conversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */; };
+		5A2E3C261D2E3E1800D4D3EA /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2E3C251D2E3E1800D4D3EA /* ConversationViewController.swift */; };
 		5A304B3B1D18367F009CBBAD /* StartOfConversationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */; };
 		5A304B3D1D1843DE009CBBAD /* UnseenObjectsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */; };
 		5A304B3F1D184427009CBBAD /* UnseenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A304B3E1D184427009CBBAD /* UnseenObject.swift */; };
@@ -56,7 +60,7 @@
 		5A9D0EEF1D11FEC200037589 /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EEE1D11FEC200037589 /* Gotham-Light.otf */; };
 		5A9D0EF11D11FECF00037589 /* Brandon Text W01 Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EF01D11FECF00037589 /* Brandon Text W01 Medium.ttf */; };
 		5A9EDEB01D00232100D389EC /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEAF1D00232100D389EC /* UserResponse.swift */; };
-		5A9EDEB41D0070C500D389EC /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEB31D0070C500D389EC /* ConversationViewController.swift */; };
+		5A9EDEB41D0070C500D389EC /* ConversationContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEB31D0070C500D389EC /* ConversationContentViewController.swift */; };
 		5A9EDEB61D01621200D389EC /* ConversationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEB51D01621200D389EC /* ConversationResponse.swift */; };
 		5A9EDEB81D01BB5C00D389EC /* SizungSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEB71D01BB5C00D389EC /* SizungSegmentedControl.swift */; };
 		5A9EDEBC1D01CEB900D389EC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEBB1D01CEB900D389EC /* Color.swift */; };
@@ -138,6 +142,10 @@
 /* Begin PBXFileReference section */
 		40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SizungTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgendaItemTableViewCell.xib; sourceTree = "<group>"; };
+		5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungButton.swift; sourceTree = "<group>"; };
+		5A29E0D51D2FA44A002A7840 /* OrganizationStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationStorageManager.swift; sourceTree = "<group>"; };
+		5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversation.storyboard; sourceTree = "<group>"; };
+		5A2E3C251D2E3E1800D4D3EA /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartOfConversationView.xib; sourceTree = "<group>"; };
 		5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnseenObjectsResponse.swift; sourceTree = "<group>"; };
 		5A304B3E1D184427009CBBAD /* UnseenObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnseenObject.swift; sourceTree = "<group>"; };
@@ -192,7 +200,7 @@
 		5A9D0EF01D11FECF00037589 /* Brandon Text W01 Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Brandon Text W01 Medium.ttf"; path = "../../../../Library/Containers/com.apple.mail/Data/Library/Mail Downloads/E66CA0ED-A832-412A-813D-70C960EC3BFF/Sizung iOS_Folder/Fonts/Brandon Text W01 Medium.ttf"; sourceTree = "<group>"; };
 		5A9D0EF21D12066E00037589 /* Brandon_reg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_reg.otf; sourceTree = "<group>"; };
 		5A9EDEAF1D00232100D389EC /* UserResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
-		5A9EDEB31D0070C500D389EC /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		5A9EDEB31D0070C500D389EC /* ConversationContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationContentViewController.swift; sourceTree = "<group>"; };
 		5A9EDEB51D01621200D389EC /* ConversationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationResponse.swift; sourceTree = "<group>"; };
 		5A9EDEB71D01BB5C00D389EC /* SizungSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungSegmentedControl.swift; sourceTree = "<group>"; };
 		5A9EDEBB1D01CEB900D389EC /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -310,6 +318,15 @@
 				DB69F9D684A00AB62631F7A9 /* Pods-SizungUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		5A29E0D41D2FA43B002A7840 /* storage */ = {
+			isa = PBXGroup;
+			children = (
+				5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */,
+				5A29E0D51D2FA44A002A7840 /* OrganizationStorageManager.swift */,
+			);
+			name = storage;
 			sourceTree = "<group>";
 		};
 		5A3B4F751CE4696B00086338 /* ViewController */ = {
@@ -441,7 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				5ABACCD81D09AB1B0093CF21 /* markdown */,
-				5A504B061CEF0FDC001BEFA3 /* StorageManager.swift */,
+				5A29E0D41D2FA43B002A7840 /* storage */,
 				5A504B151CEF2427001BEFA3 /* Token */,
 				5A86B12B1CE4BC04001C2E7A /* Configuration.swift */,
 				5A86B12F1CE5D025001C2E7A /* network */,
@@ -538,6 +555,7 @@
 				5A7329FF1D05FEBB006531A5 /* TableViewCell */,
 				5A9EDEB71D01BB5C00D389EC /* SizungSegmentedControl.swift */,
 				5A7329EF1D05877D006531A5 /* CardView.swift */,
+				5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */,
 				5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */,
 				5AE24D0F1D22540F00FB691B /* LoadingScreen.xib */,
 				5A8C4B481D242BA0004EA24D /* AvatarImageView.swift */,
@@ -552,9 +570,9 @@
 				5AA806DF1D130E7300788DDF /* OrganizationsViewController.swift */,
 				5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */,
 				5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */,
-				5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */,
 				5AB781401CFD79D00024DFE9 /* AccountViewController.swift */,
-				5A9EDEB31D0070C500D389EC /* ConversationViewController.swift */,
+				5A2E3C251D2E3E1800D4D3EA /* ConversationViewController.swift */,
+				5A9EDEB31D0070C500D389EC /* ConversationContentViewController.swift */,
 				5ADC883E1D109FD500596D67 /* DeliverableViewController.swift */,
 				5AECC1D51D115C8700AD8ACE /* AgendaItemViewController.swift */,
 				5ADC883D1D109E3F00596D67 /* TableViews */,
@@ -572,6 +590,7 @@
 				5A9D0EDB1D11998D00037589 /* Organizations.storyboard */,
 				5A3FC58E1D11385B0084FF2F /* Deliverable.storyboard */,
 				5AECC1D71D115CBD00AD8ACE /* AgendaItem.storyboard */,
+				5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */,
 				5A9D0EE41D11B33700037589 /* Conversations.storyboard */,
 			);
 			name = UI;
@@ -601,6 +620,7 @@
 		5ADC883D1D109E3F00596D67 /* TableViews */ = {
 			isa = PBXGroup;
 			children = (
+				5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */,
 				5A9D0EE81D11BB9800037589 /* StreamTableViewController.swift */,
 				5AC0E5E01CF04D8D00BBEF45 /* OrganizationsTableViewController.swift */,
 				5AC0E5E31CF0628200BBEF45 /* ConversationsTableViewController.swift */,
@@ -761,6 +781,7 @@
 				5AF36B9E1D13024D00A1581F /* Webdings.ttf in Resources */,
 				5AE24D101D22540F00FB691B /* LoadingScreen.xib in Resources */,
 				5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */,
+				5A2E3C241D2E3A3900D4D3EA /* Conversation.storyboard in Resources */,
 				5AECC1D81D115CBD00AD8ACE /* AgendaItem.storyboard in Resources */,
 				5A9D0EED1D11BCAB00037589 /* StreamTableViewCell.xib in Resources */,
 			);
@@ -951,6 +972,7 @@
 			files = (
 				5ABA4FB61CFDCD7C00110030 /* OrganizationsResponse.swift in Sources */,
 				5A86B12C1CE4BC04001C2E7A /* Configuration.swift in Sources */,
+				5A2E3C261D2E3E1800D4D3EA /* ConversationViewController.swift in Sources */,
 				5ABA4FB91CFEB78B00110030 /* BaseModel.swift in Sources */,
 				5A9D0EEC1D11BCAB00037589 /* StreamTableViewCell.swift in Sources */,
 				5A35DC0C1D0AF9C300916118 /* AutoCompletionTableCell.swift in Sources */,
@@ -966,7 +988,7 @@
 				5A9D0EE91D11BB9800037589 /* StreamTableViewController.swift in Sources */,
 				5A9EDEB61D01621200D389EC /* ConversationResponse.swift in Sources */,
 				5A9D0EE11D119DD000037589 /* R.generated.swift in Sources */,
-				5A9EDEB41D0070C500D389EC /* ConversationViewController.swift in Sources */,
+				5A9EDEB41D0070C500D389EC /* ConversationContentViewController.swift in Sources */,
 				5ADC882B1D0F57D400596D67 /* WebsocketResponse.swift in Sources */,
 				5A9EDEB01D00232100D389EC /* UserResponse.swift in Sources */,
 				5AB781411CFD79D00024DFE9 /* AccountViewController.swift in Sources */,
@@ -983,6 +1005,7 @@
 				5A7329FD1D05FEB2006531A5 /* AgendaItemTableViewCell.swift in Sources */,
 				5AC0E5E41CF0628200BBEF45 /* ConversationsTableViewController.swift in Sources */,
 				5AE8839A1D09A5460044364B /* CollectionPropertyExtension.swift in Sources */,
+				5A29E0D31D2F7F3E002A7840 /* SizungButton.swift in Sources */,
 				5AD9F1B31CE9C09200455D98 /* Conversation.swift in Sources */,
 				5A7B95A41CF8E58B00FE36CB /* MainPageViewController.swift in Sources */,
 				5A6D37121D1E90DE00F00B87 /* DateSortable.swift in Sources */,
@@ -1015,6 +1038,7 @@
 				5A9EDEB81D01BB5C00D389EC /* SizungSegmentedControl.swift in Sources */,
 				5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */,
 				5A8C4B491D242BA0004EA24D /* AvatarImageView.swift in Sources */,
+				5A29E0D61D2FA44A002A7840 /* OrganizationStorageManager.swift in Sources */,
 				5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */,
 				5A304B3D1D1843DE009CBBAD /* UnseenObjectsResponse.swift in Sources */,
 				5AC0E5E61CF2F5C200BBEF45 /* TimelineTableViewController.swift in Sources */,

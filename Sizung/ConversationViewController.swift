@@ -2,79 +2,65 @@
 //  ConversationViewController.swift
 //  Sizung
 //
-//  Created by Markus Klepp on 02/06/16.
+//  Created by Markus Klepp on 07/07/16.
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
 import UIKit
-import SwiftKeychainWrapper
 
-class ConversationViewController: UIViewController, MainPageViewControllerDelegate {
-
+class ConversationViewController: UIViewController {
 
   @IBOutlet weak var titleButton: UIButton!
-  @IBOutlet weak var segmentedControl: SizungSegmentedControl!
-
-  var mainPageViewController: MainPageViewController!
 
   var conversation: Conversation!
+
+  var openItem: BaseModel?
 
   override func viewDidLoad() {
     super.viewDidLoad()
     self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
-
-    segmentedControl.items = ["PRIORITIES", "CHAT", "ACTIONS"]
-    segmentedControl.thumbColors = [Color.TODISCUSS, Color.CHAT, Color.TODO]
-    segmentedControl.addTarget(
-      self,
-      action: #selector(self.segmentedControlDidChange),
-      forControlEvents: .ValueChanged
-    )
   }
 
-  func segmentedControlDidChange(sender: SizungSegmentedControl) {
-
-    let selectedIndex = sender.selectedIndex
-
-    self.mainPageViewController.setSelectedIndex(selectedIndex)
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
   }
+
 
   @IBAction func close(sender: AnyObject) {
     dismissViewControllerAnimated(true, completion: nil)
   }
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if R.segue.conversationViewController.embed(segue: segue) != nil {
-      if let mainPageViewController = segue.destinationViewController as? MainPageViewController {
-        self.mainPageViewController = mainPageViewController
-        self.mainPageViewController.mainPageViewControllerDelegate = self
+    if R.segue.conversationViewController.embedNavController(segue: segue) != nil {
+      if let navController = segue.destinationViewController as? UINavigationController {
+        if let conversationContentViewController = navController.viewControllers.first as? ConversationContentViewController {
+          conversationContentViewController.conversation = self.conversation
 
-        let agendaItemsTableViewController =
-          R.storyboard.conversations.agendaItemsTableViewController()!
-        agendaItemsTableViewController.conversation = self.conversation
+          switch openItem {
+          case let deliverable as Deliverable:
+            let deliverableViewController = R.storyboard.deliverable.initialViewController()!
+            deliverableViewController.deliverable = deliverable
 
-        self.mainPageViewController.orderedViewControllers.append(agendaItemsTableViewController)
+            navController.pushViewController(deliverableViewController, animated: true)
 
-        let timelineTableViewController = R.storyboard.conversations.timelineTableViewController()!
-        timelineTableViewController.timelineParent = self.conversation
-        self.mainPageViewController.orderedViewControllers.append(timelineTableViewController)
+          case let agendaItem as AgendaItem:
+            let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
+            agendaItemViewController.agendaItem = agendaItem
 
-        let deliverablesTableViewController =
-          R.storyboard.conversations.conversationDeliverablesTableViewController()!
-        deliverablesTableViewController.conversation = conversation
-        self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
+            navController.pushViewController(agendaItemViewController, animated: true)
+          case nil:
+            // nothing to do here
+            break
+          default:
+            fatalError()
+          }
+        }
       } else {
-        fatalError("unexpected destinationviewcontroller " +
-          "\(segue.destinationViewController.dynamicType)")
+        fatalError()
       }
     } else {
-      fatalError("unkown segue \(segue.identifier)")
+      fatalError()
     }
-  }
-
-  func mainpageViewController(
-    mainPageViewController: MainPageViewController,
-    didSwitchToIndex index: Int) {
-      segmentedControl.selectedIndex = index
   }
 }

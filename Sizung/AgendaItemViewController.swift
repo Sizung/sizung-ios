@@ -10,8 +10,6 @@ import UIKit
 
 class AgendaItemViewController: UIViewController {
 
-
-  @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var statusButton: UIButton!
   @IBOutlet weak var backButton: UIButton!
 
@@ -20,13 +18,6 @@ class AgendaItemViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    StorageManager.storageForSelectedOrganization()
-      .onSuccess { storageManager in
-        storageManager.getConversation(self.agendaItem.conversationId)
-          .onSuccess { conversation in
-            self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
-        }
-    }
     backButton.setTitle("< \(agendaItem.title)", forState: .Normal)
 
     statusButton.setTitle(agendaItem.status, forState: .Normal)
@@ -86,6 +77,6 @@ class AgendaItemViewController: UIViewController {
   }
 
   @IBAction func back(sender: AnyObject) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+    self.navigationController?.popViewControllerAnimated(true)
   }
 }

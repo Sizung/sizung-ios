@@ -16,6 +16,7 @@ class SizungMarkdownParser {
   var defaultAttr: Dictionary<String, AnyObject> = [:]
 
   init() {
+
     // italic pattern
     markdown.add("*?*", recursive: false) {
       (pattern: String, text: String, start: Int) -> (String, [NSObject : AnyObject]?) in
@@ -25,19 +26,26 @@ class SizungMarkdownParser {
       let replace = pattern[pattern.startIndex.advancedBy(1)...pattern.endIndex.advancedBy(-2)]
       return (replace, [NSFontAttributeName: R.font.brandonGrotesqueMedium(size: self.fontSize)!])
     }
+
     //bold pattern
     markdown.add("**?**", recursive: false) {
       (pattern: String, text: String, start: Int) -> (String, [NSObject : AnyObject]?) in
+      // check for ****
+      guard pattern.characters.count > 4 else {
+        return (pattern, nil)
+      }
+
       let replace = pattern[pattern.startIndex.advancedBy(2)...pattern.endIndex.advancedBy(-3)]
       return (replace, [NSFontAttributeName: R.font.brandonTextW01Medium(size: self.fontSize)!])
     }
+
     //mention pattern
     markdown.add("@[?](?)", recursive: false) {
       (pattern: String, text: String, start: Int) -> (String, [NSObject : AnyObject]?) in
       let replace =
         pattern[
           pattern.rangeOfString("[")!.startIndex.advancedBy(1)
-          ...
+            ...
             pattern.rangeOfString("]")!.endIndex.advancedBy(-2)
       ]
       return (replace, [NSFontAttributeName: R.font.brandonTextW01Medium(size: self.fontSize)!])

@@ -84,8 +84,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
   func loadInitialViewController() {
 
-    //  show organization list if no organization is selected
-    if Configuration.getSelectedOrganization() == nil {
+    if let selectedOrganizationId = Configuration.getSelectedOrganization() {
+      StorageManager.initOrganizationStorageManager(selectedOrganizationId)
+        .onFailure { error in
+          let organizationViewController = R.storyboard.organizations.initialViewController()!
+          self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
+          if error != StorageError.NotAuthenticated {
+            InAppMessage.showErrorMessage("The selected organization can't be found, please select one")
+          }
+      }
+    } else {
       let organizationViewController = R.storyboard.organizations.initialViewController()!
       self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
     }
@@ -105,6 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
   func loginSuccess(loginViewController: LoginViewController) {
     self.registerForPushNotifications()
+    self.initWebsocketConnection()
 
     loginViewController.dismissViewControllerAnimated(true, completion: nil)
     self.window?.rootViewController = R.storyboard.main.initialViewController()
@@ -133,6 +142,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         let websocket =  Websocket(authToken: authToken.data!)
         websocket.userWebsocketDelegate = self
         StorageManager.sharedInstance.websocket = websocket
+
+        self.fetchUnseenObjects()
     }
   }
 
@@ -142,8 +153,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       StorageManager.sharedInstance.listUnseenObjects(userId)
 
       // subscribe to user channel
-      StorageManager.sharedInstance.websocket?.userWebsocketDelegate = self
-      StorageManager.sharedInstance.websocket?.followUser(userId)
+      if let websocket = StorageManager.sharedInstance.websocket {
+        websocket.userWebsocketDelegate = self
+        websocket.followUser(userId)
+      }
     }
   }
 
@@ -237,7 +250,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     }
   }
 
-// websocket delegate
+  // websocket delegate
 
   func onDisconnected() {
     InAppMessage.showErrorMessage("There was an error connecting to Sizung")
@@ -266,7 +279,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       let itemId = pathComponents[2]
 
       // check for known types only
-      guard ["agenda_items", "deliverables", "conversations"].contains(type) else {
+      guard ["agenda_items", "deliverables", "conversations", "attachments", "organizations"].contains(type) else {
         let message = "link to unknown type \(type) with id:\(itemId)"
         Error.log(message)
         return false
@@ -301,13 +314,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
               // set selected organization according to entity
               Configuration.setSelectedOrganization(conversation.organizationId)
 
-              let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
-              agendaItemViewController.agendaItem = agendaItem
-
-              self.window?.rootViewController?.showViewController(
-                agendaItemViewController,
-                sender: self
-              )
+              self.openViewControllerFor(agendaItem, inConversation: conversation)
           }
       }
       break
@@ -321,14 +328,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
               .onSuccess { agendaItem in
                 StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
                   .onSuccess { conversation in
-                    self.openDeliverable(deliverable, organizationId: conversation.organizationId)
+                    self.openViewControllerFor(deliverable, inConversation: conversation)
                 }
-
             }
           default:
             StorageManager.sharedInstance.getConversation(deliverable.parentId)
               .onSuccess { conversation in
-                self.openDeliverable(deliverable, organizationId: conversation.organizationId)
+                self.openViewControllerFor(deliverable, inConversation: conversation)
             }
           }
       }
@@ -339,14 +345,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
           // set selected organization according to entity
           Configuration.setSelectedOrganization(conversation.organizationId)
 
-          let conversationsViewController = R.storyboard.conversations.conversationViewController()!
-          conversationsViewController.conversation = conversation
+          let conversationViewController = R.storyboard.conversation.initialViewController()!
+          conversationViewController.conversation = conversation
 
           self.window?.rootViewController?.showViewController(
-            conversationsViewController,
+            conversationViewController,
             sender: self
           )
+
       }
+      break
+    case "organizations":
+      // reset storage
+      StorageManager.sharedInstance.reset()
+      Configuration.setSelectedOrganization(itemId)
+
+      self.loadInitialViewController()
+
+    case "attachments":
+      // not yet implemented
       break
     default:
       let message = "link to unknown type \(type) with id:\(itemId)"
@@ -354,13 +371,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     }
   }
 
-  func openDeliverable(deliverable: Deliverable, organizationId: String) {
+  func openViewControllerFor(item: BaseModel, inConversation conversation: Conversation) {
     // set selected organization according to entity
-    Configuration.setSelectedOrganization(organizationId)
+    Configuration.setSelectedOrganization(conversation.organizationId)
 
-    let deliverableViewController = R.storyboard.deliverable.initialViewController()!
-    deliverableViewController.deliverable = deliverable
+    let conversationController = R.storyboard.conversation.initialViewController()!
+    conversationController.conversation = conversation
+    conversationController.openItem = item
 
-    self.window?.rootViewController?.showViewController(deliverableViewController, sender: self)
+    self.window?.rootViewController?.showViewController(conversationController, sender: self)
   }
 }

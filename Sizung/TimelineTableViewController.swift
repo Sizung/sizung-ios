@@ -223,6 +223,11 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
   }
 
   func addItemsToCollection(items: [BaseModel]) {
+
+    guard self.timelineParent != nil else {
+      fatalError("no timelineparent set ")
+    }
+
     let filteredItems = items
       .filter({ conversationObject in
         switch conversationObject {
@@ -360,12 +365,17 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         if prefix == "@" {
+
+          let conversationUsers = storageManager.users.collection.filter { user in
+            return (self.storageManager.conversations[self.getConversationId()]!.members.contains(user))
+          }
+
           if word.characters.count > 0 {
-            array = storageManager.users.filter { user in
+            array = conversationUsers.filter { user in
               return user.name.lowercaseString.hasPrefix(word.lowercaseString)
             }
           } else {
-            array = storageManager.users.collection
+            array = conversationUsers
           }
         }
         var show = false
@@ -397,12 +407,6 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
       return 0
     }
     return height * CGFloat(searchResult.count)
-  }
-
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-
-    self.updateData()
   }
 
   override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -555,7 +559,7 @@ extension TimelineTableViewController {
   func cellForComment(comment: Comment) -> CommentTableViewCell {
     if let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.commentTableViewCell.identifier) as? CommentTableViewCell {
 
-      cell.bodyLabel.attributedText = textParser.parseMarkdown(comment.body)
+      cell.bodyLabel.setText(textParser.parseMarkdown(comment.body))
       cell.bodyLabel.textColor = (comment.offline ? UIColor.grayColor() : UIColor.blackColor())
       cell.datetimeLabel.text = comment.createdAt?.timeAgoSinceNow()
 
@@ -668,12 +672,12 @@ extension TimelineTableViewController {
         let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
         agendaItemViewController.agendaItem = agendaItem
 
-        self.showViewController(agendaItemViewController, sender: self)
+        self.navigationController?.pushViewController(agendaItemViewController, animated: true)
       case let deliverable as Deliverable:
         let deliverableViewController = R.storyboard.deliverable.initialViewController()!
         deliverableViewController.deliverable = deliverable
 
-        self.showViewController(deliverableViewController, sender: self)
+        self.navigationController?.pushViewController(deliverableViewController, animated: true)
       case is Comment:
         // don't react to comment clicks
         break

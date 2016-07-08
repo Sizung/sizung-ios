@@ -8,15 +8,22 @@
 
 import AlamofireImage
 import UIKit
+import TTTAttributedLabel
 
-class CommentTableViewCell: UITableViewCell {
+class CommentTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
   @IBOutlet weak var authorImage: AvatarImageView!
-  @IBOutlet weak var bodyLabel: UILabel!
+  @IBOutlet weak var bodyLabel: TTTAttributedLabel!
   @IBOutlet weak var datetimeLabel: UILabel!
 
   static let kMinimumHeight: CGFloat = 65
 
   class var kReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
+
+
+  override func awakeFromNib() {
+    self.bodyLabel.enabledTextCheckingTypes = NSTextCheckingType.Link.rawValue
+    self.bodyLabel.delegate = self
+  }
 
   override func prepareForReuse() {
     super.prepareForReuse()
@@ -25,5 +32,9 @@ class CommentTableViewCell: UITableViewCell {
       return
     }
     authorImage.user = nil
+  }
+
+  func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
+    UIApplication.sharedApplication().openURL(url)
   }
 }

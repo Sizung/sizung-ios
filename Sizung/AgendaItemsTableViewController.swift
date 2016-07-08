@@ -66,8 +66,9 @@ class AgendaItemsTableViewController: UITableViewController {
 
         self.collection = storageManager.agendaItems.collection
           .filter { agendaItem in
-            if let conversationId = self.conversation?.id {
-              return agendaItem.conversationId == conversationId
+
+            if self.conversation != nil && self.conversation!.id != agendaItem.conversationId {
+              return false
             }
 
             if self.filter == .Mine {
@@ -112,7 +113,7 @@ class AgendaItemsTableViewController: UITableViewController {
   }
 
   override func viewDidAppear(animated: Bool) {
-    if self.collection == nil || self.collection?.count == 0 {
+    if self.collection == nil {
       self.updateData()
     }
   }
@@ -175,12 +176,16 @@ class AgendaItemsTableViewController: UITableViewController {
 
     let selectedAgendaItem = self.collection![indexPath.row]
 
-    if let agendaItemViewController = R.storyboard.agendaItem.initialViewController() {
+    if let navController = self.navigationController {
+      let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
       agendaItemViewController.agendaItem = selectedAgendaItem
 
-      self.showViewController(agendaItemViewController, sender: self)
+      navController.pushViewController(agendaItemViewController, animated: true)
     } else {
-      fatalError("unexpected type")
+      let conversationController = R.storyboard.conversation.initialViewController()!
+      conversationController.conversation = storageManager!.conversations[selectedAgendaItem.conversationId]
+      conversationController.openItem = selectedAgendaItem
+      showViewController(conversationController, sender: self)
     }
   }
 }

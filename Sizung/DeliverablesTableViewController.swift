@@ -124,7 +124,7 @@ class DeliverablesTableViewController: UITableViewController {
   }
 
   override func viewDidAppear(animated: Bool) {
-    if self.collection == nil || self.collection?.count == 0 {
+    if self.collection == nil {
       self.updateData()
     }
   }
@@ -135,6 +135,15 @@ class DeliverablesTableViewController: UITableViewController {
 
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return self.collection?.count ?? 0
+  }
+
+  func getConversationId(deliverable: Deliverable) -> String {
+    switch deliverable {
+    case let agendaItemDeliverable as AgendaItemDeliverable:
+      return storageManager!.agendaItems[agendaItemDeliverable.agendaItemId]!.conversationId
+    default:
+      return deliverable.parentId
+    }
   }
 
   override func tableView(
@@ -148,7 +157,7 @@ class DeliverablesTableViewController: UITableViewController {
 
       cell.titleLabel.text = deliverable.title
 
-      cell.conversationLabel.text = self.storageManager?.conversations[deliverable.parentId]?.title
+      cell.conversationLabel.text = storageManager!.conversations[getConversationId(deliverable)]?.title
 
       if deliverable.dueOn != nil && !deliverable.isCompleted() {
         cell.statusLabel.text = DueDateHelper.getDueDateString(deliverable.dueOn!)
@@ -205,10 +214,19 @@ class DeliverablesTableViewController: UITableViewController {
 
     if let selectedDeliverable = collection?[indexPath.row] {
 
-      let deliverableViewController = R.storyboard.deliverable.initialViewController()!
-      deliverableViewController.deliverable = selectedDeliverable
+      if let navController = self.navigationController {
+        let deliverableViewController = R.storyboard.deliverable.initialViewController()!
+        deliverableViewController.deliverable = selectedDeliverable
 
-      self.showViewController(deliverableViewController, sender: self)
+        navController.pushViewController(deliverableViewController, animated: true)
+      } else {
+        let conversationController = R.storyboard.conversation.initialViewController()!
+        conversationController.conversation = storageManager!.conversations[getConversationId(selectedDeliverable)]
+        conversationController.openItem = selectedDeliverable
+        showViewController(conversationController, sender: self)
+      }
+    } else {
+      fatalError()
     }
   }
 }

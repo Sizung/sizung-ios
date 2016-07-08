@@ -161,8 +161,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ojd-fT-4s6">
-                                <rect key="frame" x="279" y="283" width="42" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ojd-fT-4s6" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                                <rect key="frame" x="278" y="278" width="44" height="44"/>
                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
                                 <state key="normal" title="Logout">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -171,8 +171,8 @@
                                     <action selector="logoutClicked:" destination="60j-uB-VEk" eventType="touchUpInside" id="cCe-dk-KPl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ExN-PN-ATf">
-                                <rect key="frame" x="528" y="40" width="32" height="32"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ExN-PN-ATf" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                                <rect key="frame" x="516" y="40" width="44" height="44"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="close"/>
                                 <connections>
@@ -229,14 +229,14 @@
                                             <action selector="showOrganizations:" destination="zbj-sK-a1Q" eventType="touchUpInside" id="QVV-Tt-SNO"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEE-d2-7Nm">
-                                        <rect key="frame" x="474" y="-2" width="40" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEE-d2-7Nm" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                                        <rect key="frame" x="490" y="-4" width="44" height="44"/>
                                         <state key="normal" image="search">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8D-8A-foB">
-                                        <rect key="frame" x="534" y="3" width="46" height="31"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8D-8A-foB" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                                        <rect key="frame" x="534" y="-3" width="46" height="44"/>
                                         <state key="normal" image="group_list">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -259,7 +259,7 @@
                                     <constraint firstAttribute="height" constant="37" id="6sb-Vg-XT4"/>
                                     <constraint firstItem="bEE-d2-7Nm" firstAttribute="centerY" secondItem="2Nt-o4-xOt" secondAttribute="centerY" id="JxM-Qy-v8S"/>
                                     <constraint firstItem="0dl-LS-tg6" firstAttribute="top" secondItem="2Nt-o4-xOt" secondAttribute="top" id="KcB-te-YUd"/>
-                                    <constraint firstItem="F8D-8A-foB" firstAttribute="leading" secondItem="bEE-d2-7Nm" secondAttribute="trailing" constant="20" id="LkH-mt-oKg"/>
+                                    <constraint firstItem="F8D-8A-foB" firstAttribute="leading" secondItem="bEE-d2-7Nm" secondAttribute="trailing" id="LkH-mt-oKg"/>
                                     <constraint firstItem="F8D-8A-foB" firstAttribute="centerY" secondItem="2Nt-o4-xOt" secondAttribute="centerY" id="T0A-Sq-zmP"/>
                                     <constraint firstItem="F8D-8A-foB" firstAttribute="centerX" secondItem="2Nt-o4-xOt" secondAttribute="centerX" id="Xb3-7c-XJf"/>
                                     <constraint firstItem="F8D-8A-foB" firstAttribute="centerY" secondItem="0dl-LS-tg6" secondAttribute="centerY" id="Ykr-UT-QgE"/>

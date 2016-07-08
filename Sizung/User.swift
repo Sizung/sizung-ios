@@ -29,7 +29,11 @@ class User: BaseModel {
   }
 
   func getInitials() -> String {
-    return "\(firstName[firstName.startIndex])\(lastName[lastName.startIndex])"
+    if let firstName = firstName, lastName = lastName {
+      return "\(firstName[firstName.startIndex])\(lastName[lastName.startIndex])"
+    } else {
+      return "??"
+    }
   }
 
   override func mapping(map: Map) {
