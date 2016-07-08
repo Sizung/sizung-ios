@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2FF81000B72F237F09D8B781 /* Pods_SizungUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13B42A82CE8590D9FB4161 /* Pods_SizungUITests.framework */; };
 		5A1DDBD21D1A74700089CD45 /* AgendaItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */; };
+		5A29E0D31D2F7F3E002A7840 /* SizungButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */; };
 		5A2E3C241D2E3A3900D4D3EA /* Conversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */; };
 		5A2E3C261D2E3E1800D4D3EA /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2E3C251D2E3E1800D4D3EA /* ConversationViewController.swift */; };
 		5A304B3B1D18367F009CBBAD /* StartOfConversationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */; };
@@ -140,6 +141,7 @@
 /* Begin PBXFileReference section */
 		40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SizungTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgendaItemTableViewCell.xib; sourceTree = "<group>"; };
+		5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungButton.swift; sourceTree = "<group>"; };
 		5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversation.storyboard; sourceTree = "<group>"; };
 		5A2E3C251D2E3E1800D4D3EA /* ConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 		5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartOfConversationView.xib; sourceTree = "<group>"; };
@@ -542,6 +544,7 @@
 				5A7329FF1D05FEBB006531A5 /* TableViewCell */,
 				5A9EDEB71D01BB5C00D389EC /* SizungSegmentedControl.swift */,
 				5A7329EF1D05877D006531A5 /* CardView.swift */,
+				5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */,
 				5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */,
 				5AE24D0F1D22540F00FB691B /* LoadingScreen.xib */,
 				5A8C4B481D242BA0004EA24D /* AvatarImageView.swift */,
@@ -991,6 +994,7 @@
 				5A7329FD1D05FEB2006531A5 /* AgendaItemTableViewCell.swift in Sources */,
 				5AC0E5E41CF0628200BBEF45 /* ConversationsTableViewController.swift in Sources */,
 				5AE8839A1D09A5460044364B /* CollectionPropertyExtension.swift in Sources */,
+				5A29E0D31D2F7F3E002A7840 /* SizungButton.swift in Sources */,
 				5AD9F1B31CE9C09200455D98 /* Conversation.swift in Sources */,
 				5A7B95A41CF8E58B00FE36CB /* MainPageViewController.swift in Sources */,
 				5A6D37121D1E90DE00F00B87 /* DateSortable.swift in Sources */,
