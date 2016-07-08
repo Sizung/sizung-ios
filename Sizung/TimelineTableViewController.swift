@@ -365,12 +365,17 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         if prefix == "@" {
+
+          let conversationUsers = storageManager.users.collection.filter { user in
+            return (self.storageManager.conversations[self.getConversationId()]!.members.contains(user))
+          }
+
           if word.characters.count > 0 {
-            array = storageManager.users.filter { user in
+            array = conversationUsers.filter { user in
               return user.name.lowercaseString.hasPrefix(word.lowercaseString)
             }
           } else {
-            array = storageManager.users.collection
+            array = conversationUsers
           }
         }
         var show = false
