@@ -175,10 +175,16 @@ class AgendaItemsTableViewController: UITableViewController {
 
     let selectedAgendaItem = self.collection![indexPath.row]
 
-    let conversationController = R.storyboard.conversation.initialViewController()!
-    conversationController.conversation = storageManager!.conversations[selectedAgendaItem.conversationId]
-    conversationController.openItem = selectedAgendaItem
-    showViewController(conversationController, sender: self)
+    if let navController = self.navigationController {
+      let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
+      agendaItemViewController.agendaItem = selectedAgendaItem
 
+      navController.pushViewController(agendaItemViewController, animated: true)
+    } else {
+      let conversationController = R.storyboard.conversation.initialViewController()!
+      conversationController.conversation = storageManager!.conversations[selectedAgendaItem.conversationId]
+      conversationController.openItem = selectedAgendaItem
+      showViewController(conversationController, sender: self)
+    }
   }
 }

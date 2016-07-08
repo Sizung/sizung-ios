@@ -214,10 +214,17 @@ class DeliverablesTableViewController: UITableViewController {
 
     if let selectedDeliverable = collection?[indexPath.row] {
 
-      let conversationController = R.storyboard.conversation.initialViewController()!
-      conversationController.conversation = storageManager!.conversations[getConversationId(selectedDeliverable)]
-      conversationController.openItem = selectedDeliverable
-      showViewController(conversationController, sender: self)
+      if let navController = self.navigationController {
+        let deliverableViewController = R.storyboard.deliverable.initialViewController()!
+        deliverableViewController.deliverable = selectedDeliverable
+
+        navController.pushViewController(deliverableViewController, animated: true)
+      } else {
+        let conversationController = R.storyboard.conversation.initialViewController()!
+        conversationController.conversation = storageManager!.conversations[getConversationId(selectedDeliverable)]
+        conversationController.openItem = selectedDeliverable
+        showViewController(conversationController, sender: self)
+      }
     } else {
       fatalError()
     }
