@@ -44,6 +44,7 @@ class ConversationContentViewController: UIViewController, MainPageViewControlle
 
         let agendaItemsTableViewController =
           R.storyboard.conversation.agendaItemsTableViewController()!
+        agendaItemsTableViewController.conversation = self.conversation
 
         self.mainPageViewController.orderedViewControllers.append(agendaItemsTableViewController)
 
