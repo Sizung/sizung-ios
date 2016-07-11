@@ -33,6 +33,8 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     super.viewDidLoad()
 
     groupsBadgeView.userInteractionEnabled = false
+    groupsBadgeView.topOffset = 10
+    groupsBadgeView.rightOffset = 10
     self.groupsButton.addSubview(groupsBadgeView)
 
     loadingScreen.frame = self.view.frame
