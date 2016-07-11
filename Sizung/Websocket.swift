@@ -79,7 +79,7 @@ class Websocket {
     // A channel has successfully been subscribed to.
     channel.onSubscribed = {
       switch channel.name {
-      case ChannelType.Organization.rawValue:
+      case ChannelType.Conversation.rawValue:
         for channelId in self.willFollowConversationChannels {
           self.followConversation(channelId)
         }
