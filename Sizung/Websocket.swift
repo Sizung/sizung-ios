@@ -121,11 +121,16 @@ class Websocket {
       return
     }
 
-    guard conversationChannel!.action("follow", params: ["conversation_id": conversationId]) == nil else {
-      fatalError("error following conversation \(conversationId)")
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
 
-    self.conversationWebsocketDelegate?.onFollowSuccess(conversationId)
+      guard self.conversationChannel!.action("follow", params: ["conversation_id": conversationId]) == nil else {
+        fatalError("error following conversation \(conversationId)")
+      }
+
+      dispatch_async(dispatch_get_main_queue(), {
+        self.conversationWebsocketDelegate?.onFollowSuccess(conversationId)
+      })
+    })
   }
 
   func unfollowConversation(conversationId: String) {
@@ -140,9 +145,11 @@ class Websocket {
       return
     }
 
-    guard conversationChannel!.action("unfollow", params: ["conversation_id": conversationId]) == nil else {
-      fatalError("error disconnecting")
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+      guard self.conversationChannel!.action("unfollow", params: ["conversation_id": conversationId]) == nil else {
+        fatalError("error disconnecting")
+      }
+    })
   }
 
   func followUser(userId: String) {
@@ -156,11 +163,16 @@ class Websocket {
       return
     }
 
-    guard userChannel!.action("follow", params: ["user_id": userId]) == nil else {
-      fatalError("error following user \(userId)")
-    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
 
-    self.userWebsocketDelegate?.onFollowSuccess(userId)
+      guard self.userChannel!.action("follow", params: ["user_id": userId]) == nil else {
+        fatalError("error following user \(userId)")
+      }
+
+      dispatch_async(dispatch_get_main_queue(), {
+        self.userWebsocketDelegate?.onFollowSuccess(userId)
+      })
+    })
   }
 }
 
