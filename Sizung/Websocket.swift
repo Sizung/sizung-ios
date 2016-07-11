@@ -45,8 +45,15 @@ class Websocket {
     }
 
     client.onDisconnected = { error in
-      self.conversationWebsocketDelegate?.onDisconnected()
-      self.userWebsocketDelegate?.onDisconnected()
+
+      switch error!._code {
+      case 2, 3:
+          self.conversationWebsocketDelegate?.onConnectFailed()
+          self.userWebsocketDelegate?.onConnectFailed()
+      default:
+        self.conversationWebsocketDelegate?.onDisconnected()
+        self.userWebsocketDelegate?.onDisconnected()
+      }
     }
 
     client.onRejected = {
@@ -178,6 +185,7 @@ class Websocket {
 
 protocol WebsocketDelegate {
   func onDisconnected()
+  func onConnectFailed()
   func onFollowSuccess(channelName: String)
   func onReceived(conversationObject: BaseModel)
 }

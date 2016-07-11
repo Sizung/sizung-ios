@@ -206,8 +206,12 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     }
   }
 
+  func onConnectFailed() {
+    InAppMessage.showErrorMessage("There has been an error connecting to this Timeline")
+  }
+
   func onDisconnected() {
-    InAppMessage.showErrorMessage("There was an error while connecting to Sizung")
+    InAppMessage.showErrorMessage("You have been disconnected from this Timeline")
   }
 
   func onFollowSuccess(itemId: String) {
