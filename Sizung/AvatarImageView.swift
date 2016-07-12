@@ -26,9 +26,22 @@ import AlamofireImage
   var user: User? {
     didSet {
       if user != nil {
-        let gravatar = Gravatar(emailAddress: user!.email, defaultImage: .Identicon)
-        self.af_setBackgroundImageForState(.Normal, URL: gravatar.URL(size: size))
+        let gravatar = Gravatar(emailAddress: user!.email)
+        self.setTitle(user!.getInitials(), forState: .Normal)
 
+        self.af_setBackgroundImageForState(
+          .Normal,
+          URL: gravatar.URL(size: size),
+          placeHolderImage: nil,
+          progress: nil,
+          progressQueue: dispatch_get_main_queue(),
+          completion: { response in
+            if response.result.error == nil {
+              self.setTitle(nil, forState: .Normal)
+            }
+        })
+
+        self.backgroundColor = Color.SIZUNG
         self.setTitle(user!.getInitials(), forState: .Highlighted)
       }
     }

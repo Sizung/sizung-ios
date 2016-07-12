@@ -90,7 +90,7 @@ public struct Gravatar {
 
   public init(
     emailAddress: String,
-    defaultImage: DefaultImage = .MysteryMan,
+    defaultImage: DefaultImage = .HTTP404,
     forceDefault: Bool = false,
     rating: Rating = .PG) {
     self.email = emailAddress
