@@ -72,9 +72,7 @@ class StorageManager {
         switch response.result {
         case .Success(let JSON):
           if let typedResponse = Mapper<T>().map(JSON) {
-            dispatch_async(dispatch_get_main_queue()) {
-              promise.success(typedResponse)
-            }
+            promise.success(typedResponse)
           }
         case .Failure
           where response.response?.statusCode == 401:
