@@ -262,7 +262,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
   func onReceived(unseenObject: BaseModel) {
     if let unseenObject = unseenObject as? UnseenObject {
-      StorageManager.sharedInstance.unseenObjects.insert(unseenObject)
+      StorageManager.sharedInstance.unseenObjects.append(unseenObject)
     }
   }
 
