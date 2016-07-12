@@ -55,7 +55,7 @@ class StorageManager {
   // networking queue
   static let networkQueue = dispatch_queue_create("\(NSBundle.mainBundle().bundleIdentifier).networking-queue", DISPATCH_QUEUE_CONCURRENT)
 
-  let unseenObjects: CollectionProperty <Set<UnseenObject>> = CollectionProperty([])
+  let unseenObjects: CollectionProperty <[UnseenObject]> = CollectionProperty([])
   var websocket: Websocket?
 
   func reset() {
@@ -72,9 +72,7 @@ class StorageManager {
         switch response.result {
         case .Success(let JSON):
           if let typedResponse = Mapper<T>().map(JSON) {
-            dispatch_async(dispatch_get_main_queue()) {
-              promise.success(typedResponse)
-            }
+            promise.success(typedResponse)
           }
         case .Failure
           where response.response?.statusCode == 401:
@@ -147,9 +145,7 @@ class StorageManager {
       .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
         let unseenObjects = unseenObjectsResponse.unseenObjects
         promise.success(unseenObjects)
-        unseenObjects.forEach { unseenObject in
-          self.unseenObjects.insert(unseenObject)
-        }
+        self.unseenObjects.insertOrUpdate(unseenObjects)
       }.onFailure { error in
         promise.failure(error)
     }
@@ -161,9 +157,8 @@ class StorageManager {
 
     StorageManager.makeRequest(SizungHttpRouter.DeleteUnseenObjects(type: object.type, id: object.id))
       .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
-        unseenObjectsResponse.unseenObjects.forEach { unseenObject in
-          self.unseenObjects.remove(unseenObject)
-        }
+        let diff = Set(self.unseenObjects.collection).subtract(unseenObjectsResponse.unseenObjects)
+        self.unseenObjects.replace(Array(diff))
         promise.success(unseenObjectsResponse.unseenObjects)
       }.onFailure { error in
         promise.failure(error)

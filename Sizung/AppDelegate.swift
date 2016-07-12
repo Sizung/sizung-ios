@@ -252,13 +252,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
   // websocket delegate
 
+  func onConnectFailed() {
+    InAppMessage.showErrorMessage("There has been an error connecting to Sizung")
+  }
+
   func onDisconnected() {
-    InAppMessage.showErrorMessage("There was an error connecting to Sizung")
+    InAppMessage.showErrorMessage("You have been disconnected from Sizung")
   }
 
   func onReceived(unseenObject: BaseModel) {
     if let unseenObject = unseenObject as? UnseenObject {
-      StorageManager.sharedInstance.unseenObjects.insert(unseenObject)
+      StorageManager.sharedInstance.unseenObjects.append(unseenObject)
     }
   }
 

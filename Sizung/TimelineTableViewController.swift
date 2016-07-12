@@ -69,7 +69,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
 
   var nextPage: Int? = 0
 
-  //  var mentions: [(Range<String.Index>, User)] = []
+  var mentions = Set<User>()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -206,8 +206,12 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     }
   }
 
+  func onConnectFailed() {
+    InAppMessage.showErrorMessage("There has been an error connecting to this Timeline")
+  }
+
   func onDisconnected() {
-    InAppMessage.showErrorMessage("There was an error while connecting to Sizung")
+    InAppMessage.showErrorMessage("You have been disconnected from this Timeline")
   }
 
   func onFollowSuccess(itemId: String) {
@@ -294,20 +298,20 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     let authToken = AuthToken(data: Configuration.getAuthToken())
 
     // parse mentions
-    let fulltext = self.textView.text
+    var fulltext = self.textView.text
 
-    //    for (range, user) in mentions {
-    //      fulltext.replaceRange(range, with: "@[\(user.name)](\(user.id))")
-    //    }
-    //
-    //    mentions = []
+    for (user) in mentions {
+      fulltext = fulltext.stringByReplacingOccurrencesOfString("@\(user.name)", withString: "@[\(user.name)](\(user.id))")
+    }
+
+    mentions.removeAll()
 
     let comment = Comment(authorId: authToken.getUserId()!, body: fulltext, commentable: self.timelineParent)
     //    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
     //    let rowAnimation: UITableViewRowAnimation = self.inverted ? .Bottom : .Top
     //    let scrollPosition: UITableViewScrollPosition = self.inverted ? .Bottom : .Top
 
-    // push it to server. Ignore result -> will be pushed over websocket connection
+    // push it to server. Ignore result -> will be pushed back over websocket connection
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         storageManager.createComment(comment)
@@ -656,15 +660,11 @@ extension TimelineTableViewController {
       var text = ""
 
       if self.foundPrefix == "@" {
-        text += "@[\(user.name)](\(user.id)) "
-
-        //        let range = self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location)..<self.textView.text.startIndex.advancedBy(self.foundPrefixRange.location + text.characters.count + self.foundPrefixRange.length)
-        //
-        //        mentions.append((range, user))
+        text += user.name
+        mentions.insert(user)
       }
 
-
-      self.acceptAutoCompletionWithString(text, keepPrefix: false)
+      self.acceptAutoCompletionWithString(text)
     } else {
       switch sortedCollection[indexPath.row].model {
       case let agendaItem as AgendaItem:

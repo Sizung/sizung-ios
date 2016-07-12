@@ -6,7 +6,7 @@
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
-
+// TODO: migrate to https://github.com/KrauseFx/TSMessages
 import Whisper
 
 class InAppMessage {
