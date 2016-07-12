@@ -368,10 +368,16 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
 
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
+        self.storageManager = storageManager
+
         if prefix == "@" {
 
           let conversationUsers = storageManager.users.collection.filter { user in
-            return (self.storageManager.conversations[self.getConversationId()]!.members.contains(user))
+            if let conversation = self.storageManager.conversations[self.getConversationId()] {
+              return conversation.members.contains(user)
+            } else {
+              return false
+            }
           }
 
           if word.characters.count > 0 {

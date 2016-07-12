@@ -153,46 +153,50 @@ class DeliverablesTableViewController: UITableViewController {
     if let cell = tableView.dequeueReusableCellWithIdentifier(
       R.nib.deliverableTableViewCell.identifier,
       forIndexPath: indexPath) as? DeliverableTableViewCell {
-      let deliverable = self.collection![indexPath.row]
 
-      cell.titleLabel.text = deliverable.title
+      if let deliverable = self.collection?[indexPath.row] {
 
-      cell.conversationLabel.text = storageManager!.conversations[getConversationId(deliverable)]?.title
+        cell.titleLabel.text = deliverable.title
 
-      if deliverable.dueOn != nil && !deliverable.isCompleted() {
-        cell.statusLabel.text = DueDateHelper.getDueDateString(deliverable.dueOn!)
-      } else {
-        cell.statusLabel.text = deliverable.getStatus()
+        cell.conversationLabel.text = storageManager!.conversations[getConversationId(deliverable)]?.title
+
+        if deliverable.dueOn != nil && !deliverable.isCompleted() {
+          cell.statusLabel.text = DueDateHelper.getDueDateString(deliverable.dueOn!)
+        } else {
+          cell.statusLabel.text = deliverable.getStatus()
+        }
+
+        var statusColor = UIColor(red:0.88, green:0.67, blue:0.71, alpha:1.0)
+        var textStatusColor = UIColor.darkTextColor()
+
+        if deliverable.isCompleted() {
+          statusColor = UIColor(red:0.33, green:0.75, blue:0.59, alpha:1.0)
+          textStatusColor = statusColor
+        } else if deliverable.dueOn != nil && deliverable.dueOn?.daysAgo() >= 0 {
+          //overdue or today
+          statusColor = UIColor(red:0.98, green:0.40, blue:0.38, alpha:1.0)
+          textStatusColor = statusColor
+        }
+
+        cell.statusView.backgroundColor = statusColor
+        cell.statusView.layer.borderColor = statusColor.CGColor
+        cell.statusLabel.textColor = textStatusColor
+
+        let unseenObjects = StorageManager.sharedInstance.unseenObjects
+
+        let hasUnseenObjects = unseenObjects.collection.contains { obj in
+          return obj.deliverableId == deliverable.id
+        }
+
+        if !deliverable.isCompleted() && !hasUnseenObjects {
+          cell.statusView.backgroundColor = UIColor.clearColor()
+        }
+        cell.unreadStatusView.alpha = hasUnseenObjects ? 1 : 0
+        return cell
       }
-
-      var statusColor = UIColor(red:0.88, green:0.67, blue:0.71, alpha:1.0)
-      var textStatusColor = UIColor.darkTextColor()
-
-      if deliverable.isCompleted() {
-        statusColor = UIColor(red:0.33, green:0.75, blue:0.59, alpha:1.0)
-        textStatusColor = statusColor
-      } else if deliverable.dueOn != nil && deliverable.dueOn?.daysAgo() >= 0 {
-        //overdue or today
-        statusColor = UIColor(red:0.98, green:0.40, blue:0.38, alpha:1.0)
-        textStatusColor = statusColor
+      else {
+        fatalError("self.collection not set, count: \((self.collection?.count ?? 0))")
       }
-
-      cell.statusView.backgroundColor = statusColor
-      cell.statusView.layer.borderColor = statusColor.CGColor
-      cell.statusLabel.textColor = textStatusColor
-
-      let unseenObjects = StorageManager.sharedInstance.unseenObjects
-
-      let hasUnseenObjects = unseenObjects.collection.contains { obj in
-        return obj.deliverableId == deliverable.id
-      }
-
-      if !deliverable.isCompleted() && !hasUnseenObjects {
-        cell.statusView.backgroundColor = UIColor.clearColor()
-      }
-      cell.unreadStatusView.alpha = hasUnseenObjects ? 1 : 0
-
-      return cell
     } else {
       fatalError("Unexpected cell type")
     }
