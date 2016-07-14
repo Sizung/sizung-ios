@@ -56,6 +56,7 @@
                                     <constraint firstAttribute="height" constant="50" id="hcf-dg-lnJ"/>
                                     <constraint firstItem="8D5-1o-hBO" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="top" constant="10" id="o5D-8G-gVW"/>
                                     <constraint firstItem="vg1-da-c05" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="top" constant="10" id="tby-3N-oxd"/>
+                                    <constraint firstItem="vg1-da-c05" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8D5-1o-hBO" secondAttribute="trailing" constant="20" id="z9J-eM-Z45"/>
                                     <constraint firstAttribute="bottom" secondItem="8D5-1o-hBO" secondAttribute="bottom" constant="10" id="zN0-hL-eAa"/>
                                 </constraints>
                             </view>
