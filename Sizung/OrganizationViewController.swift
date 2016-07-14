@@ -25,9 +25,10 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
   var mainPageViewController: MainPageViewController!
 
   var organizationsViewController: UIViewController?
+  var conversationViewController: UIViewController?
   var groupsViewController: UIViewController?
 
-  var loadingScreen = R.nib.loadingScreen.firstView(owner: nil)!
+  var loadingScreen = R.storyboard.main.initialViewController()!.view
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -99,6 +100,12 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
         UIView.animateWithDuration(0.3, animations: {
           self.loadingScreen.alpha = 0
           UIApplication.sharedApplication().statusBarStyle = .LightContent
+
+          // load conversation
+          if let conversationViewController = self.conversationViewController {
+            self.showViewController(conversationViewController, sender: nil)
+            self.conversationViewController = nil
+          }
         })
         self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
     }
@@ -149,12 +156,12 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
         self.mainPageViewController.mainPageViewControllerDelegate = self
 
         self.mainPageViewController.orderedViewControllers
-          .append(R.storyboard.main.agendaItemsTableViewController()!)
+          .append(R.storyboard.organization.agendaItemsTableViewController()!)
         self.mainPageViewController.orderedViewControllers
-          .append(R.storyboard.main.streamTableViewController()!)
+          .append(R.storyboard.organization.streamTableViewController()!)
 
         let deliverablesTableViewController =
-          R.storyboard.main.userDeliverablesTableViewController()!
+          R.storyboard.organization.userDeliverablesTableViewController()!
 
         let token = AuthToken(data: Configuration.getAuthToken())
         let userId = token.getUserId()
@@ -162,6 +169,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
         deliverablesTableViewController.userId = userId
 
         self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
+
       } else {
         fatalError("unexpected segue destinationViewcontroller " +
           "\(segue.destinationViewController.dynamicType)")

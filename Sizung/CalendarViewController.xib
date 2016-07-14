@@ -28,11 +28,11 @@
                             <constraint firstAttribute="height" constant="27" id="Kb0-wI-AOG"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="19"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zf1-bA-Co2">
-                        <rect key="frame" x="563" y="23" width="17" height="22"/>
+                        <rect key="frame" x="548" y="18" width="32" height="32"/>
                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <state key="normal" image="close"/>
                         <connections>
@@ -73,6 +73,6 @@
         </viewController>
     </objects>
     <resources>
-        <image name="close" width="17" height="17"/>
+        <image name="close" width="32" height="32"/>
     </resources>
 </document>

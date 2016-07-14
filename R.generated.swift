@@ -267,8 +267,8 @@ struct R: Rswift.Validatable {
     static let conversationTableViewCell = _R.nib._ConversationTableViewCell()
     /// Nib `DeliverableTableViewCell`.
     static let deliverableTableViewCell = _R.nib._DeliverableTableViewCell()
-    /// Nib `LoadingScreen`.
-    static let loadingScreen = _R.nib._LoadingScreen()
+    /// Nib `ItemLoadingViewController`.
+    static let itemLoadingViewController = _R.nib._ItemLoadingViewController()
     /// Nib `NewMessageSeparatorCell`.
     static let newMessageSeparatorCell = _R.nib._NewMessageSeparatorCell()
     /// Nib `OrganizationTableViewCell`.
@@ -312,9 +312,9 @@ struct R: Rswift.Validatable {
       return UINib(resource: R.nib.deliverableTableViewCell)
     }
     
-    /// `UINib(name: "LoadingScreen", bundle: ...)`
-    static func loadingScreen(_: Void) -> UINib {
-      return UINib(resource: R.nib.loadingScreen)
+    /// `UINib(name: "ItemLoadingViewController", bundle: ...)`
+    static func itemLoadingViewController(_: Void) -> UINib {
+      return UINib(resource: R.nib.itemLoadingViewController)
     }
     
     /// `UINib(name: "NewMessageSeparatorCell", bundle: ...)`
@@ -456,7 +456,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.storyboard` struct is generated, and contains static references to 8 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 9 storyboards.
   struct storyboard {
     /// Storyboard `AgendaItem`.
     static let agendaItem = _R.storyboard.agendaItem()
@@ -472,6 +472,8 @@ struct R: Rswift.Validatable {
     static let login = _R.storyboard.login()
     /// Storyboard `Main`.
     static let main = _R.storyboard.main()
+    /// Storyboard `Organization`.
+    static let organization = _R.storyboard.organization()
     /// Storyboard `Organizations`.
     static let organizations = _R.storyboard.organizations()
     
@@ -508,6 +510,11 @@ struct R: Rswift.Validatable {
     /// `UIStoryboard(name: "Main", bundle: ...)`
     static func main(_: Void) -> UIStoryboard {
       return UIStoryboard(resource: R.storyboard.main)
+    }
+    
+    /// `UIStoryboard(name: "Organization", bundle: ...)`
+    static func organization(_: Void) -> UIStoryboard {
+      return UIStoryboard(resource: R.storyboard.organization)
     }
     
     /// `UIStoryboard(name: "Organizations", bundle: ...)`
@@ -616,9 +623,9 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
-    struct _LoadingScreen: NibResourceType {
+    struct _ItemLoadingViewController: NibResourceType {
       let bundle = _R.hostingBundle
-      let name = "LoadingScreen"
+      let name = "ItemLoadingViewController"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> UIView? {
         return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? UIView
@@ -713,6 +720,7 @@ struct _R: Rswift.Validatable {
   
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
+      try organization.validate()
       try conversation.validate()
       try conversations.validate()
       try main.validate()
@@ -811,13 +819,32 @@ struct _R: Rswift.Validatable {
     }
     
     struct main: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
+      typealias InitialController = UIViewController
+      
+      let bundle = _R.hostingBundle
+      let loading = StoryboardViewControllerResource<UIViewController>(identifier: "Loading")
+      let name = "Main"
+      
+      func loading(_: Void) -> UIViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(loading)
+      }
+      
+      static func validate() throws {
+        if UIImage(named: "logo") == nil { throw ValidationError(description: "[R.swift] Image named 'logo' is used in storyboard 'Main', but couldn't be loaded.") }
+        if _R.storyboard.main().loading() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'loading' could not be loaded from storyboard 'Main' as 'UIViewController'.") }
+      }
+      
+      private init() {}
+    }
+    
+    struct organization: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = OrganizationViewController
       
       let accountViewController = StoryboardViewControllerResource<AccountViewController>(identifier: "AccountViewController")
       let agendaItemsTableViewController = StoryboardViewControllerResource<AgendaItemsTableViewController>(identifier: "AgendaItemsTableViewController")
       let bundle = _R.hostingBundle
       let mainViewController = StoryboardViewControllerResource<OrganizationViewController>(identifier: "MainViewController")
-      let name = "Main"
+      let name = "Organization"
       let streamTableViewController = StoryboardViewControllerResource<StreamTableViewController>(identifier: "StreamTableViewController")
       let userDeliverablesTableViewController = StoryboardViewControllerResource<DeliverablesTableViewController>(identifier: "UserDeliverablesTableViewController")
       
@@ -842,15 +869,15 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
-        if UIImage(named: "group_list") == nil { throw ValidationError(description: "[R.swift] Image named 'group_list' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIImage(named: "priority") == nil { throw ValidationError(description: "[R.swift] Image named 'priority' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIImage(named: "search") == nil { throw ValidationError(description: "[R.swift] Image named 'search' is used in storyboard 'Main', but couldn't be loaded.") }
-        if _R.storyboard.main().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Main' as 'AgendaItemsTableViewController'.") }
-        if _R.storyboard.main().accountViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'accountViewController' could not be loaded from storyboard 'Main' as 'AccountViewController'.") }
-        if _R.storyboard.main().mainViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'mainViewController' could not be loaded from storyboard 'Main' as 'OrganizationViewController'.") }
-        if _R.storyboard.main().userDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'userDeliverablesTableViewController' could not be loaded from storyboard 'Main' as 'DeliverablesTableViewController'.") }
-        if _R.storyboard.main().streamTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'streamTableViewController' could not be loaded from storyboard 'Main' as 'StreamTableViewController'.") }
+        if UIImage(named: "group_list") == nil { throw ValidationError(description: "[R.swift] Image named 'group_list' is used in storyboard 'Organization', but couldn't be loaded.") }
+        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Organization', but couldn't be loaded.") }
+        if UIImage(named: "priority") == nil { throw ValidationError(description: "[R.swift] Image named 'priority' is used in storyboard 'Organization', but couldn't be loaded.") }
+        if UIImage(named: "search") == nil { throw ValidationError(description: "[R.swift] Image named 'search' is used in storyboard 'Organization', but couldn't be loaded.") }
+        if _R.storyboard.organization().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Organization' as 'AgendaItemsTableViewController'.") }
+        if _R.storyboard.organization().accountViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'accountViewController' could not be loaded from storyboard 'Organization' as 'AccountViewController'.") }
+        if _R.storyboard.organization().mainViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'mainViewController' could not be loaded from storyboard 'Organization' as 'OrganizationViewController'.") }
+        if _R.storyboard.organization().userDeliverablesTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'userDeliverablesTableViewController' could not be loaded from storyboard 'Organization' as 'DeliverablesTableViewController'.") }
+        if _R.storyboard.organization().streamTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'streamTableViewController' could not be loaded from storyboard 'Organization' as 'StreamTableViewController'.") }
       }
       
       private init() {}

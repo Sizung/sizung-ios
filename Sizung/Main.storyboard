@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rUL-2F-wsn">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Brandon Text W01 Medium.ttf">
+            <string>BrandonTextW01-Medium</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--Loading-->
+        <scene sceneID="MB8-He-zJO">
+            <objects>
+                <viewController storyboardIdentifier="Loading" title="Loading" id="rUL-2F-wsn" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4Kb-xj-bDb"/>
+                        <viewControllerLayoutGuide type="bottom" id="enE-1D-RJF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EJV-7X-3WJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="AUU-dH-bo3">
+                                <rect key="frame" x="145" y="126" width="310" height="348"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="2RF-gO-zaf">
+                                        <rect key="frame" x="41" y="0.0" width="229" height="229"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wP7-va-zBL">
+                                        <rect key="frame" x="0.0" y="229" width="310" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="KWO-C2-FoT"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1dw-rd-eaH">
+                                        <rect key="frame" x="0.0" y="279" width="310" height="69"/>
+                                        <string key="text">To build the world’s more high performing
+teams. To solve the world’s most
+important challenges.</string>
+                                        <fontDescription key="fontDescription" name="BrandonTextW01-Medium" family="BrandonTextW01-Medium" pointSize="17"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="wP7-va-zBL" secondAttribute="trailing" id="Aic-Z8-1NW"/>
+                                    <constraint firstItem="wP7-va-zBL" firstAttribute="leading" secondItem="AUU-dH-bo3" secondAttribute="leading" id="bI2-Yc-qJ1"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="AUU-dH-bo3" firstAttribute="centerY" secondItem="EJV-7X-3WJ" secondAttribute="centerY" id="69K-RW-w9z"/>
+                            <constraint firstItem="AUU-dH-bo3" firstAttribute="centerX" secondItem="EJV-7X-3WJ" secondAttribute="centerX" id="eUL-Sf-wqh"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ASt-fc-bXM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="409" y="338"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="logo" width="229" height="229"/>
+    </resources>
+</document>

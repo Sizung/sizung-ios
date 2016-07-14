@@ -20,7 +20,7 @@ class OrganizationsViewController: UIViewController, KCFloatingActionButtonDeleg
   }
 
   @IBAction func showSettings(sender: AnyObject) {
-    let accountViewController = R.storyboard.main.accountViewController()!
+    let accountViewController = R.storyboard.organization.accountViewController()!
     self.showViewController(accountViewController, sender: self)
   }
 

@@ -26,7 +26,7 @@
 		5A504B141CEF2413001BEFA3 /* AuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A504B131CEF2413001BEFA3 /* AuthToken.swift */; };
 		5A5346B01D0EE0560065278E /* Websocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5346AF1D0EE0560065278E /* Websocket.swift */; };
 		5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653E8E1CD7A96000FB3DEB /* AppDelegate.swift */; };
-		5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E941CD7A96000FB3DEB /* Main.storyboard */; };
+		5A653E961CD7A96000FB3DEB /* Organization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E941CD7A96000FB3DEB /* Organization.storyboard */; };
 		5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E971CD7A96000FB3DEB /* Assets.xcassets */; };
 		5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E991CD7A96000FB3DEB /* LaunchScreen.storyboard */; };
 		5A653EB11CD7A96000FB3DEB /* SizungUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */; };
@@ -106,7 +106,6 @@
 		5AE0CCA11D0AEF3900690C72 /* CommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */; };
 		5AE24D0C1D216BD200FB691B /* DeliverableResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE24D0B1D216BD200FB691B /* DeliverableResponse.swift */; };
 		5AE24D0E1D216C1100FB691B /* AgendaItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE24D0D1D216C1100FB691B /* AgendaItemResponse.swift */; };
-		5AE24D101D22540F00FB691B /* LoadingScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AE24D0F1D22540F00FB691B /* LoadingScreen.xib */; };
 		5AE24D121D22571300FB691B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE24D111D22571300FB691B /* Error.swift */; };
 		5AE3FB701D2973AB00B2BEEC /* InAppMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE3FB6F1D2973AB00B2BEEC /* InAppMessage.swift */; };
 		5AE8839A1D09A5460044364B /* CollectionPropertyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */; };
@@ -118,6 +117,9 @@
 		5AF36B9B1D12FBC300A1581F /* OrganizationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF36B991D12FBC300A1581F /* OrganizationTableViewCell.swift */; };
 		5AF36B9C1D12FBC300A1581F /* OrganizationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AF36B9A1D12FBC300A1581F /* OrganizationTableViewCell.xib */; };
 		5AF36B9E1D13024D00A1581F /* Webdings.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5AF36B9D1D13004C00A1581F /* Webdings.ttf */; };
+		5AF675CB1D3788AB008C813D /* ItemLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF675C91D3788AB008C813D /* ItemLoadingViewController.swift */; };
+		5AF675CC1D3788AB008C813D /* ItemLoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AF675CA1D3788AB008C813D /* ItemLoadingViewController.xib */; };
+		5AF675CE1D37922B008C813D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AF675CD1D37922B008C813D /* Main.storyboard */; };
 		7C805C9F87DFD35FED0D4054 /* Pods_SizungTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */; };
 		FCA0C987B799BBE8626392B5 /* Pods_Sizung.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 996C9E787ED021D4997D12D2 /* Pods_Sizung.framework */; };
 /* End PBXBuildFile section */
@@ -159,7 +161,7 @@
 		5A5346AF1D0EE0560065278E /* Websocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Websocket.swift; sourceTree = "<group>"; };
 		5A653E8B1CD7A96000FB3DEB /* Sizung.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sizung.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A653E8E1CD7A96000FB3DEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5A653E951CD7A96000FB3DEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5A653E951CD7A96000FB3DEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Organization.storyboard; sourceTree = "<group>"; };
 		5A653E971CD7A96000FB3DEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A653E9A1CD7A96000FB3DEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A653E9C1CD7A96000FB3DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -247,7 +249,6 @@
 		5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentResponse.swift; sourceTree = "<group>"; };
 		5AE24D0B1D216BD200FB691B /* DeliverableResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverableResponse.swift; sourceTree = "<group>"; };
 		5AE24D0D1D216C1100FB691B /* AgendaItemResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemResponse.swift; sourceTree = "<group>"; };
-		5AE24D0F1D22540F00FB691B /* LoadingScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingScreen.xib; sourceTree = "<group>"; };
 		5AE24D111D22571300FB691B /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		5AE3FB6F1D2973AB00B2BEEC /* InAppMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppMessage.swift; sourceTree = "<group>"; };
 		5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionPropertyExtension.swift; sourceTree = "<group>"; };
@@ -259,6 +260,9 @@
 		5AF36B991D12FBC300A1581F /* OrganizationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationTableViewCell.swift; sourceTree = "<group>"; };
 		5AF36B9A1D12FBC300A1581F /* OrganizationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrganizationTableViewCell.xib; sourceTree = "<group>"; };
 		5AF36B9D1D13004C00A1581F /* Webdings.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Webdings.ttf; sourceTree = "<group>"; };
+		5AF675C91D3788AB008C813D /* ItemLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemLoadingViewController.swift; sourceTree = "<group>"; };
+		5AF675CA1D3788AB008C813D /* ItemLoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemLoadingViewController.xib; sourceTree = "<group>"; };
+		5AF675CD1D37922B008C813D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		76E7771C4CDE72F6FB4EA165 /* Pods-Sizung.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sizung.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sizung/Pods-Sizung.release.xcconfig"; sourceTree = "<group>"; };
 		996C9E787ED021D4997D12D2 /* Pods_Sizung.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sizung.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BDDA999939B2CCA49D06D48 /* Pods-Sizung.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sizung.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sizung/Pods-Sizung.debug.xcconfig"; sourceTree = "<group>"; };
@@ -557,7 +561,6 @@
 				5A7329EF1D05877D006531A5 /* CardView.swift */,
 				5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */,
 				5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */,
-				5AE24D0F1D22540F00FB691B /* LoadingScreen.xib */,
 				5A8C4B481D242BA0004EA24D /* AvatarImageView.swift */,
 			);
 			name = Views;
@@ -566,6 +569,8 @@
 		5AC0E5E21CF0531100BBEF45 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				5AF675C91D3788AB008C813D /* ItemLoadingViewController.swift */,
+				5AF675CA1D3788AB008C813D /* ItemLoadingViewController.xib */,
 				5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */,
 				5AA806DF1D130E7300788DDF /* OrganizationsViewController.swift */,
 				5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */,
@@ -585,7 +590,8 @@
 		5AC85CA01CFC553C0028B560 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				5A653E941CD7A96000FB3DEB /* Main.storyboard */,
+				5AF675CD1D37922B008C813D /* Main.storyboard */,
+				5A653E941CD7A96000FB3DEB /* Organization.storyboard */,
 				5A9D0EE21D119E8700037589 /* Login.storyboard */,
 				5A9D0EDB1D11998D00037589 /* Organizations.storyboard */,
 				5A3FC58E1D11385B0084FF2F /* Deliverable.storyboard */,
@@ -765,13 +771,15 @@
 				5A304B3B1D18367F009CBBAD /* StartOfConversationView.xib in Resources */,
 				5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */,
 				5A7329F91D05B1FC006531A5 /* Brandon_bld.otf in Resources */,
+				5AF675CE1D37922B008C813D /* Main.storyboard in Resources */,
 				5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */,
 				5A9D0EDC1D11998D00037589 /* Organizations.storyboard in Resources */,
 				5A9D0EF11D11FECF00037589 /* Brandon Text W01 Medium.ttf in Resources */,
 				5AF36B9C1D12FBC300A1581F /* OrganizationTableViewCell.xib in Resources */,
 				5A1DDBD21D1A74700089CD45 /* AgendaItemTableViewCell.xib in Resources */,
 				5A9D0EE31D119E8700037589 /* Login.storyboard in Resources */,
-				5A653E961CD7A96000FB3DEB /* Main.storyboard in Resources */,
+				5AF675CC1D3788AB008C813D /* ItemLoadingViewController.xib in Resources */,
+				5A653E961CD7A96000FB3DEB /* Organization.storyboard in Resources */,
 				5A9D0EE51D11B33700037589 /* Conversations.storyboard in Resources */,
 				5ADC882F1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib in Resources */,
 				5A9D0EE71D11B3C500037589 /* ConversationTableViewCell.xib in Resources */,
@@ -779,7 +787,6 @@
 				5A3FC58F1D11385B0084FF2F /* Deliverable.storyboard in Resources */,
 				5A7329FA1D05B1FC006531A5 /* Brandon_med.otf in Resources */,
 				5AF36B9E1D13024D00A1581F /* Webdings.ttf in Resources */,
-				5AE24D101D22540F00FB691B /* LoadingScreen.xib in Resources */,
 				5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */,
 				5A2E3C241D2E3A3900D4D3EA /* Conversation.storyboard in Resources */,
 				5AECC1D81D115CBD00AD8ACE /* AgendaItem.storyboard in Resources */,
@@ -1026,6 +1033,7 @@
 				5A86B1311CE5D035001C2E7A /* SizungHttpRouter.swift in Sources */,
 				5ABACCE01D0AA82F0093CF21 /* ISODateTransform.swift in Sources */,
 				5ADC88321D10505700596D67 /* TimelineDeliverableTableViewCell.swift in Sources */,
+				5AF675CB1D3788AB008C813D /* ItemLoadingViewController.swift in Sources */,
 				5ADC88341D10508800596D67 /* TimelineAgendaItemTableViewCell.swift in Sources */,
 				5A304B3F1D184427009CBBAD /* UnseenObject.swift in Sources */,
 				5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */,
@@ -1083,12 +1091,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		5A653E941CD7A96000FB3DEB /* Main.storyboard */ = {
+		5A653E941CD7A96000FB3DEB /* Organization.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				5A653E951CD7A96000FB3DEB /* Base */,
 			);
-			name = Main.storyboard;
+			name = Organization.storyboard;
 			sourceTree = "<group>";
 		};
 		5A653E991CD7A96000FB3DEB /* LaunchScreen.storyboard */ = {

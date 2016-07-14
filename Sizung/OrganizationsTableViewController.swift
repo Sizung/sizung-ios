@@ -73,10 +73,10 @@ class OrganizationsTableViewController: UITableViewController {
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let selectedOrganization = organizations[indexPath.row]
 
-    // reset storage
-    StorageManager.sharedInstance.reset()
+    if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+      appDelegate.switchToOrganization(selectedOrganization.id)
+    }
 
-    Configuration.setSelectedOrganization(selectedOrganization.id!)
     self.dismissViewControllerAnimated(true, completion: nil)
   }
 }

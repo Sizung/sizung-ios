@@ -193,8 +193,7 @@ class DeliverablesTableViewController: UITableViewController {
         }
         cell.unreadStatusView.alpha = hasUnseenObjects ? 1 : 0
         return cell
-      }
-      else {
+      } else {
         fatalError("self.collection not set, count: \((self.collection?.count ?? 0))")
       }
     } else {
