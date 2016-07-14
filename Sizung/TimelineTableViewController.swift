@@ -376,6 +376,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
             if let conversation = self.storageManager.conversations[self.getConversationId()] {
               return conversation.members.contains(user)
             } else {
+              Error.log("Conversation not loaded/found")
               return false
             }
           }
