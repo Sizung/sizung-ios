@@ -211,7 +211,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     application: UIApplication,
     didFailToRegisterForRemoteNotificationsWithError error: NSError
     ) {
-    Crashlytics.sharedInstance().recordError(error)
+    Error.log(error)
   }
 
   // foreground notification received
