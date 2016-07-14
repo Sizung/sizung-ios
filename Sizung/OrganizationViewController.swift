@@ -40,6 +40,8 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     loadingScreen.frame = self.view.frame
     self.view.addSubview(loadingScreen)
 
+    UIApplication.sharedApplication().statusBarStyle = .Default
+
     StorageManager.sharedInstance.unseenObjects.observeNext { _ in
       self.groupsBadgeView.badgeValue = self.calculateUnseenConversations()
       }.disposeIn(rBag)
@@ -96,6 +98,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
       .onSuccess { storageManager in
         UIView.animateWithDuration(0.3, animations: {
           self.loadingScreen.alpha = 0
+          UIApplication.sharedApplication().statusBarStyle = .LightContent
         })
         self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
     }
