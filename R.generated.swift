@@ -884,10 +884,9 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
-        if UIImage(named: "group_list") == nil { throw ValidationError(description: "[R.swift] Image named 'group_list' is used in storyboard 'Organization', but couldn't be loaded.") }
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Organization', but couldn't be loaded.") }
+        if UIImage(named: "group_list") == nil { throw ValidationError(description: "[R.swift] Image named 'group_list' is used in storyboard 'Organization', but couldn't be loaded.") }
         if UIImage(named: "priority") == nil { throw ValidationError(description: "[R.swift] Image named 'priority' is used in storyboard 'Organization', but couldn't be loaded.") }
-        if UIImage(named: "search") == nil { throw ValidationError(description: "[R.swift] Image named 'search' is used in storyboard 'Organization', but couldn't be loaded.") }
         if _R.storyboard.organization().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Organization' as 'AgendaItemsTableViewController'.") }
         if _R.storyboard.organization().accountViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'accountViewController' could not be loaded from storyboard 'Organization' as 'AccountViewController'.") }
         if _R.storyboard.organization().mainViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'mainViewController' could not be loaded from storyboard 'Organization' as 'OrganizationViewController'.") }
