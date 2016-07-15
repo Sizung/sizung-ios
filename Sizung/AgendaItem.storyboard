@@ -9,6 +9,7 @@
         <mutableArray key="Brandon_med.otf">
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -28,9 +29,9 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8D5-1o-hBO">
-                                        <rect key="frame" x="14" y="10" width="30" height="30"/>
-                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="14"/>
-                                        <state key="normal" title="back">
+                                        <rect key="frame" x="20" y="10" width="42" height="30"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                        <state key="normal" title="&lt; back">
                                             <color key="titleColor" red="0.0" green="0.31764705879999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -38,7 +39,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg1-da-c05">
-                                        <rect key="frame" x="551" y="10" width="40" height="30"/>
+                                        <rect key="frame" x="540" y="10" width="40" height="30"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <state key="normal" title="status">
                                             <color key="titleColor" red="0.0" green="0.31764705879999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -51,8 +52,8 @@
                                 <color key="backgroundColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="vg1-da-c05" secondAttribute="bottom" constant="10" id="3eA-YC-uL9"/>
-                                    <constraint firstAttribute="trailing" secondItem="vg1-da-c05" secondAttribute="trailing" constant="9" id="aeH-Nb-Rdd"/>
-                                    <constraint firstItem="8D5-1o-hBO" firstAttribute="leading" secondItem="NfS-yD-wtj" secondAttribute="leading" constant="14" id="epk-bT-kbO"/>
+                                    <constraint firstAttribute="trailing" secondItem="vg1-da-c05" secondAttribute="trailing" constant="20" id="aeH-Nb-Rdd"/>
+                                    <constraint firstItem="8D5-1o-hBO" firstAttribute="leading" secondItem="NfS-yD-wtj" secondAttribute="leading" constant="20" id="epk-bT-kbO"/>
                                     <constraint firstAttribute="height" constant="50" id="hcf-dg-lnJ"/>
                                     <constraint firstItem="8D5-1o-hBO" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="top" constant="10" id="o5D-8G-gVW"/>
                                     <constraint firstItem="vg1-da-c05" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="top" constant="10" id="tby-3N-oxd"/>
@@ -60,8 +61,26 @@
                                     <constraint firstAttribute="bottom" secondItem="8D5-1o-hBO" secondAttribute="bottom" constant="10" id="zN0-hL-eAa"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bGK-Xf-6wH">
+                                <rect key="frame" x="0.0" y="70" width="600" height="45"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAV-1i-Jgq">
+                                        <rect key="frame" x="20" y="10" width="560" height="25"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.31764706969261169" blue="0.29803922772407532" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.92086140755646728" green="0.93563458521780107" blue="0.90608822989513371" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ZAV-1i-Jgq" secondAttribute="bottom" constant="10" id="I66-dW-e0y"/>
+                                    <constraint firstItem="ZAV-1i-Jgq" firstAttribute="top" secondItem="bGK-Xf-6wH" secondAttribute="top" constant="10" id="IIN-N8-341"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZAV-1i-Jgq" secondAttribute="trailing" constant="20" id="Lh8-9f-EYv"/>
+                                    <constraint firstItem="ZAV-1i-Jgq" firstAttribute="leading" secondItem="bGK-Xf-6wH" secondAttribute="leading" constant="20" id="qFu-zE-A1q"/>
+                                </constraints>
+                            </view>
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3E-Ai-F2L">
-                                <rect key="frame" x="0.0" y="70" width="600" height="530"/>
+                                <rect key="frame" x="0.0" y="115" width="600" height="485"/>
                                 <connections>
                                     <segue destination="Mz8-Qe-oEK" kind="embed" identifier="embed" id="fkn-o5-abH"/>
                                 </connections>
@@ -71,17 +90,28 @@
                         <constraints>
                             <constraint firstItem="NfS-yD-wtj" firstAttribute="leading" secondItem="O7V-TP-UOm" secondAttribute="leadingMargin" constant="-20" id="2mt-Mw-BxP"/>
                             <constraint firstItem="x3E-Ai-F2L" firstAttribute="leading" secondItem="O7V-TP-UOm" secondAttribute="leadingMargin" constant="-20" id="3wh-Up-vmJ"/>
+                            <constraint firstItem="x3E-Ai-F2L" firstAttribute="top" secondItem="bGK-Xf-6wH" secondAttribute="bottom" id="Bd3-6Y-Yjf"/>
+                            <constraint firstItem="bGK-Xf-6wH" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="bottom" id="Cr7-as-t7K"/>
+                            <constraint firstAttribute="trailing" secondItem="bGK-Xf-6wH" secondAttribute="trailing" id="IyS-x0-Fsp"/>
+                            <constraint firstItem="bGK-Xf-6wH" firstAttribute="leading" secondItem="O7V-TP-UOm" secondAttribute="leading" id="Jpl-fp-l2L"/>
+                            <constraint firstItem="x3E-Ai-F2L" firstAttribute="top" secondItem="bGK-Xf-6wH" secondAttribute="bottom" id="Qks-uP-GoI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="NfS-yD-wtj" secondAttribute="trailing" constant="-20" id="Sv8-DX-kvD"/>
                             <constraint firstItem="x3E-Ai-F2L" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="bottom" id="c35-Oy-aFl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="x3E-Ai-F2L" secondAttribute="trailing" constant="-20" id="gQt-De-sue"/>
                             <constraint firstAttribute="bottomMargin" secondItem="x3E-Ai-F2L" secondAttribute="bottom" id="h8w-D0-6jV"/>
                             <constraint firstItem="NfS-yD-wtj" firstAttribute="top" secondItem="9rz-ZZ-vna" secondAttribute="bottom" id="ipI-e6-glj"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Qks-uP-GoI"/>
+                                <exclude reference="c35-Oy-aFl"/>
+                            </mask>
+                        </variation>
                     </view>
                     <toolbarItems/>
                     <connections>
-                        <outlet property="backButton" destination="8D5-1o-hBO" id="nrU-90-mYG"/>
                         <outlet property="statusButton" destination="vg1-da-c05" id="AgE-aI-O5W"/>
+                        <outlet property="titleLabel" destination="ZAV-1i-Jgq" id="pMD-w6-VqX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BO4-Kt-VOn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -97,7 +127,7 @@
                         <viewControllerLayoutGuide type="bottom" id="vDd-0G-jah"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="KCh-Ee-fve">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="530"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="485"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

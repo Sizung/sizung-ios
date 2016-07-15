@@ -13,6 +13,7 @@ class DeliverableViewController: UIViewController,
   UIPopoverPresentationControllerDelegate,
 CalendarViewDelegate {
 
+  @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var statusButton: UIButton!
   @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var assigneeImageView: AvatarImageView!
@@ -27,10 +28,14 @@ CalendarViewDelegate {
         storageManager.getUser(self.deliverable.assigneeId)
           .onSuccess { user in
             self.assigneeImageView.user = user
+
+            if let agendaItem = storageManager.agendaItems[self.deliverable.parentId] {
+              self.backButton.setTitle("< \(agendaItem.title)", forState: .Normal)
+            }
         }
     }
 
-    backButton.setTitle("< \(deliverable.title)", forState: .Normal)
+    self.titleLabel.text = self.deliverable.title
 
     updateStatusText()
   }

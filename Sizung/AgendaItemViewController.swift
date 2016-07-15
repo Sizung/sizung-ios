@@ -11,15 +11,15 @@ import UIKit
 class AgendaItemViewController: UIViewController {
 
   @IBOutlet weak var statusButton: UIButton!
-  @IBOutlet weak var backButton: UIButton!
 
   var agendaItem: AgendaItem!
+
+  @IBOutlet weak var titleLabel: UILabel!
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    backButton.setTitle("< \(agendaItem.title)", forState: .Normal)
-
+    self.titleLabel.text = self.agendaItem.title
     statusButton.setTitle(agendaItem.status, forState: .Normal)
   }
 
