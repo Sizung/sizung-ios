@@ -14,13 +14,21 @@ class AgendaItemViewController: UIViewController {
 
   var agendaItem: AgendaItem!
 
+  @IBOutlet weak var titleBar: UIView!
   @IBOutlet weak var titleLabel: UILabel!
+
+  @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
+  @IBOutlet weak var titleBottomConstraint: NSLayoutConstraint!
+  var oldConstraintConstant: CGFloat = 0
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     self.titleLabel.text = self.agendaItem.title
     statusButton.setTitle(agendaItem.status, forState: .Normal)
+
+    oldConstraintConstant = titleTopConstraint.constant
+    registerForKeyboardChanges()
   }
 
   @IBAction func close(sender: AnyObject) {
@@ -78,5 +86,39 @@ class AgendaItemViewController: UIViewController {
 
   @IBAction func back(sender: AnyObject) {
     self.navigationController?.popViewControllerAnimated(true)
+  }
+
+  func registerForKeyboardChanges() {
+    NSNotificationCenter.defaultCenter().addObserver(
+      self,
+      selector: #selector(self.keyboardWillShow),
+      name: UIKeyboardWillShowNotification,
+      object: nil
+    )
+
+    NSNotificationCenter.defaultCenter().addObserver(
+      self,
+      selector: #selector(self.keyboardWillHide),
+      name: UIKeyboardWillHideNotification,
+      object: nil
+    )
+  }
+
+  func keyboardWillShow() {
+    self.titleTopConstraint.constant = 0
+    self.titleBottomConstraint.constant = 0
+    UIView.animateWithDuration(5) {
+      self.titleLabel.text = nil
+      self.titleBar.layoutIfNeeded()
+    }
+  }
+
+  func keyboardWillHide() {
+    self.titleTopConstraint.constant = oldConstraintConstant
+    self.titleBottomConstraint.constant = oldConstraintConstant
+    UIView.animateWithDuration(5) {
+      self.titleLabel.text = self.agendaItem.title
+      self.titleBar.layoutIfNeeded()
+    }
   }
 }

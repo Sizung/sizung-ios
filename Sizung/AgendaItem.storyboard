@@ -64,7 +64,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bGK-Xf-6wH">
                                 <rect key="frame" x="0.0" y="70" width="600" height="45"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAV-1i-Jgq">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAV-1i-Jgq">
                                         <rect key="frame" x="20" y="10" width="560" height="25"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.31764706969261169" blue="0.29803922772407532" alpha="1" colorSpace="calibratedRGB"/>
@@ -111,7 +111,10 @@
                     <toolbarItems/>
                     <connections>
                         <outlet property="statusButton" destination="vg1-da-c05" id="AgE-aI-O5W"/>
+                        <outlet property="titleBar" destination="bGK-Xf-6wH" id="fNf-0d-oPS"/>
+                        <outlet property="titleBottomConstraint" destination="I66-dW-e0y" id="wNv-1d-28v"/>
                         <outlet property="titleLabel" destination="ZAV-1i-Jgq" id="pMD-w6-VqX"/>
+                        <outlet property="titleTopConstraint" destination="IIN-N8-341" id="zzM-2G-hc1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BO4-Kt-VOn" userLabel="First Responder" sceneMemberID="firstResponder"/>

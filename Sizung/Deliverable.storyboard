@@ -75,7 +75,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B1z-Bp-NfA">
                                 <rect key="frame" x="0.0" y="75" width="600" height="45"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TIA-Ju-D2o">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TIA-Ju-D2o">
                                         <rect key="frame" x="20" y="10" width="560" height="25"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <color key="textColor" red="0.97647058959999999" green="0.40000000600000002" blue="0.37647059560000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -121,8 +121,12 @@
                     <connections>
                         <outlet property="assigneeImageView" destination="BtO-YG-58F" id="8mA-OR-Ad2"/>
                         <outlet property="backButton" destination="8D5-1o-hBO" id="nrU-90-mYG"/>
+                        <outlet property="statusBar" destination="NfS-yD-wtj" id="Cqw-SB-2CN"/>
                         <outlet property="statusButton" destination="vg1-da-c05" id="AgE-aI-O5W"/>
+                        <outlet property="titleBar" destination="B1z-Bp-NfA" id="ILm-sF-sd2"/>
+                        <outlet property="titleBottomConstraint" destination="A8a-on-3kZ" id="YVw-wV-cAh"/>
                         <outlet property="titleLabel" destination="TIA-Ju-D2o" id="0lQ-g1-pHY"/>
+                        <outlet property="titleTopConstraint" destination="Elg-pS-O86" id="6XA-Hf-aHp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BO4-Kt-VOn" userLabel="First Responder" sceneMemberID="firstResponder"/>
