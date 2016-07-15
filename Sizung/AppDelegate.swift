@@ -12,6 +12,7 @@ import SwiftKeychainWrapper
 import Fabric
 import Crashlytics
 import ActionCableClient
+import AlamofireNetworkActivityIndicator
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketDelegate, ItemLoadDelegate {
@@ -30,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     #if RELEASE_VERSION
       Fabric.with([Crashlytics.self])
     #endif
+
+    NetworkActivityIndicatorManager.sharedManager.isEnabled = true
 
     self.initTheme()
 

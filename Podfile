@@ -23,6 +23,7 @@ target 'Sizung' do
   pod 'RSDayFlow'
   pod 'Whisper'
   pod 'TTTAttributedLabel'
+  pod 'AlamofireNetworkActivityIndicator'
   
   pod 'R.swift', '~> 2.3'
 
