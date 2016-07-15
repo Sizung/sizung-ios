@@ -20,11 +20,11 @@ enum StorageError: ErrorType {
 
 class StorageManager {
 
-  static var storages: [String: OrganizationStorageManager] = [:]
+  var storages: [String: OrganizationStorageManager] = [:]
 
   static func storageForSelectedOrganization() -> Future<OrganizationStorageManager, StorageError> {
     if let orgId = Configuration.getSelectedOrganization() {
-      return storageForOrganizationId(orgId)
+      return sharedInstance.storageForOrganizationId(orgId)
     } else {
       let promise = Promise<OrganizationStorageManager, StorageError>()
       promise.failure(.Other)
@@ -32,15 +32,15 @@ class StorageManager {
     }
   }
 
-  private static func storageForOrganizationId(itemId: String) -> Future<OrganizationStorageManager, StorageError> {
+  func storageForOrganizationId(itemId: String) -> Future<OrganizationStorageManager, StorageError> {
     let promise = Promise<OrganizationStorageManager, StorageError>()
 
     if let storage = storages[itemId] {
       promise.success(storage)
     } else {
-      initOrganizationStorageManager(itemId)
+      StorageManager.initOrganizationStorageManager(itemId)
         .onSuccess { orgStorageManager in
-          storages[itemId] = orgStorageManager
+          self.storages[itemId] = orgStorageManager
           promise.success(orgStorageManager)
       }
     }
@@ -60,7 +60,7 @@ class StorageManager {
 
   func reset() {
     unseenObjects.replace([])
-    StorageManager.storages = [:]
+    storages = [:]
   }
 
   static func makeRequest<T: Mappable>(urlRequest: URLRequestConvertible) -> Future<T, StorageError> {
@@ -94,7 +94,7 @@ class StorageManager {
     return promise.future
   }
 
-  static func initOrganizationStorageManager(organizationId: String) -> Future<OrganizationStorageManager, StorageError> {
+  private static func initOrganizationStorageManager(organizationId: String) -> Future<OrganizationStorageManager, StorageError> {
     let promise = Promise<OrganizationStorageManager, StorageError>()
 
     makeRequest(SizungHttpRouter.Organization(id: organizationId))

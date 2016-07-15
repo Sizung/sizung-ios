@@ -161,7 +161,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ojd-fT-4s6" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ojd-fT-4s6" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
                                 <rect key="frame" x="278" y="278" width="44" height="44"/>
                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
                                 <state key="normal" title="Logout">
@@ -171,7 +171,7 @@
                                     <action selector="logoutClicked:" destination="60j-uB-VEk" eventType="touchUpInside" id="cCe-dk-KPl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ExN-PN-ATf" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ExN-PN-ATf" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
                                 <rect key="frame" x="516" y="40" width="44" height="44"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="close"/>
@@ -179,7 +179,7 @@
                                     <action selector="close:" destination="60j-uB-VEk" eventType="touchUpInside" id="E40-Hv-3ud"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iN9-kd-sHh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iN9-kd-sHh">
                                 <rect key="frame" x="559" y="577" width="21" height="15"/>
                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="10"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -219,7 +219,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Nt-o4-xOt">
                                 <rect key="frame" x="0.0" y="25" width="600" height="37"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dl-LS-tg6">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dl-LS-tg6">
                                         <rect key="frame" x="20" y="0.0" width="30" height="37"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <state key="normal">
@@ -229,13 +229,7 @@
                                             <action selector="showOrganizations:" destination="zbj-sK-a1Q" eventType="touchUpInside" id="QVV-Tt-SNO"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEE-d2-7Nm" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
-                                        <rect key="frame" x="490" y="-4" width="44" height="44"/>
-                                        <state key="normal" image="search">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8D-8A-foB" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8D-8A-foB" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
                                         <rect key="frame" x="534" y="-3" width="46" height="44"/>
                                         <state key="normal" image="group_list">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -244,7 +238,7 @@
                                             <action selector="showGroups:" destination="jC2-I1-SwL" eventType="touchUpInside" id="wwi-7T-veo"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QU0-IT-gfO">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QU0-IT-gfO">
                                         <rect key="frame" x="50" y="6" width="30" height="29"/>
                                         <fontDescription key="fontDescription" name="Webdings" family="Webdings" pointSize="17"/>
                                         <state key="normal" title="">
@@ -257,18 +251,14 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="6sb-Vg-XT4"/>
-                                    <constraint firstItem="bEE-d2-7Nm" firstAttribute="centerY" secondItem="2Nt-o4-xOt" secondAttribute="centerY" id="JxM-Qy-v8S"/>
                                     <constraint firstItem="0dl-LS-tg6" firstAttribute="top" secondItem="2Nt-o4-xOt" secondAttribute="top" id="KcB-te-YUd"/>
-                                    <constraint firstItem="F8D-8A-foB" firstAttribute="leading" secondItem="bEE-d2-7Nm" secondAttribute="trailing" id="LkH-mt-oKg"/>
                                     <constraint firstItem="F8D-8A-foB" firstAttribute="centerY" secondItem="2Nt-o4-xOt" secondAttribute="centerY" id="T0A-Sq-zmP"/>
                                     <constraint firstItem="F8D-8A-foB" firstAttribute="centerX" secondItem="2Nt-o4-xOt" secondAttribute="centerX" id="Xb3-7c-XJf"/>
                                     <constraint firstItem="F8D-8A-foB" firstAttribute="centerY" secondItem="0dl-LS-tg6" secondAttribute="centerY" id="Ykr-UT-QgE"/>
                                     <constraint firstItem="QU0-IT-gfO" firstAttribute="leading" secondItem="0dl-LS-tg6" secondAttribute="trailing" id="aYd-r6-nZk"/>
-                                    <constraint firstItem="bEE-d2-7Nm" firstAttribute="centerY" secondItem="0dl-LS-tg6" secondAttribute="centerY" id="bIZ-Ma-l1B"/>
                                     <constraint firstAttribute="trailing" secondItem="F8D-8A-foB" secondAttribute="trailing" constant="20" id="cnm-Yo-gmh"/>
-                                    <constraint firstItem="bEE-d2-7Nm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0dl-LS-tg6" secondAttribute="trailing" constant="8" id="nm6-3n-DTR"/>
-                                    <constraint firstItem="bEE-d2-7Nm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QU0-IT-gfO" secondAttribute="trailing" constant="8" id="qjW-1a-e2e"/>
                                     <constraint firstAttribute="height" constant="48" id="s3M-Bw-FF0"/>
+                                    <constraint firstItem="F8D-8A-foB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="QU0-IT-gfO" secondAttribute="trailing" constant="20" id="uPW-dn-0ek"/>
                                     <constraint firstItem="0dl-LS-tg6" firstAttribute="leading" secondItem="2Nt-o4-xOt" secondAttribute="leading" constant="20" id="v4k-FT-NpL"/>
                                     <constraint firstItem="QU0-IT-gfO" firstAttribute="centerY" secondItem="0dl-LS-tg6" secondAttribute="centerY" constant="2" id="vuT-YN-UnW"/>
                                     <constraint firstItem="0dl-LS-tg6" firstAttribute="centerY" secondItem="2Nt-o4-xOt" secondAttribute="centerY" id="zMD-Yp-yot"/>
@@ -277,8 +267,6 @@
                                     <mask key="constraints">
                                         <exclude reference="s3M-Bw-FF0"/>
                                         <exclude reference="zMD-Yp-yot"/>
-                                        <exclude reference="JxM-Qy-v8S"/>
-                                        <exclude reference="nm6-3n-DTR"/>
                                         <exclude reference="T0A-Sq-zmP"/>
                                         <exclude reference="Xb3-7c-XJf"/>
                                     </mask>
@@ -492,6 +480,5 @@
         <image name="close" width="32" height="32"/>
         <image name="group_list" width="46" height="31"/>
         <image name="priority" width="30" height="20"/>
-        <image name="search" width="40" height="40"/>
     </resources>
 </document>

@@ -13,9 +13,16 @@ class DeliverableViewController: UIViewController,
   UIPopoverPresentationControllerDelegate,
 CalendarViewDelegate {
 
+  @IBOutlet weak var titleBar: UIView!
+  @IBOutlet weak var titleLabel: UILabel!
+  @IBOutlet weak var statusBar: UIView!
   @IBOutlet weak var statusButton: UIButton!
   @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var assigneeImageView: AvatarImageView!
+
+  @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
+  @IBOutlet weak var titleBottomConstraint: NSLayoutConstraint!
+  var oldConstraintConstant: CGFloat = 0
 
   var deliverable: Deliverable!
 
@@ -27,12 +34,53 @@ CalendarViewDelegate {
         storageManager.getUser(self.deliverable.assigneeId)
           .onSuccess { user in
             self.assigneeImageView.user = user
+
+            if let agendaItem = storageManager.agendaItems[self.deliverable.parentId] {
+              self.backButton.setTitle("< \(agendaItem.title)", forState: .Normal)
+            }
         }
     }
 
-    backButton.setTitle("< \(deliverable.title)", forState: .Normal)
+    self.titleLabel.text = self.deliverable.title
 
     updateStatusText()
+
+    oldConstraintConstant = titleTopConstraint.constant
+    registerForKeyboardChanges()
+  }
+
+  func registerForKeyboardChanges() {
+    NSNotificationCenter.defaultCenter().addObserver(
+      self,
+      selector: #selector(self.keyboardWillShow),
+      name: UIKeyboardWillShowNotification,
+      object: nil
+    )
+
+    NSNotificationCenter.defaultCenter().addObserver(
+      self,
+      selector: #selector(self.keyboardWillHide),
+      name: UIKeyboardWillHideNotification,
+      object: nil
+    )
+  }
+
+  func keyboardWillShow() {
+    self.titleTopConstraint.constant = 0
+    self.titleBottomConstraint.constant = 0
+    UIView.animateWithDuration(5) {
+      self.titleLabel.text = nil
+      self.titleBar.layoutIfNeeded()
+    }
+  }
+
+  func keyboardWillHide() {
+    self.titleTopConstraint.constant = oldConstraintConstant
+    self.titleBottomConstraint.constant = oldConstraintConstant
+    UIView.animateWithDuration(5) {
+      self.titleLabel.text = self.deliverable.title
+      self.titleBar.layoutIfNeeded()
+    }
   }
 
   func updateStatusText() {
@@ -94,7 +142,7 @@ CalendarViewDelegate {
   func popoverPresentationControllerDidDismissPopover(
     popoverPresentationController: UIPopoverPresentationController
     ) {
-      print("dismiss popover")
+    print("dismiss popover")
   }
 
   // show previous view controller

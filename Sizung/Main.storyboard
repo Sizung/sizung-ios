@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rUL-2F-wsn">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Loading-->
+        <scene sceneID="MB8-He-zJO">
+            <objects>
+                <viewController storyboardIdentifier="Loading" title="Loading" id="rUL-2F-wsn" customClass="LoadingViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4Kb-xj-bDb"/>
+                        <viewControllerLayoutGuide type="bottom" id="enE-1D-RJF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EJV-7X-3WJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="V7V-1U-IG6">
+                                <rect key="frame" x="186" y="186" width="229" height="229"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="V7V-1U-IG6" firstAttribute="centerY" secondItem="EJV-7X-3WJ" secondAttribute="centerY" id="BhH-HL-Ed6"/>
+                            <constraint firstItem="V7V-1U-IG6" firstAttribute="centerX" secondItem="EJV-7X-3WJ" secondAttribute="centerX" id="zMQ-ht-tv1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="logoView" destination="V7V-1U-IG6" id="5xT-By-M6E"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ASt-fc-bXM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="409" y="338"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="logo" width="229" height="229"/>
+    </resources>
+</document>

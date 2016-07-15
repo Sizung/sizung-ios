@@ -38,6 +38,8 @@ import AlamofireImage
           completion: { response in
             if response.result.error == nil {
               self.setTitle(nil, forState: .Normal)
+            } else {
+              self.setBackgroundImage(nil, forState: .Normal)
             }
         })
 
@@ -52,5 +54,7 @@ import AlamofireImage
     super.layoutSubviews()
     self.layer.cornerRadius = size/2
     self.clipsToBounds = true
+
+    self.titleLabel?.textColor = UIColor.whiteColor()
   }
 }

@@ -11,7 +11,7 @@ import SwiftKeychainWrapper
 import Sheriff
 import KCFloatingActionButton
 
-class OrganizationViewController: UIViewController, MainPageViewControllerDelegate {
+class OrganizationViewController: UIViewController, MainPageViewControllerDelegate, OrganizationTableViewDelegate {
 
 
   @IBOutlet weak var segmentedControl: SizungSegmentedControl!
@@ -24,10 +24,9 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
 
   var mainPageViewController: MainPageViewController!
 
-  var organizationsViewController: UIViewController?
+  var organizationsViewController: OrganizationsViewController?
+  var conversationViewController: UIViewController?
   var groupsViewController: UIViewController?
-
-  var loadingScreen = R.nib.loadingScreen.firstView(owner: nil)!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -37,8 +36,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     groupsBadgeView.rightOffset = 10
     self.groupsButton.addSubview(groupsBadgeView)
 
-    loadingScreen.frame = self.view.frame
-    self.view.addSubview(loadingScreen)
+    UIApplication.sharedApplication().statusBarStyle = .Default
 
     StorageManager.sharedInstance.unseenObjects.observeNext { _ in
       self.groupsBadgeView.badgeValue = self.calculateUnseenConversations()
@@ -52,7 +50,19 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
       forControlEvents: .ValueChanged
     )
 
+    UIApplication.sharedApplication().statusBarStyle = .LightContent
+
     self.initFloatingActionButton()
+
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        // load conversation
+        if let conversationViewController = self.conversationViewController {
+          self.showViewController(conversationViewController, sender: nil)
+          self.conversationViewController = nil
+        }
+        self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
+    }
   }
 
   func initFloatingActionButton() {
@@ -90,18 +100,6 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     print("add \(buttonItem.title)")
   }
 
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-    StorageManager.storageForSelectedOrganization()
-      .onSuccess { storageManager in
-        UIView.animateWithDuration(0.3, animations: {
-          self.loadingScreen.alpha = 0
-        })
-        self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
-    }
-
-  }
-
   func calculateUnseenConversations() -> Int {
     var unseenConversationSet = Set<String>()
     StorageManager.sharedInstance.unseenObjects.collection.forEach { unseenObject in
@@ -121,6 +119,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
 
   @IBAction func showOrganizations(sender: AnyObject) {
     organizationsViewController = R.storyboard.organizations.initialViewController()
+    organizationsViewController?.organizationTableViewDelegate = self
     self.showViewController(organizationsViewController!, sender: self)
   }
 
@@ -146,12 +145,12 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
         self.mainPageViewController.mainPageViewControllerDelegate = self
 
         self.mainPageViewController.orderedViewControllers
-          .append(R.storyboard.main.agendaItemsTableViewController()!)
+          .append(R.storyboard.organization.agendaItemsTableViewController()!)
         self.mainPageViewController.orderedViewControllers
-          .append(R.storyboard.main.streamTableViewController()!)
+          .append(R.storyboard.organization.streamTableViewController()!)
 
         let deliverablesTableViewController =
-          R.storyboard.main.userDeliverablesTableViewController()!
+          R.storyboard.organization.userDeliverablesTableViewController()!
 
         let token = AuthToken(data: Configuration.getAuthToken())
         let userId = token.getUserId()
@@ -159,6 +158,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
         deliverablesTableViewController.userId = userId
 
         self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
+
       } else {
         fatalError("unexpected segue destinationViewcontroller " +
           "\(segue.destinationViewController.dynamicType)")
@@ -173,5 +173,23 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     mainPageViewController: MainPageViewController,
     didSwitchToIndex index: Int) {
     segmentedControl.selectedIndex = index
+  }
+
+  func organizationSelected(organization: Organization) {
+
+
+    if organization.id != Configuration.getSelectedOrganization() {
+      // dismiss organizationsviewcontroller
+      self.dismissViewControllerAnimated(false) {
+        // dismiss self
+        self.dismissViewControllerAnimated(true) {
+          if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+            appDelegate.switchToOrganization(organization.id)
+          }
+        }
+      }
+    } else {
+      self.hideOrganizations(self)
+    }
   }
 }

@@ -18,7 +18,7 @@ class ConversationViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
+    self.titleButton.setTitle("\(conversation.title)", forState: .Normal)
   }
 
   override func didReceiveMemoryWarning() {
@@ -38,17 +38,32 @@ class ConversationViewController: UIViewController {
           conversationContentViewController.conversation = self.conversation
 
           switch openItem {
+          case let agendaItemDeliverable as AgendaItemDeliverable:
+            StorageManager.sharedInstance.getAgendaItem(agendaItemDeliverable.agendaItemId)
+              .onSuccess { parentAgendaItem in
+                let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
+                agendaItemViewController.agendaItem = parentAgendaItem
+
+                navController.pushViewController(agendaItemViewController, animated: false)
+
+                let deliverableViewController = R.storyboard.deliverable.initialViewController()!
+                deliverableViewController.deliverable = agendaItemDeliverable
+
+                navController.pushViewController(deliverableViewController, animated: false)
+            }
+
           case let deliverable as Deliverable:
+
             let deliverableViewController = R.storyboard.deliverable.initialViewController()!
             deliverableViewController.deliverable = deliverable
 
-            navController.pushViewController(deliverableViewController, animated: true)
+            navController.pushViewController(deliverableViewController, animated: false)
 
           case let agendaItem as AgendaItem:
             let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
             agendaItemViewController.agendaItem = agendaItem
 
-            navController.pushViewController(agendaItemViewController, animated: true)
+            navController.pushViewController(agendaItemViewController, animated: false)
           case nil:
             // nothing to do here
             break

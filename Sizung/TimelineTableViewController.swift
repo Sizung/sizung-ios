@@ -236,7 +236,12 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
       .filter({ conversationObject in
         switch conversationObject {
         case let comment as Comment:
-          return comment.commentable.id == self.timelineParent.id
+          if let commentable = comment.commentable {
+            return commentable.id == self.timelineParent.id
+          } else {
+            Error.log("unknown commentable for comment \(comment.id)")
+            return false
+          }
         case let deliverable as Deliverable:
           return deliverable.parentId == self.timelineParent.id
         case let agendaItem as AgendaItem:
@@ -376,6 +381,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
             if let conversation = self.storageManager.conversations[self.getConversationId()] {
               return conversation.members.contains(user)
             } else {
+              Error.log("Conversation not loaded/found")
               return false
             }
           }

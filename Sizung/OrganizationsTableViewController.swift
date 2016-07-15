@@ -15,6 +15,8 @@ class OrganizationsTableViewController: UITableViewController {
 
   let organizations: CollectionProperty <[Organization]> = CollectionProperty([])
 
+  var organizationTableViewDelegate: OrganizationTableViewDelegate?
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -23,6 +25,9 @@ class OrganizationsTableViewController: UITableViewController {
       #selector(self.updateData),
       forControlEvents: UIControlEvents.ValueChanged
     )
+
+    self.refreshControl?.tintColor = UIColor.whiteColor()
+
     self.tableView.registerNib(
       R.nib.organizationTableViewCell(),
       forCellReuseIdentifier: R.nib.organizationTableViewCell.identifier
@@ -32,6 +37,10 @@ class OrganizationsTableViewController: UITableViewController {
   }
 
   func initData() {
+
+    self.tableView.contentOffset = CGPoint(x: 0, y: -self.refreshControl!.frame.size.height)
+    self.refreshControl?.beginRefreshing()
+
     organizations.bindTo(self.tableView) { indexPath, organizations, tableView in
       if let cell = tableView.dequeueReusableCellWithIdentifier(
         R.nib.organizationTableViewCell.identifier,
@@ -58,7 +67,6 @@ class OrganizationsTableViewController: UITableViewController {
   }
 
   func updateData() {
-    self.refreshControl?.beginRefreshing()
     StorageManager.sharedInstance.listOrganizations()
       .onSuccess { organizations in
         self.organizations.replace(organizations, performDiff: true)
@@ -72,11 +80,10 @@ class OrganizationsTableViewController: UITableViewController {
 
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let selectedOrganization = organizations[indexPath.row]
-
-    // reset storage
-    StorageManager.sharedInstance.reset()
-
-    Configuration.setSelectedOrganization(selectedOrganization.id!)
-    self.dismissViewControllerAnimated(true, completion: nil)
+    organizationTableViewDelegate?.organizationSelected(selectedOrganization)
   }
+}
+
+protocol OrganizationTableViewDelegate {
+  func organizationSelected(organization: Organization)
 }

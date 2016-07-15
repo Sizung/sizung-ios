@@ -12,11 +12,14 @@ import SwiftKeychainWrapper
 import Fabric
 import Crashlytics
 import ActionCableClient
+import AlamofireNetworkActivityIndicator
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketDelegate, ItemLoadDelegate {
 
   var window: UIWindow?
+
+  var loginViewController: LoginViewController?
 
   func application(
     application: UIApplication,
@@ -29,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       Fabric.with([Crashlytics.self])
     #endif
 
-    self.initTheme()
+    NetworkActivityIndicatorManager.sharedManager.isEnabled = true
 
     self.registerNotifications()
 
@@ -69,10 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     }
   }
 
-  func initTheme() {
-    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
-  }
-
   func registerNotifications() {
     NSNotificationCenter.defaultCenter().addObserver(
       self,
@@ -82,15 +81,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     )
   }
 
-  func loadInitialViewController() {
+  func switchToOrganization(orgId: String) {
 
+    // reset storage
+    StorageManager.sharedInstance.reset()
+    Configuration.setSelectedOrganization(orgId)
+
+    loadInitialViewController()
+  }
+
+  func loadInitialViewController() {
     if let selectedOrganizationId = Configuration.getSelectedOrganization() {
-      StorageManager.initOrganizationStorageManager(selectedOrganizationId)
+      // check if organization is valid and present
+      StorageManager.sharedInstance.storageForOrganizationId(selectedOrganizationId)
+        .onSuccess { storageManager in
+          UIView.performWithoutAnimation {
+            let organizationViewController = R.storyboard.organization.initialViewController()!
+            self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
+          }
+        }
         .onFailure { error in
-          let organizationViewController = R.storyboard.organizations.initialViewController()!
-          self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
-          if error != StorageError.NotAuthenticated {
+          switch error {
+          case .NotFound,
+            .NotAuthenticated:
+
+            let organizationsViewController = R.storyboard.organizations.initialViewController()!
+            self.window?.rootViewController?.showViewController(organizationsViewController, sender: nil)
             InAppMessage.showErrorMessage("The selected organization can't be found, please select one")
+          default:
+            InAppMessage.showErrorMessage("There seems to be a problem with the internet connection")
           }
       }
     } else {
@@ -100,23 +119,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
 
   func showLogin() {
+    guard loginViewController == nil else {
+      return
+    }
     // make sure we are on main thread
     dispatch_async(dispatch_get_main_queue()) {
       let loginViewController = R.storyboard.login.initialViewController()!
       loginViewController.loginDelegate = self
-      loginViewController.modalPresentationStyle = .OverCurrentContext
-      loginViewController.modalTransitionStyle = .CoverVertical
 
-      self.window?.rootViewController = loginViewController
+      self.window?.rootViewController?.showViewController(loginViewController, sender: self)
+
+      self.loginViewController = loginViewController
     }
   }
 
   func loginSuccess(loginViewController: LoginViewController) {
+    self.loginViewController = nil
     self.registerForPushNotifications()
     self.initWebsocketConnection()
 
     loginViewController.dismissViewControllerAnimated(true, completion: nil)
-    self.window?.rootViewController = R.storyboard.main.initialViewController()
     self.loadInitialViewController()
   }
 
@@ -168,10 +190,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     ) -> Bool {
     if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
       if let url = userActivity.webpageURL {
-        return self.loadUrl(url)
+        self.loadUrl(url)
       }
     }
-    return true
+    return false
   }
 
   // push notifications
@@ -211,7 +233,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     application: UIApplication,
     didFailToRegisterForRemoteNotificationsWithError error: NSError
     ) {
-    Crashlytics.sharedInstance().recordError(error)
+    Error.log(error)
   }
 
   // foreground notification received
@@ -307,82 +329,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
 
   func openItem(type: String, itemId: String) {
-    // simplify organization loading
-    switch type {
-    case "agenda_items":
-      StorageManager.sharedInstance.getAgendaItem(itemId)
-        .onSuccess { agendaItem in
+    let itemLoadingViewController = ItemLoadingViewController(nib: R.nib.itemLoadingViewController)
+    itemLoadingViewController.type = type
+    itemLoadingViewController.itemId = itemId
 
-          StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
-            .onSuccess { conversation in
-              // set selected organization according to entity
-              Configuration.setSelectedOrganization(conversation.organizationId)
+    itemLoadingViewController.itemloadDelegate = self
 
-              self.openViewControllerFor(agendaItem, inConversation: conversation)
-          }
-      }
-      break
-    case "deliverables":
-      StorageManager.sharedInstance.getDeliverable(itemId)
-        .onSuccess { deliverable in
-
-          switch deliverable {
-          case let agendaItemDeliverable as AgendaItemDeliverable:
-            StorageManager.sharedInstance.getAgendaItem(agendaItemDeliverable.agendaItemId)
-              .onSuccess { agendaItem in
-                StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
-                  .onSuccess { conversation in
-                    self.openViewControllerFor(deliverable, inConversation: conversation)
-                }
-            }
-          default:
-            StorageManager.sharedInstance.getConversation(deliverable.parentId)
-              .onSuccess { conversation in
-                self.openViewControllerFor(deliverable, inConversation: conversation)
-            }
-          }
-      }
-      break
-    case "conversations":
-      StorageManager.sharedInstance.getConversation(itemId)
-        .onSuccess { conversation in
-          // set selected organization according to entity
-          Configuration.setSelectedOrganization(conversation.organizationId)
-
-          let conversationViewController = R.storyboard.conversation.initialViewController()!
-          conversationViewController.conversation = conversation
-
-          self.window?.rootViewController?.showViewController(
-            conversationViewController,
-            sender: self
-          )
-
-      }
-      break
-    case "organizations":
-      // reset storage
-      StorageManager.sharedInstance.reset()
-      Configuration.setSelectedOrganization(itemId)
-
-      self.loadInitialViewController()
-
-    case "attachments":
-      // not yet implemented
-      break
-    default:
-      let message = "link to unknown type \(type) with id:\(itemId)"
-      Error.log(message)
-    }
+    self.window?.rootViewController = itemLoadingViewController
   }
 
-  func openViewControllerFor(item: BaseModel, inConversation conversation: Conversation) {
-    // set selected organization according to entity
-    Configuration.setSelectedOrganization(conversation.organizationId)
+  func onItemLoaded(organizationId: String, viewController: UIViewController?) {
 
-    let conversationController = R.storyboard.conversation.initialViewController()!
-    conversationController.conversation = conversation
-    conversationController.openItem = item
+    self.window?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+    self.window?.rootViewController = R.storyboard.main.initialViewController()
 
-    self.window?.rootViewController?.showViewController(conversationController, sender: self)
+    if organizationId != Configuration.getSelectedOrganization() {
+      // reset storage
+      StorageManager.sharedInstance.reset()
+      Configuration.setSelectedOrganization(organizationId)
+    }
+
+    let organizationViewController = R.storyboard.organization.initialViewController()!
+    organizationViewController.conversationViewController = viewController
+    self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
   }
 }
