@@ -28,8 +28,6 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
   var conversationViewController: UIViewController?
   var groupsViewController: UIViewController?
 
-  var loadingScreen = R.storyboard.main.initialViewController()!.view
-
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -37,9 +35,6 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     groupsBadgeView.topOffset = 10
     groupsBadgeView.rightOffset = 10
     self.groupsButton.addSubview(groupsBadgeView)
-
-    loadingScreen.frame = self.view.frame
-    self.view.addSubview(loadingScreen)
 
     UIApplication.sharedApplication().statusBarStyle = .Default
 
@@ -55,7 +50,19 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
       forControlEvents: .ValueChanged
     )
 
+    UIApplication.sharedApplication().statusBarStyle = .LightContent
+
     self.initFloatingActionButton()
+
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        // load conversation
+        if let conversationViewController = self.conversationViewController {
+          self.showViewController(conversationViewController, sender: nil)
+          self.conversationViewController = nil
+        }
+        self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
+    }
   }
 
   func initFloatingActionButton() {
@@ -91,25 +98,6 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
 
   func addItem(buttonItem: KCFloatingActionButtonItem) {
     print("add \(buttonItem.title)")
-  }
-
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-    StorageManager.storageForSelectedOrganization()
-      .onSuccess { storageManager in
-        UIView.animateWithDuration(0.3, animations: {
-          self.loadingScreen.alpha = 0
-          UIApplication.sharedApplication().statusBarStyle = .LightContent
-
-          // load conversation
-          if let conversationViewController = self.conversationViewController {
-            self.showViewController(conversationViewController, sender: nil)
-            self.conversationViewController = nil
-          }
-        })
-        self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
-    }
-
   }
 
   func calculateUnseenConversations() -> Int {

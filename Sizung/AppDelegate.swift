@@ -34,8 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
     NetworkActivityIndicatorManager.sharedManager.isEnabled = true
 
-    self.initTheme()
-
     self.registerNotifications()
 
     if let authToken = Configuration.getAuthToken() {
@@ -72,10 +70,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       let appDomain = NSBundle.mainBundle().bundleIdentifier!
       NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain)
     }
-  }
-
-  func initTheme() {
-    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
   }
 
   func registerNotifications() {
