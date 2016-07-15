@@ -85,6 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
 
   func switchToOrganization(orgId: String) {
+
     // reset storage
     StorageManager.sharedInstance.reset()
     Configuration.setSelectedOrganization(orgId)

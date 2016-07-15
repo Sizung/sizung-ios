@@ -11,7 +11,7 @@ import SwiftKeychainWrapper
 import Sheriff
 import KCFloatingActionButton
 
-class OrganizationViewController: UIViewController, MainPageViewControllerDelegate {
+class OrganizationViewController: UIViewController, MainPageViewControllerDelegate, OrganizationTableViewDelegate {
 
 
   @IBOutlet weak var segmentedControl: SizungSegmentedControl!
@@ -24,7 +24,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
 
   var mainPageViewController: MainPageViewController!
 
-  var organizationsViewController: UIViewController?
+  var organizationsViewController: OrganizationsViewController?
   var conversationViewController: UIViewController?
   var groupsViewController: UIViewController?
 
@@ -131,6 +131,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
 
   @IBAction func showOrganizations(sender: AnyObject) {
     organizationsViewController = R.storyboard.organizations.initialViewController()
+    organizationsViewController?.organizationTableViewDelegate = self
     self.showViewController(organizationsViewController!, sender: self)
   }
 
@@ -184,5 +185,23 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     mainPageViewController: MainPageViewController,
     didSwitchToIndex index: Int) {
     segmentedControl.selectedIndex = index
+  }
+
+  func organizationSelected(organization: Organization) {
+
+
+    if organization.id != Configuration.getSelectedOrganization() {
+      // dismiss organizationsviewcontroller
+      self.dismissViewControllerAnimated(false) {
+        // dismiss self
+        self.dismissViewControllerAnimated(true) {
+          if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+            appDelegate.switchToOrganization(organization.id)
+          }
+        }
+      }
+    } else {
+      self.hideOrganizations(self)
+    }
   }
 }

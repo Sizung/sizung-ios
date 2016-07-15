@@ -15,6 +15,8 @@ class OrganizationsTableViewController: UITableViewController {
 
   let organizations: CollectionProperty <[Organization]> = CollectionProperty([])
 
+  var organizationTableViewDelegate: OrganizationTableViewDelegate?
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -72,11 +74,10 @@ class OrganizationsTableViewController: UITableViewController {
 
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let selectedOrganization = organizations[indexPath.row]
-
-    if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-      appDelegate.switchToOrganization(selectedOrganization.id)
-    }
-
-    self.dismissViewControllerAnimated(true, completion: nil)
+    organizationTableViewDelegate?.organizationSelected(selectedOrganization)
   }
+}
+
+protocol OrganizationTableViewDelegate {
+  func organizationSelected(organization: Organization)
 }

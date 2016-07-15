@@ -13,6 +13,8 @@ class OrganizationsViewController: UIViewController, KCFloatingActionButtonDeleg
 
   @IBOutlet weak var addOrganizationButton: KCFloatingActionButton!
 
+  var organizationTableViewDelegate: OrganizationTableViewDelegate?
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -26,5 +28,18 @@ class OrganizationsViewController: UIViewController, KCFloatingActionButtonDeleg
 
   func emptyKCFABSelected(fab: KCFloatingActionButton) {
     print("add org")
+  }
+
+
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if R.segue.organizationsViewController.embed(segue: segue) != nil {
+      if let destinationViewController = segue.destinationViewController as? OrganizationsTableViewController {
+        destinationViewController.organizationTableViewDelegate = self.organizationTableViewDelegate
+      } else {
+        fatalError()
+      }
+    } else {
+      fatalError()
+    }
   }
 }

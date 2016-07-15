@@ -30,7 +30,7 @@
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8nk-ue-Nub">
                                 <rect key="frame" x="0.0" y="65" width="600" height="535"/>
                                 <connections>
-                                    <segue destination="ZmW-Nb-bi9" kind="embed" id="2gc-Xu-FrK"/>
+                                    <segue destination="ZmW-Nb-bi9" kind="embed" identifier="embed" id="2gc-Xu-FrK"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HgC-LL-I3f">

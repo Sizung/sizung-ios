@@ -120,6 +120,7 @@
 		5AF675CB1D3788AB008C813D /* ItemLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF675C91D3788AB008C813D /* ItemLoadingViewController.swift */; };
 		5AF675CC1D3788AB008C813D /* ItemLoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AF675CA1D3788AB008C813D /* ItemLoadingViewController.xib */; };
 		5AF675CE1D37922B008C813D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AF675CD1D37922B008C813D /* Main.storyboard */; };
+		5AF675D01D38D448008C813D /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF675CF1D38D448008C813D /* Helper.swift */; };
 		7C805C9F87DFD35FED0D4054 /* Pods_SizungTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */; };
 		FCA0C987B799BBE8626392B5 /* Pods_Sizung.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 996C9E787ED021D4997D12D2 /* Pods_Sizung.framework */; };
 /* End PBXBuildFile section */
@@ -263,6 +264,7 @@
 		5AF675C91D3788AB008C813D /* ItemLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemLoadingViewController.swift; sourceTree = "<group>"; };
 		5AF675CA1D3788AB008C813D /* ItemLoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemLoadingViewController.xib; sourceTree = "<group>"; };
 		5AF675CD1D37922B008C813D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		5AF675CF1D38D448008C813D /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		76E7771C4CDE72F6FB4EA165 /* Pods-Sizung.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sizung.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sizung/Pods-Sizung.release.xcconfig"; sourceTree = "<group>"; };
 		996C9E787ED021D4997D12D2 /* Pods_Sizung.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sizung.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BDDA999939B2CCA49D06D48 /* Pods-Sizung.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sizung.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sizung/Pods-Sizung.debug.xcconfig"; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 				5AA983F11D13E4C200A9C2EE /* DateHelper */,
 				5AE24D111D22571300FB691B /* Error.swift */,
 				5AE3FB6F1D2973AB00B2BEEC /* InAppMessage.swift */,
+				5AF675CF1D38D448008C813D /* Helper.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -1004,6 +1007,7 @@
 				5ABA4FBB1CFEBE3500110030 /* OrganizationResponse.swift in Sources */,
 				5A7329F01D05877D006531A5 /* CardView.swift in Sources */,
 				5AD9F1B91CE9D3D700455D98 /* ConversationMember.swift in Sources */,
+				5AF675D01D38D448008C813D /* Helper.swift in Sources */,
 				5A7329EE1D058574006531A5 /* ConversationTableViewCell.swift in Sources */,
 				5AE24D0E1D216C1100FB691B /* AgendaItemResponse.swift in Sources */,
 				5A732A011D06060C006531A5 /* DeliverableTableViewCell.swift in Sources */,

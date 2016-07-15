@@ -35,7 +35,7 @@ class ItemLoadingViewController: UIViewController {
   func loadItem() {
 
     // after 5s show reload and close button
-    delay(5) {
+    Helper.delay(5) {
       UIView.animateWithDuration(0.3) {
         self.closeButton.alpha = 1
         self.retryButton.alpha = 1
@@ -103,15 +103,6 @@ class ItemLoadingViewController: UIViewController {
     conversationController.openItem = item
 
     itemloadDelegate?.onItemLoaded(conversation.organizationId, viewController: conversationController)
-  }
-
-  func delay(delay: Double, closure: ()->()) {
-    dispatch_after(
-      dispatch_time(
-        DISPATCH_TIME_NOW,
-        Int64(delay * Double(NSEC_PER_SEC))
-      ),
-      dispatch_get_main_queue(), closure)
   }
 }
 
