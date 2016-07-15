@@ -108,10 +108,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
           }
         }
         .onFailure { error in
-          let organizationsViewController = R.storyboard.organizations.initialViewController()!
-          self.window?.rootViewController?.showViewController(organizationsViewController, sender: nil)
-          if error != StorageError.NotAuthenticated {
+          switch error {
+          case .NotFound,
+            .NotAuthenticated:
+
+            let organizationsViewController = R.storyboard.organizations.initialViewController()!
+            self.window?.rootViewController?.showViewController(organizationsViewController, sender: nil)
             InAppMessage.showErrorMessage("The selected organization can't be found, please select one")
+          default:
+            InAppMessage.showErrorMessage("There seems to be a problem with the internet connection")
           }
       }
     } else {
