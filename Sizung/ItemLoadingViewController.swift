@@ -13,6 +13,7 @@ class ItemLoadingViewController: UIViewController {
   var type: String = "unkown"
   var itemId: String = "unkown"
 
+  @IBOutlet weak var logoView: UIImageView!
   @IBOutlet weak var closeButton: UIButton!
   @IBOutlet weak var retryButton: UIButton!
 
@@ -22,6 +23,21 @@ class ItemLoadingViewController: UIViewController {
     super.viewDidLoad()
 
     loadItem()
+  }
+
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+
+    self.logoView.alpha = 0.3
+
+    UIView.animateWithDuration(
+      1.5,
+      delay: 0.5,
+      options: [ .Repeat, .CurveLinear, .Autoreverse],
+      animations: {
+        self.logoView.alpha = 1
+      }, completion: nil)
+
   }
 
   @IBAction func retry(sender: AnyObject) {

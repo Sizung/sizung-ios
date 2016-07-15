@@ -21,6 +21,12 @@ class OrganizationsViewController: UIViewController, KCFloatingActionButtonDeleg
     addOrganizationButton.fabDelegate = self
   }
 
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+
+    UIApplication.sharedApplication().statusBarStyle = .LightContent
+  }
+
   @IBAction func showSettings(sender: AnyObject) {
     let accountViewController = R.storyboard.organization.accountViewController()!
     self.showViewController(accountViewController, sender: self)

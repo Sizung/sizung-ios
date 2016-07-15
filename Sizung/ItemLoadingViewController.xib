@@ -16,6 +16,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ItemLoadingViewController" customModule="Sizung" customModuleProvider="target">
             <connections>
                 <outlet property="closeButton" destination="ib0-Go-gt8" id="ZId-7m-fj3"/>
+                <outlet property="logoView" destination="LCs-2O-5SA" id="tml-A8-wZL"/>
                 <outlet property="retryButton" destination="e6L-5W-tWW" id="pfm-Ta-eYq"/>
                 <outlet property="view" destination="8ia-7o-T6o" id="9Lt-Ae-O7R"/>
             </connections>

@@ -13,17 +13,6 @@ class LoadingViewController: UIViewController {
   @IBOutlet weak var logoView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-      self.logoView.alpha = 0.4
-
-      UIView.animateWithDuration(
-        1.0,
-        delay: 0.0,
-        options: [ .Repeat, .CurveLinear, .Autoreverse],
-        animations: {
-          self.logoView.alpha = 1
-        }, completion: nil)
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,4 +20,19 @@ class LoadingViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+
+    UIApplication.sharedApplication().statusBarStyle = .Default
+
+    self.logoView.alpha = 0.2
+
+    UIView.animateWithDuration(
+      1.5,
+      delay: 0.5,
+      options: [ .Repeat, .CurveLinear, .Autoreverse],
+      animations: {
+        self.logoView.alpha = 1
+      }, completion: nil)
+  }
 }

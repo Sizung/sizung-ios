@@ -15,11 +15,12 @@ import ActionCableClient
 import AlamofireNetworkActivityIndicator
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketDelegate, ItemLoadDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketDelegate, ItemLoadDelegate, OrganizationTableViewDelegate {
 
   var window: UIWindow?
 
   var loginViewController: LoginViewController?
+  var organizationsViewController: OrganizationsViewController?
 
   func application(
     application: UIApplication,
@@ -90,15 +91,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     loadInitialViewController()
   }
 
+  func logout() {
+    Configuration.reset()
+    StorageManager.sharedInstance.reset()
+
+    self.window?.rootViewController = R.storyboard.main.initialViewController()
+
+    showLogin()
+  }
+
   func loadInitialViewController() {
     if let selectedOrganizationId = Configuration.getSelectedOrganization() {
       // check if organization is valid and present
       StorageManager.sharedInstance.storageForOrganizationId(selectedOrganizationId)
         .onSuccess { storageManager in
-          UIView.performWithoutAnimation {
-            let organizationViewController = R.storyboard.organization.initialViewController()!
-            self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
-          }
+          let organizationViewController = R.storyboard.organization.initialViewController()!
+          self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
         }
         .onFailure { error in
           switch error {
@@ -106,15 +114,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
             .NotAuthenticated:
 
             let organizationsViewController = R.storyboard.organizations.initialViewController()!
+            self.organizationsViewController = organizationsViewController
+            organizationsViewController.organizationTableViewDelegate = self
             self.window?.rootViewController?.showViewController(organizationsViewController, sender: nil)
             InAppMessage.showErrorMessage("The selected organization can't be found, please select one")
           default:
             InAppMessage.showErrorMessage("There seems to be a problem with the internet connection")
           }
+
       }
     } else {
-      let organizationViewController = R.storyboard.organizations.initialViewController()!
-      self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
+      let organizationsViewController = R.storyboard.organizations.initialViewController()!
+      organizationsViewController.organizationTableViewDelegate = self
+      self.organizationsViewController = organizationsViewController
+      self.window?.rootViewController?.showViewController(organizationsViewController, sender: nil)
     }
   }
 
@@ -134,12 +147,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
 
   func loginSuccess(loginViewController: LoginViewController) {
+
     self.loginViewController = nil
     self.registerForPushNotifications()
     self.initWebsocketConnection()
 
-    loginViewController.dismissViewControllerAnimated(true, completion: nil)
-    self.loadInitialViewController()
+    loginViewController.dismissViewControllerAnimated(true) {
+      self.loadInitialViewController()
+    }
   }
 
   func applicationDidBecomeActive(application: UIApplication) {
@@ -352,5 +367,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     let organizationViewController = R.storyboard.organization.initialViewController()!
     organizationViewController.conversationViewController = viewController
     self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
+  }
+
+  func organizationSelected(organization: Organization) {
+
+    self.organizationsViewController?.dismissViewControllerAnimated(true) {
+      self.organizationsViewController = nil
+      self.switchToOrganization(organization.id)
+    }
   }
 }

@@ -176,8 +176,6 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
   }
 
   func organizationSelected(organization: Organization) {
-
-
     if organization.id != Configuration.getSelectedOrganization() {
       // dismiss organizationsviewcontroller
       self.dismissViewControllerAnimated(false) {
