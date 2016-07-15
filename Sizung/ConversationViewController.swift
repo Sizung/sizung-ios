@@ -18,7 +18,7 @@ class ConversationViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.titleButton.setTitle("@\(conversation.title)", forState: .Normal)
+    self.titleButton.setTitle("\(conversation.title)", forState: .Normal)
   }
 
   override func didReceiveMemoryWarning() {

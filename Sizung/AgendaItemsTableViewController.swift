@@ -140,7 +140,7 @@ class AgendaItemsTableViewController: UITableViewController {
         cell.conversationLabel.text = ""
 
         if let conversationTitle = storageManager?.conversations[agendaItem.conversationId]?.title {
-          cell.conversationLabel.text = "@\(conversationTitle)"
+          cell.conversationLabel.text = conversationTitle
         }
 
         let unseenObjects = StorageManager.sharedInstance.unseenObjects.collection
