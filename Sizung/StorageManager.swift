@@ -42,6 +42,8 @@ class StorageManager {
         .onSuccess { orgStorageManager in
           self.storages[itemId] = orgStorageManager
           promise.success(orgStorageManager)
+        }.onFailure { error in
+          promise.failure(error)
       }
     }
 

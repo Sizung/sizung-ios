@@ -25,12 +25,10 @@ class AccountViewController: UIViewController {
   }
 
   @IBAction func logoutClicked(sender: AnyObject) {
-    Configuration.reset()
-    StorageManager.sharedInstance.reset()
 
-    // send auth error notification
-    let notificationName = Configuration.NotificationConstants.kNotificationKeyAuthError
-    NSNotificationCenter.defaultCenter().postNotificationName(notificationName, object: nil)
+    if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+      appDelegate.logout()
+    }
   }
 
   @IBAction func close(sender: AnyObject) {
