@@ -91,7 +91,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
 
   func loadInitialViewController() {
-
     if let selectedOrganizationId = Configuration.getSelectedOrganization() {
       // check if organization is valid and present
       StorageManager.sharedInstance.storageForOrganizationId(selectedOrganizationId)

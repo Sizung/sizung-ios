@@ -834,19 +834,19 @@ struct _R: Rswift.Validatable {
     }
     
     struct main: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = UIViewController
+      typealias InitialController = LoadingViewController
       
       let bundle = _R.hostingBundle
-      let loading = StoryboardViewControllerResource<UIViewController>(identifier: "Loading")
+      let loading = StoryboardViewControllerResource<LoadingViewController>(identifier: "Loading")
       let name = "Main"
       
-      func loading(_: Void) -> UIViewController? {
+      func loading(_: Void) -> LoadingViewController? {
         return UIStoryboard(resource: self).instantiateViewController(loading)
       }
       
       static func validate() throws {
         if UIImage(named: "logo") == nil { throw ValidationError(description: "[R.swift] Image named 'logo' is used in storyboard 'Main', but couldn't be loaded.") }
-        if _R.storyboard.main().loading() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'loading' could not be loaded from storyboard 'Main' as 'UIViewController'.") }
+        if _R.storyboard.main().loading() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'loading' could not be loaded from storyboard 'Main' as 'LoadingViewController'.") }
       }
       
       private init() {}
