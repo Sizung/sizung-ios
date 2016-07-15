@@ -94,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
     if let selectedOrganizationId = Configuration.getSelectedOrganization() {
       // check if organization is valid and present
-      StorageManager.initOrganizationStorageManager(selectedOrganizationId)
+      StorageManager.sharedInstance.storageForOrganizationId(selectedOrganizationId)
         .onSuccess { storageManager in
           UIView.performWithoutAnimation {
             let organizationViewController = R.storyboard.organization.initialViewController()!
