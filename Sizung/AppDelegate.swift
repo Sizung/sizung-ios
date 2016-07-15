@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
   var window: UIWindow?
 
+  var loginViewController: LoginViewController?
+
   func application(
     application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?
@@ -115,18 +117,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
 
   func showLogin() {
+    guard loginViewController == nil else {
+      return
+    }
     // make sure we are on main thread
     dispatch_async(dispatch_get_main_queue()) {
       let loginViewController = R.storyboard.login.initialViewController()!
       loginViewController.loginDelegate = self
-      loginViewController.modalPresentationStyle = .OverCurrentContext
-      loginViewController.modalTransitionStyle = .CoverVertical
 
       self.window?.rootViewController?.showViewController(loginViewController, sender: self)
+
+      self.loginViewController = loginViewController
     }
   }
 
   func loginSuccess(loginViewController: LoginViewController) {
+    self.loginViewController = nil
     self.registerForPushNotifications()
     self.initWebsocketConnection()
 
