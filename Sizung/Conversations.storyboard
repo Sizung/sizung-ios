@@ -88,7 +88,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxt-fv-BXm">
                                 <rect key="frame" x="0.0" y="20" width="600" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Conversation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjd-zW-dNY">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="New Conversation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjd-zW-dNY">
                                         <rect key="frame" x="19" y="17" width="123" height="25"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <color key="textColor" red="0.82352941176470584" green="0.52941176470588236" blue="0.23921568627450979" alpha="1" colorSpace="calibratedRGB"/>
@@ -103,6 +103,15 @@
                                             <action selector="hideGroups:" destination="qfi-7F-tZq" eventType="touchUpInside" id="UXc-LN-zaR"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yee-h3-xTD">
+                                        <rect key="frame" x="504" y="15" width="34" height="30"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="save:" destination="JUQ-KH-sRP" eventType="touchUpInside" id="sbn-0l-n5v"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="zjd-zW-dNY" firstAttribute="centerY" secondItem="fxt-fv-BXm" secondAttribute="centerY" id="2Rf-8k-fxy"/>
@@ -111,12 +120,14 @@
                                     <constraint firstAttribute="height" constant="60" id="MeE-6L-yjE"/>
                                     <constraint firstItem="tDa-xs-bEE" firstAttribute="centerY" secondItem="fxt-fv-BXm" secondAttribute="centerY" id="diZ-7P-UnV"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="tDa-xs-bEE" secondAttribute="trailing" id="dnN-7U-5Q6"/>
+                                    <constraint firstItem="yee-h3-xTD" firstAttribute="centerY" secondItem="zjd-zW-dNY" secondAttribute="centerY" id="qbn-R6-gIQ"/>
+                                    <constraint firstItem="tDa-xs-bEE" firstAttribute="leading" secondItem="yee-h3-xTD" secondAttribute="trailing" constant="10" id="yXm-mQ-NmM"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bV8-Bl-B4G">
                                 <rect key="frame" x="0.0" y="80" width="600" height="60"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a new conversation name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0OH-yE-3kS">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a new conversation name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0OH-yE-3kS">
                                         <rect key="frame" x="20" y="18" width="560" height="25"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>

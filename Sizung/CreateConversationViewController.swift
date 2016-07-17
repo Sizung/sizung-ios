@@ -63,6 +63,8 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
         self.conversation.members.append(user)
     }
 
+    conversationNameTextField.becomeFirstResponder()
+
   }
 
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -104,11 +106,38 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     self.dismissViewControllerAnimated(true, completion: nil)
   }
 
-  @IBAction func save(sender: AnyObject) {
+  @IBAction func save(sender: UIButton) {
+
+    conversation.title = conversationNameTextField.text
+
+    guard conversation.title.characters.count > 0 else {
+      InAppMessage.showErrorMessage("Please enter a title")
+      conversationNameTextField.becomeFirstResponder()
+      return
+    }
+
+    sender.enabled = false
+
+    func successFunc(conversation: Conversation) {
+      let parent = self.presentingViewController!
+      self.dismissViewControllerAnimated(true) {
+        let conversationViewController = R.storyboard.conversation.initialViewController()!
+        conversationViewController.conversation = conversation
+        parent.showViewController(conversationViewController, sender: nil)
+      }
+    }
+
+    func errorFunc(error: StorageError) {
+      InAppMessage.showErrorMessage("There has been an error saving your conversation - Please try again")
+      sender.enabled = true
+    }
 
     // save conversation
-
-//    self.dismissViewControllerAnimated(true, completion: nil)
+    if conversation.new == true {
+      storageManager?.createConversation(conversation).onSuccess(callback: successFunc).onFailure(callback: errorFunc)
+    } else {
+      storageManager?.updateConversation(conversation).onSuccess(callback: successFunc).onFailure(callback: errorFunc)
+    }
   }
 
   func removeMember(sender: UIButton) {

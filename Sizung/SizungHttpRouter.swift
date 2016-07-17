@@ -18,6 +18,8 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Organizations()
   case Organization(id: String)
   case Conversation(id: String)
+  case CreateConversation(conversation: Sizung.Conversation)
+  case UpdateConversation(conversation: Sizung.Conversation)
   case AgendaItem(id: String)
   case Deliverable(id: String)
   case ConversationObjects(parent: BaseModel, page: Int)
@@ -32,10 +34,12 @@ enum SizungHttpRouter: URLRequestConvertible {
     switch self {
     case .Login,
          .RegisterDevice,
-         .Comments:
+         .Comments,
+         .CreateConversation:
       return .POST
     case .UpdateDeliverable,
-         .UpdateAgendaItem:
+         .UpdateAgendaItem,
+         .UpdateConversation:
       return .PUT
     case .Logout,
          .DeleteUnseenObjects:
@@ -57,6 +61,10 @@ enum SizungHttpRouter: URLRequestConvertible {
     case .Organization(let id):
       return "/organizations/\(id)"
     case .Conversation(let id):
+      return "/conversations/\(id)"
+    case .CreateConversation:
+      return "/conversations"
+    case .UpdateConversation(let id):
       return "/conversations/\(id)"
     case .AgendaItem(let id):
       return "/agenda_items/\(id)"
@@ -109,6 +117,29 @@ enum SizungHttpRouter: URLRequestConvertible {
       return [
         "device": [
           "token": deviceToken
+        ]
+      ]
+    case .CreateConversation(let conversation):
+      let members = conversation.members.map {user in
+        return [
+          "id": user.id,
+          "type": "users"
+        ]
+      }
+      return [
+        "conversation": [
+          "conversation_members": members,
+          "organization_id": conversation.organizationId,
+          "title": conversation.title
+        ]
+      ]
+
+    case .UpdateConversation(let conversation):
+      return [
+        "conversation": [
+          "conversation_members": conversation.members,
+          "organization_id": conversation.organizationId,
+          "title": conversation.title
         ]
       ]
     case .Comments(let comment):
@@ -180,6 +211,8 @@ enum SizungHttpRouter: URLRequestConvertible {
          .RegisterDevice,
          .UpdateDeliverable,
          .UpdateAgendaItem,
+         .CreateConversation,
+         .UpdateConversation,
          .Comments:
       return Alamofire.ParameterEncoding.JSON.encode(
         mutableURLRequest,

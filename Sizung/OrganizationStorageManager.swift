@@ -51,6 +51,40 @@ class OrganizationStorageManager {
     return promise.future
   }
 
+  func createConversation(conversation: Conversation) -> Future<Conversation, StorageError> {
+    let promise = Promise<Conversation, StorageError>()
+
+    StorageManager.makeRequest(SizungHttpRouter.CreateConversation(conversation: conversation))
+      .onSuccess { (conversationResponse: ConversationResponse) in
+
+        let conversation = conversationResponse.conversation
+        self.conversations.insertOrUpdate([conversation])
+        promise.success(conversation)
+
+      }.onFailure { error in
+        promise.failure(error)
+    }
+    
+    return promise.future
+  }
+
+  func updateConversation(conversation: Conversation) -> Future<Conversation, StorageError> {
+    let promise = Promise<Conversation, StorageError>()
+
+    StorageManager.makeRequest(SizungHttpRouter.UpdateConversation(conversation: conversation))
+      .onSuccess { (conversationResponse: ConversationResponse) in
+
+        let conversation = conversationResponse.conversation
+        self.conversations.insertOrUpdate([conversation])
+        promise.success(conversation)
+
+      }.onFailure { error in
+        promise.failure(error)
+    }
+
+    return promise.future
+  }
+
   func getDeliverable(itemId: String) -> Future<Deliverable, StorageError> {
     let promise = Promise<Deliverable, StorageError>()
 
