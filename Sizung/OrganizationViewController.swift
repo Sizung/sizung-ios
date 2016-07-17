@@ -82,7 +82,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     groupItem.icon = R.image.group()
     groupItem.iconImageView.tintColor = UIColor.whiteColor()
     groupItem.iconImageView.contentMode = .ScaleAspectFit
-    groupItem.handler = addItem
+    groupItem.handler = createConversation
     self.floatingActionButton.addItem(item: groupItem)
 
     let deliverableItem = KCFloatingActionButtonItem()
@@ -94,6 +94,11 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     deliverableItem.handler = addItem
     self.floatingActionButton.addItem(item: deliverableItem)
 
+  }
+
+  func createConversation(buttonItem: KCFloatingActionButtonItem) {
+    let createConversationViewController = R.storyboard.conversations.create()!
+    self.showViewController(createConversationViewController, sender: self)
   }
 
   func addItem(buttonItem: KCFloatingActionButtonItem) {

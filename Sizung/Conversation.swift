@@ -17,6 +17,16 @@ class Conversation: BaseModel {
   var agendaItemDeliverables: [AgendaItemDeliverable]!
   var members: [User]!
 
+  init(organizationId: String) {
+    super.init(type: "conversations")
+    self.organizationId = organizationId
+    self.members = []
+  }
+
+  required init?(_ map: Map) {
+    super.init(map)
+  }
+
   override func mapping(map: Map) {
     super.mapping(map)
     title <- map["attributes.title"]

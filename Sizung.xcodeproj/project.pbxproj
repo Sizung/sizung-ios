@@ -31,6 +31,9 @@
 		5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E971CD7A96000FB3DEB /* Assets.xcassets */; };
 		5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A653E991CD7A96000FB3DEB /* LaunchScreen.storyboard */; };
 		5A653EB11CD7A96000FB3DEB /* SizungUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */; };
+		5A68DBF71D3C064300687107 /* CreateConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A68DBF61D3C064300687107 /* CreateConversationViewController.swift */; };
+		5A68DBFA1D3C0CA100687107 /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A68DBF81D3C0CA100687107 /* MemberTableViewCell.swift */; };
+		5A68DBFB1D3C0CA100687107 /* MemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A68DBF91D3C0CA100687107 /* MemberTableViewCell.xib */; };
 		5A6D37101D1E7E0200F00B87 /* NewMessageSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6D370F1D1E7E0200F00B87 /* NewMessageSeparatorCell.xib */; };
 		5A6D37121D1E90DE00F00B87 /* DateSortable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6D37111D1E90DE00F00B87 /* DateSortable.swift */; };
 		5A7329EE1D058574006531A5 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7329ED1D058574006531A5 /* ConversationTableViewCell.swift */; };
@@ -173,6 +176,9 @@
 		5A653EAC1CD7A96000FB3DEB /* SizungUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SizungUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A653EB01CD7A96000FB3DEB /* SizungUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizungUITests.swift; sourceTree = "<group>"; };
 		5A653EB21CD7A96000FB3DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A68DBF61D3C064300687107 /* CreateConversationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateConversationViewController.swift; sourceTree = "<group>"; };
+		5A68DBF81D3C0CA100687107 /* MemberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
+		5A68DBF91D3C0CA100687107 /* MemberTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemberTableViewCell.xib; sourceTree = "<group>"; };
 		5A6D370F1D1E7E0200F00B87 /* NewMessageSeparatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewMessageSeparatorCell.xib; sourceTree = "<group>"; };
 		5A6D37111D1E90DE00F00B87 /* DateSortable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateSortable.swift; sourceTree = "<group>"; };
 		5A7329ED1D058574006531A5 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
@@ -458,6 +464,8 @@
 				5AF36B991D12FBC300A1581F /* OrganizationTableViewCell.swift */,
 				5AF36B9A1D12FBC300A1581F /* OrganizationTableViewCell.xib */,
 				5A6D370F1D1E7E0200F00B87 /* NewMessageSeparatorCell.xib */,
+				5A68DBF81D3C0CA100687107 /* MemberTableViewCell.swift */,
+				5A68DBF91D3C0CA100687107 /* MemberTableViewCell.xib */,
 			);
 			name = TableViewCell;
 			sourceTree = "<group>";
@@ -589,6 +597,7 @@
 				5ADC883D1D109E3F00596D67 /* TableViews */,
 				5ACBA0BC1D2675D3007BC605 /* CalendarViewController.swift */,
 				5ACBA0BE1D26A962007BC605 /* CalendarViewController.xib */,
+				5A68DBF61D3C064300687107 /* CreateConversationViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -769,6 +778,7 @@
 				5A42707F1D095A7000B294DF /* Settings.bundle in Resources */,
 				5ACBA0BF1D26A962007BC605 /* CalendarViewController.xib in Resources */,
 				5A6D37101D1E7E0200F00B87 /* NewMessageSeparatorCell.xib in Resources */,
+				5A68DBFB1D3C0CA100687107 /* MemberTableViewCell.xib in Resources */,
 				5ADC882D1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib in Resources */,
 				5A653E9B1CD7A96000FB3DEB /* LaunchScreen.storyboard in Resources */,
 				5ADC88381D105F3300596D67 /* DeliverableTableViewCell.xib in Resources */,
@@ -1037,6 +1047,7 @@
 				5AA891021CF5A6AE00ED391B /* DeliverablesTableViewController.swift in Sources */,
 				5AD9F1B51CE9D03000455D98 /* User.swift in Sources */,
 				5AD9F1BD1CE9D63300455D98 /* Deliverable.swift in Sources */,
+				5A68DBFA1D3C0CA100687107 /* MemberTableViewCell.swift in Sources */,
 				5A86B1311CE5D035001C2E7A /* SizungHttpRouter.swift in Sources */,
 				5ABACCE01D0AA82F0093CF21 /* ISODateTransform.swift in Sources */,
 				5ADC88321D10505700596D67 /* TimelineDeliverableTableViewCell.swift in Sources */,
@@ -1054,6 +1065,7 @@
 				5A9EDEB81D01BB5C00D389EC /* SizungSegmentedControl.swift in Sources */,
 				5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */,
 				5A8C4B491D242BA0004EA24D /* AvatarImageView.swift in Sources */,
+				5A68DBF71D3C064300687107 /* CreateConversationViewController.swift in Sources */,
 				5A29E0D61D2FA44A002A7840 /* OrganizationStorageManager.swift in Sources */,
 				5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */,
 				5A304B3D1D1843DE009CBBAD /* UnseenObjectsResponse.swift in Sources */,

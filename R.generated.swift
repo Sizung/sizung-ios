@@ -134,7 +134,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 15 images.
+  /// This `R.image` struct is generated, and contains static references to 16 images.
   struct image {
     /// Image `action`.
     static let action = ImageResource(bundle: _R.hostingBundle, name: "action")
@@ -150,6 +150,8 @@ struct R: Rswift.Validatable {
     static let close = ImageResource(bundle: _R.hostingBundle, name: "close")
     /// Image `default_avatar`.
     static let default_avatar = ImageResource(bundle: _R.hostingBundle, name: "default_avatar")
+    /// Image `delete`.
+    static let delete = ImageResource(bundle: _R.hostingBundle, name: "delete")
     /// Image `group`.
     static let group = ImageResource(bundle: _R.hostingBundle, name: "group")
     /// Image `group_list`.
@@ -200,6 +202,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "default_avatar", bundle: ..., traitCollection: ...)`
     static func default_avatar(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.default_avatar, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "delete", bundle: ..., traitCollection: ...)`
+    static func delete(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.delete, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "group", bundle: ..., traitCollection: ...)`
@@ -253,7 +260,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 13 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 14 nibs.
   struct nib {
     /// Nib `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell = _R.nib._AgendaItemTableViewCell()
@@ -269,6 +276,8 @@ struct R: Rswift.Validatable {
     static let deliverableTableViewCell = _R.nib._DeliverableTableViewCell()
     /// Nib `ItemLoadingViewController`.
     static let itemLoadingViewController = _R.nib._ItemLoadingViewController()
+    /// Nib `MemberTableViewCell`.
+    static let memberTableViewCell = _R.nib._MemberTableViewCell()
     /// Nib `NewMessageSeparatorCell`.
     static let newMessageSeparatorCell = _R.nib._NewMessageSeparatorCell()
     /// Nib `OrganizationTableViewCell`.
@@ -317,6 +326,11 @@ struct R: Rswift.Validatable {
       return UINib(resource: R.nib.itemLoadingViewController)
     }
     
+    /// `UINib(name: "MemberTableViewCell", bundle: ...)`
+    static func memberTableViewCell(_: Void) -> UINib {
+      return UINib(resource: R.nib.memberTableViewCell)
+    }
+    
     /// `UINib(name: "NewMessageSeparatorCell", bundle: ...)`
     static func newMessageSeparatorCell(_: Void) -> UINib {
       return UINib(resource: R.nib.newMessageSeparatorCell)
@@ -350,7 +364,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 10 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 11 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell: ReuseIdentifier<AgendaItemTableViewCell> = ReuseIdentifier(identifier: "AgendaItemTableViewCell")
@@ -362,6 +376,8 @@ struct R: Rswift.Validatable {
     static let conversationTableViewCell: ReuseIdentifier<ConversationTableViewCell> = ReuseIdentifier(identifier: "ConversationTableViewCell")
     /// Reuse identifier `DeliverableTableViewCell`.
     static let deliverableTableViewCell: ReuseIdentifier<DeliverableTableViewCell> = ReuseIdentifier(identifier: "DeliverableTableViewCell")
+    /// Reuse identifier `MemberTableViewCell`.
+    static let memberTableViewCell: ReuseIdentifier<MemberTableViewCell> = ReuseIdentifier(identifier: "MemberTableViewCell")
     /// Reuse identifier `NewMessageSeparatorCell`.
     static let newMessageSeparatorCell: ReuseIdentifier<UITableViewCell> = ReuseIdentifier(identifier: "NewMessageSeparatorCell")
     /// Reuse identifier `OrganizationTableViewCell`.
@@ -649,6 +665,20 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
+    struct _MemberTableViewCell: NibResourceType, ReuseIdentifierType {
+      typealias ReusableType = MemberTableViewCell
+      
+      let bundle = _R.hostingBundle
+      let identifier = "MemberTableViewCell"
+      let name = "MemberTableViewCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> MemberTableViewCell? {
+        return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? MemberTableViewCell
+      }
+      
+      private init() {}
+    }
+    
     struct _NewMessageSeparatorCell: NibResourceType, ReuseIdentifierType {
       typealias ReusableType = UITableViewCell
       
@@ -792,14 +822,20 @@ struct _R: Rswift.Validatable {
       
       let bundle = _R.hostingBundle
       let conversationsTableViewController = StoryboardViewControllerResource<ConversationsTableViewController>(identifier: "ConversationsTableViewController")
+      let create = StoryboardViewControllerResource<CreateConversationViewController>(identifier: "create")
       let name = "Conversations"
       
       func conversationsTableViewController(_: Void) -> ConversationsTableViewController? {
         return UIStoryboard(resource: self).instantiateViewController(conversationsTableViewController)
       }
       
+      func create(_: Void) -> CreateConversationViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(create)
+      }
+      
       static func validate() throws {
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Conversations', but couldn't be loaded.") }
+        if _R.storyboard.conversations().create() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'create' could not be loaded from storyboard 'Conversations' as 'CreateConversationViewController'.") }
         if _R.storyboard.conversations().conversationsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationsTableViewController' could not be loaded from storyboard 'Conversations' as 'ConversationsTableViewController'.") }
       }
       
