@@ -142,12 +142,16 @@
                                                     <constraint firstAttribute="height" constant="50" id="uBo-Ww-jbK"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
                                                 <variation key="default">
                                                     <mask key="constraints">
                                                         <exclude reference="uBo-Ww-jbK"/>
                                                     </mask>
                                                 </variation>
+                                                <connections>
+                                                    <action selector="addMemberFieldChanged:" destination="JUQ-KH-sRP" eventType="editingChanged" id="zG1-QY-aZf"/>
+                                                    <outlet property="delegate" destination="JUQ-KH-sRP" id="mmC-p2-j1S"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -204,6 +208,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addMemberContainer" destination="Q3n-xc-5fn" id="o5O-gk-Sjm"/>
                         <outlet property="conversationNameTextField" destination="0OH-yE-3kS" id="PH6-3g-97Q"/>
                         <outlet property="tableView" destination="kin-uQ-IfM" id="tzO-cm-JqW"/>
                     </connections>
