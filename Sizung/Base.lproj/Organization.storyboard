@@ -171,7 +171,7 @@
                                     <action selector="logoutClicked:" destination="60j-uB-VEk" eventType="touchUpInside" id="cCe-dk-KPl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ExN-PN-ATf" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ExN-PN-ATf" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
                                 <rect key="frame" x="516" y="40" width="44" height="44"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="close"/>

@@ -818,7 +818,7 @@ struct _R: Rswift.Validatable {
     }
     
     struct conversations: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = UIViewController
+      typealias InitialController = ConversationsViewController
       
       let bundle = _R.hostingBundle
       let conversationsTableViewController = StoryboardViewControllerResource<ConversationsTableViewController>(identifier: "ConversationsTableViewController")

@@ -12,10 +12,10 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Conversations View Controller-->
         <scene sceneID="ZVA-yZ-G33">
             <objects>
-                <viewController id="MWY-fV-Qqd" sceneMemberID="viewController">
+                <viewController id="MWY-fV-Qqd" customClass="ConversationsViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZN7-H4-bD2"/>
                         <viewControllerLayoutGuide type="bottom" id="1Bp-a2-AVS"/>
@@ -56,10 +56,28 @@
                                     <segue destination="bB6-t6-x02" kind="embed" id="pB9-or-LIx"/>
                                 </connections>
                             </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZ6-LT-ZeM" customClass="KCFloatingActionButton" customModule="KCFloatingActionButton">
+                                <rect key="frame" x="530" y="530" width="50" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Ccz-gg-cpB"/>
+                                    <constraint firstAttribute="height" constant="50" id="g7a-hV-OSS"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="buttonColor">
+                                        <color key="value" red="0.56078431370000004" green="0.4823529412" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="plusColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="hZ6-LT-ZeM" secondAttribute="trailing" constant="20" id="7Mg-4c-JiA"/>
                             <constraint firstItem="NbH-sl-ve8" firstAttribute="top" secondItem="ZN7-H4-bD2" secondAttribute="bottom" id="DNa-qb-rkd"/>
+                            <constraint firstItem="1Bp-a2-AVS" firstAttribute="top" secondItem="hZ6-LT-ZeM" secondAttribute="bottom" constant="20" id="Gq0-DD-DV9"/>
                             <constraint firstItem="ecc-i2-b3G" firstAttribute="leading" secondItem="Zw2-5J-uFL" secondAttribute="leadingMargin" constant="-20" id="LDt-4e-sOn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ecc-i2-b3G" secondAttribute="trailing" constant="-20" id="RMW-6b-vkj"/>
                             <constraint firstItem="1Bp-a2-AVS" firstAttribute="top" secondItem="ecc-i2-b3G" secondAttribute="bottom" id="cVo-JU-0bI"/>
@@ -68,6 +86,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="NbH-sl-ve8" secondAttribute="trailing" constant="-20" id="rXo-pb-my9"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="floatingActionButton" destination="hZ6-LT-ZeM" id="deD-rU-0mm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wAw-vw-HyH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
