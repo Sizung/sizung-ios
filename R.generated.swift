@@ -134,7 +134,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 19 images.
+  /// This `R.image` struct is generated, and contains static references to 20 images.
   struct image {
     /// Image `action`.
     static let action = ImageResource(bundle: _R.hostingBundle, name: "action")
@@ -148,6 +148,8 @@ struct R: Rswift.Validatable {
     static let agenda_title = ImageResource(bundle: _R.hostingBundle, name: "agenda_title")
     /// Image `attachment`.
     static let attachment = ImageResource(bundle: _R.hostingBundle, name: "attachment")
+    /// Image `attachment_large`.
+    static let attachment_large = ImageResource(bundle: _R.hostingBundle, name: "attachment_large")
     /// Image `bg_actions`.
     static let bg_actions = ImageResource(bundle: _R.hostingBundle, name: "bg_actions")
     /// Image `bg_priorities`.
@@ -203,6 +205,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "attachment", bundle: ..., traitCollection: ...)`
     static func attachment(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.attachment, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "attachment_large", bundle: ..., traitCollection: ...)`
+    static func attachment_large(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.attachment_large, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "bg_actions", bundle: ..., traitCollection: ...)`
@@ -281,10 +288,12 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 14 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 15 nibs.
   struct nib {
     /// Nib `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell = _R.nib._AgendaItemTableViewCell()
+    /// Nib `AttachmentTableViewCell`.
+    static let attachmentTableViewCell = _R.nib._AttachmentTableViewCell()
     /// Nib `AutoCompletionTableCell`.
     static let autoCompletionTableCell = _R.nib._AutoCompletionTableCell()
     /// Nib `CalendarViewController`.
@@ -315,6 +324,11 @@ struct R: Rswift.Validatable {
     /// `UINib(name: "AgendaItemTableViewCell", bundle: ...)`
     static func agendaItemTableViewCell(_: Void) -> UINib {
       return UINib(resource: R.nib.agendaItemTableViewCell)
+    }
+    
+    /// `UINib(name: "AttachmentTableViewCell", bundle: ...)`
+    static func attachmentTableViewCell(_: Void) -> UINib {
+      return UINib(resource: R.nib.attachmentTableViewCell)
     }
     
     /// `UINib(name: "AutoCompletionTableCell", bundle: ...)`
@@ -385,10 +399,12 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 11 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 12 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell: ReuseIdentifier<AgendaItemTableViewCell> = ReuseIdentifier(identifier: "AgendaItemTableViewCell")
+    /// Reuse identifier `attachmentTableViewCell`.
+    static let attachmentTableViewCell: ReuseIdentifier<AttachmentTableViewCell> = ReuseIdentifier(identifier: "attachmentTableViewCell")
     /// Reuse identifier `AutoCompletionTableCell`.
     static let autoCompletionTableCell: ReuseIdentifier<AutoCompletionTableCell> = ReuseIdentifier(identifier: "AutoCompletionTableCell")
     /// Reuse identifier `CommentTableViewCell`.
@@ -633,6 +649,20 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> AgendaItemTableViewCell? {
         return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? AgendaItemTableViewCell
+      }
+      
+      private init() {}
+    }
+    
+    struct _AttachmentTableViewCell: NibResourceType, ReuseIdentifierType {
+      typealias ReusableType = AttachmentTableViewCell
+      
+      let bundle = _R.hostingBundle
+      let identifier = "attachmentTableViewCell"
+      let name = "AttachmentTableViewCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> AttachmentTableViewCell? {
+        return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? AttachmentTableViewCell
       }
       
       private init() {}

@@ -41,7 +41,7 @@ class BaseModel: Mappable, Equatable, Hashable, DateSortable {
     updatedAt <- (map["attributes.updated_at"], ISODateTimeTransform())
   }
 
-//  polymorphic stuff
+  //  polymorphic stuff
   class func objectForMapping(map: Map) -> Mappable? {
     if let type: String = map["type"].value() {
       switch type {
@@ -57,6 +57,8 @@ class BaseModel: Mappable, Equatable, Hashable, DateSortable {
         return AgendaItem(map)
       case "unseen_objects":
         return UnseenObject(map)
+      case "attachments":
+        return Attachment(map)
       default:
         return nil
       }

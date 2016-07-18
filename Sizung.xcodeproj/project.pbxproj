@@ -38,6 +38,9 @@
 		5A68DC001D3CB68900687107 /* CreateAgendaItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A68DBFE1D3CB68900687107 /* CreateAgendaItemViewController.swift */; };
 		5A68DC031D3CD05400687107 /* CreateActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A68DC021D3CD05400687107 /* CreateActionViewController.swift */; };
 		5A68DC051D3CE40500687107 /* AssigneeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A68DC041D3CE40500687107 /* AssigneeSelectionViewController.swift */; };
+		5A68DC071D3D13C300687107 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A68DC061D3D13C300687107 /* Attachment.swift */; };
+		5A68DC0C1D3D158B00687107 /* AttachmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A68DC0A1D3D158B00687107 /* AttachmentTableViewCell.swift */; };
+		5A68DC0D1D3D158B00687107 /* AttachmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A68DC0B1D3D158B00687107 /* AttachmentTableViewCell.xib */; };
 		5A6D37101D1E7E0200F00B87 /* NewMessageSeparatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A6D370F1D1E7E0200F00B87 /* NewMessageSeparatorCell.xib */; };
 		5A6D37121D1E90DE00F00B87 /* DateSortable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6D37111D1E90DE00F00B87 /* DateSortable.swift */; };
 		5A7329EE1D058574006531A5 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7329ED1D058574006531A5 /* ConversationTableViewCell.swift */; };
@@ -187,6 +190,9 @@
 		5A68DBFE1D3CB68900687107 /* CreateAgendaItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAgendaItemViewController.swift; sourceTree = "<group>"; };
 		5A68DC021D3CD05400687107 /* CreateActionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateActionViewController.swift; sourceTree = "<group>"; };
 		5A68DC041D3CE40500687107 /* AssigneeSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssigneeSelectionViewController.swift; sourceTree = "<group>"; };
+		5A68DC061D3D13C300687107 /* Attachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
+		5A68DC0A1D3D158B00687107 /* AttachmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachmentTableViewCell.swift; sourceTree = "<group>"; };
+		5A68DC0B1D3D158B00687107 /* AttachmentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttachmentTableViewCell.xib; sourceTree = "<group>"; };
 		5A6D370F1D1E7E0200F00B87 /* NewMessageSeparatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewMessageSeparatorCell.xib; sourceTree = "<group>"; };
 		5A6D37111D1E90DE00F00B87 /* DateSortable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateSortable.swift; sourceTree = "<group>"; };
 		5A7329ED1D058574006531A5 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
@@ -521,6 +527,7 @@
 				5AD9F1B61CE9D0A100455D98 /* OrganzationMember.swift */,
 				5AD9F1B81CE9D3D700455D98 /* ConversationMember.swift */,
 				5AC0E5E71CF33C8300BBEF45 /* Comment.swift */,
+				5A68DC061D3D13C300687107 /* Attachment.swift */,
 				5ABA4FB81CFEB78B00110030 /* BaseModel.swift */,
 				5A304B3E1D184427009CBBAD /* UnseenObject.swift */,
 			);
@@ -646,6 +653,8 @@
 				5ADC882C1D104A3700596D67 /* TimelineAgendaItemTableViewCell.xib */,
 				5ADC88311D10505700596D67 /* TimelineDeliverableTableViewCell.swift */,
 				5ADC882E1D104C0A00596D67 /* TimelineDeliverableTableViewCell.xib */,
+				5A68DC0A1D3D158B00687107 /* AttachmentTableViewCell.swift */,
+				5A68DC0B1D3D158B00687107 /* AttachmentTableViewCell.xib */,
 			);
 			name = Timeline;
 			sourceTree = "<group>";
@@ -819,6 +828,7 @@
 				5A2E3C241D2E3A3900D4D3EA /* Conversation.storyboard in Resources */,
 				5AECC1D81D115CBD00AD8ACE /* AgendaItem.storyboard in Resources */,
 				5A9D0EED1D11BCAB00037589 /* StreamTableViewCell.xib in Resources */,
+				5A68DC0D1D3D158B00687107 /* AttachmentTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1068,7 +1078,9 @@
 				5ABACCE01D0AA82F0093CF21 /* ISODateTransform.swift in Sources */,
 				5ADC88321D10505700596D67 /* TimelineDeliverableTableViewCell.swift in Sources */,
 				5AF675CB1D3788AB008C813D /* ItemLoadingViewController.swift in Sources */,
+				5A68DC0C1D3D158B00687107 /* AttachmentTableViewCell.swift in Sources */,
 				5ADC88341D10508800596D67 /* TimelineAgendaItemTableViewCell.swift in Sources */,
+				5A68DC071D3D13C300687107 /* Attachment.swift in Sources */,
 				5A304B3F1D184427009CBBAD /* UnseenObject.swift in Sources */,
 				5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */,
 				5ABA4FBF1CFEC3B600110030 /* OrganizationViewController.swift in Sources */,
