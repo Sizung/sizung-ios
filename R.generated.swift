@@ -134,7 +134,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 16 images.
+  /// This `R.image` struct is generated, and contains static references to 17 images.
   struct image {
     /// Image `action`.
     static let action = ImageResource(bundle: _R.hostingBundle, name: "action")
@@ -142,6 +142,8 @@ struct R: Rswift.Validatable {
     static let actions_filter_all = ImageResource(bundle: _R.hostingBundle, name: "actions_filter_all")
     /// Image `actions_filter_mine`.
     static let actions_filter_mine = ImageResource(bundle: _R.hostingBundle, name: "actions_filter_mine")
+    /// Image `attachment`.
+    static let attachment = ImageResource(bundle: _R.hostingBundle, name: "attachment")
     /// Image `bg_actions`.
     static let bg_actions = ImageResource(bundle: _R.hostingBundle, name: "bg_actions")
     /// Image `bg_priorities`.
@@ -182,6 +184,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "actions_filter_mine", bundle: ..., traitCollection: ...)`
     static func actions_filter_mine(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.actions_filter_mine, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "attachment", bundle: ..., traitCollection: ...)`
+    static func attachment(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.attachment, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "bg_actions", bundle: ..., traitCollection: ...)`
@@ -766,16 +773,27 @@ struct _R: Rswift.Validatable {
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       try organization.validate()
+      try agendaItem.validate()
       try conversation.validate()
       try conversations.validate()
       try main.validate()
     }
     
-    struct agendaItem: StoryboardResourceWithInitialControllerType {
+    struct agendaItem: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = AgendaItemViewController
       
       let bundle = _R.hostingBundle
+      let create = StoryboardViewControllerResource<CreateAgendaItemViewController>(identifier: "create")
       let name = "AgendaItem"
+      
+      func create(_: Void) -> CreateAgendaItemViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(create)
+      }
+      
+      static func validate() throws {
+        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'AgendaItem', but couldn't be loaded.") }
+        if _R.storyboard.agendaItem().create() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'create' could not be loaded from storyboard 'AgendaItem' as 'CreateAgendaItemViewController'.") }
+      }
       
       private init() {}
     }

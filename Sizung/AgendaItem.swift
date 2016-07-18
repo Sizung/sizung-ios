@@ -16,6 +16,18 @@ class AgendaItem: BaseModel {
 
   var ownerId: String!
 
+  var new = false
+
+  init(conversationId: String) {
+    super.init(type: "agenda_items")
+    self.conversationId = conversationId
+    self.new = true
+  }
+
+  required init?(_ map: Map) {
+    super.init(map)
+  }
+
   func setCompleted() {
     self.status = "resolved"
   }

@@ -18,7 +18,6 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
 
   @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var groupsButton: UIButton!
-  @IBOutlet weak var floatingActionButton: KCFloatingActionButton!
 
   var groupsBadgeView = GIBadgeView()
 
@@ -52,8 +51,6 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
 
     UIApplication.sharedApplication().statusBarStyle = .LightContent
 
-    self.initFloatingActionButton()
-
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         // load conversation
@@ -64,47 +61,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
         self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
     }
   }
-
-  func initFloatingActionButton() {
-
-    let priorityItem = KCFloatingActionButtonItem()
-    priorityItem.buttonColor = Color.TODISCUSS
-    priorityItem.title = "PRIORITY"
-    priorityItem.icon = R.image.priority()
-    priorityItem.iconImageView.tintColor = UIColor.whiteColor()
-    priorityItem.iconImageView.contentMode = .ScaleAspectFit
-    priorityItem.handler = addItem
-    self.floatingActionButton.addItem(item: priorityItem)
-
-    let groupItem = KCFloatingActionButtonItem()
-    groupItem.buttonColor = Color.STREAM
-    groupItem.title = "GROUP"
-    groupItem.icon = R.image.group()
-    groupItem.iconImageView.tintColor = UIColor.whiteColor()
-    groupItem.iconImageView.contentMode = .ScaleAspectFit
-    groupItem.handler = createConversation
-    self.floatingActionButton.addItem(item: groupItem)
-
-    let deliverableItem = KCFloatingActionButtonItem()
-    deliverableItem.buttonColor = Color.TODO
-    deliverableItem.title = "TASK"
-    deliverableItem.icon = R.image.action()
-    deliverableItem.iconImageView.tintColor = UIColor.whiteColor()
-    deliverableItem.iconImageView.contentMode = .ScaleAspectFit
-    deliverableItem.handler = addItem
-    self.floatingActionButton.addItem(item: deliverableItem)
-
-  }
-
-  func createConversation(buttonItem: KCFloatingActionButtonItem) {
-    let createConversationViewController = R.storyboard.conversations.create()!
-    self.showViewController(createConversationViewController, sender: self)
-  }
-
-  func addItem(buttonItem: KCFloatingActionButtonItem) {
-    print("add \(buttonItem.title)")
-  }
-
+  
   func calculateUnseenConversations() -> Int {
     var unseenConversationSet = Set<String>()
     StorageManager.sharedInstance.unseenObjects.collection.forEach { unseenObject in

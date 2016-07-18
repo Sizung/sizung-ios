@@ -10,6 +10,8 @@ import UIKit
 
 struct Color {
   static let SIZUNG = UIColor(red:0.47, green:0.80, blue:0.93, alpha:1)
+  static let ADDBUTTON = UIColor(red:0.56, green:0.48, blue:0.40, alpha:1.0)
+  static let ATTACHMENT = UIColor(red:0.14, green:0.69, blue:0.66, alpha:1.0)
   static let TODISCUSS = UIColor(red: 0, green: 0.32, blue: 0.3, alpha: 1)
   static let TEAM = UIColor(red: 0.82, green: 0.53, blue: 0.24, alpha: 1)
   static let STREAM = TEAM

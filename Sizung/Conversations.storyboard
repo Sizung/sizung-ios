@@ -33,8 +33,8 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HnZ-m2-39P" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
-                                        <rect key="frame" x="548" y="8" width="44" height="44"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HnZ-m2-39P" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                                        <rect key="frame" x="560" y="14" width="32" height="32"/>
                                         <color key="tintColor" red="0.086274512110000007" green="0.086274512110000007" blue="0.094117648900000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="close"/>
                                         <connections>
@@ -109,14 +109,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxt-fv-BXm">
                                 <rect key="frame" x="0.0" y="20" width="600" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="New Conversation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjd-zW-dNY">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Conversation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjd-zW-dNY">
                                         <rect key="frame" x="19" y="17" width="123" height="25"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <color key="textColor" red="0.82352941176470584" green="0.52941176470588236" blue="0.23921568627450979" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDa-xs-bEE" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
-                                        <rect key="frame" x="548" y="8" width="44" height="44"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDa-xs-bEE" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                                        <rect key="frame" x="560" y="14" width="32" height="32"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="close"/>
                                         <connections>
@@ -124,8 +124,8 @@
                                             <action selector="hideGroups:" destination="qfi-7F-tZq" eventType="touchUpInside" id="UXc-LN-zaR"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yee-h3-xTD">
-                                        <rect key="frame" x="504" y="15" width="34" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yee-h3-xTD">
+                                        <rect key="frame" x="516" y="15" width="34" height="30"/>
                                         <state key="normal" title="Save">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -148,7 +148,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bV8-Bl-B4G">
                                 <rect key="frame" x="0.0" y="80" width="600" height="60"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a new conversation name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0OH-yE-3kS">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a new conversation name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0OH-yE-3kS">
                                         <rect key="frame" x="20" y="18" width="560" height="25"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -197,16 +197,6 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kin-uQ-IfM">
                                         <rect key="frame" x="0.0" y="78" width="600" height="382"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="oMy-D1-7QB" customClass="MemberTableViewCell">
-                                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oMy-D1-7QB" id="V3p-ZB-hfo">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </tableViewCellContentView>
-                                            </tableViewCell>
-                                        </prototypes>
                                         <connections>
                                             <outlet property="dataSource" destination="JUQ-KH-sRP" id="RDf-HS-Lg4"/>
                                             <outlet property="delegate" destination="JUQ-KH-sRP" id="ISl-oH-OIF"/>
@@ -231,11 +221,11 @@
                             <constraint firstAttribute="trailing" secondItem="doH-ar-Lp3" secondAttribute="trailing" id="AkO-7r-MOL"/>
                             <constraint firstItem="bV8-Bl-B4G" firstAttribute="leading" secondItem="BK0-zy-JDl" secondAttribute="leading" id="BZy-Xz-6E6"/>
                             <constraint firstItem="fxt-fv-BXm" firstAttribute="leading" secondItem="BK0-zy-JDl" secondAttribute="leading" id="FhV-xB-wFt"/>
-                            <constraint firstItem="fxt-fv-BXm" firstAttribute="top" secondItem="8Zm-GT-7Ew" secondAttribute="bottom" id="Oj8-bU-5gi"/>
                             <constraint firstAttribute="trailing" secondItem="bV8-Bl-B4G" secondAttribute="trailing" id="On9-uJ-vyf"/>
-                            <constraint firstItem="QcG-uu-JbA" firstAttribute="top" secondItem="doH-ar-Lp3" secondAttribute="bottom" id="Us4-7D-JQC"/>
+                            <constraint firstItem="QcG-uu-JbA" firstAttribute="top" secondItem="doH-ar-Lp3" secondAttribute="bottom" id="abe-6p-dtc"/>
                             <constraint firstItem="doH-ar-Lp3" firstAttribute="leading" secondItem="BK0-zy-JDl" secondAttribute="leading" id="bpe-YJ-Vwt"/>
                             <constraint firstItem="bV8-Bl-B4G" firstAttribute="top" secondItem="fxt-fv-BXm" secondAttribute="bottom" id="e6f-PU-mtI"/>
+                            <constraint firstItem="fxt-fv-BXm" firstAttribute="top" secondItem="8Zm-GT-7Ew" secondAttribute="bottom" id="j6r-X4-qJh"/>
                             <constraint firstAttribute="trailing" secondItem="fxt-fv-BXm" secondAttribute="trailing" id="n8B-eG-sBZ"/>
                         </constraints>
                     </view>

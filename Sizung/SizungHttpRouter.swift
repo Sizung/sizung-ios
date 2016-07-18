@@ -26,7 +26,9 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Comments(comment: Comment)
   case UnseenObjects(userId: String)
   case DeleteUnseenObjects(type: String, id: String)
+  case CreateDeliverable(deliverable: Sizung.Deliverable)
   case UpdateDeliverable(deliverable: Sizung.Deliverable)
+  case CreateAgendaItem(agendaItem: Sizung.AgendaItem)
   case UpdateAgendaItem(agendaItem: Sizung.AgendaItem)
 
 
@@ -35,7 +37,9 @@ enum SizungHttpRouter: URLRequestConvertible {
     case .Login,
          .RegisterDevice,
          .Comments,
-         .CreateConversation:
+         .CreateConversation,
+         .CreateAgendaItem,
+         .CreateDeliverable:
       return .POST
     case .UpdateDeliverable,
          .UpdateAgendaItem,
@@ -68,10 +72,14 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/conversations/\(id)"
     case .AgendaItem(let id):
       return "/agenda_items/\(id)"
+    case .CreateAgendaItem:
+      return "/agenda_items"
     case .UpdateAgendaItem(let agendaItem):
       return "/agenda_items/\(agendaItem.id)"
     case .Deliverable(let id):
       return "/deliverables/\(id)"
+    case .CreateDeliverable(let deliverable):
+      return "/deliverables/\(deliverable.id)"
     case .UpdateDeliverable(let deliverable):
       return "/deliverables/\(deliverable.id)"
     case .ConversationObjects(let conversation as Sizung.Conversation, _):
@@ -135,9 +143,15 @@ enum SizungHttpRouter: URLRequestConvertible {
       ]
 
     case .UpdateConversation(let conversation):
+      let members = conversation.members.map {user in
+        return [
+          "id": user.id,
+          "type": "users"
+        ]
+      }
       return [
         "conversation": [
-          "conversation_members": conversation.members,
+          "conversation_members": members,
           "organization_id": conversation.organizationId,
           "title": conversation.title
         ]
@@ -153,6 +167,28 @@ enum SizungHttpRouter: URLRequestConvertible {
           "body": comment.body
         ]
       ]
+    case .CreateDeliverable(let deliverable):
+      var deliverableJSON: Dictionary<String, AnyObject> = [
+        "assignee_id": deliverable.assigneeId,
+        "title": deliverable.title
+      ]
+
+      switch deliverable {
+      case let agendaItemDeliverable as AgendaItemDeliverable:
+        deliverableJSON["parent_id"] = agendaItemDeliverable.agendaItemId
+        deliverableJSON["parent_type"] = "AgendaItem"
+      default:
+        deliverableJSON["parent_id"] = deliverable.parentId
+        deliverableJSON["parent_type"] = "Conversation"
+      }
+
+      let dateString = ISODateTransform().transformToJSON(deliverable.dueOn)
+      deliverableJSON["due_on"] = dateString
+
+      return [
+        "deliverable": deliverableJSON
+      ]
+
     case .UpdateDeliverable(let deliverable):
 
       var deliverableJSON: Dictionary<String, AnyObject> = [
@@ -165,6 +201,13 @@ enum SizungHttpRouter: URLRequestConvertible {
 
       return [
         "deliverable": deliverableJSON
+      ]
+    case .CreateAgendaItem(let agendaItem):
+      return [
+        "agenda_item": [
+          "conversation_id": agendaItem.conversationId,
+          "title": agendaItem.title
+        ]
       ]
     case .UpdateAgendaItem(let agendaItem):
 
@@ -209,7 +252,9 @@ enum SizungHttpRouter: URLRequestConvertible {
     switch self {
     case .Login,
          .RegisterDevice,
+         .CreateDeliverable,
          .UpdateDeliverable,
+         .CreateAgendaItem,
          .UpdateAgendaItem,
          .CreateConversation,
          .UpdateConversation,
