@@ -121,7 +121,6 @@
                                         <state key="normal" image="close"/>
                                         <connections>
                                             <action selector="close:" destination="JUQ-KH-sRP" eventType="touchUpInside" id="LCm-nq-vjs"/>
-                                            <action selector="hideGroups:" destination="qfi-7F-tZq" eventType="touchUpInside" id="UXc-LN-zaR"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yee-h3-xTD">
