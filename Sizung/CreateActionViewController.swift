@@ -33,7 +33,10 @@ class CreateActionViewController: UIViewController, UITextFieldDelegate, ActionC
 
         self.assignee = user
 
-        self.createActionContentViewController?.updateAssignee(user)
+        self.createActionContentViewController!.updateAssignee(user)
+
+        let conversation = storageManager.conversations[self.getConversationId()]!
+        self.createActionContentViewController!.conversation = conversation
     }
 
     actionNameTextField.becomeFirstResponder()
@@ -104,6 +107,15 @@ class CreateActionViewController: UIViewController, UITextFieldDelegate, ActionC
     }
   }
 
+  func getConversationId() -> String {
+    switch parent {
+    case is AgendaItem:
+      return storageManager!.agendaItems[parent!.id]!.conversationId
+    default:
+      return parent!.id
+    }
+
+  }
 
   func dueDateChanged(dueDate: NSDate) {
     self.dueDate = dueDate
@@ -114,10 +126,11 @@ class CreateActionViewController: UIViewController, UITextFieldDelegate, ActionC
   }
 }
 
-class CreateActionContentViewController: UIViewController, CalendarViewDelegate, UIPopoverPresentationControllerDelegate {
+class CreateActionContentViewController: UIViewController, CalendarViewDelegate, AssigneeSelectedDelegate, UIPopoverPresentationControllerDelegate {
 
   var assignee: User?
   var dueDate: NSDate?
+  var conversation: Conversation?
 
   var delegate: ActionContentDelegate?
 
@@ -166,7 +179,6 @@ class CreateActionContentViewController: UIViewController, CalendarViewDelegate,
       title = formatter.stringFromDate(dueDate)
     }
     self.dueDateButton.setTitle(title, forState: .Normal)
-
   }
 
   @IBAction func showDatePicker(sender: UIButton) {
@@ -186,6 +198,20 @@ class CreateActionContentViewController: UIViewController, CalendarViewDelegate,
   func didSelectDate(date: NSDate) {
     self.updateDueDate(date)
     delegate?.dueDateChanged(date)
+  }
+
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if let typedInfo = R.segue.createActionContentViewController.pickAssignee(segue: segue) {
+      let assigneeSelctionViewController = typedInfo.destinationViewController
+      assigneeSelctionViewController.delegate = self
+      assigneeSelctionViewController.conversation = self.conversation
+    }
+  }
+
+  func assigneeSelected(assignee: User) {
+    self.navigationController?.popViewControllerAnimated(true)
+    updateAssignee(assignee)
+    delegate?.assigneeChanged(assignee)
   }
 }
 

@@ -413,7 +413,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.segue` struct is generated, and contains static references to 7 view controllers.
+  /// This `R.segue` struct is generated, and contains static references to 8 view controllers.
   struct segue {
     /// This struct is generated for `AgendaItemViewController`, and contains static references to 1 segues.
     struct agendaItemViewController {
@@ -455,6 +455,21 @@ struct R: Rswift.Validatable {
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
       static func embedNavController(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, ConversationViewController, UINavigationController>? {
         return TypedStoryboardSegueInfo(segueIdentifier: R.segue.conversationViewController.embedNavController, segue: segue)
+      }
+      
+      private init() {}
+    }
+    
+    /// This struct is generated for `CreateActionContentViewController`, and contains static references to 1 segues.
+    struct createActionContentViewController {
+      /// Segue identifier `pickAssignee`.
+      static let pickAssignee: StoryboardSegueIdentifier<UIStoryboardSegue, CreateActionContentViewController, AssigneeSelectionViewController> = StoryboardSegueIdentifier(identifier: "pickAssignee")
+      
+      /// Optionally returns a typed version of segue `pickAssignee`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      static func pickAssignee(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, CreateActionContentViewController, AssigneeSelectionViewController>? {
+        return TypedStoryboardSegueInfo(segueIdentifier: R.segue.createActionContentViewController.pickAssignee, segue: segue)
       }
       
       private init() {}
@@ -896,16 +911,22 @@ struct _R: Rswift.Validatable {
       
       let bundle = _R.hostingBundle
       let create = StoryboardViewControllerResource<CreateActionViewController>(identifier: "create")
+      let createActionContentViewController = StoryboardViewControllerResource<CreateActionContentViewController>(identifier: "CreateActionContentViewController")
       let name = "Deliverable"
       
       func create(_: Void) -> CreateActionViewController? {
         return UIStoryboard(resource: self).instantiateViewController(create)
       }
       
+      func createActionContentViewController(_: Void) -> CreateActionContentViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(createActionContentViewController)
+      }
+      
       static func validate() throws {
         if UIImage(named: "action_title") == nil { throw ValidationError(description: "[R.swift] Image named 'action_title' is used in storyboard 'Deliverable', but couldn't be loaded.") }
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Deliverable', but couldn't be loaded.") }
         if _R.storyboard.deliverable().create() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'create' could not be loaded from storyboard 'Deliverable' as 'CreateActionViewController'.") }
+        if _R.storyboard.deliverable().createActionContentViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'createActionContentViewController' could not be loaded from storyboard 'Deliverable' as 'CreateActionContentViewController'.") }
       }
       
       private init() {}

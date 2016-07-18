@@ -283,7 +283,7 @@
         <!--Create Action Content View Controller-->
         <scene sceneID="8fM-kN-Sma">
             <objects>
-                <viewController id="LEx-6Z-Q6n" customClass="CreateActionContentViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateActionContentViewController" id="LEx-6Z-Q6n" customClass="CreateActionContentViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HYm-0K-tGl"/>
                         <viewControllerLayoutGuide type="bottom" id="29D-wr-YKb"/>
@@ -306,6 +306,9 @@
                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="AssigneeButton"/>
+                                <connections>
+                                    <segue destination="J4Q-ux-Nft" kind="show" identifier="pickAssignee" id="URG-SP-f2u"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0nr-mF-IZu" customClass="AvatarImageView" customModule="Sizung" customModuleProvider="target">
                                 <rect key="frame" x="20" y="53" width="30" height="30"/>
@@ -364,6 +367,76 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FIl-ha-3cd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1611" y="1044"/>
+        </scene>
+        <!--Assignee Selection View Controller-->
+        <scene sceneID="8uT-y7-t9W">
+            <objects>
+                <viewController id="J4Q-ux-Nft" customClass="AssigneeSelectionViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="W6R-ZM-lWO"/>
+                        <viewControllerLayoutGuide type="bottom" id="fif-zD-Gj5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vNw-CY-9eo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="puB-r8-SZM">
+                                <rect key="frame" x="20" y="20" width="560" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iTN-WT-sVG">
+                                        <rect key="frame" x="15" y="17" width="530" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="KO0-Le-Hbb"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="KO0-Le-Hbb"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="addMemberFieldChanged:" destination="J4Q-ux-Nft" eventType="editingChanged" id="pGE-Ps-PDR"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="iTN-WT-sVG" firstAttribute="leading" secondItem="puB-r8-SZM" secondAttribute="leading" constant="15" id="6hI-kt-Sfh"/>
+                                    <constraint firstAttribute="trailing" secondItem="iTN-WT-sVG" secondAttribute="trailing" constant="15" id="bF3-JC-aRG"/>
+                                    <constraint firstItem="iTN-WT-sVG" firstAttribute="centerY" secondItem="puB-r8-SZM" secondAttribute="centerY" id="c0c-99-kLG"/>
+                                    <constraint firstAttribute="height" constant="50" id="yLw-zU-F4r"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4T8-7H-ElR">
+                                <rect key="frame" x="0.0" y="78" width="600" height="382"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="J4Q-ux-Nft" id="a9D-Pu-t46"/>
+                                    <outlet property="delegate" destination="J4Q-ux-Nft" id="ckp-4f-PBU"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="puB-r8-SZM" secondAttribute="trailing" constant="20" id="5Do-ZL-xnQ"/>
+                            <constraint firstAttribute="bottom" secondItem="4T8-7H-ElR" secondAttribute="bottom" id="6Ke-rZ-8SM"/>
+                            <constraint firstItem="puB-r8-SZM" firstAttribute="leading" secondItem="vNw-CY-9eo" secondAttribute="leading" constant="20" id="EOL-sI-2kz"/>
+                            <constraint firstItem="4T8-7H-ElR" firstAttribute="leading" secondItem="vNw-CY-9eo" secondAttribute="leading" id="PiR-ej-Let"/>
+                            <constraint firstItem="4T8-7H-ElR" firstAttribute="top" secondItem="puB-r8-SZM" secondAttribute="bottom" constant="8" id="hmL-zS-mDa"/>
+                            <constraint firstItem="puB-r8-SZM" firstAttribute="top" secondItem="vNw-CY-9eo" secondAttribute="top" constant="20" id="ucw-d1-xha"/>
+                            <constraint firstAttribute="trailing" secondItem="4T8-7H-ElR" secondAttribute="trailing" id="vEE-sy-y9K"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="searchContainer" destination="puB-r8-SZM" id="aqg-UL-xha"/>
+                        <outlet property="searchField" destination="iTN-WT-sVG" id="h2p-Yp-BaH"/>
+                        <outlet property="tableView" destination="4T8-7H-ElR" id="Gf7-Ja-AR3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JKu-Lw-E6V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2267" y="1067"/>
         </scene>
     </scenes>
     <resources>

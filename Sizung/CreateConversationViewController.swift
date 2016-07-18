@@ -157,7 +157,6 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
   }
 
   func textFieldShouldReturn(textField: UITextField) -> Bool {
-    print("add")
     filterString = nil
     textField.text = ""
     return false
