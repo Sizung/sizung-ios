@@ -14,6 +14,8 @@
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
         </mutableArray>
         <mutableArray key="Brandon_reg.otf">
             <string>BrandonText-Regular</string>
@@ -290,14 +292,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aBG-JJ-YsW">
+                                <rect key="frame" x="500" y="50" width="80" height="37"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="DateButton"/>
+                                <connections>
+                                    <action selector="showDatePicker:" destination="LEx-6Z-Q6n" eventType="touchUpInside" id="UG2-AW-7oB"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IMC-dc-rnz">
-                                <rect key="frame" x="58" y="19" width="88" height="33"/>
-                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="14"/>
+                                <rect key="frame" x="58" y="50" width="106" height="37"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="AssigneeButton"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0nr-mF-IZu" customClass="AvatarImageView" customModule="Sizung" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="30" height="30"/>
+                                <rect key="frame" x="20" y="53" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="I3e-QY-1oJ"/>
                                     <constraint firstAttribute="height" constant="30" id="rUb-nk-aqT"/>
@@ -307,26 +318,41 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aBG-JJ-YsW">
-                                <rect key="frame" x="514" y="20" width="66" height="33"/>
-                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="14"/>
-                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="DateButton"/>
-                                <connections>
-                                    <action selector="showDatePicker:" destination="LEx-6Z-Q6n" eventType="touchUpInside" id="UG2-AW-7oB"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due on:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3R-As-FDZ">
+                                <rect key="frame" x="500" y="20" width="54" height="25"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assign to:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQS-Zi-3yj">
+                                <rect key="frame" x="20" y="20" width="66" height="25"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="IMC-dc-rnz" firstAttribute="top" secondItem="HYm-0K-tGl" secondAttribute="bottom" constant="19" id="EM2-hK-xaY"/>
+                            <constraint firstItem="x3R-As-FDZ" firstAttribute="centerY" secondItem="AQS-Zi-3yj" secondAttribute="centerY" id="A40-td-yyG"/>
+                            <constraint firstItem="AQS-Zi-3yj" firstAttribute="leading" secondItem="Onz-ze-Wb9" secondAttribute="leading" constant="20" id="C0m-qk-ysi"/>
+                            <constraint firstItem="aBG-JJ-YsW" firstAttribute="leading" secondItem="x3R-As-FDZ" secondAttribute="leading" id="GKh-yf-3r0"/>
+                            <constraint firstItem="0nr-mF-IZu" firstAttribute="top" secondItem="AQS-Zi-3yj" secondAttribute="bottom" constant="8" id="Hcd-mK-xUP"/>
                             <constraint firstItem="0nr-mF-IZu" firstAttribute="leading" secondItem="Onz-ze-Wb9" secondAttribute="leading" constant="20" id="QEs-Aa-d2V"/>
-                            <constraint firstItem="aBG-JJ-YsW" firstAttribute="top" secondItem="HYm-0K-tGl" secondAttribute="bottom" constant="20" id="Wx4-Bo-HKM"/>
+                            <constraint firstItem="0nr-mF-IZu" firstAttribute="leading" secondItem="AQS-Zi-3yj" secondAttribute="leading" id="XXn-VK-AdS"/>
+                            <constraint firstItem="AQS-Zi-3yj" firstAttribute="top" secondItem="HYm-0K-tGl" secondAttribute="bottom" constant="20" id="YaA-PF-asp"/>
                             <constraint firstAttribute="trailing" secondItem="aBG-JJ-YsW" secondAttribute="trailing" constant="20" id="Z7q-mL-xZH"/>
+                            <constraint firstItem="IMC-dc-rnz" firstAttribute="centerY" secondItem="0nr-mF-IZu" secondAttribute="centerY" id="bVr-z3-pEh"/>
+                            <constraint firstItem="aBG-JJ-YsW" firstAttribute="centerY" secondItem="IMC-dc-rnz" secondAttribute="centerY" id="gDE-Fo-0OW"/>
                             <constraint firstItem="IMC-dc-rnz" firstAttribute="leading" secondItem="0nr-mF-IZu" secondAttribute="trailing" constant="8" id="gV1-7k-b8k"/>
                             <constraint firstItem="aBG-JJ-YsW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IMC-dc-rnz" secondAttribute="trailing" constant="20" id="ole-vB-pB7"/>
                             <constraint firstItem="0nr-mF-IZu" firstAttribute="top" secondItem="HYm-0K-tGl" secondAttribute="bottom" constant="20" id="qLT-MF-TPw"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="QEs-Aa-d2V"/>
+                                <exclude reference="qLT-MF-TPw"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="0SU-Bp-rUJ"/>
                     <connections>
