@@ -134,14 +134,20 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 15 images.
+  /// This `R.image` struct is generated, and contains static references to 19 images.
   struct image {
     /// Image `action`.
     static let action = ImageResource(bundle: _R.hostingBundle, name: "action")
+    /// Image `action_title`.
+    static let action_title = ImageResource(bundle: _R.hostingBundle, name: "action_title")
     /// Image `actions_filter_all`.
     static let actions_filter_all = ImageResource(bundle: _R.hostingBundle, name: "actions_filter_all")
     /// Image `actions_filter_mine`.
     static let actions_filter_mine = ImageResource(bundle: _R.hostingBundle, name: "actions_filter_mine")
+    /// Image `agenda_title`.
+    static let agenda_title = ImageResource(bundle: _R.hostingBundle, name: "agenda_title")
+    /// Image `attachment`.
+    static let attachment = ImageResource(bundle: _R.hostingBundle, name: "attachment")
     /// Image `bg_actions`.
     static let bg_actions = ImageResource(bundle: _R.hostingBundle, name: "bg_actions")
     /// Image `bg_priorities`.
@@ -150,6 +156,8 @@ struct R: Rswift.Validatable {
     static let close = ImageResource(bundle: _R.hostingBundle, name: "close")
     /// Image `default_avatar`.
     static let default_avatar = ImageResource(bundle: _R.hostingBundle, name: "default_avatar")
+    /// Image `delete`.
+    static let delete = ImageResource(bundle: _R.hostingBundle, name: "delete")
     /// Image `group`.
     static let group = ImageResource(bundle: _R.hostingBundle, name: "group")
     /// Image `group_list`.
@@ -172,6 +180,11 @@ struct R: Rswift.Validatable {
       return UIImage(resource: R.image.action, compatibleWithTraitCollection: traitCollection)
     }
     
+    /// `UIImage(named: "action_title", bundle: ..., traitCollection: ...)`
+    static func action_title(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.action_title, compatibleWithTraitCollection: traitCollection)
+    }
+    
     /// `UIImage(named: "actions_filter_all", bundle: ..., traitCollection: ...)`
     static func actions_filter_all(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.actions_filter_all, compatibleWithTraitCollection: traitCollection)
@@ -180,6 +193,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "actions_filter_mine", bundle: ..., traitCollection: ...)`
     static func actions_filter_mine(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.actions_filter_mine, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "agenda_title", bundle: ..., traitCollection: ...)`
+    static func agenda_title(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.agenda_title, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "attachment", bundle: ..., traitCollection: ...)`
+    static func attachment(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.attachment, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "bg_actions", bundle: ..., traitCollection: ...)`
@@ -200,6 +223,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "default_avatar", bundle: ..., traitCollection: ...)`
     static func default_avatar(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.default_avatar, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "delete", bundle: ..., traitCollection: ...)`
+    static func delete(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.delete, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "group", bundle: ..., traitCollection: ...)`
@@ -253,7 +281,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 13 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 14 nibs.
   struct nib {
     /// Nib `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell = _R.nib._AgendaItemTableViewCell()
@@ -269,6 +297,8 @@ struct R: Rswift.Validatable {
     static let deliverableTableViewCell = _R.nib._DeliverableTableViewCell()
     /// Nib `ItemLoadingViewController`.
     static let itemLoadingViewController = _R.nib._ItemLoadingViewController()
+    /// Nib `MemberTableViewCell`.
+    static let memberTableViewCell = _R.nib._MemberTableViewCell()
     /// Nib `NewMessageSeparatorCell`.
     static let newMessageSeparatorCell = _R.nib._NewMessageSeparatorCell()
     /// Nib `OrganizationTableViewCell`.
@@ -317,6 +347,11 @@ struct R: Rswift.Validatable {
       return UINib(resource: R.nib.itemLoadingViewController)
     }
     
+    /// `UINib(name: "MemberTableViewCell", bundle: ...)`
+    static func memberTableViewCell(_: Void) -> UINib {
+      return UINib(resource: R.nib.memberTableViewCell)
+    }
+    
     /// `UINib(name: "NewMessageSeparatorCell", bundle: ...)`
     static func newMessageSeparatorCell(_: Void) -> UINib {
       return UINib(resource: R.nib.newMessageSeparatorCell)
@@ -350,7 +385,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 10 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 11 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell: ReuseIdentifier<AgendaItemTableViewCell> = ReuseIdentifier(identifier: "AgendaItemTableViewCell")
@@ -362,6 +397,8 @@ struct R: Rswift.Validatable {
     static let conversationTableViewCell: ReuseIdentifier<ConversationTableViewCell> = ReuseIdentifier(identifier: "ConversationTableViewCell")
     /// Reuse identifier `DeliverableTableViewCell`.
     static let deliverableTableViewCell: ReuseIdentifier<DeliverableTableViewCell> = ReuseIdentifier(identifier: "DeliverableTableViewCell")
+    /// Reuse identifier `MemberTableViewCell`.
+    static let memberTableViewCell: ReuseIdentifier<MemberTableViewCell> = ReuseIdentifier(identifier: "MemberTableViewCell")
     /// Reuse identifier `NewMessageSeparatorCell`.
     static let newMessageSeparatorCell: ReuseIdentifier<UITableViewCell> = ReuseIdentifier(identifier: "NewMessageSeparatorCell")
     /// Reuse identifier `OrganizationTableViewCell`.
@@ -376,7 +413,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.segue` struct is generated, and contains static references to 6 view controllers.
+  /// This `R.segue` struct is generated, and contains static references to 8 view controllers.
   struct segue {
     /// This struct is generated for `AgendaItemViewController`, and contains static references to 1 segues.
     struct agendaItemViewController {
@@ -418,6 +455,36 @@ struct R: Rswift.Validatable {
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
       static func embedNavController(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, ConversationViewController, UINavigationController>? {
         return TypedStoryboardSegueInfo(segueIdentifier: R.segue.conversationViewController.embedNavController, segue: segue)
+      }
+      
+      private init() {}
+    }
+    
+    /// This struct is generated for `CreateActionContentViewController`, and contains static references to 1 segues.
+    struct createActionContentViewController {
+      /// Segue identifier `pickAssignee`.
+      static let pickAssignee: StoryboardSegueIdentifier<UIStoryboardSegue, CreateActionContentViewController, AssigneeSelectionViewController> = StoryboardSegueIdentifier(identifier: "pickAssignee")
+      
+      /// Optionally returns a typed version of segue `pickAssignee`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      static func pickAssignee(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, CreateActionContentViewController, AssigneeSelectionViewController>? {
+        return TypedStoryboardSegueInfo(segueIdentifier: R.segue.createActionContentViewController.pickAssignee, segue: segue)
+      }
+      
+      private init() {}
+    }
+    
+    /// This struct is generated for `CreateActionViewController`, and contains static references to 1 segues.
+    struct createActionViewController {
+      /// Segue identifier `embed`.
+      static let embed: StoryboardSegueIdentifier<UIStoryboardSegue, CreateActionViewController, UINavigationController> = StoryboardSegueIdentifier(identifier: "embed")
+      
+      /// Optionally returns a typed version of segue `embed`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      static func embed(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, CreateActionViewController, UINavigationController>? {
+        return TypedStoryboardSegueInfo(segueIdentifier: R.segue.createActionViewController.embed, segue: segue)
       }
       
       private init() {}
@@ -649,6 +716,20 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
+    struct _MemberTableViewCell: NibResourceType, ReuseIdentifierType {
+      typealias ReusableType = MemberTableViewCell
+      
+      let bundle = _R.hostingBundle
+      let identifier = "MemberTableViewCell"
+      let name = "MemberTableViewCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> MemberTableViewCell? {
+        return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? MemberTableViewCell
+      }
+      
+      private init() {}
+    }
+    
     struct _NewMessageSeparatorCell: NibResourceType, ReuseIdentifierType {
       typealias ReusableType = UITableViewCell
       
@@ -735,17 +816,30 @@ struct _R: Rswift.Validatable {
   
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
+      try deliverable.validate()
       try organization.validate()
+      try agendaItem.validate()
       try conversation.validate()
       try conversations.validate()
       try main.validate()
     }
     
-    struct agendaItem: StoryboardResourceWithInitialControllerType {
+    struct agendaItem: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = AgendaItemViewController
       
       let bundle = _R.hostingBundle
+      let create = StoryboardViewControllerResource<CreateAgendaItemViewController>(identifier: "create")
       let name = "AgendaItem"
+      
+      func create(_: Void) -> CreateAgendaItemViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(create)
+      }
+      
+      static func validate() throws {
+        if UIImage(named: "agenda_title") == nil { throw ValidationError(description: "[R.swift] Image named 'agenda_title' is used in storyboard 'AgendaItem', but couldn't be loaded.") }
+        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'AgendaItem', but couldn't be loaded.") }
+        if _R.storyboard.agendaItem().create() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'create' could not be loaded from storyboard 'AgendaItem' as 'CreateAgendaItemViewController'.") }
+      }
       
       private init() {}
     }
@@ -788,29 +882,52 @@ struct _R: Rswift.Validatable {
     }
     
     struct conversations: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = UIViewController
+      typealias InitialController = ConversationsViewController
       
       let bundle = _R.hostingBundle
       let conversationsTableViewController = StoryboardViewControllerResource<ConversationsTableViewController>(identifier: "ConversationsTableViewController")
+      let create = StoryboardViewControllerResource<CreateConversationViewController>(identifier: "create")
       let name = "Conversations"
       
       func conversationsTableViewController(_: Void) -> ConversationsTableViewController? {
         return UIStoryboard(resource: self).instantiateViewController(conversationsTableViewController)
       }
       
+      func create(_: Void) -> CreateConversationViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(create)
+      }
+      
       static func validate() throws {
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Conversations', but couldn't be loaded.") }
+        if _R.storyboard.conversations().create() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'create' could not be loaded from storyboard 'Conversations' as 'CreateConversationViewController'.") }
         if _R.storyboard.conversations().conversationsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'conversationsTableViewController' could not be loaded from storyboard 'Conversations' as 'ConversationsTableViewController'.") }
       }
       
       private init() {}
     }
     
-    struct deliverable: StoryboardResourceWithInitialControllerType {
+    struct deliverable: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = DeliverableViewController
       
       let bundle = _R.hostingBundle
+      let create = StoryboardViewControllerResource<CreateActionViewController>(identifier: "create")
+      let createActionContentViewController = StoryboardViewControllerResource<CreateActionContentViewController>(identifier: "CreateActionContentViewController")
       let name = "Deliverable"
+      
+      func create(_: Void) -> CreateActionViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(create)
+      }
+      
+      func createActionContentViewController(_: Void) -> CreateActionContentViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(createActionContentViewController)
+      }
+      
+      static func validate() throws {
+        if UIImage(named: "action_title") == nil { throw ValidationError(description: "[R.swift] Image named 'action_title' is used in storyboard 'Deliverable', but couldn't be loaded.") }
+        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Deliverable', but couldn't be loaded.") }
+        if _R.storyboard.deliverable().create() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'create' could not be loaded from storyboard 'Deliverable' as 'CreateActionViewController'.") }
+        if _R.storyboard.deliverable().createActionContentViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'createActionContentViewController' could not be loaded from storyboard 'Deliverable' as 'CreateActionContentViewController'.") }
+      }
       
       private init() {}
     }

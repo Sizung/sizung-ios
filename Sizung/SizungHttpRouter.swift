@@ -18,13 +18,17 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Organizations()
   case Organization(id: String)
   case Conversation(id: String)
+  case CreateConversation(conversation: Sizung.Conversation)
+  case UpdateConversation(conversation: Sizung.Conversation)
   case AgendaItem(id: String)
   case Deliverable(id: String)
   case ConversationObjects(parent: BaseModel, page: Int)
   case Comments(comment: Comment)
   case UnseenObjects(userId: String)
   case DeleteUnseenObjects(type: String, id: String)
+  case CreateDeliverable(deliverable: Sizung.Deliverable)
   case UpdateDeliverable(deliverable: Sizung.Deliverable)
+  case CreateAgendaItem(agendaItem: Sizung.AgendaItem)
   case UpdateAgendaItem(agendaItem: Sizung.AgendaItem)
 
 
@@ -32,10 +36,14 @@ enum SizungHttpRouter: URLRequestConvertible {
     switch self {
     case .Login,
          .RegisterDevice,
-         .Comments:
+         .Comments,
+         .CreateConversation,
+         .CreateAgendaItem,
+         .CreateDeliverable:
       return .POST
     case .UpdateDeliverable,
-         .UpdateAgendaItem:
+         .UpdateAgendaItem,
+         .UpdateConversation:
       return .PUT
     case .Logout,
          .DeleteUnseenObjects:
@@ -58,12 +66,20 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/organizations/\(id)"
     case .Conversation(let id):
       return "/conversations/\(id)"
+    case .CreateConversation:
+      return "/conversations"
+    case .UpdateConversation(let id):
+      return "/conversations/\(id)"
     case .AgendaItem(let id):
       return "/agenda_items/\(id)"
+    case .CreateAgendaItem:
+      return "/agenda_items"
     case .UpdateAgendaItem(let agendaItem):
       return "/agenda_items/\(agendaItem.id)"
     case .Deliverable(let id):
       return "/deliverables/\(id)"
+    case .CreateDeliverable:
+      return "/deliverables"
     case .UpdateDeliverable(let deliverable):
       return "/deliverables/\(deliverable.id)"
     case .ConversationObjects(let conversation as Sizung.Conversation, _):
@@ -111,6 +127,35 @@ enum SizungHttpRouter: URLRequestConvertible {
           "token": deviceToken
         ]
       ]
+    case .CreateConversation(let conversation):
+      let members = conversation.members.map {user in
+        return [
+          "id": user.id,
+          "type": "users"
+        ]
+      }
+      return [
+        "conversation": [
+          "conversation_members": members,
+          "organization_id": conversation.organizationId,
+          "title": conversation.title
+        ]
+      ]
+
+    case .UpdateConversation(let conversation):
+      let members = conversation.members.map {user in
+        return [
+          "id": user.id,
+          "type": "users"
+        ]
+      }
+      return [
+        "conversation": [
+          "conversation_members": members,
+          "organization_id": conversation.organizationId,
+          "title": conversation.title
+        ]
+      ]
     case .Comments(let comment):
 
       // TODO: workaround for incorrect type
@@ -122,6 +167,28 @@ enum SizungHttpRouter: URLRequestConvertible {
           "body": comment.body
         ]
       ]
+    case .CreateDeliverable(let deliverable):
+      var deliverableJSON: Dictionary<String, AnyObject> = [
+        "assignee_id": deliverable.assigneeId,
+        "title": deliverable.title
+      ]
+
+      switch deliverable {
+      case let agendaItemDeliverable as AgendaItemDeliverable:
+        deliverableJSON["parent_id"] = agendaItemDeliverable.agendaItemId
+        deliverableJSON["parent_type"] = "AgendaItem"
+      default:
+        deliverableJSON["parent_id"] = deliverable.parentId
+        deliverableJSON["parent_type"] = "Conversation"
+      }
+
+      let dateString = ISODateTransform().transformToJSON(deliverable.dueOn)
+      deliverableJSON["due_on"] = dateString
+
+      return [
+        "deliverable": deliverableJSON
+      ]
+
     case .UpdateDeliverable(let deliverable):
 
       var deliverableJSON: Dictionary<String, AnyObject> = [
@@ -134,6 +201,13 @@ enum SizungHttpRouter: URLRequestConvertible {
 
       return [
         "deliverable": deliverableJSON
+      ]
+    case .CreateAgendaItem(let agendaItem):
+      return [
+        "agenda_item": [
+          "conversation_id": agendaItem.conversationId,
+          "title": agendaItem.title
+        ]
       ]
     case .UpdateAgendaItem(let agendaItem):
 
@@ -178,8 +252,12 @@ enum SizungHttpRouter: URLRequestConvertible {
     switch self {
     case .Login,
          .RegisterDevice,
+         .CreateDeliverable,
          .UpdateDeliverable,
+         .CreateAgendaItem,
          .UpdateAgendaItem,
+         .CreateConversation,
+         .UpdateConversation,
          .Comments:
       return Alamofire.ParameterEncoding.JSON.encode(
         mutableURLRequest,

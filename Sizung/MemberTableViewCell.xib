@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Brandon_reg.otf">
+            <string>BrandonText-Regular</string>
+        </mutableArray>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MemberTableViewCell" rowHeight="50" id="KGk-i7-Jjw" customClass="MemberTableViewCell" customModule="Sizung" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4BZ-vD-rEf" customClass="AvatarImageView" customModule="Sizung" customModuleProvider="target">
+                        <rect key="frame" x="20" y="8" width="33" height="33"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="4BZ-vD-rEf" secondAttribute="height" multiplier="1:1" id="Joa-Vy-7xe"/>
+                        </constraints>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <state key="normal">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riR-op-FSB">
+                        <rect key="frame" x="69" y="15" width="32" height="20"/>
+                        <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="14"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zof-H3-FKd">
+                        <rect key="frame" x="245" y="1" width="47" height="47"/>
+                        <state key="normal" image="delete"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Zof-H3-FKd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="riR-op-FSB" secondAttribute="trailing" constant="10" id="8aV-g2-L8X"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="4BZ-vD-rEf" secondAttribute="bottom" id="JOP-Hk-myo"/>
+                    <constraint firstItem="4BZ-vD-rEf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="K5d-by-Ufm"/>
+                    <constraint firstItem="Zof-H3-FKd" firstAttribute="centerY" secondItem="4BZ-vD-rEf" secondAttribute="centerY" id="MXN-nG-HDJ"/>
+                    <constraint firstItem="riR-op-FSB" firstAttribute="leading" secondItem="4BZ-vD-rEf" secondAttribute="trailing" constant="16" id="UXM-kF-JHd"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Zof-H3-FKd" secondAttribute="trailing" constant="20" id="VVD-il-kLY"/>
+                    <constraint firstItem="riR-op-FSB" firstAttribute="centerY" secondItem="4BZ-vD-rEf" secondAttribute="centerY" id="iWV-dq-lAe"/>
+                    <constraint firstItem="4BZ-vD-rEf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="s9a-xN-55B"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="avatarImage" destination="4BZ-vD-rEf" id="iD9-ik-TxD"/>
+                <outlet property="deleteButton" destination="Zof-H3-FKd" id="Jut-rN-7SL"/>
+                <outlet property="nameLabel" destination="riR-op-FSB" id="9Wy-JB-ORY"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="delete" width="47" height="47"/>
+    </resources>
+</document>

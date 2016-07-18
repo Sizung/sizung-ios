@@ -51,6 +51,40 @@ class OrganizationStorageManager {
     return promise.future
   }
 
+  func createConversation(conversation: Conversation) -> Future<Conversation, StorageError> {
+    let promise = Promise<Conversation, StorageError>()
+
+    StorageManager.makeRequest(SizungHttpRouter.CreateConversation(conversation: conversation))
+      .onSuccess { (conversationResponse: ConversationResponse) in
+
+        let conversation = conversationResponse.conversation
+        self.conversations.insertOrUpdate([conversation])
+        promise.success(conversation)
+
+      }.onFailure { error in
+        promise.failure(error)
+    }
+
+    return promise.future
+  }
+
+  func updateConversation(conversation: Conversation) -> Future<Conversation, StorageError> {
+    let promise = Promise<Conversation, StorageError>()
+
+    StorageManager.makeRequest(SizungHttpRouter.UpdateConversation(conversation: conversation))
+      .onSuccess { (conversationResponse: ConversationResponse) in
+
+        let conversation = conversationResponse.conversation
+        self.conversations.insertOrUpdate([conversation])
+        promise.success(conversation)
+
+      }.onFailure { error in
+        promise.failure(error)
+    }
+
+    return promise.future
+  }
+
   func getDeliverable(itemId: String) -> Future<Deliverable, StorageError> {
     let promise = Promise<Deliverable, StorageError>()
 
@@ -218,12 +252,36 @@ class OrganizationStorageManager {
     return promise.future
   }
 
+  func createDeliverable(deliverable: Deliverable) -> Future<Deliverable, StorageError> {
+    let promise = Promise<Deliverable, StorageError>()
+    StorageManager.makeRequest(SizungHttpRouter.CreateDeliverable(deliverable: deliverable))
+      .onSuccess { (deliverableResponse: DeliverableResponse) in
+        self.deliverables.append(deliverableResponse.deliverable)
+        promise.success(deliverableResponse.deliverable)
+      }.onFailure { error in
+        promise.failure(error)
+    }
+    return promise.future
+  }
+
   func updateDeliverable(deliverable: Deliverable) -> Future<Deliverable, StorageError> {
     let promise = Promise<Deliverable, StorageError>()
     StorageManager.makeRequest(SizungHttpRouter.UpdateDeliverable(deliverable: deliverable))
       .onSuccess { (deliverableResponse: DeliverableResponse) in
 
         promise.success(deliverableResponse.deliverable)
+      }.onFailure { error in
+        promise.failure(error)
+    }
+    return promise.future
+  }
+
+  func createAgendaItem(agendaItem: AgendaItem) -> Future<AgendaItem, StorageError> {
+    let promise = Promise<AgendaItem, StorageError>()
+    StorageManager.makeRequest(SizungHttpRouter.CreateAgendaItem(agendaItem: agendaItem))
+      .onSuccess { ( agendaItemResponse: AgendaItemResponse ) in
+        self.agendaItems.append(agendaItemResponse.agendaItem)
+        promise.success(agendaItemResponse.agendaItem)
       }.onFailure { error in
         promise.failure(error)
     }

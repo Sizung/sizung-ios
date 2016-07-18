@@ -18,6 +18,22 @@ class Deliverable: BaseModel {
   var assigneeId: String!
   var parentId: String!
 
+  var new = false
+
+  override init(type: String) {
+    super.init(type: type)
+  }
+
+  init(conversationId: String) {
+    super.init(type: "deliverables")
+    self.parentId = conversationId
+    self.new = true
+  }
+
+  required init?(_ map: Map) {
+    super.init(map)
+  }
+
   override var sortDate: NSDate {
     get {
       if let dueDate = self.dueOn {

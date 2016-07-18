@@ -16,6 +16,18 @@ class Conversation: BaseModel {
   var deliverables: [Deliverable]!
   var agendaItemDeliverables: [AgendaItemDeliverable]!
   var members: [User]!
+  var new = false
+
+  init(organizationId: String) {
+    super.init(type: "conversations")
+    self.organizationId = organizationId
+    self.members = []
+    self.new = true
+  }
+
+  required init?(_ map: Map) {
+    super.init(map)
+  }
 
   override func mapping(map: Map) {
     super.mapping(map)

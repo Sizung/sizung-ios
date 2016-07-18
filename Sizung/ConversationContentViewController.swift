@@ -7,15 +7,24 @@
 //
 
 import UIKit
-import SwiftKeychainWrapper
+import KCFloatingActionButton
 
-class ConversationContentViewController: UIViewController, MainPageViewControllerDelegate {
+class ConversationContentViewController: UIViewController,
+  MainPageViewControllerDelegate,
+  AgendaItemCreateDelegate,
+  ActionCreateDelegate,
+KCFloatingActionButtonDelegate {
 
   @IBOutlet weak var segmentedControl: SizungSegmentedControl!
 
   var mainPageViewController: MainPageViewController!
 
   var conversation: Conversation!
+
+  var floatingActionButton: KCFloatingActionButton?
+  var agendaItem: KCFloatingActionButtonItem?
+  var attachmentItem: KCFloatingActionButtonItem?
+  var actionItem: KCFloatingActionButtonItem?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -27,6 +36,8 @@ class ConversationContentViewController: UIViewController, MainPageViewControlle
       action: #selector(self.segmentedControlDidChange),
       forControlEvents: .ValueChanged
     )
+
+    initFloatingActionButton()
   }
 
   func segmentedControlDidChange(sender: SizungSegmentedControl) {
@@ -34,6 +45,8 @@ class ConversationContentViewController: UIViewController, MainPageViewControlle
     let selectedIndex = sender.selectedIndex
 
     self.mainPageViewController.setSelectedIndex(selectedIndex)
+
+    configureFabForIndex(selectedIndex)
   }
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -68,6 +81,100 @@ class ConversationContentViewController: UIViewController, MainPageViewControlle
   func mainpageViewController(
     mainPageViewController: MainPageViewController,
     didSwitchToIndex index: Int) {
-      segmentedControl.selectedIndex = index
+    segmentedControl.selectedIndex = index
+
+    configureFabForIndex(index)
+  }
+
+  func configureFabForIndex(index: Int) {
+    // show fab content on timeline only
+    switch index {
+    case 1:
+      floatingActionButton?.addItem(item: agendaItem!)
+      floatingActionButton?.addItem(item: attachmentItem!)
+      floatingActionButton?.addItem(item: actionItem!)
+    default:
+      floatingActionButton?.removeItem(item: agendaItem!)
+      floatingActionButton?.removeItem(item: attachmentItem!)
+      floatingActionButton?.removeItem(item: actionItem!)
+    }
+  }
+
+  func emptyKCFABSelected(fab: KCFloatingActionButton) {
+    switch segmentedControl.selectedIndex {
+    case 0:
+      createAgenda(agendaItem!)
+    case 2:
+      createAction(actionItem!)
+    default:
+      fatalError("FAB should not be empty")
+    }
+  }
+
+  func initFloatingActionButton() {
+
+    floatingActionButton = KCFloatingActionButton()
+    floatingActionButton?.fabDelegate = self
+    floatingActionButton?.plusColor = UIColor.whiteColor()
+    floatingActionButton?.buttonColor = Color.ADDBUTTON
+
+    agendaItem = addItemToFab("AGENDA", color: Color.TODISCUSS, icon: R.image.priority()!, handler: createAgenda)
+
+    attachmentItem = addItemToFab("ATTACHMENT", color: Color.ATTACHMENT, icon: R.image.attachment()!, handler: createAttachment)
+
+    actionItem = addItemToFab("ACTION", color: Color.TODO, icon: R.image.action()!, handler: createAction)
+
+    self.view.addSubview(floatingActionButton!)
+  }
+
+  func addItemToFab(title: String, color: UIColor, icon: UIImage, handler: (KCFloatingActionButtonItem)->()) -> KCFloatingActionButtonItem {
+    let item = KCFloatingActionButtonItem()
+    item.title = title
+    item.buttonColor = color
+    item.icon = icon
+    item.handler = handler
+
+    item.iconImageView.tintColor = UIColor.whiteColor()
+    item.iconImageView.contentMode = .ScaleAspectFit
+
+    floatingActionButton?.addItem(item: item)
+
+    return item
+  }
+
+  func createAttachment(buttonItem: KCFloatingActionButtonItem) {
+    InAppMessage.showErrorMessage("Coming soon™")
+    //    let createAttachmentViewController = R.storyboard.attachment.create()!
+    //    self.presentViewController(createAttachmentViewController, animated: true, completion: nil)
+  }
+
+  func createAgenda(buttonItem: KCFloatingActionButtonItem) {
+    let createAgendaItemViewController = R.storyboard.agendaItem.create()!
+    createAgendaItemViewController.conversation = self.conversation
+    createAgendaItemViewController.agendaItemCreateDelegate = self
+    self.presentViewController(createAgendaItemViewController, animated: true, completion: nil)
+  }
+
+  func createAction(buttonItem: KCFloatingActionButtonItem) {
+    let createDeliverableViewController = R.storyboard.deliverable.create()!
+    createDeliverableViewController.parent = self.conversation
+    createDeliverableViewController.actionCreateDelegate = self
+    self.presentViewController(createDeliverableViewController, animated: true, completion: nil)
+  }
+
+
+  func agendaItemCreated(agendaItem: AgendaItem) {
+    let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
+    agendaItemViewController.agendaItem = agendaItem
+
+    self.navigationController?.pushViewController(agendaItemViewController, animated: false)
+  }
+
+  func actionCreated(action: Deliverable) {
+
+    let actionViewController = R.storyboard.deliverable.initialViewController()!
+    actionViewController.deliverable = action
+
+    self.navigationController?.pushViewController(actionViewController, animated: false)
   }
 }
