@@ -78,8 +78,8 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/agenda_items/\(agendaItem.id)"
     case .Deliverable(let id):
       return "/deliverables/\(id)"
-    case .CreateDeliverable(let deliverable):
-      return "/deliverables/\(deliverable.id)"
+    case .CreateDeliverable:
+      return "/deliverables"
     case .UpdateDeliverable(let deliverable):
       return "/deliverables/\(deliverable.id)"
     case .ConversationObjects(let conversation as Sizung.Conversation, _):

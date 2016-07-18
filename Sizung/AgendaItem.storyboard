@@ -156,8 +156,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kog-1p-EN3">
                                 <rect key="frame" x="0.0" y="20" width="600" height="60"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="agenda_title" translatesAutoresizingMaskIntoConstraints="NO" id="dgs-Ko-pEm">
+                                        <rect key="frame" x="20" y="1" width="59" height="59"/>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Agenda" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vl1-E9-6lK">
-                                        <rect key="frame" x="19" y="17" width="86" height="25"/>
+                                        <rect key="frame" x="87" y="18" width="86" height="25"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -183,13 +186,23 @@
                                 <constraints>
                                     <constraint firstItem="Vl1-E9-6lK" firstAttribute="centerY" secondItem="Kog-1p-EN3" secondAttribute="centerY" id="CwX-2Z-mst"/>
                                     <constraint firstItem="g6K-ql-FGc" firstAttribute="centerY" secondItem="Vl1-E9-6lK" secondAttribute="centerY" id="EpP-fg-ES4"/>
+                                    <constraint firstItem="dgs-Ko-pEm" firstAttribute="leading" secondItem="Kog-1p-EN3" secondAttribute="leading" constant="20" id="LuW-wb-QLW"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="M7K-sP-W6h"/>
                                     <constraint firstAttribute="height" constant="60" id="OaO-ID-w4Z"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="dpM-Dj-P4u" secondAttribute="trailing" id="S0w-wZ-BhC"/>
                                     <constraint firstItem="dpM-Dj-P4u" firstAttribute="leading" secondItem="g6K-ql-FGc" secondAttribute="trailing" constant="10" id="SFW-5K-6rx"/>
                                     <constraint firstItem="Vl1-E9-6lK" firstAttribute="leading" secondItem="Kog-1p-EN3" secondAttribute="leading" constant="19" id="XVl-go-Sr8"/>
+                                    <constraint firstItem="dgs-Ko-pEm" firstAttribute="centerY" secondItem="Kog-1p-EN3" secondAttribute="centerY" id="fNw-i2-3hO"/>
+                                    <constraint firstItem="dgs-Ko-pEm" firstAttribute="centerX" secondItem="Kog-1p-EN3" secondAttribute="centerX" id="nur-Hp-KTM"/>
                                     <constraint firstItem="dpM-Dj-P4u" firstAttribute="centerY" secondItem="Kog-1p-EN3" secondAttribute="centerY" id="sJY-mJ-vry"/>
+                                    <constraint firstItem="Vl1-E9-6lK" firstAttribute="leading" secondItem="dgs-Ko-pEm" secondAttribute="trailing" constant="8" id="sYd-5V-D39"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="nur-Hp-KTM"/>
+                                        <exclude reference="XVl-go-Sr8"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YxR-VG-ELj">
                                 <rect key="frame" x="0.0" y="80" width="600" height="60"/>
@@ -237,6 +250,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="agenda_title" width="59" height="59"/>
         <image name="close" width="32" height="32"/>
     </resources>
 </document>

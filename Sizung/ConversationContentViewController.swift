@@ -10,9 +10,10 @@ import UIKit
 import KCFloatingActionButton
 
 class ConversationContentViewController: UIViewController,
-MainPageViewControllerDelegate,
-AgendaItemCreateDelegate,
-KCFloatingActionButtonDelegate{
+  MainPageViewControllerDelegate,
+  AgendaItemCreateDelegate,
+  ActionCreateDelegate,
+KCFloatingActionButtonDelegate {
 
   @IBOutlet weak var segmentedControl: SizungSegmentedControl!
 
@@ -80,7 +81,7 @@ KCFloatingActionButtonDelegate{
   func mainpageViewController(
     mainPageViewController: MainPageViewController,
     didSwitchToIndex index: Int) {
-      segmentedControl.selectedIndex = index
+    segmentedControl.selectedIndex = index
 
     configureFabForIndex(index)
   }
@@ -155,9 +156,10 @@ KCFloatingActionButtonDelegate{
   }
 
   func createAction(buttonItem: KCFloatingActionButtonItem) {
-    InAppMessage.showErrorMessage("Coming soon™")
-    //    let createDeliverableViewController = R.storyboard.deliverable.create()!
-    //    self.presentViewController(createDeliverableViewController, animated: true, completion: nil)
+    let createDeliverableViewController = R.storyboard.deliverable.create()!
+    createDeliverableViewController.parent = self.conversation
+    createDeliverableViewController.actionCreateDelegate = self
+    self.presentViewController(createDeliverableViewController, animated: true, completion: nil)
   }
 
 
@@ -166,5 +168,13 @@ KCFloatingActionButtonDelegate{
     agendaItemViewController.agendaItem = agendaItem
 
     self.navigationController?.pushViewController(agendaItemViewController, animated: false)
+  }
+
+  func actionCreated(action: Deliverable) {
+
+    let actionViewController = R.storyboard.deliverable.initialViewController()!
+    actionViewController.deliverable = action
+
+    self.navigationController?.pushViewController(actionViewController, animated: false)
   }
 }
