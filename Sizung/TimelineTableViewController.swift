@@ -11,6 +11,8 @@ import SwiftKeychainWrapper
 import SlackTextViewController
 import DateTools
 import ReactiveKit
+import Alamofire
+import AlamofireImage
 
 class TimelineObject: Hashable, DateSortable {
   let model: BaseModel?
@@ -53,7 +55,7 @@ func == (lhs: TimelineObject, rhs: TimelineObject) -> Bool {
   return lhs.hashValue == rhs.hashValue
 }
 
-class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
+class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, UIDocumentInteractionControllerDelegate {
 
   var timelineParent: BaseModel!
   var storageManager: OrganizationStorageManager!
@@ -82,6 +84,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
     self.tableView.registerNib(R.nib.timelineAgendaItemTableViewCell(), forCellReuseIdentifier: R.nib.timelineAgendaItemTableViewCell.identifier )
     self.tableView.registerNib(R.nib.timelineDeliverableTableViewCell(), forCellReuseIdentifier: R.nib.timelineDeliverableTableViewCell.identifier )
     self.tableView.registerNib(R.nib.newMessageSeparatorCell(), forCellReuseIdentifier: R.nib.newMessageSeparatorCell.identifier )
+    self.tableView.registerNib(R.nib.attachmentTableViewCell)
 
     self.autoCompletionView.registerNib(R.nib.autoCompletionTableCell(), forCellReuseIdentifier: R.nib.autoCompletionTableCell.identifier )
 
@@ -246,6 +249,8 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate {
           return deliverable.parentId == self.timelineParent.id
         case let agendaItem as AgendaItem:
           return agendaItem.conversationId == self.timelineParent.id
+        case let attachment as Attachment:
+          return attachment.parentId == self.timelineParent.id
         default:
           return false
         }
@@ -514,6 +519,8 @@ extension TimelineTableViewController {
       cell = self.cellForAgendaItem(agendaItem)
     case let comment as Comment:
       cell = self.cellForComment(comment)
+    case let attachment as Attachment:
+      cell = self.cellForAttachment(attachment)
     default:
       if sortedCollection[indexPath.row].newMessagesDate != nil {
         cell = self.cellForNewMessageSeparator()
@@ -569,6 +576,25 @@ extension TimelineTableViewController {
       return cell
     } else {
       fatalError("unexpected cell type")
+    }
+  }
+
+  func cellForAttachment(attachment: Attachment) -> AttachmentTableViewCell {
+    if let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.attachmentTableViewCell.identifier) as? AttachmentTableViewCell {
+
+      cell.filenameLabel.text = attachment.fileName
+      cell.filesizeLabel.text = NSByteCountFormatter.stringFromByteCount(Int64(attachment.fileSize), countStyle: .File)
+
+      if attachment.fileSize < 2*1024*1024 {
+        cell.previewImageView.af_setImageWithURL(NSURL(string: attachment.fileUrl)!, placeholderImage: R.image.attachment_large())
+      } else {
+        cell.previewImageView.image = R.image.attachment_large()
+      }
+
+      return cell
+
+    } else {
+      fatalError()
     }
   }
 
@@ -649,6 +675,8 @@ extension TimelineTableViewController {
         return TimelineDeliverableTableViewCell.kHeight
       case _ as Deliverable:
         return TimelineDeliverableTableViewCell.kHeightWithoutDueDate
+      case is Attachment:
+        return 20
       default:
         return self.tableView.rowHeight
       }
@@ -690,6 +718,21 @@ extension TimelineTableViewController {
         deliverableViewController.deliverable = deliverable
 
         self.navigationController?.pushViewController(deliverableViewController, animated: true)
+      case let attachment as Attachment:
+        var localPath: NSURL?
+        Alamofire.download(.GET, attachment.fileUrl,
+          destination: { (temporaryURL, response) in
+            let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+            let pathComponent = response.suggestedFilename
+
+            localPath = directoryURL.URLByAppendingPathComponent(pathComponent!)
+            return localPath!
+        })
+          .response { (request, response, _, error) in
+            let docController = UIDocumentInteractionController(URL: localPath!)
+            docController.delegate = self
+            docController.presentPreviewAnimated(true)
+        }
       case is Comment:
         // don't react to comment clicks
         break
@@ -697,5 +740,14 @@ extension TimelineTableViewController {
         fatalError("unkown row at didSelectRowAtIndexPath \(indexPath)")
       }
     }
+  }
+
+  func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
+    return self
+  }
+
+  func documentInteractionControllerWillBeginPreview(controller: UIDocumentInteractionController) {
+    UINavigationBar.appearance().barStyle = .Black
+    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
   }
 }
