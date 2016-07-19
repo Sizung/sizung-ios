@@ -111,8 +111,6 @@ class ConversationsTableViewController: UITableViewController {
     }
   }
 
-  // MARK: - Navigation
-
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let conversationViewController = R.storyboard.conversation.initialViewController()!
     let selectedConversation = sortedCollection[indexPath.row]
