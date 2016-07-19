@@ -259,6 +259,15 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, UID
     collection.insertOrUpdate(filteredItems.map { baseModel in
       return TimelineObject(model: baseModel)
       })
+
+    // add inset to align rows on top
+    let inset = max(self.tableView.frame.height - self.getTableViewContentHeight(), 0)
+    self.tableView.contentInset = UIEdgeInsets(top: inset, left: 0, bottom: 0, right: 0)
+  }
+
+  func getTableViewContentHeight() -> CGFloat {
+    let lastRowRect = self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: collection.count-1, inSection: 0))
+    return lastRowRect.height + lastRowRect.origin.y
   }
 
   func didLongPressCell(gesture: UIGestureRecognizer) {
