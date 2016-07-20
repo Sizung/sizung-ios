@@ -14,6 +14,7 @@ import ReactiveKit
 import Alamofire
 import AlamofireImage
 import MRProgress
+import QuickLook
 
 class TimelineObject: Hashable, DateSortable {
   let model: BaseModel?
@@ -56,7 +57,7 @@ func == (lhs: TimelineObject, rhs: TimelineObject) -> Bool {
   return lhs.hashValue == rhs.hashValue
 }
 
-class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, UIDocumentInteractionControllerDelegate {
+class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLPreviewControllerDelegate, QLPreviewControllerDataSource {
 
   var timelineParent: BaseModel!
   var storageManager: OrganizationStorageManager!
@@ -73,6 +74,8 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, UID
   var nextPage: Int? = 0
 
   var mentions = Set<User>()
+
+  var previewFilePath: NSURL?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -737,14 +740,17 @@ extension TimelineTableViewController {
         })
           .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
             let progress = Float(totalBytesRead)/Float(totalBytesExpectedToRead)
-            print(progress)
             progressView.setProgress(progress, animated: true)
           }
           .response { (request, response, _, error) in
             if let localPath = localPath {
-              let docController = UIDocumentInteractionController(URL: localPath)
-              docController.delegate = self
-              docController.presentPreviewAnimated(true)
+
+              print("completed")
+              self.previewFilePath = localPath
+
+              let previewController = QLPreviewController()
+              previewController.dataSource = self
+              self.presentViewController(previewController, animated: true, completion: nil)
             }
 
             MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
@@ -766,12 +772,12 @@ extension TimelineTableViewController {
     }
   }
 
-  func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
-    return self
+  func numberOfPreviewItemsInPreviewController(controller: QLPreviewController) -> Int {
+    return 1
   }
 
-  func documentInteractionControllerWillBeginPreview(controller: UIDocumentInteractionController) {
-    UINavigationBar.appearance().barStyle = .Black
-    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+  func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
+    return previewFilePath!
   }
+
 }
