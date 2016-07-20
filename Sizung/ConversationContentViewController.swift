@@ -8,12 +8,14 @@
 
 import UIKit
 import KCFloatingActionButton
+import ImageFilesPicker
 
 class ConversationContentViewController: UIViewController,
   MainPageViewControllerDelegate,
   AgendaItemCreateDelegate,
   ActionCreateDelegate,
-KCFloatingActionButtonDelegate {
+KCFloatingActionButtonDelegate,
+FilesPickerDelegate {
 
   @IBOutlet weak var segmentedControl: SizungSegmentedControl!
 
@@ -26,6 +28,8 @@ KCFloatingActionButtonDelegate {
   var attachmentItem: KCFloatingActionButtonItem?
   var actionItem: KCFloatingActionButtonItem?
 
+  var filePicker = JVTImageFilePicker()
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -36,6 +40,8 @@ KCFloatingActionButtonDelegate {
       action: #selector(self.segmentedControlDidChange),
       forControlEvents: .ValueChanged
     )
+
+    filePicker.delegate = self
 
     initFloatingActionButton()
   }
@@ -143,9 +149,7 @@ KCFloatingActionButtonDelegate {
   }
 
   func createAttachment(buttonItem: KCFloatingActionButtonItem) {
-    InAppMessage.showErrorMessage("Coming soon™")
-    //    let createAttachmentViewController = R.storyboard.attachment.create()!
-    //    self.presentViewController(createAttachmentViewController, animated: true, completion: nil)
+    self.filePicker.presentFilesPickerOnController(self.parentViewController)
   }
 
   func createAgenda(buttonItem: KCFloatingActionButtonItem) {
@@ -176,5 +180,13 @@ KCFloatingActionButtonDelegate {
     actionViewController.deliverable = action
 
     self.navigationController?.pushViewController(actionViewController, animated: false)
+  }
+
+  func didPickImage(image: UIImage!, withImageName imageName: String!) {
+    print(imageName)
+  }
+
+  func didPickFile(file: NSData!, fileName: String!) {
+    print(fileName)
   }
 }

@@ -25,6 +25,7 @@ target 'Sizung' do
   pod 'TTTAttributedLabel'
   pod 'AlamofireNetworkActivityIndicator'
   pod 'MRProgress'
+  pod 'ImageFilesPicker'
   
   pod 'R.swift', '~> 2.3'
 
