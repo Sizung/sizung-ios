@@ -13,6 +13,8 @@ import DateTools
 import ReactiveKit
 import Alamofire
 import AlamofireImage
+import MRProgress
+import QuickLook
 
 class TimelineObject: Hashable, DateSortable {
   let model: BaseModel?
@@ -55,7 +57,7 @@ func == (lhs: TimelineObject, rhs: TimelineObject) -> Bool {
   return lhs.hashValue == rhs.hashValue
 }
 
-class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, UIDocumentInteractionControllerDelegate {
+class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLPreviewControllerDelegate, QLPreviewControllerDataSource {
 
   var timelineParent: BaseModel!
   var storageManager: OrganizationStorageManager!
@@ -72,6 +74,8 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, UID
   var nextPage: Int? = 0
 
   var mentions = Set<User>()
+
+  var previewFilePath: NSURL?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -259,6 +263,15 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, UID
     collection.insertOrUpdate(filteredItems.map { baseModel in
       return TimelineObject(model: baseModel)
       })
+
+    // add inset to align rows on top
+    let inset = max(self.tableView.frame.height - self.getTableViewContentHeight(), 0)
+    self.tableView.contentInset = UIEdgeInsets(top: inset, left: 0, bottom: 0, right: 0)
+  }
+
+  func getTableViewContentHeight() -> CGFloat {
+    let lastRowRect = self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: collection.count-1, inSection: 0))
+    return lastRowRect.height + lastRowRect.origin.y
   }
 
   func didLongPressCell(gesture: UIGestureRecognizer) {
@@ -582,14 +595,7 @@ extension TimelineTableViewController {
   func cellForAttachment(attachment: Attachment) -> AttachmentTableViewCell {
     if let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.attachmentTableViewCell.identifier) as? AttachmentTableViewCell {
 
-      cell.filenameLabel.text = attachment.fileName
-      cell.filesizeLabel.text = NSByteCountFormatter.stringFromByteCount(Int64(attachment.fileSize), countStyle: .File)
-
-      if attachment.fileSize < 2*1024*1024 {
-        cell.previewImageView.af_setImageWithURL(NSURL(string: attachment.fileUrl)!, placeholderImage: R.image.attachment_large())
-      } else {
-        cell.previewImageView.image = R.image.attachment_large()
-      }
+      cell.setAttachment(attachment)
 
       return cell
 
@@ -720,19 +726,50 @@ extension TimelineTableViewController {
         self.navigationController?.pushViewController(deliverableViewController, animated: true)
       case let attachment as Attachment:
         var localPath: NSURL?
-        Alamofire.download(.GET, attachment.fileUrl,
-          destination: { (temporaryURL, response) in
-            let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
-            let pathComponent = response.suggestedFilename
 
-            localPath = directoryURL.URLByAppendingPathComponent(pathComponent!)
+        let progressView = MRProgressOverlayView.showOverlayAddedTo(self.view, animated: true)
+        progressView.mode = .DeterminateCircular
+
+        let request = Alamofire.download(.GET, attachment.fileUrl,
+          destination: { (temporaryURL, response) in
+            let tempPath = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+
+            let subFolder = tempPath.URLByAppendingPathComponent(attachment.id, isDirectory: true)
+
+            do {
+              try NSFileManager.defaultManager().createDirectoryAtURL(subFolder, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+              fatalError()
+            }
+
+            localPath = subFolder.URLByAppendingPathComponent(attachment.fileName)
+
             return localPath!
         })
+          .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+            let progress = Float(totalBytesRead)/Float(totalBytesExpectedToRead)
+            progressView.setProgress(progress, animated: true)
+          }
           .response { (request, response, _, error) in
-            let docController = UIDocumentInteractionController(URL: localPath!)
-            docController.delegate = self
-            docController.presentPreviewAnimated(true)
+            if let localPath = localPath {
+
+              self.previewFilePath = localPath
+
+              let previewController = QLPreviewController()
+              previewController.dataSource = self
+              self.presentViewController(previewController, animated: true, completion: nil)
+            }
+
+            MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
         }
+
+        // display a stop button for large files
+        if attachment.fileSize > 10*1024*1024 {
+          progressView.stopBlock = { progressOverlayView in
+            request.cancel()
+          }
+        }
+
       case is Comment:
         // don't react to comment clicks
         break
@@ -742,12 +779,12 @@ extension TimelineTableViewController {
     }
   }
 
-  func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController {
-    return self
+  func numberOfPreviewItemsInPreviewController(controller: QLPreviewController) -> Int {
+    return 1
   }
 
-  func documentInteractionControllerWillBeginPreview(controller: UIDocumentInteractionController) {
-    UINavigationBar.appearance().barStyle = .Black
-    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+  func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
+    return previewFilePath!
   }
+
 }

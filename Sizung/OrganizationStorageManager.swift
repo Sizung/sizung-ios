@@ -8,6 +8,7 @@
 
 import ReactiveKit
 import BrightFutures
+import Alamofire
 
 class OrganizationStorageManager {
 
@@ -296,6 +297,50 @@ class OrganizationStorageManager {
       }.onFailure { error in
         promise.failure(error)
     }
+    return promise.future
+  }
+
+  func uploadAttachment(attachment: Attachment, data: NSData, progress: (Float)->()) -> Future<Attachment, StorageError> {
+    let promise = Promise<Attachment, StorageError>()
+
+    StorageManager.makeRequest(SizungHttpRouter.GetUploadAttachmentURL(attachment: attachment))
+      .onSuccess { ( getAttachmentUploadResponse: GetAttachmentUploadResponse) in
+
+        attachment.fileUrl = getAttachmentUploadResponse.signedUrl
+
+        let url = NSURL(string: attachment.fileUrl)!
+
+        let headers: [String: String] = [
+          "Content-Type": attachment.fileType,
+          "x-amz-acl": "private"
+        ]
+
+        // use alamofire direct for s3 upload
+        Alamofire.upload(.PUT, url, headers: headers, data: data)
+          .validate()
+          .progress { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) in
+            let progressVal = Float(totalBytesWritten)/Float(totalBytesExpectedToWrite)
+            progress(progressVal)
+          }
+          .responseData(queue: StorageManager.networkQueue) { response in
+            switch response.result {
+            case .Success:
+              StorageManager.makeRequest(SizungHttpRouter.CreateAttachment(attachment: attachment))
+                .onSuccess { (attachmentResponse: AttachmentResponse) in
+                  promise.success(attachmentResponse.attachment)
+                }.onFailure { error in
+                  promise.failure(error)
+              }
+            case .Failure(let error):
+              Error.log(error)
+              promise.failure(.Other)
+            }
+        }
+
+      }.onFailure { error in
+        promise.failure(error)
+    }
+
     return promise.future
   }
 }

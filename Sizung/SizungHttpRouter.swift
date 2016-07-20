@@ -30,6 +30,8 @@ enum SizungHttpRouter: URLRequestConvertible {
   case UpdateDeliverable(deliverable: Sizung.Deliverable)
   case CreateAgendaItem(agendaItem: Sizung.AgendaItem)
   case UpdateAgendaItem(agendaItem: Sizung.AgendaItem)
+  case GetUploadAttachmentURL(attachment: Attachment)
+  case CreateAttachment(attachment: Attachment)
 
 
   var method: Alamofire.Method {
@@ -39,7 +41,8 @@ enum SizungHttpRouter: URLRequestConvertible {
          .Comments,
          .CreateConversation,
          .CreateAgendaItem,
-         .CreateDeliverable:
+         .CreateDeliverable,
+         .CreateAttachment:
       return .POST
     case .UpdateDeliverable,
          .UpdateAgendaItem,
@@ -96,6 +99,10 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/users/\(userId)/unseen_objects"
     case .DeleteUnseenObjects(let type, let id):
       return "/\(type)/\(id)/unseen_objects"
+    case .GetUploadAttachmentURL(let attachment):
+      return "/\(attachment.parentType)/\(attachment.parentId)/attachments/new/"
+    case .CreateAttachment(let attachment):
+      return "/\(attachment.parentType)/\(attachment.parentId)/attachments"
     }
   }
 
@@ -220,6 +227,16 @@ enum SizungHttpRouter: URLRequestConvertible {
         "agenda_item": agendaItemJSON
       ]
 
+    case .CreateAttachment(let attachment):
+      return [
+        "attachment": [
+          "file_name": attachment.fileName,
+          "file_size": attachment.fileSize,
+          "file_type": attachment.fileType,
+          "persistent_file_id": attachment.fileUrl
+        ]
+      ]
+
     default:
       return nil
     }
@@ -232,6 +249,12 @@ enum SizungHttpRouter: URLRequestConvertible {
         "page[number]": page,
         "page[size]": 20
       ]
+    case .GetUploadAttachmentURL(let attachment):
+      return [
+        "objectName": attachment.fileName,
+        "contentType": attachment.fileType
+      ]
+
     default:
       return nil
     }
@@ -258,12 +281,14 @@ enum SizungHttpRouter: URLRequestConvertible {
          .UpdateAgendaItem,
          .CreateConversation,
          .UpdateConversation,
-         .Comments:
+         .Comments,
+         .CreateAttachment:
       return Alamofire.ParameterEncoding.JSON.encode(
         mutableURLRequest,
         parameters: self.jsonParameters
         ).0
-    case .ConversationObjects:
+    case .ConversationObjects,
+         .GetUploadAttachmentURL:
       return Alamofire.ParameterEncoding.URL.encode(
         mutableURLRequest,
         parameters: self.urlParams

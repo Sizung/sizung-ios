@@ -14,8 +14,37 @@ PODS:
     - Fabric (~> 1.6.3)
   - DateTools (1.7.0)
   - Fabric (1.6.7)
+  - ImageFilesPicker (0.1.8)
   - JWTDecode (1.0.0)
   - KCFloatingActionButton (1.3.4)
+  - MRProgress (0.8.3):
+    - MRProgress/ActivityIndicator (= 0.8.3)
+    - MRProgress/Blur (= 0.8.3)
+    - MRProgress/Circular (= 0.8.3)
+    - MRProgress/Icons (= 0.8.3)
+    - MRProgress/NavigationBarProgress (= 0.8.3)
+    - MRProgress/Overlay (= 0.8.3)
+  - MRProgress/ActivityIndicator (0.8.3):
+    - MRProgress/Stopable
+  - MRProgress/Blur (0.8.3):
+    - MRProgress/Helper
+  - MRProgress/Circular (0.8.3):
+    - MRProgress/Helper
+    - MRProgress/ProgressBaseClass
+    - MRProgress/Stopable
+  - MRProgress/Helper (0.8.3)
+  - MRProgress/Icons (0.8.3)
+  - MRProgress/NavigationBarProgress (0.8.3):
+    - MRProgress/ProgressBaseClass
+  - MRProgress/Overlay (0.8.3):
+    - MRProgress/ActivityIndicator
+    - MRProgress/Blur
+    - MRProgress/Circular
+    - MRProgress/Helper
+    - MRProgress/Icons
+  - MRProgress/ProgressBaseClass (0.8.3)
+  - MRProgress/Stopable (0.8.3):
+    - MRProgress/Helper
   - Nimble (4.1.0)
   - ObjectMapper (1.3.0)
   - OHHTTPStubs (5.1.0):
@@ -57,8 +86,10 @@ DEPENDENCIES:
   - Crashlytics (~> 3.7)
   - DateTools (~> 1.0)
   - Fabric (~> 1.6)
+  - ImageFilesPicker
   - JWTDecode (~> 1.0)
   - KCFloatingActionButton
+  - MRProgress
   - Nimble
   - ObjectMapper (~> 1.3)
   - OHHTTPStubs
@@ -82,8 +113,10 @@ SPEC CHECKSUMS:
   Crashlytics: 130ab943f8c78cda7a814b434f270b2e2c8a3cba
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
+  ImageFilesPicker: 3d29153b7d009b3e7a967617d714d369a40ad351
   JWTDecode: d172edcb1607cc15aed85d58eceedcbb675a4534
   KCFloatingActionButton: 7a2974b7e30fa3dd80a476b401a5b5f44cf5440a
+  MRProgress: 16de7cc9f347e8846797a770db102a323fe7ef09
   Nimble: 97a0a4cae5124c117115634b2d055d8c97d0af19
   ObjectMapper: 4eb08a726e9791a93b2632049951b56a7c17e471
   OHHTTPStubs: 592f74439d2d72615115cf99a954237a3fbe26e5
@@ -101,6 +134,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 8316f23bc7651d21b68b2033dd8446d5ad5bb7fe
+PODFILE CHECKSUM: d8d87e3f7576194f56c9b00e0b4f17a254433348
 
 COCOAPODS: 1.0.1

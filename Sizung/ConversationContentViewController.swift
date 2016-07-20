@@ -8,12 +8,16 @@
 
 import UIKit
 import KCFloatingActionButton
+import ImageFilesPicker
+import MRProgress
+import MobileCoreServices
 
 class ConversationContentViewController: UIViewController,
   MainPageViewControllerDelegate,
   AgendaItemCreateDelegate,
   ActionCreateDelegate,
-KCFloatingActionButtonDelegate {
+  KCFloatingActionButtonDelegate,
+FilesPickerDelegate {
 
   @IBOutlet weak var segmentedControl: SizungSegmentedControl!
 
@@ -26,6 +30,8 @@ KCFloatingActionButtonDelegate {
   var attachmentItem: KCFloatingActionButtonItem?
   var actionItem: KCFloatingActionButtonItem?
 
+  var filePicker = JVTImageFilePicker()
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -36,6 +42,8 @@ KCFloatingActionButtonDelegate {
       action: #selector(self.segmentedControlDidChange),
       forControlEvents: .ValueChanged
     )
+
+    filePicker.delegate = self
 
     initFloatingActionButton()
   }
@@ -135,7 +143,7 @@ KCFloatingActionButtonDelegate {
     item.handler = handler
 
     item.iconImageView.tintColor = UIColor.whiteColor()
-    item.iconImageView.contentMode = .ScaleAspectFit
+    item.iconImageView.contentMode = .Center
 
     floatingActionButton?.addItem(item: item)
 
@@ -143,9 +151,7 @@ KCFloatingActionButtonDelegate {
   }
 
   func createAttachment(buttonItem: KCFloatingActionButtonItem) {
-    InAppMessage.showErrorMessage("Coming soon™")
-    //    let createAttachmentViewController = R.storyboard.attachment.create()!
-    //    self.presentViewController(createAttachmentViewController, animated: true, completion: nil)
+    self.filePicker.presentFilesPickerOnController(self.parentViewController)
   }
 
   func createAgenda(buttonItem: KCFloatingActionButtonItem) {
@@ -176,5 +182,77 @@ KCFloatingActionButtonDelegate {
     actionViewController.deliverable = action
 
     self.navigationController?.pushViewController(actionViewController, animated: false)
+  }
+
+  func didPickImage(image: UIImage!, withImageName imageName: String!) {
+    self.didPickFile(UIImageJPEGRepresentation(image, 0.9), fileName: "photo.jpg")
+  }
+
+  func didPickFile(file: NSData!, fileName: String!) {
+
+    let progressView = MRProgressOverlayView.showOverlayAddedTo(self.view, animated: true)
+    progressView.mode = .DeterminateCircular
+
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+
+        let parentItem = self.getCurrentItem()
+
+        let fileType = self.getMimeType(fileName)
+
+        let attachment = Attachment(
+          fileName: fileName,
+          fileSize: file.length,
+          fileType: fileType,
+          parentId: parentItem.id,
+          parentType: parentItem.type
+        )
+        storageManager.uploadAttachment(attachment, data: file, progress: { progress in
+          progressView.setProgress(progress, animated: true)
+        })
+          .onSuccess { attachment in
+            InAppMessage.showSuccessMessage("File successfully uploaded")
+          }.onFailure { error in
+            InAppMessage.showErrorMessage("There has been an error uploading your file - Please try again")
+          }.onComplete { _ in
+            progressView.dismiss(true)
+        }
+    }
+  }
+
+  func getCurrentItem() -> BaseModel {
+    switch self.navigationController?.topViewController {
+    case let agendaItemViewController as AgendaItemViewController:
+      return agendaItemViewController.agendaItem
+    case let actionItemViewController as DeliverableViewController:
+      return actionItemViewController.deliverable
+    case let conversationContentViewController as ConversationContentViewController:
+      return conversationContentViewController.conversation
+    case let timelineTableViewController as TimelineTableViewController:
+      return timelineTableViewController.timelineParent
+    default:
+      fatalError()
+    }
+  }
+
+  func getMimeType(fileName: String) -> String {
+
+
+    if let fileExtension = NSURL(string: fileName)!.pathExtension {
+      let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, nil)!.takeRetainedValue()
+
+      let mimeType = UTTypeCopyPreferredTagWithClass(UTI, kUTTagClassMIMEType)?.takeRetainedValue()
+
+      guard mimeType != nil else {
+        return "application/octet-stream"
+      }
+
+      if let mimeType = mimeType {
+        return mimeType as String
+      }
+    }
+
+    // should have returned before
+    fatalError()
   }
 }

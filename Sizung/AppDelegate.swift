@@ -33,6 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       Fabric.with([Crashlytics.self])
     #endif
 
+    // set to dark style
+    UINavigationBar.appearance().barStyle = .Black
+    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+
     NetworkActivityIndicatorManager.sharedManager.isEnabled = true
 
     self.registerNotifications()
