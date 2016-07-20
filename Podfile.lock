@@ -16,6 +16,34 @@ PODS:
   - Fabric (1.6.7)
   - JWTDecode (1.0.0)
   - KCFloatingActionButton (1.3.4)
+  - MRProgress (0.8.3):
+    - MRProgress/ActivityIndicator (= 0.8.3)
+    - MRProgress/Blur (= 0.8.3)
+    - MRProgress/Circular (= 0.8.3)
+    - MRProgress/Icons (= 0.8.3)
+    - MRProgress/NavigationBarProgress (= 0.8.3)
+    - MRProgress/Overlay (= 0.8.3)
+  - MRProgress/ActivityIndicator (0.8.3):
+    - MRProgress/Stopable
+  - MRProgress/Blur (0.8.3):
+    - MRProgress/Helper
+  - MRProgress/Circular (0.8.3):
+    - MRProgress/Helper
+    - MRProgress/ProgressBaseClass
+    - MRProgress/Stopable
+  - MRProgress/Helper (0.8.3)
+  - MRProgress/Icons (0.8.3)
+  - MRProgress/NavigationBarProgress (0.8.3):
+    - MRProgress/ProgressBaseClass
+  - MRProgress/Overlay (0.8.3):
+    - MRProgress/ActivityIndicator
+    - MRProgress/Blur
+    - MRProgress/Circular
+    - MRProgress/Helper
+    - MRProgress/Icons
+  - MRProgress/ProgressBaseClass (0.8.3)
+  - MRProgress/Stopable (0.8.3):
+    - MRProgress/Helper
   - Nimble (4.1.0)
   - ObjectMapper (1.3.0)
   - OHHTTPStubs (5.1.0):
@@ -59,6 +87,7 @@ DEPENDENCIES:
   - Fabric (~> 1.6)
   - JWTDecode (~> 1.0)
   - KCFloatingActionButton
+  - MRProgress
   - Nimble
   - ObjectMapper (~> 1.3)
   - OHHTTPStubs
@@ -84,6 +113,7 @@ SPEC CHECKSUMS:
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   JWTDecode: d172edcb1607cc15aed85d58eceedcbb675a4534
   KCFloatingActionButton: 7a2974b7e30fa3dd80a476b401a5b5f44cf5440a
+  MRProgress: 16de7cc9f347e8846797a770db102a323fe7ef09
   Nimble: 97a0a4cae5124c117115634b2d055d8c97d0af19
   ObjectMapper: 4eb08a726e9791a93b2632049951b56a7c17e471
   OHHTTPStubs: 592f74439d2d72615115cf99a954237a3fbe26e5
@@ -101,6 +131,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 8316f23bc7651d21b68b2033dd8446d5ad5bb7fe
+PODFILE CHECKSUM: bc72b43268310ff0960db69a6bb75efdec84eb9a
 
 COCOAPODS: 1.0.1

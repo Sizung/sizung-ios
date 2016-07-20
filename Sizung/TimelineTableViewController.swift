@@ -13,6 +13,7 @@ import DateTools
 import ReactiveKit
 import Alamofire
 import AlamofireImage
+import MRProgress
 
 class TimelineObject: Hashable, DateSortable {
   let model: BaseModel?
@@ -722,7 +723,11 @@ extension TimelineTableViewController {
         self.navigationController?.pushViewController(deliverableViewController, animated: true)
       case let attachment as Attachment:
         var localPath: NSURL?
-        Alamofire.download(.GET, attachment.fileUrl,
+
+        let progressView = MRProgressOverlayView.showOverlayAddedTo(self.view, animated: true)
+        progressView.mode = .DeterminateCircular
+
+        let request = Alamofire.download(.GET, attachment.fileUrl,
           destination: { (temporaryURL, response) in
             let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
             let pathComponent = response.suggestedFilename
@@ -730,11 +735,28 @@ extension TimelineTableViewController {
             localPath = directoryURL.URLByAppendingPathComponent(pathComponent!)
             return localPath!
         })
+          .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+            let progress = Float(totalBytesRead)/Float(totalBytesExpectedToRead)
+            print(progress)
+            progressView.setProgress(progress, animated: true)
+          }
           .response { (request, response, _, error) in
-            let docController = UIDocumentInteractionController(URL: localPath!)
-            docController.delegate = self
-            docController.presentPreviewAnimated(true)
+            if let localPath = localPath {
+              let docController = UIDocumentInteractionController(URL: localPath)
+              docController.delegate = self
+              docController.presentPreviewAnimated(true)
+            }
+
+            MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
         }
+
+        // display a stop button for large files
+        if attachment.fileSize > 10*1024*1024 {
+          progressView.stopBlock = { progressOverlayView in
+            request.cancel()
+          }
+        }
+
       case is Comment:
         // don't react to comment clicks
         break
