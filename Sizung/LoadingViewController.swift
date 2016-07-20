@@ -6,6 +6,8 @@
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
+// keep this in mind: https://github.com/poolqf/FillableLoaders
+
 import UIKit
 
 class LoadingViewController: UIViewController {

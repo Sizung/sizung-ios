@@ -591,14 +591,7 @@ extension TimelineTableViewController {
   func cellForAttachment(attachment: Attachment) -> AttachmentTableViewCell {
     if let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.attachmentTableViewCell.identifier) as? AttachmentTableViewCell {
 
-      cell.filenameLabel.text = attachment.fileName
-      cell.filesizeLabel.text = NSByteCountFormatter.stringFromByteCount(Int64(attachment.fileSize), countStyle: .File)
-
-      if attachment.fileSize < 2*1024*1024 {
-        cell.previewImageView.af_setImageWithURL(NSURL(string: attachment.fileUrl)!, placeholderImage: R.image.attachment_large())
-      } else {
-        cell.previewImageView.image = R.image.attachment_large()
-      }
+      cell.setAttachment(attachment)
 
       return cell
 
