@@ -270,6 +270,9 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
   }
 
   func getTableViewContentHeight() -> CGFloat {
+    guard collection.count > 0 else {
+      return 0
+    }
     let lastRowRect = self.tableView.rectForRowAtIndexPath(NSIndexPath(forRow: collection.count-1, inSection: 0))
     return lastRowRect.height + lastRowRect.origin.y
   }
