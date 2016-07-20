@@ -51,6 +51,8 @@
 		5A7329FD1D05FEB2006531A5 /* AgendaItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7329FB1D05FEB2006531A5 /* AgendaItemTableViewCell.swift */; };
 		5A732A011D06060C006531A5 /* DeliverableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A732A001D06060C006531A5 /* DeliverableTableViewCell.swift */; };
 		5A7B95A41CF8E58B00FE36CB /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */; };
+		5A85E0711D3F7E4B00010693 /* AttachmentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A85E0701D3F7E4B00010693 /* AttachmentResponse.swift */; };
+		5A85E0731D3F800400010693 /* GetAttachmentUploadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A85E0721D3F800400010693 /* GetAttachmentUploadResponse.swift */; };
 		5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A86B1281CE4BB64001C2E7A /* Configurations.plist */; };
 		5A86B12C1CE4BC04001C2E7A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B12B1CE4BC04001C2E7A /* Configuration.swift */; };
 		5A86B12E1CE5CF19001C2E7A /* AlamofireManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86B12D1CE5CF19001C2E7A /* AlamofireManagerExtension.swift */; };
@@ -204,6 +206,8 @@
 		5A732A001D06060C006531A5 /* DeliverableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverableTableViewCell.swift; sourceTree = "<group>"; };
 		5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		5A7B95A51CF8FC9700FE36CB /* Sizung.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Sizung.entitlements; sourceTree = "<group>"; };
+		5A85E0701D3F7E4B00010693 /* AttachmentResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachmentResponse.swift; sourceTree = "<group>"; };
+		5A85E0721D3F800400010693 /* GetAttachmentUploadResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAttachmentUploadResponse.swift; sourceTree = "<group>"; };
 		5A86B1281CE4BB64001C2E7A /* Configurations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configurations.plist; sourceTree = "<group>"; };
 		5A86B12B1CE4BC04001C2E7A /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		5A86B12D1CE5CF19001C2E7A /* AlamofireManagerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireManagerExtension.swift; sourceTree = "<group>"; };
@@ -569,6 +573,8 @@
 				5A9EDEAF1D00232100D389EC /* UserResponse.swift */,
 				5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */,
 				5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */,
+				5A85E0701D3F7E4B00010693 /* AttachmentResponse.swift */,
+				5A85E0721D3F800400010693 /* GetAttachmentUploadResponse.swift */,
 			);
 			name = responses;
 			sourceTree = "<group>";
@@ -1024,6 +1030,7 @@
 				5ABA4FB91CFEB78B00110030 /* BaseModel.swift in Sources */,
 				5A9D0EEC1D11BCAB00037589 /* StreamTableViewCell.swift in Sources */,
 				5A35DC0C1D0AF9C300916118 /* AutoCompletionTableCell.swift in Sources */,
+				5A85E0731D3F800400010693 /* GetAttachmentUploadResponse.swift in Sources */,
 				5AE8839D1D09A56C0044364B /* CommentTableViewCell.swift in Sources */,
 				5AF36B9B1D12FBC300A1581F /* OrganizationTableViewCell.swift in Sources */,
 				5ABA4FBD1CFEBF1600110030 /* ConversationsResponse.swift in Sources */,
@@ -1035,6 +1042,7 @@
 				5A8F79091CFF14BF00953495 /* DeliverablesResponse.swift in Sources */,
 				5A8F79071CFF0E6B00953495 /* AgendaItemsResponse.swift in Sources */,
 				5AE0CCA11D0AEF3900690C72 /* CommentResponse.swift in Sources */,
+				5A85E0711D3F7E4B00010693 /* AttachmentResponse.swift in Sources */,
 				5A9D0EE91D11BB9800037589 /* StreamTableViewController.swift in Sources */,
 				5A9EDEB61D01621200D389EC /* ConversationResponse.swift in Sources */,
 				5A9D0EE11D119DD000037589 /* R.generated.swift in Sources */,

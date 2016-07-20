@@ -17,6 +17,19 @@ class Attachment: BaseModel {
   var parentId: String!
   var parentType: String!
 
+  init(fileName: String, fileSize: Int, fileType: String, parentId: String, parentType: String) {
+    super.init(type: "attachments")
+    self.fileName = fileName
+    self.fileSize = fileSize
+    self.fileType = fileType
+    self.parentId = parentId
+    self.parentType = parentType
+  }
+
+  required init?(_ map: Map) {
+    super.init(map)
+  }
+
   override func mapping(map: Map) {
     super.mapping(map)
     fileName <- map["attributes.file_name"]

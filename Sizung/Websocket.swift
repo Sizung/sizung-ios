@@ -70,6 +70,7 @@ class Websocket {
       if let websocketResponse = Mapper<WebsocketResponse>().map(JSON) {
         switch websocketResponse.payload {
         case _ as Comment,
+             _ as Attachment,
              _ as Deliverable,
              _ as AgendaItem:
           self.conversationWebsocketDelegate?.onReceived(websocketResponse.payload)

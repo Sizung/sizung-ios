@@ -732,10 +732,18 @@ extension TimelineTableViewController {
 
         let request = Alamofire.download(.GET, attachment.fileUrl,
           destination: { (temporaryURL, response) in
-            let directoryURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
-            let pathComponent = response.suggestedFilename
+            let tempPath = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
 
-            localPath = directoryURL.URLByAppendingPathComponent(pathComponent!)
+            let subFolder = tempPath.URLByAppendingPathComponent(attachment.id, isDirectory: true)
+
+            do {
+              try NSFileManager.defaultManager().createDirectoryAtURL(subFolder, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+              fatalError()
+            }
+
+            localPath = subFolder.URLByAppendingPathComponent(attachment.fileName)
+
             return localPath!
         })
           .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
@@ -745,7 +753,6 @@ extension TimelineTableViewController {
           .response { (request, response, _, error) in
             if let localPath = localPath {
 
-              print("completed")
               self.previewFilePath = localPath
 
               let previewController = QLPreviewController()

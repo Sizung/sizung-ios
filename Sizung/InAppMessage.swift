@@ -9,31 +9,34 @@
 import SwiftyDrop
 
 enum Custom: DropStatable {
+  case Success
   case Error
 
   var backgroundColor: UIColor? {
     switch self {
+    case .Success: return .greenColor()
     case .Error: return .redColor()
     }
   }
   var font: UIFont? {
-    switch self {
-    case .Error: return R.font.brandonGrotesqueMedium(size: 15)
-    }
+    return R.font.brandonGrotesqueMedium(size: 15)
   }
   var textColor: UIColor? {
     switch self {
+    case .Success: return .whiteColor()
     case .Error: return .whiteColor()
     }
   }
   var blurEffect: UIBlurEffect? {
-    switch self {
-    case .Error: return nil
-    }
+    return nil
   }
 }
 
 class InAppMessage {
+
+  static func showSuccessMessage(text: String) {
+    Drop.down(text, state: Custom.Success)
+  }
 
   static func showErrorMessage(text: String) {
     Drop.down(text, state: Custom.Error)
