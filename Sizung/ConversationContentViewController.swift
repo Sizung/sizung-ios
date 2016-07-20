@@ -141,7 +141,7 @@ FilesPickerDelegate {
     item.handler = handler
 
     item.iconImageView.tintColor = UIColor.whiteColor()
-    item.iconImageView.contentMode = .ScaleAspectFit
+    item.iconImageView.contentMode = .Center
 
     floatingActionButton?.addItem(item: item)
 
