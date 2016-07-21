@@ -9,8 +9,8 @@
 import ObjectMapper
 
 class User: BaseModel {
-  var firstName: String!
-  var lastName: String!
+  var firstName: String?
+  var lastName: String?
   var name: String!
   var email: String!
   var presenceStatus: String?

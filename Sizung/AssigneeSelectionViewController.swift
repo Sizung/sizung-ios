@@ -86,7 +86,11 @@ class AssigneeSelectionViewController: UIViewController, UITableViewDelegate, UI
 
     if let filterString = self.filterString {
       self.collection = self.collection.filter { user in
-        return user.firstName.containsString(filterString) || user.lastName.containsString(filterString)
+        if let firstName = user.firstName, lastName = user.lastName {
+          return firstName.containsString(filterString) || lastName.containsString(filterString)
+        } else {
+          return false
+        }
       }
     }
 
