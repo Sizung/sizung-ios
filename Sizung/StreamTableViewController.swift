@@ -7,103 +7,128 @@
 //
 
 import UIKit
+import ReactiveKit
+import Rswift
+
+class StreamObject: Hashable, Equatable, DateSortable {
+  let subject: BaseModel!
+
+  var mentioners: Set<User.UserId>! = []
+  var commenters: Set<User.UserId>! = []
+
+  init(subject: BaseModel) {
+    self.subject = subject
+  }
+
+  var sortDate: NSDate {
+    get {
+      return subject.createdAt
+    }
+  }
+
+  var hashValue: Int {
+    get {
+      return subject.id.hashValue
+    }
+  }
+}
+
+func == (lhs: StreamObject, rhs: StreamObject) -> Bool {
+  return lhs.subject.id == rhs.subject.id
+}
 
 class StreamTableViewController: UITableViewController {
+
+  var storageManager: OrganizationStorageManager?
+  var streamObjects: [StreamObject] = []
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     self.tableView.registerNib(R.nib.streamTableViewCell)
 
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = false
+    StorageManager.sharedInstance.unseenObjects.observeNext { _ in
+      self.updateData()
+    }.disposeIn(rBag)
 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    updateData()
+
+
+    self.tableView.tableFooterView?.hidden = true
   }
 
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
+  func updateData() {
 
-  // MARK: - Table view data source
+    let userId = AuthToken(
+      data: Configuration.getAuthToken()).getUserId()!
+
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        self.storageManager = storageManager
+
+        // filter for subscribed unseenObjects in the selected organizations
+        let subscribedObjects = StorageManager.sharedInstance.unseenObjects.collection.filter { unseenObject in
+          return unseenObject.subscribed && unseenObject.organizationId == Configuration.getSelectedOrganization()
+          }
+
+        let streamSet = subscribedObjects.reduce(Set<StreamObject>([])) { prev, unseenObject in
+
+          var next = prev
+
+          var streamObject = prev.filter { $0.subject.id == unseenObject.timelineId }.first
+
+          if streamObject == nil {
+            // fill subject according to type
+            let subject = storageManager.getObject(withId: unseenObject.timelineId, type: unseenObject.timelineType)
+            streamObject = StreamObject(subject: subject!)
+            next.insert(streamObject!)
+          }
+
+          switch unseenObject.target {
+          case let comment as Comment:
+            // comments
+            streamObject?.commenters.insert(comment.authorId)
+
+            // mentions
+            if comment.body.containsString(userId) {
+              streamObject?.mentioners.insert(comment.authorId)
+            }
+          default:
+            Error.log("unkown target: \(unseenObject.target) for unseenObject \(unseenObject)")
+          }
+
+          if let comment = unseenObject.target as? Comment {
+
+
+          }
+
+          return next
+        }
+
+        self.streamObjects = streamSet.sort { $0.0.sortDate.isLaterThan($0.1.sortDate)}
+
+        self.tableView.reloadData()
+
+        self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
+    }
+  }
 
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-
-    // Display a message when the table is empty
-    let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-
-    messageLabel.text = "To be implemented"
-    messageLabel.numberOfLines = 0
-    messageLabel.textAlignment = .Center
-    messageLabel.font = R.font.brandonGrotesqueBold(size: 30)
-    messageLabel.sizeToFit()
-
-    self.tableView.backgroundView = messageLabel
-    self.tableView.separatorStyle = .None
-
-    return 0
+    return 1
   }
 
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    // #warning Incomplete implementation, return the number of rows
-    return 0
+    return streamObjects.count
   }
 
-  /*
-   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-   let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-   // Configure the cell...
+    let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamTableViewCell, forIndexPath: indexPath)!
+    cell.streamObject = streamObjects[indexPath.row]
+    return cell
+  }
 
-   return cell
-   }
-   */
-
-  /*
-   // Override to support conditional editing of the table view.
-   override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-   // Return false if you do not want the specified item to be editable.
-   return true
-   }
-   */
-
-  /*
-   // Override to support editing the table view.
-   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-   if editingStyle == .Delete {
-   // Delete the row from the data source
-   tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-   } else if editingStyle == .Insert {
-   // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-   }
-   }
-   */
-
-  /*
-   // Override to support rearranging the table view.
-   override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-   }
-   */
-
-  /*
-   // Override to support conditional rearranging of the table view.
-   override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-   // Return false if you do not want the item to be re-orderable.
-   return true
-   }
-   */
-
-  /*
-   // MARK: - Navigation
-
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
-   }
-   */
-
+  override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    return 100
+  }
 }

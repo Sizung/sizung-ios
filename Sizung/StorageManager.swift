@@ -145,7 +145,14 @@ class StorageManager {
 
     StorageManager.makeRequest(SizungHttpRouter.UnseenObjects(userId: userId))
       .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
-        let unseenObjects = unseenObjectsResponse.unseenObjects
+        let unseenObjects = unseenObjectsResponse.unseenObjects.map { unseenObject in
+          for include in unseenObjectsResponse.included {
+            unseenObject.target = include
+            unseenObject
+          }
+          return unseenObject
+        }
+        // TODO: set target/timeline
         promise.success(unseenObjects)
         self.unseenObjects.insertOrUpdate(unseenObjects)
       }.onFailure { error in

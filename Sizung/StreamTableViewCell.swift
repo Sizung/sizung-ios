@@ -1,5 +1,5 @@
 //
-//  ConversationsTableViewCell.swift
+//  StreamTableViewCell.swift
 //  Sizung
 //
 //  Created by Markus Klepp on 06/06/16.
@@ -13,31 +13,36 @@ import UIKit
 
 class StreamTableViewCell: UITableViewCell {
 
-  @IBOutlet weak var unreadStatusView: UIView!
-  @IBOutlet weak var nameLabel: UILabel!
-  @IBOutlet weak var lastCommentLabel: UILabel!
-  @IBOutlet weak var lastCommentAuthorImageView: UIImageView!
+  @IBOutlet weak var titleButton: UIButton!
+  @IBOutlet weak var streamItemContainerView: UIView!
 
-  class var kReuseIdentifier: String { return "com.alamofire.identifier.\(self.dynamicType)" }
-
-  // MARK: - Lifecycle Methods
-
-  func configureCellWithURLString(URLString: String, placeholderImage: UIImage? = nil) {
-    let size = lastCommentAuthorImageView.frame.size
-
-    lastCommentAuthorImageView.af_setImageWithURL(
-      NSURL(string: URLString)!,
-      placeholderImage: placeholderImage,
-      filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: size, radius: 20.0),
-      imageTransition: .CrossDissolve(0.2)
-    )
+  var title: String? {
+    didSet {
+      self.titleButton.setTitle(self.title, forState: .Normal)
+    }
   }
 
-  override func prepareForReuse() {
-    super.prepareForReuse()
+  var streamObject: StreamObject? {
+    didSet {
+      if let streamObject = self.streamObject {
+        switch streamObject.subject {
+        case let conversation as Conversation:
+          self.title = conversation.title
+          self.titleButton.setBackgroundImage(R.image.bg_conversations(), forState: .Normal)
+        case let agendaItem as AgendaItem:
+          self.title = agendaItem.title
+          self.titleButton.setBackgroundImage(R.image.bg_priorities(), forState: .Normal)
+        case let deliverable as Deliverable:
+          self.title = deliverable.title
+          self.titleButton.setBackgroundImage(R.image.bg_actions(), forState: .Normal)
+        default:
+          fatalError("unkown streamobject \(streamObject.subject)")
+        }
 
-    lastCommentAuthorImageView.af_cancelImageRequest()
-    lastCommentAuthorImageView.layer.removeAllAnimations()
-    lastCommentAuthorImageView.image = nil
+        print("show stuff for \(streamObject.subject)")
+      } else {
+        fatalError()
+      }
+    }
   }
 }

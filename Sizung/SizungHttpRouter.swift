@@ -249,6 +249,10 @@ enum SizungHttpRouter: URLRequestConvertible {
         "page[number]": page,
         "page[size]": 20
       ]
+    case .UnseenObjects:
+      return [
+        "includes": "target, timeline"
+      ]
     case .GetUploadAttachmentURL(let attachment):
       return [
         "objectName": attachment.fileName,
@@ -288,6 +292,7 @@ enum SizungHttpRouter: URLRequestConvertible {
         parameters: self.jsonParameters
         ).0
     case .ConversationObjects,
+         .UnseenObjects,
          .GetUploadAttachmentURL:
       return Alamofire.ParameterEncoding.URL.encode(
         mutableURLRequest,

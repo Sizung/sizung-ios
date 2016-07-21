@@ -11,6 +11,7 @@ import ObjectMapper
 class UnseenObjectsResponse: Mappable {
 
   var unseenObjects: [UnseenObject]!
+  var included: [BaseModel]!
 
   required init?(_ map: Map) {
 
@@ -18,5 +19,6 @@ class UnseenObjectsResponse: Mappable {
 
   func mapping(map: Map) {
     unseenObjects <- map["data"]
+    included <- map["included"]
   }
 }

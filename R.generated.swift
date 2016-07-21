@@ -134,7 +134,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 20 images.
+  /// This `R.image` struct is generated, and contains static references to 22 images.
   struct image {
     /// Image `action`.
     static let action = ImageResource(bundle: _R.hostingBundle, name: "action")
@@ -152,10 +152,14 @@ struct R: Rswift.Validatable {
     static let attachment_large = ImageResource(bundle: _R.hostingBundle, name: "attachment_large")
     /// Image `bg_actions`.
     static let bg_actions = ImageResource(bundle: _R.hostingBundle, name: "bg_actions")
+    /// Image `bg_conversations`.
+    static let bg_conversations = ImageResource(bundle: _R.hostingBundle, name: "bg_conversations")
     /// Image `bg_priorities`.
     static let bg_priorities = ImageResource(bundle: _R.hostingBundle, name: "bg_priorities")
     /// Image `close`.
     static let close = ImageResource(bundle: _R.hostingBundle, name: "close")
+    /// Image `cupcake`.
+    static let cupcake = ImageResource(bundle: _R.hostingBundle, name: "cupcake")
     /// Image `default_avatar`.
     static let default_avatar = ImageResource(bundle: _R.hostingBundle, name: "default_avatar")
     /// Image `delete`.
@@ -217,6 +221,11 @@ struct R: Rswift.Validatable {
       return UIImage(resource: R.image.bg_actions, compatibleWithTraitCollection: traitCollection)
     }
     
+    /// `UIImage(named: "bg_conversations", bundle: ..., traitCollection: ...)`
+    static func bg_conversations(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.bg_conversations, compatibleWithTraitCollection: traitCollection)
+    }
+    
     /// `UIImage(named: "bg_priorities", bundle: ..., traitCollection: ...)`
     static func bg_priorities(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.bg_priorities, compatibleWithTraitCollection: traitCollection)
@@ -225,6 +234,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "close", bundle: ..., traitCollection: ...)`
     static func close(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.close, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "cupcake", bundle: ..., traitCollection: ...)`
+    static func cupcake(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.cupcake, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "default_avatar", bundle: ..., traitCollection: ...)`
@@ -1031,8 +1045,9 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
-        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Organization', but couldn't be loaded.") }
+        if UIImage(named: "cupcake") == nil { throw ValidationError(description: "[R.swift] Image named 'cupcake' is used in storyboard 'Organization', but couldn't be loaded.") }
         if UIImage(named: "group_list") == nil { throw ValidationError(description: "[R.swift] Image named 'group_list' is used in storyboard 'Organization', but couldn't be loaded.") }
+        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Organization', but couldn't be loaded.") }
         if UIImage(named: "priority") == nil { throw ValidationError(description: "[R.swift] Image named 'priority' is used in storyboard 'Organization', but couldn't be loaded.") }
         if _R.storyboard.organization().agendaItemsTableViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemsTableViewController' could not be loaded from storyboard 'Organization' as 'AgendaItemsTableViewController'.") }
         if _R.storyboard.organization().accountViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'accountViewController' could not be loaded from storyboard 'Organization' as 'AccountViewController'.") }

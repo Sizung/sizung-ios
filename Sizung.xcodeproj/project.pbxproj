@@ -361,6 +361,15 @@
 			name = storage;
 			sourceTree = "<group>";
 		};
+		5A2B3DB61D40B36C0056725A /* Stream */ = {
+			isa = PBXGroup;
+			children = (
+				5A9D0EEA1D11BCAB00037589 /* StreamTableViewCell.swift */,
+				5A9D0EEB1D11BCAB00037589 /* StreamTableViewCell.xib */,
+			);
+			name = Stream;
+			sourceTree = "<group>";
+		};
 		5A3B4F751CE4696B00086338 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,6 +476,7 @@
 		5A7329FF1D05FEBB006531A5 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				5A2B3DB61D40B36C0056725A /* Stream */,
 				5ADC88301D104FFF00596D67 /* Timeline */,
 				5AC0E5DE1CF04D0000BBEF45 /* SizungTableViewCell.swift */,
 				5A7329FB1D05FEB2006531A5 /* AgendaItemTableViewCell.swift */,
@@ -477,8 +487,6 @@
 				5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */,
 				5A7329ED1D058574006531A5 /* ConversationTableViewCell.swift */,
 				5A9D0EE61D11B3C500037589 /* ConversationTableViewCell.xib */,
-				5A9D0EEA1D11BCAB00037589 /* StreamTableViewCell.swift */,
-				5A9D0EEB1D11BCAB00037589 /* StreamTableViewCell.xib */,
 				5AF36B991D12FBC300A1581F /* OrganizationTableViewCell.swift */,
 				5AF36B9A1D12FBC300A1581F /* OrganizationTableViewCell.xib */,
 				5A6D370F1D1E7E0200F00B87 /* NewMessageSeparatorCell.xib */,
