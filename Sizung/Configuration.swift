@@ -7,15 +7,15 @@
 //
 
 
-//#if RELEASE_VERSION
+#if RELEASE_VERSION
 let kServerUrl = "https://app.sizung.com/api"
 let kWebSocketOriginUrl = "https://app.sizung.com"
 let kWebsocketUrl = "wss://app.sizung.com/websocket"
-//#else
-//let kServerUrl = "https://staging-sizung.herokuapp.com/api"
-//let kWebSocketOriginUrl = "https://staging-sizung.herokuapp.com"
-//let kWebsocketUrl = "wss://staging-sizung.herokuapp.com/websocket"
-//#endif
+#else
+let kServerUrl = "https://staging-sizung.herokuapp.com/api"
+let kWebSocketOriginUrl = "https://staging-sizung.herokuapp.com"
+let kWebsocketUrl = "wss://staging-sizung.herokuapp.com/websocket"
+#endif
 
 
 import Foundation
