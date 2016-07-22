@@ -71,8 +71,8 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/conversations/\(id)"
     case .CreateConversation:
       return "/conversations"
-    case .UpdateConversation(let id):
-      return "/conversations/\(id)"
+    case .UpdateConversation(let conversation):
+      return "/conversations/\(conversation.id)"
     case .AgendaItem(let id):
       return "/agenda_items/\(id)"
     case .CreateAgendaItem:
@@ -152,8 +152,8 @@ enum SizungHttpRouter: URLRequestConvertible {
     case .UpdateConversation(let conversation):
       let members = conversation.members.map {user in
         return [
-          "id": user.id,
-          "type": "users"
+          "member_id": user.id,
+          "conversation_id": conversation.id
         ]
       }
       return [
@@ -249,6 +249,10 @@ enum SizungHttpRouter: URLRequestConvertible {
         "page[number]": page,
         "page[size]": 20
       ]
+    case .UnseenObjects:
+      return [
+        "include": "target,timeline"
+      ]
     case .GetUploadAttachmentURL(let attachment):
       return [
         "objectName": attachment.fileName,
@@ -288,6 +292,7 @@ enum SizungHttpRouter: URLRequestConvertible {
         parameters: self.jsonParameters
         ).0
     case .ConversationObjects,
+         .UnseenObjects,
          .GetUploadAttachmentURL:
       return Alamofire.ParameterEncoding.URL.encode(
         mutableURLRequest,

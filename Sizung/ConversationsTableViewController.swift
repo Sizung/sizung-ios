@@ -49,8 +49,8 @@ class ConversationsTableViewController: UITableViewController {
           let conversation = conversations[indexPath.row]
           cell.nameLabel.text = conversation.title
 
-          let activeUsersCount = conversation.members.reduce(0, combine: {sum, member in
-            if let user = storageManager.users[member.id] {
+          let activeUsersCount = conversation.members.reduce(0, combine: {sum, user in
+            if let user = storageManager.users[user.id] {
               return sum + (user.isActive() ? 1 : 0)
             } else {
               return sum
@@ -64,8 +64,8 @@ class ConversationsTableViewController: UITableViewController {
 
           var currentPos: CGFloat = 0
 
-          conversation.members.forEach { member in
-            if let user = storageManager.users[member.id] {
+          conversation.members.forEach { user in
+            if let user = storageManager.users[user.id] {
 
               guard user.isActive() else {
                 return
