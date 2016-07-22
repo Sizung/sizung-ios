@@ -85,7 +85,11 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
       let user = collection[indexPath.row]
 
       cell.avatarImage.user = user
-      cell.nameLabel.text = "\(user.firstName) \(user.lastName)"
+      if let firstName = user.firstName, lastName = user.lastName {
+        cell.nameLabel.text = "\(firstName) \(lastName)"
+      } else {
+        cell.nameLabel.text = "unkown"
+      }
 
       if self.conversation.members.contains(user) {
         cell.deleteButton.hidden = false
