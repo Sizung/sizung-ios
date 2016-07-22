@@ -34,7 +34,7 @@ class Conversation: BaseModel {
     title <- map["attributes.title"]
     archived <- map["attributes.archived"]
     organizationId <- map["relationships.organization.data.id"]
-    members <- map["relationships.members.data"]
+    members <- (map["relationships.members.data"])
     agendaItems <- map["relationships.agenda_items.data"]
     deliverables <- map["relationships.deliverables.data"]
     agendaItemDeliverables <- map["relationships.agenda_item_deliverables.data"]

@@ -48,8 +48,8 @@ class Websocket {
 
       switch error!._code {
       case 2, 3:
-          self.conversationWebsocketDelegate?.onConnectFailed()
-          self.userWebsocketDelegate?.onConnectFailed()
+        self.conversationWebsocketDelegate?.onConnectFailed()
+        self.userWebsocketDelegate?.onConnectFailed()
       default:
         self.conversationWebsocketDelegate?.onDisconnected()
         self.userWebsocketDelegate?.onDisconnected()
@@ -69,13 +69,20 @@ class Websocket {
     channel.onReceive = { (JSON: AnyObject?, error: ErrorType?) in
       if let websocketResponse = Mapper<WebsocketResponse>().map(JSON) {
         switch websocketResponse.payload {
-        case _ as Comment,
-             _ as Attachment,
-             _ as Deliverable,
-             _ as AgendaItem:
+        case is Comment,
+             is Attachment,
+             is Deliverable,
+             is AgendaItem:
           self.conversationWebsocketDelegate?.onReceived(websocketResponse.payload)
-        case _ as UnseenObject:
-          self.userWebsocketDelegate?.onReceived(websocketResponse.payload)
+        case let unseenObject as UnseenObject:
+          unseenObject.target = websocketResponse.included.filter { include in
+            return include.id == unseenObject.targetId
+            }.first
+
+          unseenObject.timeline = websocketResponse.included.filter { include in
+            return include.id == unseenObject.timelineId
+            }.first
+          self.userWebsocketDelegate?.onReceived(unseenObject)
         default:
           let message = "unkown onReceive: \(JSON) error: \(error)"
           Error.log(message)

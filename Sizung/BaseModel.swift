@@ -8,7 +8,7 @@
 
 import ObjectMapper
 
-class BaseModel: Mappable, Equatable, Hashable, DateSortable {
+class BaseModel: Mappable, Equatable, Hashable, DateSortable, CustomStringConvertible {
 
   // a UUID String
   // swiftlint:disable:next variable_name
@@ -17,17 +17,24 @@ class BaseModel: Mappable, Equatable, Hashable, DateSortable {
   var createdAt: NSDate!
   var updatedAt: NSDate!
 
-  init(type: String) {
-    id = NSUUID().UUIDString
-    self.type = type
-  }
-
   var hashValue: Int {
     return id.hashValue
   }
 
   var sortDate: NSDate {
     return createdAt
+  }
+
+  var description: String { get { return "\(self.type) id: \(self.id)" } }
+
+  init(type: String) {
+    id = NSUUID().UUIDString
+    self.type = type
+  }
+
+  init(itemId: String, type: String) {
+    self.id = itemId
+    self.type = type
   }
 
   required init?(_ map: Map) {

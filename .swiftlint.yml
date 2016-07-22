@@ -8,4 +8,6 @@ excluded:
 function_body_length:
   - 50 # warning
   - 100
-
+type_body_length:
+  - 300
+  - 500

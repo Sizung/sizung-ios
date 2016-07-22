@@ -9,6 +9,9 @@
 import ObjectMapper
 
 class User: BaseModel {
+
+  typealias UserId = String
+
   var firstName: String?
   var lastName: String?
   var name: String!

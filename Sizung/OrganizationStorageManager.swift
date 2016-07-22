@@ -24,6 +24,22 @@ class OrganizationStorageManager {
 
   let users: CollectionProperty <[User]> = CollectionProperty([])
 
+  func getObject(withId itemId: String, type: String) -> BaseModel? {
+    switch type {
+    case "conversations":
+      return self.conversations[itemId]
+
+    case "agenda_items":
+      return self.agendaItems[itemId]
+    case "deliverables":
+      return self.deliverables[itemId]
+    case "users":
+      return self.users[itemId]
+    default:
+      fatalError()
+    }
+  }
+
   func getConversation(itemId: String) -> Future<Conversation, StorageError> {
     let promise = Promise<Conversation, StorageError>()
     let foundConversations = conversations.collection.filter { conversation in
@@ -336,11 +352,9 @@ class OrganizationStorageManager {
               promise.failure(.Other)
             }
         }
-
       }.onFailure { error in
         promise.failure(error)
     }
-
     return promise.future
   }
 }

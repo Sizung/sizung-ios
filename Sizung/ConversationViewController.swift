@@ -16,8 +16,11 @@ class ConversationViewController: UIViewController {
 
   var openItem: BaseModel?
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  var navController: UINavigationController?
+
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(true)
+
     self.titleButton.setTitle("\(conversation.title)", forState: .Normal)
   }
 
@@ -26,6 +29,15 @@ class ConversationViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
 
+  @IBAction func titleClicked(sender: AnyObject) {
+    if self.navController?.viewControllers.count == 1 {
+      let createConversationViewController = R.storyboard.conversations.create()!
+      createConversationViewController.conversation = conversation
+      self.showViewController(createConversationViewController, sender: nil)
+    } else {
+      self.navController?.popToRootViewControllerAnimated(true)
+    }
+  }
 
   @IBAction func close(sender: AnyObject) {
     dismissViewControllerAnimated(true, completion: nil)
@@ -34,6 +46,9 @@ class ConversationViewController: UIViewController {
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if R.segue.conversationViewController.embedNavController(segue: segue) != nil {
       if let navController = segue.destinationViewController as? UINavigationController {
+
+        self.navController = navController
+
         if let conversationContentViewController = navController.viewControllers.first as? ConversationContentViewController {
           conversationContentViewController.conversation = self.conversation
 
