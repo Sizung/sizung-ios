@@ -283,7 +283,20 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
       return
     }
 
-    self.editCellMessage(gesture)
+    self.copyCellMessage(gesture)
+  }
+
+  func copyCellMessage(gesture: UIGestureRecognizer) {
+    guard let cell = gesture.view as? CommentTableViewCell else {
+      return
+    }
+
+    if let indexPath = self.tableView.indexPathForCell(cell) {
+
+      if let comment = sortedCollection[indexPath.row].model as? Comment {
+        UIPasteboard.generalPasteboard().string = comment.body
+      }
+    }
   }
 
   func editCellMessage(gesture: UIGestureRecognizer) {
@@ -618,10 +631,10 @@ extension TimelineTableViewController {
         cell.authorImage.user = author
       }
 
-      //    if cell.gestureRecognizers?.count == nil {
-      //      let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))
-      //      cell.addGestureRecognizer(longPress)
-      //    }
+      if cell.gestureRecognizers?.count == nil {
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))
+        cell.addGestureRecognizer(longPress)
+      }
 
       cell.selectionStyle = .None
 
