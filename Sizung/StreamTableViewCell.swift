@@ -39,7 +39,7 @@ class StreamTableViewCell: UITableViewCell {
           fatalError("unkown streamobject \(streamObject.subject)")
         }
 
-        print("show stuff for \(streamObject.subject)")
+        print("\(streamObject.commenters.count) comments, \(streamObject.mentioners.count) mentions for \(streamObject.subject)")
       } else {
         fatalError()
       }

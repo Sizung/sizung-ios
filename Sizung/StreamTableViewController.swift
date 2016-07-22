@@ -78,9 +78,7 @@ class StreamTableViewController: UITableViewController {
           var streamObject = prev.filter { $0.subject.id == unseenObject.timelineId }.first
 
           if streamObject == nil {
-            // fill subject according to type
-            let subject = storageManager.getObject(withId: unseenObject.timelineId, type: unseenObject.timelineType)
-            streamObject = StreamObject(subject: subject!)
+            streamObject = StreamObject(subject: unseenObject.timeline)
             next.insert(streamObject!)
           }
 

@@ -251,7 +251,7 @@ enum SizungHttpRouter: URLRequestConvertible {
       ]
     case .UnseenObjects:
       return [
-        "includes": "target, timeline"
+        "include": "target,timeline"
       ]
     case .GetUploadAttachmentURL(let attachment):
       return [

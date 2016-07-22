@@ -16,9 +16,11 @@ class UnseenObject: BaseModel {
   var organizationId: String?
   var userId: String!
   var subscribed: Bool!
+  var timelineId: String?
+  var targetId: String?
 
-  var target: BaseModel?
-  var timeline: BaseModel?
+  var target: BaseModel!
+  var timeline: BaseModel!
 
   override func mapping(map: Map) {
     super.mapping(map)
@@ -28,5 +30,7 @@ class UnseenObject: BaseModel {
     deliverableId <- map["relationships.deliverable.data.id"]
     organizationId <- map["relationships.organization.data.id"]
     userId <- map["relationships.user.data.id"]
+    timelineId <- map["relationships.timeline.data.id"]
+    targetId <- map["relationships.target.data.id"]
   }
 }

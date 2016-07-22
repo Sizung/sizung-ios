@@ -145,14 +145,17 @@ class StorageManager {
 
     StorageManager.makeRequest(SizungHttpRouter.UnseenObjects(userId: userId))
       .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
-        let unseenObjects = unseenObjectsResponse.unseenObjects.map { unseenObject in
-          for include in unseenObjectsResponse.included {
-            unseenObject.target = include
-            unseenObject
-          }
+        let unseenObjects = unseenObjectsResponse.unseenObjects.map { (unseenObject: UnseenObject) -> (UnseenObject) in
+          unseenObject.target = unseenObjectsResponse.included.filter { include in
+            return include.id == unseenObject.targetId
+            }.first
+
+          unseenObject.timeline = unseenObjectsResponse.included.filter { include in
+            return include.id == unseenObject.timelineId
+            }.first
           return unseenObject
         }
-        // TODO: set target/timeline
+
         promise.success(unseenObjects)
         self.unseenObjects.insertOrUpdate(unseenObjects)
       }.onFailure { error in

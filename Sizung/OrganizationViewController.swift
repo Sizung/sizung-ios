@@ -61,7 +61,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
         self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
     }
   }
-  
+
   func calculateUnseenConversations() -> Int {
     var unseenConversationSet = Set<String>()
     StorageManager.sharedInstance.unseenObjects.collection.forEach { unseenObject in
