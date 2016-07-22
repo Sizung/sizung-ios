@@ -1309,7 +1309,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D RELEASE_VERSION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sizung.app.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7cd78d26-97c0-4826-a45b-ac86aca72f22";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sizung/Sizung-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

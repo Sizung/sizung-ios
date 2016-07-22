@@ -12,8 +12,8 @@ class User: BaseModel {
 
   typealias UserId = String
 
-  var firstName: String!
-  var lastName: String!
+  var firstName: String?
+  var lastName: String?
   var name: String!
   var email: String!
   var presenceStatus: String?
