@@ -352,11 +352,9 @@ class OrganizationStorageManager {
               promise.failure(.Other)
             }
         }
-        
       }.onFailure { error in
         promise.failure(error)
     }
-    
     return promise.future
   }
 }

@@ -10,11 +10,12 @@ import UIKit
 
 class CreateConversationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
+  @IBOutlet weak var titleButton: UILabel!
   @IBOutlet weak var conversationNameTextField: UITextField!
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var addMemberContainer: UIView!
 
-  private var conversation = Conversation(organizationId: Configuration.getSelectedOrganization()!)
+  var conversation = Conversation(organizationId: Configuration.getSelectedOrganization()!)
 
   var storageManager: OrganizationStorageManager?
 
@@ -22,7 +23,10 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
   var possibleMembers: [User] {
     get {
-      let diff = Set(storageManager!.users.collection).subtract(conversation.members)
+      let conversationMembers = conversation.members.map {user in
+        return storageManager!.users[user.id]!
+      }
+      let diff = Set(storageManager!.users.collection).subtract(conversationMembers)
       if let filterString = filterString {
         return Array(diff).filter { user in
           if let firstName = user.firstName, lastName = user.lastName {
@@ -44,7 +48,9 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
       if addMode {
         return possibleMembers
       } else {
-        return conversation.members
+        return conversation.members.map {user in
+          return (storageManager?.users[user.id])!
+        }
       }
     }
   }
@@ -62,12 +68,19 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
       .onSuccess { storageManager in
         self.storageManager = storageManager
         let authToken = AuthToken(data: Configuration.getAuthToken())
-        let user = storageManager.users[authToken.getUserId()!]!
+        let user = storageManager.users[authToken.getUserId()]!
 
-        self.conversation.members.append(user)
+        if self.conversation.new {
+          self.conversation.members.append(user)
+        }
     }
 
     conversationNameTextField.becomeFirstResponder()
+    conversationNameTextField.text = conversation.title
+
+    if !conversation.new {
+      titleButton.text = "Edit \(conversation.title)"
+    }
 
   }
 
@@ -106,7 +119,8 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
   }
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    self.conversation.members.append(collection[indexPath.row])
+    let user = collection[indexPath.row]
+    self.conversation.members.append(user)
     self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
   }
 
@@ -129,9 +143,13 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     func successFunc(conversation: Conversation) {
       let parent = self.presentingViewController!
       self.dismissViewControllerAnimated(true) {
-        let conversationViewController = R.storyboard.conversation.initialViewController()!
-        conversationViewController.conversation = conversation
-        parent.showViewController(conversationViewController, sender: nil)
+
+        // show if new
+        if conversation.new {
+          let conversationViewController = R.storyboard.conversation.initialViewController()!
+          conversationViewController.conversation = conversation
+          parent.showViewController(conversationViewController, sender: nil)
+        }
       }
     }
 
@@ -141,7 +159,7 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     }
 
     // save conversation
-    if conversation.new == true {
+    if conversation.new {
       storageManager?.createConversation(conversation).onSuccess(callback: successFunc).onFailure(callback: errorFunc)
     } else {
       storageManager?.updateConversation(conversation).onSuccess(callback: successFunc).onFailure(callback: errorFunc)
