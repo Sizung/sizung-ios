@@ -55,11 +55,18 @@ class StreamTableViewController: UITableViewController {
 
     updateData()
 
+    self.refreshControl?.addTarget(
+      self,
+      action: #selector(self.updateData),
+      forControlEvents: UIControlEvents.ValueChanged
+    )
 
     self.tableView.tableFooterView?.hidden = true
   }
 
   func updateData() {
+
+    self.refreshControl?.beginRefreshing()
 
     let userId = AuthToken(
       data: Configuration.getAuthToken()).getUserId()!
@@ -107,6 +114,9 @@ class StreamTableViewController: UITableViewController {
         self.tableView.reloadData()
 
         self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
+
+
+        self.refreshControl?.endRefreshing()
     }
   }
 
