@@ -13,8 +13,8 @@ import Rswift
 class StreamObject: Hashable, Equatable, DateSortable {
   let subject: BaseModel!
 
-  var mentioners: Set<User.UserId>! = []
-  var commenters: Set<User.UserId>! = []
+  var mentionAuthors: Set<User>! = []
+  var commentAuthors: Set<User>! = []
 
   init(subject: BaseModel) {
     self.subject = subject
@@ -45,11 +45,13 @@ class StreamTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.tableView.registerNib(R.nib.streamTableViewCell)
+    tableView.registerNib(R.nib.streamTableViewCell)
+    tableView.rowHeight = UITableViewAutomaticDimension
+    tableView.estimatedRowHeight = 100
 
     StorageManager.sharedInstance.unseenObjects.observeNext { _ in
       self.updateData()
-    }.disposeIn(rBag)
+      }.disposeIn(rBag)
 
     updateData()
 
@@ -69,7 +71,7 @@ class StreamTableViewController: UITableViewController {
         // filter for subscribed unseenObjects in the selected organizations
         let subscribedObjects = StorageManager.sharedInstance.unseenObjects.collection.filter { unseenObject in
           return unseenObject.subscribed && unseenObject.organizationId == Configuration.getSelectedOrganization()
-          }
+        }
 
         let streamSet = subscribedObjects.reduce(Set<StreamObject>([])) { prev, unseenObject in
 
@@ -84,20 +86,17 @@ class StreamTableViewController: UITableViewController {
 
           switch unseenObject.target {
           case let comment as Comment:
-            // comments
-            streamObject?.commenters.insert(comment.authorId)
+            if let user = storageManager.users[comment.authorId] {
+              // comments
+              streamObject?.commentAuthors.insert(user)
 
-            // mentions
-            if comment.body.containsString(userId) {
-              streamObject?.mentioners.insert(comment.authorId)
+              // mentions
+              if comment.body.containsString(userId) {
+                streamObject?.mentionAuthors.insert(user)
+              }
             }
           default:
             Error.log("unkown target: \(unseenObject.target) for unseenObject \(unseenObject)")
-          }
-
-          if let comment = unseenObject.target as? Comment {
-
-
           }
 
           return next
@@ -124,9 +123,5 @@ class StreamTableViewController: UITableViewController {
     let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamTableViewCell, forIndexPath: indexPath)!
     cell.streamObject = streamObjects[indexPath.row]
     return cell
-  }
-
-  override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    return 100
   }
 }
