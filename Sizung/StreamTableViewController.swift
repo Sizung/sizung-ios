@@ -124,4 +124,43 @@ class StreamTableViewController: UITableViewController {
     cell.streamObject = streamObjects[indexPath.row]
     return cell
   }
+
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let streamObject = streamObjects[indexPath.row]
+
+    switch streamObject.subject {
+    case let conversation as Conversation:
+      self.openViewControllerFor(nil, inConversation: conversation)
+    case let agendaItem as AgendaItem:
+      StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
+        .onSuccess { conversation in
+          self.openViewControllerFor(agendaItem, inConversation: conversation)
+      }
+    case let agendaItemDeliverable as AgendaItemDeliverable:
+      StorageManager.sharedInstance.getAgendaItem(agendaItemDeliverable.agendaItemId)
+        .onSuccess { agendaItem in
+          StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
+            .onSuccess { conversation in
+              self.openViewControllerFor(agendaItemDeliverable, inConversation: conversation)
+          }
+      }
+    case let deliverable as Deliverable:
+      StorageManager.sharedInstance.getConversation(deliverable.parentId)
+        .onSuccess { conversation in
+          self.openViewControllerFor(deliverable, inConversation: conversation)
+      }
+
+
+    default:
+      fatalError()
+    }
+  }
+
+  func openViewControllerFor(item: BaseModel?, inConversation conversation: Conversation) {
+    let conversationController = R.storyboard.conversation.initialViewController()!
+    conversationController.conversation = conversation
+    conversationController.openItem = item
+
+    self.showViewController(conversationController, sender: nil)
+  }
 }
