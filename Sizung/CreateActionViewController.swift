@@ -160,8 +160,8 @@ class CreateActionContentViewController: UIViewController, CalendarViewDelegate,
     if let assignee = assignee {
       self.assigneeImageView.user = assignee
       self.assigneeImageView.hidden = false
-      if let firstName = user.firstName, lastName = user.lastName {
-        self.assigneeButton.setTitle("\(assignee.firstName) \(assignee.lastName)", forState: .Normal)
+      if let firstName = assignee.firstName, lastName = assignee.lastName {
+        self.assigneeButton.setTitle("\(firstName) \(lastName)", forState: .Normal)
       } else {
         self.assigneeButton.setTitle("", forState: .Normal)
       }
