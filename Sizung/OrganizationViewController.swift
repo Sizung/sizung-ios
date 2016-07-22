@@ -64,7 +64,9 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
 
   func calculateUnseenConversations() -> Int {
     var unseenConversationSet = Set<String>()
-    StorageManager.sharedInstance.unseenObjects.collection.forEach { unseenObject in
+    StorageManager.sharedInstance.unseenObjects.collection.filter { unseenObject in
+        return unseenObject.organizationId == Configuration.getSelectedOrganization()
+      }.forEach { unseenObject in
       if let conversationId = unseenObject.conversationId {
         unseenConversationSet.insert(conversationId)
       }
