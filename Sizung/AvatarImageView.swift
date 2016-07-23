@@ -57,7 +57,7 @@ import AlamofireImage
 
     self.backgroundColor = Color.SIZUNG
 
-    self.titleLabel?.textColor = UIColor.whiteColor()
+    self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
     self.titleLabel?.lineBreakMode = .ByClipping
     self.titleLabel?.numberOfLines = 1
     self.titleLabel?.adjustsFontSizeToFitWidth = true
