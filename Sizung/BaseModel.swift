@@ -59,7 +59,11 @@ class BaseModel: Mappable, Equatable, Hashable, DateSortable, CustomStringConver
       case "comments":
         return Comment(map)
       case "deliverables":
-        return Deliverable(map)
+        if map["relationships.parent.data.type"].value() == "agenda_items" {
+          return AgendaItemDeliverable(map)
+        } else {
+          return Deliverable(map)
+        }
       case "agenda_items":
         return AgendaItem(map)
       case "unseen_objects":
