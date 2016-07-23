@@ -173,7 +173,6 @@ class StreamTableViewController: UITableViewController {
           self.openViewControllerFor(deliverable, inConversation: conversation)
       }
 
-
     default:
       fatalError()
     }

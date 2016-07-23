@@ -62,13 +62,13 @@
                                     <constraint firstAttribute="height" constant="1" id="Jv3-xM-bqX"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eEY-46-eJF">
-                                <rect key="frame" x="20" y="151" width="527" height="100"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eEY-46-eJF">
+                                <rect key="frame" x="20" y="151" width="527" height="90"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Efg-Tb-e2t">
-                                        <rect key="frame" x="0.0" y="0.0" width="527" height="50"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Efg-Tb-e2t">
+                                        <rect key="frame" x="0.0" y="0.0" width="527" height="45"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="mentioned you…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltD-tS-knW">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mentioned you…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltD-tS-knW">
                                                 <rect key="frame" x="416" y="10" width="111" height="25"/>
                                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -80,6 +80,7 @@
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ltD-tS-knW" secondAttribute="trailing" id="DZp-fs-yw4"/>
                                             <constraint firstAttribute="trailing" secondItem="ltD-tS-knW" secondAttribute="trailing" id="FBx-Bp-IOv"/>
                                             <constraint firstItem="ltD-tS-knW" firstAttribute="top" secondItem="Efg-Tb-e2t" secondAttribute="top" constant="10" id="Olg-UA-BgQ"/>
+                                            <constraint firstItem="ltD-tS-knW" firstAttribute="leading" secondItem="Efg-Tb-e2t" secondAttribute="leading" priority="999" constant="416" id="Vcy-1e-QrD"/>
                                             <constraint firstAttribute="bottom" secondItem="ltD-tS-knW" secondAttribute="bottom" constant="10" id="eY9-2U-BXD"/>
                                             <constraint firstItem="ltD-tS-knW" firstAttribute="centerY" secondItem="Efg-Tb-e2t" secondAttribute="centerY" id="t5y-ND-DER"/>
                                         </constraints>
@@ -90,10 +91,10 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xx9-hc-xeJ">
-                                        <rect key="frame" x="0.0" y="50" width="527" height="50"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xx9-hc-xeJ">
+                                        <rect key="frame" x="0.0" y="45" width="527" height="45"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="commented…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLe-7t-GKR">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="commented…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lLe-7t-GKR">
                                                 <rect key="frame" x="436" y="10" width="91" height="25"/>
                                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -103,6 +104,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="lLe-7t-GKR" secondAttribute="bottom" constant="10" id="9aU-dI-nK3"/>
+                                            <constraint firstItem="lLe-7t-GKR" firstAttribute="leading" secondItem="Xx9-hc-xeJ" secondAttribute="leading" priority="999" constant="436" id="B80-2c-3F5"/>
                                             <constraint firstItem="lLe-7t-GKR" firstAttribute="top" secondItem="Xx9-hc-xeJ" secondAttribute="top" constant="10" id="Ve0-2P-eQS"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lLe-7t-GKR" secondAttribute="trailing" id="YjB-wq-JXP"/>
                                             <constraint firstAttribute="trailing" secondItem="lLe-7t-GKR" secondAttribute="trailing" id="lLT-rj-om2"/>

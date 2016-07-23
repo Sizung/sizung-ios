@@ -385,8 +385,8 @@
 			isa = PBXGroup;
 			children = (
 				5A9D0EEA1D11BCAB00037589 /* StreamTableViewCell.swift */,
-				5A9D0EEB1D11BCAB00037589 /* StreamConversationTableViewCell.xib */,
 				5A208E561D435D6700F765C9 /* StreamConversationTableViewCell.swift */,
+				5A9D0EEB1D11BCAB00037589 /* StreamConversationTableViewCell.xib */,
 				5A208E581D43601A00F765C9 /* StreamActionTableViewCell.swift */,
 				5A208E591D43601A00F765C9 /* StreamActionTableViewCell.xib */,
 				5A208E5A1D43601A00F765C9 /* StreamAgendaTableViewCell.swift */,

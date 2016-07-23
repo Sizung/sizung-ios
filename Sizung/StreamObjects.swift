@@ -18,7 +18,7 @@ class StreamObject: StreamObjectProtocol, Hashable, Equatable, DateSortable {
   private var lastActionDate: NSDate! = NSDate.distantPast()
 
   func updateLastActionDate(date: NSDate) {
-    if date.isLaterThan(lastActionDate){
+    if date.isLaterThan(lastActionDate) {
       lastActionDate = date
     }
   }
