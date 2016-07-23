@@ -55,6 +55,13 @@ import AlamofireImage
     self.layer.cornerRadius = size/2
     self.clipsToBounds = true
 
+    self.backgroundColor = Color.SIZUNG
+
     self.titleLabel?.textColor = UIColor.whiteColor()
+    self.titleLabel?.lineBreakMode = .ByClipping
+    self.titleLabel?.numberOfLines = 1
+    self.titleLabel?.adjustsFontSizeToFitWidth = true
+
+    self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 2)
   }
 }
