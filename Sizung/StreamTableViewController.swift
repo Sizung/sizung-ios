@@ -42,10 +42,16 @@ class StreamTableViewController: UITableViewController {
 
   func updateData() {
 
-    self.refreshControl?.beginRefreshing()
 
     let userId = AuthToken(
-      data: Configuration.getAuthToken()).getUserId()!
+      data: Configuration.getAuthToken()).getUserId()
+
+
+    guard userId != nil else {
+      return
+    }
+
+    self.refreshControl?.beginRefreshing()
 
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
@@ -97,7 +103,7 @@ class StreamTableViewController: UITableViewController {
               streamObject?.commentAuthors.insert(user)
 
               // mentions
-              if comment.body.containsString(userId) {
+              if comment.body.containsString(userId!) {
                 streamObject?.mentionAuthors.insert(user)
               }
             }
