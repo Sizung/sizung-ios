@@ -37,6 +37,7 @@ class Configuration: NSObject {
 
   class func reset() {
     NSUserDefaults.resetStandardUserDefaults()
+    KeychainWrapper.removeObjectForKey(Configuration.Settings.kDeviceId)
     KeychainWrapper.removeObjectForKey(Configuration.Settings.kAuthToken)
   }
 
