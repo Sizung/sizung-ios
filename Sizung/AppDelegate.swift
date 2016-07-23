@@ -239,12 +239,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
     }
 
-    Alamofire.request(SizungHttpRouter.RegisterDevice(token: tokenString))
-      .validate()
-      .responseJSON { response in
-        if let error = response.result.error {
-          Error.log(error)
-        }
+    if let deviceId = Configuration.getDeviceId() {
+      Alamofire.request(SizungHttpRouter.UpdateDevice(deviceId: deviceId, token: tokenString))
+        .validate()
+        .responseJSON { response in
+          if let error = response.result.error {
+            Error.log(error)
+          }
+      }
+    } else {
+      Alamofire.request(SizungHttpRouter.RegisterDevice(token: tokenString))
+        .validate()
+        .responseJSON { response in
+          if let error = response.result.error {
+            Error.log(error)
+          }
+      }
     }
   }
 

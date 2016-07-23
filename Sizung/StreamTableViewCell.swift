@@ -29,22 +29,7 @@ class StreamTableViewCell: UITableViewCell {
 
   var streamObject: StreamObject? {
     didSet {
-      if let streamObject = self.streamObject {
-        switch streamObject.subject {
-        case let conversation as Conversation:
-          self.setupContent(conversation.title, bgImage: R.image.bg_conversations(), leftContentInset: 20)
-        case let agendaItem as AgendaItem:
-          self.setupContent(agendaItem.title, bgImage: R.image.bg_priorities(), leftContentInset: 40)
-        case let deliverable as Deliverable:
-          self.setupContent(deliverable.title, bgImage: R.image.bg_actions(), leftContentInset: 40)
-        default:
-          fatalError("unkown streamobject \(streamObject.subject)")
-        }
-
-        self.renderStreamItems()
-      } else {
-        fatalError()
-      }
+      self.renderStreamItems()
     }
   }
 
