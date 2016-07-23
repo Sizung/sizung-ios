@@ -31,6 +31,14 @@ class User: BaseModel {
     return "online" == self.presenceStatus
   }
 
+  var fullName: String {
+    if let firstName = firstName, lastName = lastName {
+      return "\(firstName) \(lastName)"
+    } else {
+      return "??"
+    }
+  }
+
   func getInitials() -> String {
     if let firstName = firstName, lastName = lastName {
       return "\(firstName[firstName.startIndex])\(lastName[lastName.startIndex])"

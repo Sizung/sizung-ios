@@ -10,33 +10,6 @@ import UIKit
 import ReactiveKit
 import Rswift
 
-class StreamObject: Hashable, Equatable, DateSortable {
-  let subject: BaseModel!
-
-  var mentionAuthors: Set<User>! = []
-  var commentAuthors: Set<User>! = []
-
-  init(subject: BaseModel) {
-    self.subject = subject
-  }
-
-  var sortDate: NSDate {
-    get {
-      return subject.createdAt
-    }
-  }
-
-  var hashValue: Int {
-    get {
-      return subject.id.hashValue
-    }
-  }
-}
-
-func == (lhs: StreamObject, rhs: StreamObject) -> Bool {
-  return lhs.subject.id == rhs.subject.id
-}
-
 class StreamTableViewController: UITableViewController {
 
   var storageManager: OrganizationStorageManager?
@@ -45,7 +18,10 @@ class StreamTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    tableView.registerNib(R.nib.streamTableViewCell)
+    tableView.registerNib(R.nib.streamConversationTableViewCell)
+    tableView.registerNib(R.nib.streamAgendaTableViewCell)
+    tableView.registerNib(R.nib.streamActionTableViewCell)
+
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 100
 
@@ -87,9 +63,32 @@ class StreamTableViewController: UITableViewController {
           var streamObject = prev.filter { $0.subject.id == unseenObject.timelineId }.first
 
           if streamObject == nil {
-            streamObject = StreamObject(subject: unseenObject.timeline)
+            switch unseenObject.timeline {
+            case let conversation as Conversation:
+              streamObject = StreamConversationObject(conversation: conversation)
+            case let action as Deliverable:
+              var conversationId: String
+              if let agendaItemDeliverable = action as? AgendaItemDeliverable {
+                let agendaItem = storageManager.agendaItems[agendaItemDeliverable.agendaItemId]!
+                conversationId = agendaItem.conversationId
+              } else {
+                conversationId = action.parentId
+              }
+              let conversation = storageManager.conversations[conversationId]!
+              let author = storageManager.users[action.ownerId]!
+              streamObject = StreamActionObject(action: action, conversation: conversation, author: author)
+            case let agenda as AgendaItem:
+              let conversation = storageManager.conversations[agenda.conversationId]!
+              let owner = storageManager.users[agenda.ownerId]!
+              streamObject = StreamAgendaObject(agenda: agenda, conversation: conversation, owner: owner)
+            default:
+              Error.log("unkown timeline \(unseenObject.timeline) for \(unseenObject)")
+            }
             next.insert(streamObject!)
           }
+
+          // update last actiondate
+          streamObject?.updateLastActionDate(unseenObject.createdAt)
 
           switch unseenObject.target {
           case let comment as Comment:
@@ -130,8 +129,22 @@ class StreamTableViewController: UITableViewController {
 
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
-    let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamTableViewCell, forIndexPath: indexPath)!
-    cell.streamObject = streamObjects[indexPath.row]
+    var cell: StreamTableViewCell
+    let streamObject = streamObjects[indexPath.row]
+
+    switch streamObject.subject {
+    case is Conversation:
+      cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamConversationTableViewCell, forIndexPath: indexPath)!
+    case is AgendaItem:
+      cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamAgendaTableViewCell, forIndexPath: indexPath)!
+    case is Deliverable:
+      cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamActionTableViewCell, forIndexPath: indexPath)!
+    default:
+      fatalError("unkown streamobject \(streamObject.subject)")
+    }
+
+    cell.streamObject = streamObject
+
     return cell
   }
 
