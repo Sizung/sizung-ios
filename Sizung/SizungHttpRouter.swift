@@ -14,6 +14,7 @@ enum SizungHttpRouter: URLRequestConvertible {
 
   case Login(email: String, password: String)
   case RegisterDevice(token: String)
+  case UpdateDevice(deviceId: String, token: String)
   case Logout()
   case Organizations()
   case Organization(id: String)
@@ -44,7 +45,8 @@ enum SizungHttpRouter: URLRequestConvertible {
          .CreateDeliverable,
          .CreateAttachment:
       return .POST
-    case .UpdateDeliverable,
+    case .UpdateDevice,
+         .UpdateDeliverable,
          .UpdateAgendaItem,
          .UpdateConversation:
       return .PUT
@@ -63,6 +65,8 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/session_tokens"
     case .RegisterDevice:
       return "/devices"
+    case .UpdateDevice(let deviceId):
+      return "/devices/\(deviceId)"
     case .Organizations:
       return "/organizations"
     case .Organization(let id):
@@ -129,6 +133,12 @@ enum SizungHttpRouter: URLRequestConvertible {
         ]
       ]
     case .RegisterDevice(let deviceToken):
+      return [
+        "device": [
+          "token": deviceToken
+        ]
+      ]
+    case .UpdateDevice(_, let deviceToken):
       return [
         "device": [
           "token": deviceToken
@@ -279,6 +289,7 @@ enum SizungHttpRouter: URLRequestConvertible {
     switch self {
     case .Login,
          .RegisterDevice,
+         .UpdateDevice,
          .CreateDeliverable,
          .UpdateDeliverable,
          .CreateAgendaItem,

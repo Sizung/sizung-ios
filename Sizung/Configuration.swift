@@ -40,15 +40,12 @@ class Configuration: NSObject {
     KeychainWrapper.removeObjectForKey(Configuration.Settings.kAuthToken)
   }
 
-  class func getDeviceId() -> String {
+  class func setDeviceId(deviceId: String) {
+    KeychainWrapper.setString(deviceId, forKey: Configuration.Settings.kDeviceId)
+  }
 
-    if let deviceId = KeychainWrapper.stringForKey(Configuration.Settings.kDeviceId) {
-      return deviceId
-    } else {
-      let deviceId = NSUUID().UUIDString
-      KeychainWrapper.setString(deviceId, forKey: Configuration.Settings.kDeviceId)
-      return deviceId
-    }
+  class func getDeviceId() -> String? {
+    return KeychainWrapper.stringForKey(Configuration.Settings.kDeviceId)
   }
 
   class func getAuthToken() -> String? {
@@ -69,7 +66,7 @@ class Configuration: NSObject {
 
   private struct Settings {
     static let kAuthToken = "AUTH_TOKEN"
-    static let kDeviceId = "DEVICE_ID"
+    static let kDeviceId = "V2::DEVICE_ID"
     static let kSelectedOrganization = "SELECTED_ORGANIZATION"
   }
 
