@@ -133,15 +133,21 @@ class StreamTableViewController: UITableViewController {
     // update last actiondate
     streamObject?.updateLastActionDate(unseenObject.createdAt)
 
+    self.fillFromTarget(streamObject!, unseenObject: unseenObject)
+
+    return next
+  }
+
+  func fillFromTarget(streamObject: StreamObject, unseenObject: UnseenObject) {
     switch unseenObject.target {
     case let comment as Comment:
       if let user = storageManager!.users[comment.authorId] {
         // comments
-        streamObject?.commentAuthors.insert(user)
+        streamObject.commentAuthors.insert(user)
 
         // mentions
         if comment.body.containsString(userId) {
-          streamObject?.mentionAuthors.insert(user)
+          streamObject.mentionAuthors.insert(user)
         }
       }
     case is Attachment:
@@ -150,8 +156,6 @@ class StreamTableViewController: UITableViewController {
     default:
       Error.log("unkown target: \(unseenObject.target) for unseenObject \(unseenObject)")
     }
-
-    return next
   }
 
   func cellForRow(indexPath: NSIndexPath, streamObjects: [StreamObject], tableView: UITableView) -> UITableViewCell {

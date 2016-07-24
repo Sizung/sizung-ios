@@ -15,6 +15,7 @@ import SwiftKeychainWrapper
 enum StorageError: ErrorType {
   case NotFound
   case NotAuthenticated
+  case NonRecoverable
   case Other
 }
 
@@ -83,14 +84,17 @@ class StorageManager {
         case .Failure
           where response.response?.statusCode == 404:
           promise.failure(.NotFound)
+        case .Failure
+          where response.response?.statusCode == 500:
+          promise.failure(.NonRecoverable)
         case .Failure:
           if let error = response.result.error {
             switch error.code {
-              // only log certain errors
+            // only log certain errors
             case -1001, // Timeout
-                  -1018: //  International roaming is currently off
+            -1018: //  International roaming is currently off
               Log.error(error, response.request?.URLString).send()
-              // report the rest
+            // report the rest
             default:
               var userInfo = error.userInfo
               if let originalLocalizedDescription = userInfo[NSLocalizedDescriptionKey] {
@@ -228,7 +232,7 @@ class StorageManager {
       }.onFailure { error in
         promise.failure(error)
     }
-
+    
     return promise.future
   }
 }

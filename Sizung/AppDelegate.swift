@@ -115,8 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         .onFailure { error in
           switch error {
           case .NotFound,
-            .NotAuthenticated:
-
+            .NonRecoverable:
             let organizationsViewController = R.storyboard.organizations.initialViewController()!
             self.organizationsViewController = organizationsViewController
             organizationsViewController.organizationTableViewDelegate = self
