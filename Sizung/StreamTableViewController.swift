@@ -73,7 +73,6 @@ class StreamTableViewController: UITableViewController {
 
     self.streamObjects.bindTo(self.tableView, animated: true, createCell: self.cellForRow)
 
-
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         self.storageManager = storageManager
