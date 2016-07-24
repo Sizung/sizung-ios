@@ -82,7 +82,6 @@ class StreamTableViewController: UITableViewController {
           if let nextPage = unseenObjectsResponse.nextPage {
             self.fetchUnseenObjectsPage(nextPage)
           } else {
-            print("\(self.streamObjects.count)/\(StorageManager.sharedInstance.unseenObjects.count)")
             self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
             self.refreshControl?.endRefreshing()
           }
