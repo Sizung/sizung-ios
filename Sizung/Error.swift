@@ -9,7 +9,6 @@
 import Crashlytics
 
 enum Error {
-
   static func log(error: NSError) {
     #if RELEASE_VERSION
       Crashlytics.sharedInstance().recordError(error)

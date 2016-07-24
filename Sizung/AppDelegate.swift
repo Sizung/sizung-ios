@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     self.checkSettings()
 
     #if RELEASE_VERSION
-      Fabric.with([Crashlytics.self])
+      Fabric.with([Crashlytics.self, Answers.self])
     #endif
 
     // set to dark style
@@ -273,9 +273,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
                                forRemoteNotification userInfo: [NSObject : AnyObject],
                                                      completionHandler: () -> Void
     ) {
-
-    print("handleRemoteActionWithIdentifier \(identifier) notification: \(userInfo)")
-
     completionHandler()
   }
 
@@ -329,7 +326,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
 
   private func loadUrl(url: NSURL) -> Bool {
-
     if let pathComponents = url.pathComponents {
       guard pathComponents.count == 3 else {
 
@@ -361,11 +357,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         self.showLogin()
       }
     }
-
     return true
   }
 
   func openItem(type: String, itemId: String) {
+    Answers.logCustomEventWithName("Open Item at launch",
+                                   customAttributes: [
+                                    "type": type
+      ])
     let itemLoadingViewController = ItemLoadingViewController(nib: R.nib.itemLoadingViewController)
     itemLoadingViewController.type = type
     itemLoadingViewController.itemId = itemId

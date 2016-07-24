@@ -85,7 +85,23 @@ class StorageManager {
           promise.failure(.NotFound)
         case .Failure:
           if let error = response.result.error {
-            Error.log(error)
+            switch error.code {
+              // only log certain errors
+            case -1001, // Timeout
+                  -1018: //  International roaming is currently off
+              Log.error(error, response.request?.URLString).send()
+              // report the rest
+            default:
+              var userInfo = error.userInfo
+              if let originalLocalizedDescription = userInfo[NSLocalizedDescriptionKey] {
+                userInfo[NSLocalizedDescriptionKey] = "\(originalLocalizedDescription) url: \(response.request?.URLString)"
+              } else {
+                userInfo[NSLocalizedDescriptionKey] = "failed for url: \(response.request?.URLString)"
+              }
+
+              let newError = NSError(domain: error.domain, code: error.code, userInfo: userInfo)
+              Error.log(newError)
+            }
           } else {
             Error.log("Something failed")
           }
