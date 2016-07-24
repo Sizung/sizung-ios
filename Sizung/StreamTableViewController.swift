@@ -61,6 +61,10 @@ class StreamTableViewController: UITableViewController {
 
         dispatch_async(dispatch_get_main_queue()) {
           self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
+
+          if self.streamObjects.count > 0 {
+            self.refreshControl?.endRefreshing()
+          }
         }
       }
 
