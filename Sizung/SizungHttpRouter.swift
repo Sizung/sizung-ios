@@ -263,7 +263,7 @@ enum SizungHttpRouter: URLRequestConvertible {
       return [
         "include": "target,timeline",
         "page[number]": page,
-        "page[size]": 500
+        "page[size]": 100
       ]
     case .GetUploadAttachmentURL(let attachment):
       return [

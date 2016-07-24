@@ -28,6 +28,8 @@ class StreamTableViewController: UITableViewController {
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 100
 
+    // show refreshcontrol
+
     initData()
 
     self.refreshControl?.addTarget(
@@ -35,11 +37,11 @@ class StreamTableViewController: UITableViewController {
       action: #selector(self.updateData),
       forControlEvents: UIControlEvents.ValueChanged
     )
-
-    self.tableView.tableFooterView?.hidden = true
   }
 
   func initData() {
+
+    self.tableView.tableFooterView?.hidden = true
 
     // filter for subscribed unseenObjects in the selected organizations
     StorageManager.sharedInstance.unseenObjects.filter { unseenObject in
@@ -60,8 +62,6 @@ class StreamTableViewController: UITableViewController {
         self.streamObjects.replace(sortedObjects, performDiff: true)
 
         dispatch_async(dispatch_get_main_queue()) {
-          self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
-
           if self.streamObjects.count > 0 {
             self.refreshControl?.endRefreshing()
           }
@@ -81,7 +81,6 @@ class StreamTableViewController: UITableViewController {
   }
 
   func updateData() {
-    self.refreshControl?.beginRefreshing()
     self.fetchUnseenObjectsPage(0)
   }
 
