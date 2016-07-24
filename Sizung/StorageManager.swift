@@ -140,10 +140,10 @@ class StorageManager {
   }
 
 
-  func listUnseenObjects(userId: String) -> Future<[UnseenObject], StorageError> {
-    let promise = Promise<[UnseenObject], StorageError>()
+  func listUnseenObjects(userId: String, page: Int) -> Future<UnseenObjectsResponse, StorageError> {
+    let promise = Promise<UnseenObjectsResponse, StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.UnseenObjects(userId: userId))
+    StorageManager.makeRequest(SizungHttpRouter.UnseenObjects(userId: userId, page: page))
       .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
         let unseenObjects = unseenObjectsResponse.unseenObjects.map { (unseenObject: UnseenObject) -> (UnseenObject) in
           unseenObject.target = unseenObjectsResponse.included.filter { include in
@@ -156,8 +156,8 @@ class StorageManager {
           return unseenObject
         }
 
-        promise.success(unseenObjects)
         self.unseenObjects.insertOrUpdate(unseenObjects)
+        promise.success(unseenObjectsResponse)
       }.onFailure { error in
         promise.failure(error)
     }
@@ -212,7 +212,7 @@ class StorageManager {
       }.onFailure { error in
         promise.failure(error)
     }
-
+    
     return promise.future
   }
 }

@@ -13,7 +13,10 @@ import Rswift
 class StreamTableViewController: UITableViewController {
 
   var storageManager: OrganizationStorageManager?
-  var streamObjects: [StreamObject] = []
+  let userId = AuthToken(data: Configuration.getAuthToken()).getUserId()!
+
+  var filteredUnseenObjects = CollectionProperty<Array<UnseenObject>>([])
+  var streamObjects = CollectionProperty<Array<StreamObject>>([])
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -25,11 +28,7 @@ class StreamTableViewController: UITableViewController {
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 100
 
-    StorageManager.sharedInstance.unseenObjects.observeNext { _ in
-      self.updateData()
-      }.disposeIn(rBag)
-
-    updateData()
+    initData()
 
     self.refreshControl?.addTarget(
       self,
@@ -40,100 +39,112 @@ class StreamTableViewController: UITableViewController {
     self.tableView.tableFooterView?.hidden = true
   }
 
-  func updateData() {
+  func initData() {
+
+    // filter for subscribed unseenObjects in the selected organizations
+    StorageManager.sharedInstance.unseenObjects.filter { unseenObject in
+      return unseenObject.subscribed && unseenObject.organizationId == Configuration.getSelectedOrganization()
+      }.bindTo(self.filteredUnseenObjects)
+
+    self.filteredUnseenObjects.observeNext { _ in
+
+      let reducedStreamObjects = self.filteredUnseenObjects.collection.reduce([], combine: self.reduceUnseenObjectsToStreamObjects)
+
+      let sortedObjects = reducedStreamObjects.sort {
+        $0.0.sortDate.isLaterThan($0.1.sortDate)
+        }
+
+      self.streamObjects.replace(sortedObjects, performDiff: true)
+
+    }.disposeIn(rBag)
 
 
-    let userId = AuthToken(
-      data: Configuration.getAuthToken()).getUserId()
+    self.streamObjects.bindTo(self.tableView, animated: true, createCell: self.cellForRow)
 
-
-    guard userId != nil else {
-      return
-    }
-
-    self.refreshControl?.beginRefreshing()
 
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         self.storageManager = storageManager
-
-        // filter for subscribed unseenObjects in the selected organizations
-        let subscribedObjects = StorageManager.sharedInstance.unseenObjects.collection.filter { unseenObject in
-          return unseenObject.subscribed && unseenObject.organizationId == Configuration.getSelectedOrganization()
-        }
-
-        let streamSet = subscribedObjects.reduce(Set<StreamObject>([])) { prev, unseenObject in
-
-          var next = prev
-
-          var streamObject = prev.filter { $0.subject.id == unseenObject.timelineId }.first
-
-          if streamObject == nil {
-            switch unseenObject.timeline {
-            case let conversation as Conversation:
-              streamObject = StreamConversationObject(conversation: conversation)
-            case let action as Deliverable:
-              var conversationId: String
-              if let agendaItemDeliverable = action as? AgendaItemDeliverable {
-                let agendaItem = storageManager.agendaItems[agendaItemDeliverable.agendaItemId]!
-                conversationId = agendaItem.conversationId
-              } else {
-                conversationId = action.parentId
-              }
-              let conversation = storageManager.conversations[conversationId]!
-              let author = storageManager.users[action.ownerId]!
-              streamObject = StreamActionObject(action: action, conversation: conversation, author: author)
-            case let agenda as AgendaItem:
-              let conversation = storageManager.conversations[agenda.conversationId]!
-              let owner = storageManager.users[agenda.ownerId]!
-              streamObject = StreamAgendaObject(agenda: agenda, conversation: conversation, owner: owner)
-            default:
-              Error.log("unkown timeline \(unseenObject.timeline) for \(unseenObject)")
-            }
-            next.insert(streamObject!)
-          }
-
-          // update last actiondate
-          streamObject?.updateLastActionDate(unseenObject.createdAt)
-
-          switch unseenObject.target {
-          case let comment as Comment:
-            if let user = storageManager.users[comment.authorId] {
-              // comments
-              streamObject?.commentAuthors.insert(user)
-
-              // mentions
-              if comment.body.containsString(userId!) {
-                streamObject?.mentionAuthors.insert(user)
-              }
-            }
-          default:
-            Error.log("unkown target: \(unseenObject.target) for unseenObject \(unseenObject)")
-          }
-
-          return next
-        }
-
-        self.streamObjects = streamSet.sort { $0.0.sortDate.isLaterThan($0.1.sortDate)}
-
-        self.tableView.reloadData()
-
-        self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
-
-
-        self.refreshControl?.endRefreshing()
+        self.updateData()
     }
   }
 
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return 1
+  func updateData() {
+    self.refreshControl?.beginRefreshing()
+    self.fetchUnseenObjectsPage(0)
   }
 
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return streamObjects.count
+  func fetchUnseenObjectsPage(page: Int) {
+    if let userId = AuthToken(data: Configuration.getAuthToken()).getUserId() {
+      StorageManager.sharedInstance.listUnseenObjects(userId, page: page)
+        .onSuccess { unseenObjectsResponse in
+
+          if let nextPage = unseenObjectsResponse.nextPage {
+            self.fetchUnseenObjectsPage(nextPage)
+          } else {
+            print("\(self.streamObjects.count)/\(StorageManager.sharedInstance.unseenObjects.count)")
+            self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
+            self.refreshControl?.endRefreshing()
+          }
+      }
+    }
   }
 
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  func reduceUnseenObjectsToStreamObjects(prev: [StreamObject], unseenObject: UnseenObject) -> [StreamObject] {
+    var next = prev
+
+    var streamObject = prev.filter { streamObject in
+      return streamObject.subject.id == unseenObject.timelineId
+      }.first
+
+    if streamObject == nil {
+      switch unseenObject.timeline {
+      case let conversation as Conversation:
+        streamObject = StreamConversationObject(conversation: conversation)
+      case let agendaItemAction as AgendaItemDeliverable:
+        let agendaItem = self.storageManager!.agendaItems[agendaItemAction.agendaItemId]!
+        let conversation = self.storageManager!.conversations[agendaItem.conversationId]!
+        let author = self.storageManager!.users[agendaItemAction.ownerId]!
+        streamObject = StreamActionObject(action: agendaItemAction, conversation: conversation, author: author)
+      case let action as Deliverable:
+        let conversation = self.storageManager!.conversations[action.parentId]!
+        let author = self.storageManager!.users[action.ownerId]!
+        streamObject = StreamActionObject(action: action, conversation: conversation, author: author)
+      case let agenda as AgendaItem:
+        let conversation = self.storageManager!.conversations[agenda.conversationId]!
+        let owner = self.storageManager!.users[agenda.ownerId]!
+        streamObject = StreamAgendaObject(agenda: agenda, conversation: conversation, owner: owner)
+      default:
+        Error.log("unkown timeline \(unseenObject.timeline) for \(unseenObject)")
+        return next
+      }
+
+      next.append(streamObject!)
+    }
+
+    // update last actiondate
+    streamObject?.updateLastActionDate(unseenObject.createdAt)
+
+    switch unseenObject.target {
+    case let comment as Comment:
+      if let user = storageManager!.users[comment.authorId] {
+        // comments
+        streamObject?.commentAuthors.insert(user)
+
+        // mentions
+        if comment.body.containsString(userId) {
+          streamObject?.mentionAuthors.insert(user)
+        }
+      }
+//    case let attachment as Attachment:
+    default:
+      Error.log("unkown target: \(unseenObject.target) for unseenObject \(unseenObject)")
+    }
+
+    return next
+  }
+
+  func cellForRow(indexPath: NSIndexPath, streamObjects: [StreamObject], tableView: UITableView) -> UITableViewCell {
 
     var cell: StreamTableViewCell
     let streamObject = streamObjects[indexPath.row]
@@ -155,7 +166,7 @@ class StreamTableViewController: UITableViewController {
   }
 
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let streamObject = streamObjects[indexPath.row]
+    let streamObject = self.streamObjects[indexPath.row]
 
     switch streamObject.subject {
     case let conversation as Conversation:
@@ -188,7 +199,7 @@ class StreamTableViewController: UITableViewController {
     let conversationController = R.storyboard.conversation.initialViewController()!
     conversationController.conversation = conversation
     conversationController.openItem = item
-
+    
     self.showViewController(conversationController, sender: nil)
   }
 }

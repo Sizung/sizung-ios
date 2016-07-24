@@ -448,11 +448,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="7Xd-Pn-aNx">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="428"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-kB-xvX">
-                                    <rect key="frame" x="234" y="137" width="133" height="155"/>
+                                    <rect key="frame" x="234" y="23" width="133" height="155"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cupcake" translatesAutoresizingMaskIntoConstraints="NO" id="ji6-3u-s8g">
                                             <rect key="frame" x="0.0" y="0.0" width="133" height="82"/>

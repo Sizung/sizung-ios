@@ -25,7 +25,7 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Deliverable(id: String)
   case ConversationObjects(parent: BaseModel, page: Int)
   case Comments(comment: Comment)
-  case UnseenObjects(userId: String)
+  case UnseenObjects(userId: String, page: Int)
   case DeleteUnseenObjects(type: String, id: String)
   case CreateDeliverable(deliverable: Sizung.Deliverable)
   case UpdateDeliverable(deliverable: Sizung.Deliverable)
@@ -99,7 +99,7 @@ enum SizungHttpRouter: URLRequestConvertible {
       fatalError("unkown router call to .ConversationObjects")
     case .Comments:
       return "/comments"
-    case .UnseenObjects(let userId):
+    case .UnseenObjects(let userId, _):
       return "/users/\(userId)/unseen_objects"
     case .DeleteUnseenObjects(let type, let id):
       return "/\(type)/\(id)/unseen_objects"
@@ -259,9 +259,11 @@ enum SizungHttpRouter: URLRequestConvertible {
         "page[number]": page,
         "page[size]": 20
       ]
-    case .UnseenObjects:
+    case .UnseenObjects(_, let page):
       return [
-        "include": "target,timeline"
+        "include": "target,timeline",
+        "page[number]": page,
+        "page[size]": 500
       ]
     case .GetUploadAttachmentURL(let attachment):
       return [

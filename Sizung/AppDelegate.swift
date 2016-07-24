@@ -191,8 +191,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   func fetchUnseenObjects() {
     // update unseenobjects
     if let userId = AuthToken(data: Configuration.getAuthToken()).getUserId() {
-      StorageManager.sharedInstance.listUnseenObjects(userId)
-
       // subscribe to user channel
       if let websocket = StorageManager.sharedInstance.websocket {
         websocket.userWebsocketDelegate = self
@@ -262,7 +260,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     application: UIApplication,
     didFailToRegisterForRemoteNotificationsWithError error: NSError
     ) {
-    Error.log(error)
+    // don't show simulator error
+    if error.code != 3010 {
+      Error.log(error)
+    }
   }
 
   // foreground notification received
@@ -313,7 +314,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
   func onReceived(unseenObject: BaseModel) {
     if let unseenObject = unseenObject as? UnseenObject {
-      StorageManager.sharedInstance.unseenObjects.append(unseenObject)
+      StorageManager.sharedInstance.unseenObjects.insertOrUpdate([unseenObject])
     }
   }
 
