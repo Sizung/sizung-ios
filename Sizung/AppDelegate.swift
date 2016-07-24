@@ -314,7 +314,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
 
   func onReceived(unseenObject: BaseModel) {
     if let unseenObject = unseenObject as? UnseenObject {
-      StorageManager.sharedInstance.unseenObjects.insertOrUpdate([unseenObject])
+      if unseenObject.timeline != nil && unseenObject.target != nil {
+        StorageManager.sharedInstance.unseenObjects.insertOrUpdate([unseenObject])
+      } else {
+        // remove if no timeline or target
+        if let index = StorageManager.sharedInstance.unseenObjects.indexOf(unseenObject) {
+          StorageManager.sharedInstance.unseenObjects.removeAtIndex(index)
+        }
+      }
     }
   }
 
