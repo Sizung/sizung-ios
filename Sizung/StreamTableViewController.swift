@@ -48,15 +48,23 @@ class StreamTableViewController: UITableViewController {
 
     self.filteredUnseenObjects.observeNext { _ in
 
-      let reducedStreamObjects = self.filteredUnseenObjects.collection.reduce([], combine: self.reduceUnseenObjectsToStreamObjects)
+      let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+      dispatch_async(dispatch_get_global_queue(priority, 0)) {
 
-      let sortedObjects = reducedStreamObjects.sort {
-        $0.0.sortDate.isLaterThan($0.1.sortDate)
+        let reducedStreamObjects = self.filteredUnseenObjects.collection.reduce([], combine: self.reduceUnseenObjectsToStreamObjects)
+
+        let sortedObjects = reducedStreamObjects.sort {
+          $0.0.sortDate.isLaterThan($0.1.sortDate)
         }
 
-      self.streamObjects.replace(sortedObjects, performDiff: true)
+        self.streamObjects.replace(sortedObjects, performDiff: true)
 
-    }.disposeIn(rBag)
+        dispatch_async(dispatch_get_main_queue()) {
+          self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
+        }
+      }
+
+      }.disposeIn(rBag)
 
 
     self.streamObjects.bindTo(self.tableView, animated: true, createCell: self.cellForRow)
@@ -82,7 +90,6 @@ class StreamTableViewController: UITableViewController {
           if let nextPage = unseenObjectsResponse.nextPage {
             self.fetchUnseenObjectsPage(nextPage)
           } else {
-            self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
             self.refreshControl?.endRefreshing()
           }
       }
@@ -200,7 +207,7 @@ class StreamTableViewController: UITableViewController {
     let conversationController = R.storyboard.conversation.initialViewController()!
     conversationController.conversation = conversation
     conversationController.openItem = item
-    
+
     self.showViewController(conversationController, sender: nil)
   }
 }
