@@ -136,7 +136,9 @@ class StreamTableViewController: UITableViewController {
           streamObject?.mentionAuthors.insert(user)
         }
       }
-//    case let attachment as Attachment:
+    case is Attachment:
+      // don't handle attachments
+      break
     default:
       Error.log("unkown target: \(unseenObject.target) for unseenObject \(unseenObject)")
     }
