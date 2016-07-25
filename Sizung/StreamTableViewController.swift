@@ -20,6 +20,7 @@ class StreamTableViewController: UITableViewController {
 
   var finishedLoading = false
 
+  @IBOutlet weak var loadingView: UIStackView!
   @IBOutlet weak var logoView: UIImageView!
   @IBOutlet weak var emptyView: UIStackView!
 
@@ -33,8 +34,6 @@ class StreamTableViewController: UITableViewController {
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 100
 
-    self.emptyView.hidden = true
-    initLoadingAnimation()
     initData()
 
     self.refreshControl?.addTarget(
@@ -44,7 +43,9 @@ class StreamTableViewController: UITableViewController {
     )
   }
 
-  func initLoadingAnimation() {
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+
     self.logoView.alpha = 0.2
 
     UIView.animateWithDuration(
@@ -54,6 +55,25 @@ class StreamTableViewController: UITableViewController {
       animations: {
         self.logoView.alpha = 1
       }, completion: nil)
+  }
+
+  // see http://collindonnell.com/2015/09/29/dynamically-sized-table-view-header-or-footer-using-auto-layout/
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+
+    // Dynamic sizing for the footer view
+    if let footerview = tableView.tableFooterView {
+      let height = self.tableView.frame.height
+      var footerFrame = footerview.frame
+
+      // If we don't have this check, viewDidLayoutSubviews() will get
+      // repeatedly, causing the app to hang.
+      if height != footerFrame.size.height {
+        footerFrame.size.height = height
+        footerview.frame = footerFrame
+        tableView.tableFooterView = footerview
+      }
+    }
   }
 
   func initData() {
@@ -80,13 +100,7 @@ class StreamTableViewController: UITableViewController {
             self.streamObjects.replace(sortedObjects, performDiff: true)
 
             dispatch_async(dispatch_get_main_queue()) {
-              if self.streamObjects.count > 0 {
-                self.refreshControl?.endRefreshing()
-              }
-
-              if self.finishedLoading {
-                self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
-              }
+              self.hideLoadingView()
             }
           }
 
@@ -99,6 +113,7 @@ class StreamTableViewController: UITableViewController {
   }
 
   func updateData() {
+    self.finishedLoading = false
     self.fetchUnseenObjectsPage(0)
   }
 
@@ -111,11 +126,19 @@ class StreamTableViewController: UITableViewController {
             self.fetchUnseenObjectsPage(nextPage)
           } else {
             self.finishedLoading = true
-            self.emptyView.hidden = false
-            self.logoView.stopAnimating()
-            self.logoView.hidden = true
-            self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
+            self.hideLoadingView()
           }
+      }
+    }
+  }
+
+  func hideLoadingView() {
+    self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
+    if self.finishedLoading {
+      self.refreshControl?.endRefreshing()
+      UIView.animateWithDuration(0.2) {
+        self.loadingView.alpha = 0
+        self.emptyView.alpha = 1
       }
     }
   }

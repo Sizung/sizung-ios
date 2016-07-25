@@ -14,6 +14,7 @@
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
         </mutableArray>
         <mutableArray key="Brandon_reg.otf">
             <string>BrandonText-Regular</string>
@@ -448,11 +449,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="7Xd-Pn-aNx">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="601"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-kB-xvX">
-                                    <rect key="frame" x="234" y="23" width="133" height="155"/>
+                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-kB-xvX">
+                                    <rect key="frame" x="234" y="223" width="133" height="155"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cupcake" translatesAutoresizingMaskIntoConstraints="NO" id="ji6-3u-s8g">
                                             <rect key="frame" x="0.0" y="0.0" width="133" height="82"/>
@@ -467,16 +468,27 @@ Eat a cupcake!</string>
                                         </label>
                                     </subviews>
                                 </stackView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="OSC-k1-EDF">
-                                    <rect key="frame" x="186" y="-15" width="229" height="230"/>
-                                </imageView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0Lv-v1-Epb">
+                                    <rect key="frame" x="186" y="174" width="229" height="254"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="OSC-k1-EDF">
+                                            <rect key="frame" x="0.0" y="0.0" width="229" height="229"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your stream is loading…" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwA-7P-zng">
+                                            <rect key="frame" x="0.0" y="229" width="229" height="25"/>
+                                            <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstItem="0Lv-v1-Epb" firstAttribute="centerX" secondItem="7Xd-Pn-aNx" secondAttribute="centerX" id="3vu-Vr-wld"/>
                                 <constraint firstItem="ce4-kB-xvX" firstAttribute="centerY" secondItem="7Xd-Pn-aNx" secondAttribute="centerY" id="AEl-V8-acl"/>
-                                <constraint firstItem="OSC-k1-EDF" firstAttribute="centerX" secondItem="7Xd-Pn-aNx" secondAttribute="centerX" id="L1y-i7-0Yf"/>
+                                <constraint firstItem="0Lv-v1-Epb" firstAttribute="centerY" secondItem="7Xd-Pn-aNx" secondAttribute="centerY" id="Se3-oy-tjy"/>
                                 <constraint firstItem="ce4-kB-xvX" firstAttribute="centerX" secondItem="7Xd-Pn-aNx" secondAttribute="centerX" id="heM-rj-6yF"/>
-                                <constraint firstItem="OSC-k1-EDF" firstAttribute="centerY" secondItem="7Xd-Pn-aNx" secondAttribute="centerY" id="oX7-MT-9y5"/>
                             </constraints>
                         </view>
                         <connections>
@@ -489,6 +501,7 @@ Eat a cupcake!</string>
                     </refreshControl>
                     <connections>
                         <outlet property="emptyView" destination="ce4-kB-xvX" id="Nas-g4-Fyw"/>
+                        <outlet property="loadingView" destination="0Lv-v1-Epb" id="Cwi-xC-I10"/>
                         <outlet property="logoView" destination="OSC-k1-EDF" id="xk4-h8-94x"/>
                     </connections>
                 </tableViewController>

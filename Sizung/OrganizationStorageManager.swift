@@ -375,8 +375,8 @@ class OrganizationStorageManager {
           return unseenObject
         }
 
-        self.unseenObjects.insertOrUpdate(unseenObjects)
         promise.success(unseenObjectsResponse)
+        self.unseenObjects.insertOrUpdate(unseenObjects)
       }.onFailure { error in
         promise.failure(error)
     }
