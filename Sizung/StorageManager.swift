@@ -232,7 +232,7 @@ class StorageManager {
       }.onFailure { error in
         promise.failure(error)
     }
-    
+
     return promise.future
   }
 }

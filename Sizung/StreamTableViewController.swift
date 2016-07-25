@@ -18,6 +18,11 @@ class StreamTableViewController: UITableViewController {
   var filteredUnseenObjects = CollectionProperty<Array<UnseenObject>>([])
   var streamObjects = CollectionProperty<Array<StreamObject>>([])
 
+  var finishedLoading = false
+
+  @IBOutlet weak var logoView: UIImageView!
+  @IBOutlet weak var emptyView: UIStackView!
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -28,8 +33,8 @@ class StreamTableViewController: UITableViewController {
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 100
 
-    // show refreshcontrol
-
+    self.emptyView.hidden = true
+    initLoadingAnimation()
     initData()
 
     self.refreshControl?.addTarget(
@@ -39,10 +44,19 @@ class StreamTableViewController: UITableViewController {
     )
   }
 
+  func initLoadingAnimation() {
+    self.logoView.alpha = 0.2
+
+    UIView.animateWithDuration(
+      1.5,
+      delay: 0.5,
+      options: [ .Repeat, .CurveLinear, .Autoreverse],
+      animations: {
+        self.logoView.alpha = 1
+      }, completion: nil)
+  }
+
   func initData() {
-
-    self.tableView.tableFooterView?.hidden = true
-
     // filter for subscribed unseenObjects in the selected organizations
     StorageManager.sharedInstance.unseenObjects.filter { unseenObject in
       return unseenObject.subscribed && unseenObject.organizationId == Configuration.getSelectedOrganization()
@@ -64,6 +78,10 @@ class StreamTableViewController: UITableViewController {
         dispatch_async(dispatch_get_main_queue()) {
           if self.streamObjects.count > 0 {
             self.refreshControl?.endRefreshing()
+          }
+
+          if self.finishedLoading {
+            self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
           }
         }
       }
@@ -92,7 +110,11 @@ class StreamTableViewController: UITableViewController {
           if let nextPage = unseenObjectsResponse.nextPage {
             self.fetchUnseenObjectsPage(nextPage)
           } else {
-            self.refreshControl?.endRefreshing()
+            self.finishedLoading = true
+            self.emptyView.hidden = false
+            self.logoView.stopAnimating()
+            self.logoView.hidden = true
+            self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
           }
       }
     }

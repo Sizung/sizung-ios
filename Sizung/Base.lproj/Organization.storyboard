@@ -451,7 +451,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-kB-xvX">
+                                <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-kB-xvX">
                                     <rect key="frame" x="234" y="23" width="133" height="155"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cupcake" translatesAutoresizingMaskIntoConstraints="NO" id="ji6-3u-s8g">
@@ -467,11 +467,16 @@ Eat a cupcake!</string>
                                         </label>
                                     </subviews>
                                 </stackView>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="OSC-k1-EDF">
+                                    <rect key="frame" x="186" y="-15" width="229" height="230"/>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="ce4-kB-xvX" firstAttribute="centerY" secondItem="7Xd-Pn-aNx" secondAttribute="centerY" id="AEl-V8-acl"/>
+                                <constraint firstItem="OSC-k1-EDF" firstAttribute="centerX" secondItem="7Xd-Pn-aNx" secondAttribute="centerX" id="L1y-i7-0Yf"/>
                                 <constraint firstItem="ce4-kB-xvX" firstAttribute="centerX" secondItem="7Xd-Pn-aNx" secondAttribute="centerX" id="heM-rj-6yF"/>
+                                <constraint firstItem="OSC-k1-EDF" firstAttribute="centerY" secondItem="7Xd-Pn-aNx" secondAttribute="centerY" id="oX7-MT-9y5"/>
                             </constraints>
                         </view>
                         <connections>
@@ -482,6 +487,10 @@ Eat a cupcake!</string>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Asx-qm-UH7">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
+                    <connections>
+                        <outlet property="emptyView" destination="ce4-kB-xvX" id="Nas-g4-Fyw"/>
+                        <outlet property="logoView" destination="OSC-k1-EDF" id="xk4-h8-94x"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FIe-jM-VSn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -492,6 +501,7 @@ Eat a cupcake!</string>
         <image name="close" width="32" height="32"/>
         <image name="cupcake" width="69" height="82"/>
         <image name="group_list" width="46" height="31"/>
+        <image name="logo" width="229" height="229"/>
         <image name="priority" width="30" height="20"/>
     </resources>
 </document>
