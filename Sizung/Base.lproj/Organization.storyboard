@@ -452,17 +452,15 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="601"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-kB-xvX">
-                                    <rect key="frame" x="234" y="223" width="133" height="155"/>
+                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-kB-xvX">
+                                    <rect key="frame" x="196" y="228" width="209" height="145"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cupcake" translatesAutoresizingMaskIntoConstraints="NO" id="ji6-3u-s8g">
-                                            <rect key="frame" x="0.0" y="0.0" width="133" height="82"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="209" height="82"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ktE-db-HBb">
-                                            <rect key="frame" x="0.0" y="82" width="133" height="73"/>
-                                            <string key="text">You’re all caught up. 
-Eat a cupcake!</string>
-                                            <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have additional unread objects,  click here to see them" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRr-eX-SII">
+                                            <rect key="frame" x="0.0" y="102" width="209" height="43"/>
+                                            <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -503,6 +501,7 @@ Eat a cupcake!</string>
                         <outlet property="emptyView" destination="ce4-kB-xvX" id="Nas-g4-Fyw"/>
                         <outlet property="loadingView" destination="0Lv-v1-Epb" id="Cwi-xC-I10"/>
                         <outlet property="logoView" destination="OSC-k1-EDF" id="xk4-h8-94x"/>
+                        <outlet property="unseenObjectsLabel" destination="lRr-eX-SII" id="Qew-pA-2bX"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FIe-jM-VSn" userLabel="First Responder" sceneMemberID="firstResponder"/>

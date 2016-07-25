@@ -20,9 +20,12 @@ class StreamTableViewController: UITableViewController {
 
   var finishedLoading = false
 
+  var showUnsubscribedGestureRecognizer: UITapGestureRecognizer?
+
   @IBOutlet weak var loadingView: UIStackView!
   @IBOutlet weak var logoView: UIImageView!
   @IBOutlet weak var emptyView: UIStackView!
+  @IBOutlet weak var unseenObjectsLabel: UILabel!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,6 +36,8 @@ class StreamTableViewController: UITableViewController {
 
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 100
+
+    showUnsubscribedGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.showUnsubscribed))
 
     initData()
 
@@ -140,8 +145,27 @@ class StreamTableViewController: UITableViewController {
       UIView.animateWithDuration(0.2) {
         self.loadingView.alpha = 0
         self.emptyView.alpha = 1
+
+        var unseenObjectText: String
+        if let unseenCount = self.storageManager?.unseenObjects.count {
+          if unseenCount > 0 {
+            unseenObjectText = "You have \(unseenCount) unseen Objects without subscription.\n\nClick to show."
+            self.emptyView.addGestureRecognizer(self.showUnsubscribedGestureRecognizer!)
+          } else {
+            unseenObjectText = "You’re all caught up.\n\nEat a cupcake!"
+            self.emptyView.userInteractionEnabled = false
+            self.emptyView.removeGestureRecognizer(self.showUnsubscribedGestureRecognizer!)
+          }
+
+          self.unseenObjectsLabel.text = unseenObjectText
+        }
+
       }
     }
+  }
+
+  func showUnsubscribed() {
+    print("unsubscribed")
   }
 
   func reduceUnseenObjectsToStreamObjects(prev: [StreamObject], unseenObject: UnseenObject) -> [StreamObject] {
