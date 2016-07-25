@@ -27,7 +27,7 @@ import AlamofireImage
     didSet {
       if user != nil {
         let gravatar = Gravatar(emailAddress: user!.email)
-        self.setTitle(user!.getInitials(), forState: .Normal)
+        self.setTitle("HH", forState: .Normal)
 
         self.af_setBackgroundImageForState(
           .Normal,
@@ -49,8 +49,18 @@ import AlamofireImage
     }
   }
 
+  func commonInit() {
+    self.titleLabel?.lineBreakMode = .ByClipping
+    self.titleLabel?.numberOfLines = 1
+    self.titleLabel?.adjustsFontSizeToFitWidth = true
+    self.titleLabel?.baselineAdjustment = .AlignCenters
+
+    self.titleEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+    self.titleLabel?.sizeToFit()
+  }
 
   override func layoutSubviews() {
+    commonInit()
     super.layoutSubviews()
     self.layer.cornerRadius = size/2
     self.clipsToBounds = true
@@ -58,10 +68,5 @@ import AlamofireImage
     self.backgroundColor = Color.SIZUNG
 
     self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-    self.titleLabel?.lineBreakMode = .ByClipping
-    self.titleLabel?.numberOfLines = 1
-    self.titleLabel?.adjustsFontSizeToFitWidth = true
-
-    self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 2)
   }
 }
