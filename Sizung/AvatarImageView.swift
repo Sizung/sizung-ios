@@ -27,7 +27,7 @@ import AlamofireImage
     didSet {
       if user != nil {
         let gravatar = Gravatar(emailAddress: user!.email)
-        self.setTitle("HH", forState: .Normal)
+        self.setTitle(user!.getInitials(), forState: .Normal)
 
         self.af_setBackgroundImageForState(
           .Normal,
