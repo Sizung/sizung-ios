@@ -136,6 +136,7 @@ class StreamTableViewController: UITableViewController {
     self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
     if self.finishedLoading {
       self.refreshControl?.endRefreshing()
+      self.logoView.stopAnimating()
       UIView.animateWithDuration(0.2) {
         self.loadingView.alpha = 0
         self.emptyView.alpha = 1
