@@ -115,7 +115,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
         StorageManager.sharedInstance.websocket!.followConversation(self.getConversationId())
 
         // calculate current unread count for comments
-        let lastUnseenMessageDate: NSDate = StorageManager.sharedInstance.unseenObjects.collection.reduce(NSDate.distantFuture(), combine: { earliestDate, unseenObject in
+        let lastUnseenMessageDate: NSDate = storageManager.unseenObjects.collection.reduce(NSDate.distantFuture(), combine: { earliestDate, unseenObject in
           var comparisonObject: BaseModel?
           switch self.timelineParent {
           case is Deliverable:
@@ -140,13 +140,12 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
         if lastUnseenMessageDate != NSDate.distantFuture() {
           self.collection.insertOrUpdate([TimelineObject(newMessagesDate: lastUnseenMessageDate)])
         }
-    }
 
-
-    // mark unseenObjects as read
-    StorageManager.sharedInstance.sawTimeLineFor(self.timelineParent)
-      .onFailure { error in
-        InAppMessage.showErrorMessage("There was an error marking everything as seen")
+        // mark unseenObjects as read
+        storageManager.sawTimeLineFor(self.timelineParent)
+          .onFailure { error in
+            InAppMessage.showErrorMessage("There was an error marking everything as seen")
+        }
     }
 
     if let selection = self.tableView.indexPathForSelectedRow {
@@ -158,7 +157,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
     super.viewWillDisappear(animated)
 
     // remove all created unseen objects while view was visible
-    StorageManager.sharedInstance.sawTimeLineFor(self.timelineParent)
+    self.storageManager.sawTimeLineFor(self.timelineParent)
       .onFailure { error in
         InAppMessage.showErrorMessage("There was an error marking everything as seen")
     }

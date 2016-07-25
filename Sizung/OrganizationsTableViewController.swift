@@ -49,12 +49,14 @@ class OrganizationsTableViewController: UITableViewController {
         let organization = organizations[indexPath.row]
         cell.nameLabel.text = organization.name
 
-        let unseenObjects = StorageManager.sharedInstance.unseenObjects
-        let hasUnseenObject = unseenObjects.collection.contains { obj in
-          return obj.organizationId == organization.id
-        }
-
-        cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
+        // disable for now
+//        let unseenObjects = StorageManager.sharedInstance.unseenObjects
+//        let hasUnseenObject = unseenObjects.collection.contains { obj in
+//          return obj.organizationId == organization.id
+//        }
+//
+//        cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
+        cell.unreadStatusView.alpha = 0
         return cell
       } else {
         fatalError("Unexpected cell type")

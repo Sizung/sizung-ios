@@ -21,6 +21,7 @@ class OrganizationStorageManager {
   let conversations: CollectionProperty <[Conversation]> = CollectionProperty([])
   let agendaItems: CollectionProperty <[AgendaItem]> = CollectionProperty([])
   let deliverables: CollectionProperty <[Deliverable]> = CollectionProperty([])
+  let unseenObjects: CollectionProperty <[UnseenObject]> = CollectionProperty([])
 
   let users: CollectionProperty <[User]> = CollectionProperty([])
 
@@ -355,6 +356,45 @@ class OrganizationStorageManager {
       }.onFailure { error in
         promise.failure(error)
     }
+    return promise.future
+  }
+
+  func listUnseenObjectsForOrganization(orgId: String, page: Int) -> Future<UnseenObjectsResponse, StorageError> {
+    let promise = Promise<UnseenObjectsResponse, StorageError>()
+
+    StorageManager.makeRequest(SizungHttpRouter.UnseenObjectsForOrganization(organizationId: orgId, page: page))
+      .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
+        let unseenObjects = unseenObjectsResponse.unseenObjects.map { (unseenObject: UnseenObject) -> (UnseenObject) in
+          unseenObject.target = unseenObjectsResponse.included.filter { include in
+            return include.id == unseenObject.targetId
+            }.first
+
+          unseenObject.timeline = unseenObjectsResponse.included.filter { include in
+            return include.id == unseenObject.timelineId
+            }.first
+          return unseenObject
+        }
+
+        self.unseenObjects.insertOrUpdate(unseenObjects)
+        promise.success(unseenObjectsResponse)
+      }.onFailure { error in
+        promise.failure(error)
+    }
+    return promise.future
+  }
+
+  func sawTimeLineFor(object: BaseModel) -> Future<[UnseenObject], StorageError> {
+    let promise = Promise<[UnseenObject], StorageError>()
+
+    StorageManager.makeRequest(SizungHttpRouter.DeleteUnseenObjects(type: object.type, id: object.id))
+      .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
+        let diff = Set(self.unseenObjects.collection).subtract(unseenObjectsResponse.unseenObjects)
+        self.unseenObjects.replace(Array(diff))
+        promise.success(unseenObjectsResponse.unseenObjects)
+      }.onFailure { error in
+        promise.failure(error)
+    }
+
     return promise.future
   }
 }

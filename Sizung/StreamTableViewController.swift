@@ -57,43 +57,43 @@ class StreamTableViewController: UITableViewController {
   }
 
   func initData() {
-    // filter for subscribed unseenObjects in the selected organizations
-    StorageManager.sharedInstance.unseenObjects.filter { unseenObject in
-      return unseenObject.subscribed && unseenObject.organizationId == Configuration.getSelectedOrganization()
-      }.bindTo(self.filteredUnseenObjects)
-
-    self.filteredUnseenObjects.observeNext { _ in
-
-      let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-      dispatch_async(dispatch_get_global_queue(priority, 0)) {
-
-        let reducedStreamObjects = self.filteredUnseenObjects.collection.reduce([], combine: self.reduceUnseenObjectsToStreamObjects)
-
-        let sortedObjects = reducedStreamObjects.sort {
-          $0.0.sortDate.isLaterThan($0.1.sortDate)
-        }
-
-        self.streamObjects.replace(sortedObjects, performDiff: true)
-
-        dispatch_async(dispatch_get_main_queue()) {
-          if self.streamObjects.count > 0 {
-            self.refreshControl?.endRefreshing()
-          }
-
-          if self.finishedLoading {
-            self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
-          }
-        }
-      }
-
-      }.disposeIn(rBag)
-
-
-    self.streamObjects.bindTo(self.tableView, animated: true, createCell: self.cellForRow)
-
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         self.storageManager = storageManager
+
+        // filter for subscribed unseenObjects in the selected organizations
+        storageManager.unseenObjects.filter { unseenObject in
+          return unseenObject.subscribed && unseenObject.organizationId == Configuration.getSelectedOrganization()
+          }.bindTo(self.filteredUnseenObjects)
+
+        self.filteredUnseenObjects.observeNext { _ in
+
+          let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+          dispatch_async(dispatch_get_global_queue(priority, 0)) {
+
+            let reducedStreamObjects = self.filteredUnseenObjects.collection.reduce([], combine: self.reduceUnseenObjectsToStreamObjects)
+
+            let sortedObjects = reducedStreamObjects.sort {
+              $0.0.sortDate.isLaterThan($0.1.sortDate)
+            }
+
+            self.streamObjects.replace(sortedObjects, performDiff: true)
+
+            dispatch_async(dispatch_get_main_queue()) {
+              if self.streamObjects.count > 0 {
+                self.refreshControl?.endRefreshing()
+              }
+
+              if self.finishedLoading {
+                self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
+              }
+            }
+          }
+
+          }.disposeIn(self.rBag)
+
+        self.streamObjects.bindTo(self.tableView, animated: true, createCell: self.cellForRow)
+
         self.updateData()
     }
   }
@@ -103,8 +103,8 @@ class StreamTableViewController: UITableViewController {
   }
 
   func fetchUnseenObjectsPage(page: Int) {
-    if let userId = AuthToken(data: Configuration.getAuthToken()).getUserId() {
-      StorageManager.sharedInstance.listUnseenObjects(userId, page: page)
+    if let orgId = Configuration.getSelectedOrganization() {
+      storageManager!.listUnseenObjectsForOrganization(orgId, page: page)
         .onSuccess { unseenObjectsResponse in
 
           if let nextPage = unseenObjectsResponse.nextPage {

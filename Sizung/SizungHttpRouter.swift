@@ -25,7 +25,8 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Deliverable(id: String)
   case ConversationObjects(parent: BaseModel, page: Int)
   case Comments(comment: Comment)
-  case UnseenObjects(userId: String, page: Int)
+  case UnseenObjectsForUser(userId: String, page: Int)
+  case UnseenObjectsForOrganization(organizationId: String, page: Int)
   case DeleteUnseenObjects(type: String, id: String)
   case CreateDeliverable(deliverable: Sizung.Deliverable)
   case UpdateDeliverable(deliverable: Sizung.Deliverable)
@@ -99,8 +100,10 @@ enum SizungHttpRouter: URLRequestConvertible {
       fatalError("unkown router call to .ConversationObjects")
     case .Comments:
       return "/comments"
-    case .UnseenObjects(let userId, _):
+    case .UnseenObjectsForUser(let userId, _):
       return "/users/\(userId)/unseen_objects"
+    case .UnseenObjectsForOrganization(let organizationId, _):
+      return "/organizations/\(organizationId)/unseen_objects"
     case .DeleteUnseenObjects(let type, let id):
       return "/\(type)/\(id)/unseen_objects"
     case .GetUploadAttachmentURL(let attachment):
@@ -257,7 +260,12 @@ enum SizungHttpRouter: URLRequestConvertible {
         "page[number]": page,
         "page[size]": 20
       ]
-    case .UnseenObjects(_, let page):
+    case .UnseenObjectsForUser(_, let page):
+      return [
+        "page[number]": page,
+        "page[size]": 1000
+      ]
+    case .UnseenObjectsForOrganization(_, let page):
       return [
         "include": "target,timeline",
         "page[number]": page,
@@ -303,7 +311,8 @@ enum SizungHttpRouter: URLRequestConvertible {
         parameters: self.jsonParameters
         ).0
     case .ConversationObjects,
-         .UnseenObjects,
+         .UnseenObjectsForUser,
+         .UnseenObjectsForOrganization,
          .GetUploadAttachmentURL:
       return Alamofire.ParameterEncoding.URL.encode(
         mutableURLRequest,

@@ -115,7 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         .onFailure { error in
           switch error {
           case .NotFound,
-            .NonRecoverable:
+          .NonRecoverable:
             let organizationsViewController = R.storyboard.organizations.initialViewController()!
             self.organizationsViewController = organizationsViewController
             organizationsViewController.organizationTableViewDelegate = self
@@ -309,15 +309,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
 
   func onReceived(unseenObject: BaseModel) {
-    if let unseenObject = unseenObject as? UnseenObject {
-      if unseenObject.timeline != nil && unseenObject.target != nil {
-        StorageManager.sharedInstance.unseenObjects.insertOrUpdate([unseenObject])
-      } else {
-        // remove if no timeline or target
-        if let index = StorageManager.sharedInstance.unseenObjects.indexOf(unseenObject) {
-          StorageManager.sharedInstance.unseenObjects.removeAtIndex(index)
+
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        if let unseenObject = unseenObject as? UnseenObject {
+          if unseenObject.timeline != nil && unseenObject.target != nil {
+            storageManager.unseenObjects.insertOrUpdate([unseenObject])
+          } else {
+            // remove if no timeline or target
+            if let index = storageManager.unseenObjects.indexOf(unseenObject) {
+              storageManager.unseenObjects.removeAtIndex(index)
+            }
+          }
         }
-      }
     }
   }
 

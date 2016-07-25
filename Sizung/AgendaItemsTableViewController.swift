@@ -96,14 +96,15 @@ class AgendaItemsTableViewController: UITableViewController {
 
   func initData() {
 
-    // listen to unseenObject changes
-    StorageManager.sharedInstance.unseenObjects.observeNext { _ in
-      self.tableView.reloadData()
-      }.disposeIn(rBag)
-
-    // listen to deliverable changes
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
+
+        // listen to unseenObject changes
+        storageManager.unseenObjects.observeNext { _ in
+          self.tableView.reloadData()
+          }.disposeIn(self.rBag)
+
+        // listen to deliverable changes
         storageManager.agendaItems.observeNext {_ in
           self.tableView.reloadData()
           }.disposeIn(self.rBag)
@@ -143,7 +144,7 @@ class AgendaItemsTableViewController: UITableViewController {
           cell.conversationLabel.text = conversationTitle
         }
 
-        let unseenObjects = StorageManager.sharedInstance.unseenObjects.collection
+        let unseenObjects = self.storageManager!.unseenObjects.collection
 
         let hasUnseenObject = unseenObjects.contains { obj in
           return obj.agendaItemId == agendaItem.id

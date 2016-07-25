@@ -19,6 +19,8 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
   @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var groupsButton: UIButton!
 
+  var storageManager: OrganizationStorageManager?
+
   var groupsBadgeView = GIBadgeView()
 
   var mainPageViewController: MainPageViewController!
@@ -37,10 +39,6 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
 
     UIApplication.sharedApplication().statusBarStyle = .Default
 
-    StorageManager.sharedInstance.unseenObjects.observeNext { _ in
-      self.groupsBadgeView.badgeValue = self.calculateUnseenConversations()
-      }.disposeIn(rBag)
-
     segmentedControl.items = ["PRIORITY", "STREAM", "ACTION"]
     segmentedControl.thumbColors = [Color.TODISCUSS, Color.STREAM, Color.TODO]
     segmentedControl.addTarget(
@@ -53,6 +51,21 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
 
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
+
+        self.storageManager = storageManager
+
+        // register for unseenobject changes
+        storageManager.unseenObjects.observeNext { _ in
+          let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+
+          dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            let unseenCount = self.calculateUnseenConversations()
+            dispatch_async(dispatch_get_main_queue()) {
+              self.groupsBadgeView.badgeValue = unseenCount
+            }
+          }
+          }.disposeIn(self.rBag)
+
         // load conversation
         if let conversationViewController = self.conversationViewController {
           self.showViewController(conversationViewController, sender: nil)
@@ -64,7 +77,7 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
 
   func calculateUnseenConversations() -> Int {
     var unseenConversationSet = Set<String>()
-    StorageManager.sharedInstance.unseenObjects.collection.filter { unseenObject in
+    self.storageManager!.unseenObjects.collection.filter { unseenObject in
         return unseenObject.organizationId == Configuration.getSelectedOrganization()
       }.forEach { unseenObject in
       if let conversationId = unseenObject.conversationId {
