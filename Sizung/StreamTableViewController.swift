@@ -146,7 +146,7 @@ class StreamTableViewController: UITableViewController {
         var unseenObjectText: String
         if let unseenCount = self.storageManager?.unseenObjects.count {
           if unseenCount > 0 {
-            unseenObjectText = "There is still something you haven't seen,\nbut are not subscribed to.\n\nTouch here to show."
+            unseenObjectText = "There is still something you haven't seen\nyou are not subscribed to.\n\nTouch here to show."
             self.emptyView.addGestureRecognizer(self.showUnsubscribedGestureRecognizer!)
           } else {
             unseenObjectText = "You’re all caught up.\n\nEat a cupcake!"
