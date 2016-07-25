@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		2FF81000B72F237F09D8B781 /* Pods_SizungUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13B42A82CE8590D9FB4161 /* Pods_SizungUITests.framework */; };
 		5A1DDBD21D1A74700089CD45 /* AgendaItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */; };
+		5A208E571D435D6700F765C9 /* StreamConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A208E561D435D6700F765C9 /* StreamConversationTableViewCell.swift */; };
+		5A208E5C1D43601A00F765C9 /* StreamActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A208E581D43601A00F765C9 /* StreamActionTableViewCell.swift */; };
+		5A208E5D1D43601A00F765C9 /* StreamActionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A208E591D43601A00F765C9 /* StreamActionTableViewCell.xib */; };
+		5A208E5E1D43601A00F765C9 /* StreamAgendaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A208E5A1D43601A00F765C9 /* StreamAgendaTableViewCell.swift */; };
+		5A208E5F1D43601A00F765C9 /* StreamAgendaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A208E5B1D43601A00F765C9 /* StreamAgendaTableViewCell.xib */; };
+		5A208E621D436BD100F765C9 /* StreamObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A208E611D436BD100F765C9 /* StreamObjects.swift */; };
+		5A208E651D45252800F765C9 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A208E641D45252800F765C9 /* Log.swift */; };
 		5A29E0D31D2F7F3E002A7840 /* SizungButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */; };
 		5A29E0D61D2FA44A002A7840 /* OrganizationStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A29E0D51D2FA44A002A7840 /* OrganizationStorageManager.swift */; };
 		5A2E3C241D2E3A3900D4D3EA /* Conversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */; };
@@ -69,7 +76,7 @@
 		5A9D0EE71D11B3C500037589 /* ConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EE61D11B3C500037589 /* ConversationTableViewCell.xib */; };
 		5A9D0EE91D11BB9800037589 /* StreamTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D0EE81D11BB9800037589 /* StreamTableViewController.swift */; };
 		5A9D0EEC1D11BCAB00037589 /* StreamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D0EEA1D11BCAB00037589 /* StreamTableViewCell.swift */; };
-		5A9D0EED1D11BCAB00037589 /* StreamTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EEB1D11BCAB00037589 /* StreamTableViewCell.xib */; };
+		5A9D0EED1D11BCAB00037589 /* StreamConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EEB1D11BCAB00037589 /* StreamConversationTableViewCell.xib */; };
 		5A9D0EEF1D11FEC200037589 /* Gotham-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EEE1D11FEC200037589 /* Gotham-Light.otf */; };
 		5A9D0EF11D11FECF00037589 /* Brandon Text W01 Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A9D0EF01D11FECF00037589 /* Brandon Text W01 Medium.ttf */; };
 		5A9EDEB01D00232100D389EC /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9EDEAF1D00232100D389EC /* UserResponse.swift */; };
@@ -158,6 +165,13 @@
 /* Begin PBXFileReference section */
 		40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SizungTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgendaItemTableViewCell.xib; sourceTree = "<group>"; };
+		5A208E561D435D6700F765C9 /* StreamConversationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamConversationTableViewCell.swift; sourceTree = "<group>"; };
+		5A208E581D43601A00F765C9 /* StreamActionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamActionTableViewCell.swift; sourceTree = "<group>"; };
+		5A208E591D43601A00F765C9 /* StreamActionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamActionTableViewCell.xib; sourceTree = "<group>"; };
+		5A208E5A1D43601A00F765C9 /* StreamAgendaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamAgendaTableViewCell.swift; sourceTree = "<group>"; };
+		5A208E5B1D43601A00F765C9 /* StreamAgendaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamAgendaTableViewCell.xib; sourceTree = "<group>"; };
+		5A208E611D436BD100F765C9 /* StreamObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamObjects.swift; sourceTree = "<group>"; };
+		5A208E641D45252800F765C9 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungButton.swift; sourceTree = "<group>"; };
 		5A29E0D51D2FA44A002A7840 /* OrganizationStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationStorageManager.swift; sourceTree = "<group>"; };
 		5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversation.storyboard; sourceTree = "<group>"; };
@@ -224,7 +238,7 @@
 		5A9D0EE61D11B3C500037589 /* ConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConversationTableViewCell.xib; sourceTree = "<group>"; };
 		5A9D0EE81D11BB9800037589 /* StreamTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTableViewController.swift; sourceTree = "<group>"; };
 		5A9D0EEA1D11BCAB00037589 /* StreamTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamTableViewCell.swift; sourceTree = "<group>"; };
-		5A9D0EEB1D11BCAB00037589 /* StreamTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamTableViewCell.xib; sourceTree = "<group>"; };
+		5A9D0EEB1D11BCAB00037589 /* StreamConversationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamConversationTableViewCell.xib; sourceTree = "<group>"; };
 		5A9D0EEE1D11FEC200037589 /* Gotham-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Gotham-Light.otf"; path = "../../../../Library/Containers/com.apple.mail/Data/Library/Mail Downloads/E66CA0ED-A832-412A-813D-70C960EC3BFF/Sizung iOS_Folder/Fonts/Gotham-Light.otf"; sourceTree = "<group>"; };
 		5A9D0EF01D11FECF00037589 /* Brandon Text W01 Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Brandon Text W01 Medium.ttf"; path = "../../../../Library/Containers/com.apple.mail/Data/Library/Mail Downloads/E66CA0ED-A832-412A-813D-70C960EC3BFF/Sizung iOS_Folder/Fonts/Brandon Text W01 Medium.ttf"; sourceTree = "<group>"; };
 		5A9D0EF21D12066E00037589 /* Brandon_reg.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Brandon_reg.otf; sourceTree = "<group>"; };
@@ -352,6 +366,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		5A208E601D436BC500F765C9 /* stream */ = {
+			isa = PBXGroup;
+			children = (
+				5A208E611D436BD100F765C9 /* StreamObjects.swift */,
+			);
+			name = stream;
+			sourceTree = "<group>";
+		};
+		5A208E631D4524F300F765C9 /* Reporting */ = {
+			isa = PBXGroup;
+			children = (
+				5AE24D111D22571300FB691B /* Error.swift */,
+				5A208E641D45252800F765C9 /* Log.swift */,
+			);
+			name = Reporting;
+			sourceTree = "<group>";
+		};
 		5A29E0D41D2FA43B002A7840 /* storage */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,7 +396,12 @@
 			isa = PBXGroup;
 			children = (
 				5A9D0EEA1D11BCAB00037589 /* StreamTableViewCell.swift */,
-				5A9D0EEB1D11BCAB00037589 /* StreamTableViewCell.xib */,
+				5A208E561D435D6700F765C9 /* StreamConversationTableViewCell.swift */,
+				5A9D0EEB1D11BCAB00037589 /* StreamConversationTableViewCell.xib */,
+				5A208E581D43601A00F765C9 /* StreamActionTableViewCell.swift */,
+				5A208E591D43601A00F765C9 /* StreamActionTableViewCell.xib */,
+				5A208E5A1D43601A00F765C9 /* StreamAgendaTableViewCell.swift */,
+				5A208E5B1D43601A00F765C9 /* StreamAgendaTableViewCell.xib */,
 			);
 			name = Stream;
 			sourceTree = "<group>";
@@ -499,6 +535,7 @@
 		5A86B12A1CE4BBF3001C2E7A /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				5A208E601D436BC500F765C9 /* stream */,
 				5ABACCD81D09AB1B0093CF21 /* markdown */,
 				5A29E0D41D2FA43B002A7840 /* storage */,
 				5A504B151CEF2427001BEFA3 /* Token */,
@@ -508,7 +545,7 @@
 				5A9EDEBB1D01CEB900D389EC /* Color.swift */,
 				5AE883991D09A5460044364B /* CollectionPropertyExtension.swift */,
 				5AA983F11D13E4C200A9C2EE /* DateHelper */,
-				5AE24D111D22571300FB691B /* Error.swift */,
+				5A208E631D4524F300F765C9 /* Reporting */,
 				5AE3FB6F1D2973AB00B2BEEC /* InAppMessage.swift */,
 				5AF675CF1D38D448008C813D /* Helper.swift */,
 			);
@@ -822,6 +859,7 @@
 				5ADC88381D105F3300596D67 /* DeliverableTableViewCell.xib in Resources */,
 				5A9D0EEF1D11FEC200037589 /* Gotham-Light.otf in Resources */,
 				5A99BFD51D1BDD8800BA5647 /* Brandon_reg.otf in Resources */,
+				5A208E5D1D43601A00F765C9 /* StreamActionTableViewCell.xib in Resources */,
 				5A304B3B1D18367F009CBBAD /* StartOfConversationView.xib in Resources */,
 				5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */,
 				5A7329F91D05B1FC006531A5 /* Brandon_bld.otf in Resources */,
@@ -844,7 +882,8 @@
 				5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */,
 				5A2E3C241D2E3A3900D4D3EA /* Conversation.storyboard in Resources */,
 				5AECC1D81D115CBD00AD8ACE /* AgendaItem.storyboard in Resources */,
-				5A9D0EED1D11BCAB00037589 /* StreamTableViewCell.xib in Resources */,
+				5A208E5F1D43601A00F765C9 /* StreamAgendaTableViewCell.xib in Resources */,
+				5A9D0EED1D11BCAB00037589 /* StreamConversationTableViewCell.xib in Resources */,
 				5A68DC0D1D3D158B00687107 /* AttachmentTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1051,6 +1090,7 @@
 				5A8F79071CFF0E6B00953495 /* AgendaItemsResponse.swift in Sources */,
 				5AE0CCA11D0AEF3900690C72 /* CommentResponse.swift in Sources */,
 				5A85E0711D3F7E4B00010693 /* AttachmentResponse.swift in Sources */,
+				5A208E5E1D43601A00F765C9 /* StreamAgendaTableViewCell.swift in Sources */,
 				5A9D0EE91D11BB9800037589 /* StreamTableViewController.swift in Sources */,
 				5A9EDEB61D01621200D389EC /* ConversationResponse.swift in Sources */,
 				5A9D0EE11D119DD000037589 /* R.generated.swift in Sources */,
@@ -1098,12 +1138,15 @@
 				5ADC88321D10505700596D67 /* TimelineDeliverableTableViewCell.swift in Sources */,
 				5AF675CB1D3788AB008C813D /* ItemLoadingViewController.swift in Sources */,
 				5A68DC0C1D3D158B00687107 /* AttachmentTableViewCell.swift in Sources */,
+				5A208E571D435D6700F765C9 /* StreamConversationTableViewCell.swift in Sources */,
 				5ADC88341D10508800596D67 /* TimelineAgendaItemTableViewCell.swift in Sources */,
 				5A68DC071D3D13C300687107 /* Attachment.swift in Sources */,
+				5A208E651D45252800F765C9 /* Log.swift in Sources */,
 				5A304B3F1D184427009CBBAD /* UnseenObject.swift in Sources */,
 				5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */,
 				5ABA4FBF1CFEC3B600110030 /* OrganizationViewController.swift in Sources */,
 				5AA890FC1CF4D1B900ED391B /* TableViewCellDisplayable.swift in Sources */,
+				5A208E5C1D43601A00F765C9 /* StreamActionTableViewCell.swift in Sources */,
 				5A59500B1D391B340065F044 /* LoadingViewController.swift in Sources */,
 				5AC0E5E81CF33C8300BBEF45 /* Comment.swift in Sources */,
 				5A504B071CEF0FDC001BEFA3 /* StorageManager.swift in Sources */,
@@ -1115,6 +1158,7 @@
 				5A68DBF71D3C064300687107 /* CreateConversationViewController.swift in Sources */,
 				5A29E0D61D2FA44A002A7840 /* OrganizationStorageManager.swift in Sources */,
 				5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */,
+				5A208E621D436BD100F765C9 /* StreamObjects.swift in Sources */,
 				5A304B3D1D1843DE009CBBAD /* UnseenObjectsResponse.swift in Sources */,
 				5AC0E5E61CF2F5C200BBEF45 /* TimelineTableViewController.swift in Sources */,
 				5AA983F31D13E4D100A9C2EE /* DueDateHelper.swift in Sources */,

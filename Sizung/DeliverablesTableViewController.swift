@@ -105,15 +105,15 @@ class DeliverablesTableViewController: UITableViewController {
   }
 
   func initData() {
-
-    // listen to unseenObject changes
-    StorageManager.sharedInstance.unseenObjects.observeNext { _ in
-      self.tableView.reloadData()
-      }.disposeIn(rBag)
-
-    // listen to deliverable changes
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
+
+        // listen to unseenObject changes
+        storageManager.unseenObjects.observeNext { _ in
+          self.tableView.reloadData()
+          }.disposeIn(self.rBag)
+
+        // listen to deliverable changes
         storageManager.deliverables.observeNext {_ in
           self.tableView.reloadData()
           }.disposeIn(self.rBag)
@@ -182,7 +182,7 @@ class DeliverablesTableViewController: UITableViewController {
         cell.statusView.layer.borderColor = statusColor.CGColor
         cell.statusLabel.textColor = textStatusColor
 
-        let unseenObjects = StorageManager.sharedInstance.unseenObjects
+        let unseenObjects = self.storageManager!.unseenObjects
 
         let hasUnseenObjects = unseenObjects.collection.contains { obj in
           return obj.deliverableId == deliverable.id

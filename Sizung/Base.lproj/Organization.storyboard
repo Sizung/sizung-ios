@@ -14,6 +14,7 @@
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
         </mutableArray>
         <mutableArray key="Brandon_reg.otf">
             <string>BrandonText-Regular</string>
@@ -448,19 +449,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="7Xd-Pn-aNx">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="428"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="601"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-kB-xvX">
-                                    <rect key="frame" x="234" y="137" width="133" height="155"/>
+                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-kB-xvX">
+                                    <rect key="frame" x="196" y="228" width="209" height="145"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cupcake" translatesAutoresizingMaskIntoConstraints="NO" id="ji6-3u-s8g">
-                                            <rect key="frame" x="0.0" y="0.0" width="133" height="82"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="209" height="82"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ktE-db-HBb">
-                                            <rect key="frame" x="0.0" y="82" width="133" height="73"/>
-                                            <string key="text">You’re all caught up. 
-Eat a cupcake!</string>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have additional unread objects,  click here to see them" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRr-eX-SII">
+                                            <rect key="frame" x="0.0" y="102" width="209" height="43"/>
+                                            <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="0Lv-v1-Epb">
+                                    <rect key="frame" x="186" y="164" width="229" height="274"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="OSC-k1-EDF">
+                                            <rect key="frame" x="0.0" y="0.0" width="229" height="229"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your stream is loading…" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwA-7P-zng">
+                                            <rect key="frame" x="0.0" y="249" width="229" height="25"/>
                                             <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -470,7 +483,9 @@ Eat a cupcake!</string>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstItem="0Lv-v1-Epb" firstAttribute="centerX" secondItem="7Xd-Pn-aNx" secondAttribute="centerX" id="3vu-Vr-wld"/>
                                 <constraint firstItem="ce4-kB-xvX" firstAttribute="centerY" secondItem="7Xd-Pn-aNx" secondAttribute="centerY" id="AEl-V8-acl"/>
+                                <constraint firstItem="0Lv-v1-Epb" firstAttribute="centerY" secondItem="7Xd-Pn-aNx" secondAttribute="centerY" id="Se3-oy-tjy"/>
                                 <constraint firstItem="ce4-kB-xvX" firstAttribute="centerX" secondItem="7Xd-Pn-aNx" secondAttribute="centerX" id="heM-rj-6yF"/>
                             </constraints>
                         </view>
@@ -482,6 +497,12 @@ Eat a cupcake!</string>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Asx-qm-UH7">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
+                    <connections>
+                        <outlet property="emptyView" destination="ce4-kB-xvX" id="Nas-g4-Fyw"/>
+                        <outlet property="loadingView" destination="0Lv-v1-Epb" id="Cwi-xC-I10"/>
+                        <outlet property="logoView" destination="OSC-k1-EDF" id="xk4-h8-94x"/>
+                        <outlet property="unseenObjectsLabel" destination="lRr-eX-SII" id="Qew-pA-2bX"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FIe-jM-VSn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -492,6 +513,7 @@ Eat a cupcake!</string>
         <image name="close" width="32" height="32"/>
         <image name="cupcake" width="69" height="82"/>
         <image name="group_list" width="46" height="31"/>
+        <image name="logo" width="229" height="229"/>
         <image name="priority" width="30" height="20"/>
     </resources>
 </document>

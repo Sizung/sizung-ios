@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     self.checkSettings()
 
     #if RELEASE_VERSION
-      Fabric.with([Crashlytics.self])
+      Fabric.with([Crashlytics.self, Answers.self])
     #endif
 
     // set to dark style
@@ -115,8 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         .onFailure { error in
           switch error {
           case .NotFound,
-            .NotAuthenticated:
-
+          .NonRecoverable:
             let organizationsViewController = R.storyboard.organizations.initialViewController()!
             self.organizationsViewController = organizationsViewController
             organizationsViewController.organizationTableViewDelegate = self
@@ -191,8 +190,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   func fetchUnseenObjects() {
     // update unseenobjects
     if let userId = AuthToken(data: Configuration.getAuthToken()).getUserId() {
-      StorageManager.sharedInstance.listUnseenObjects(userId)
-
       // subscribe to user channel
       if let websocket = StorageManager.sharedInstance.websocket {
         websocket.userWebsocketDelegate = self
@@ -239,12 +236,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
     }
 
-    Alamofire.request(SizungHttpRouter.RegisterDevice(token: tokenString))
-      .validate()
-      .responseJSON { response in
-        if let error = response.result.error {
-          Error.log(error)
-        }
+    if let deviceId = Configuration.getDeviceId() {
+      Alamofire.request(SizungHttpRouter.UpdateDevice(deviceId: deviceId, token: tokenString))
+        .validate()
+        .responseJSON { response in
+          if let error = response.result.error {
+            Error.log(error)
+          }
+      }
+    } else {
+      Alamofire.request(SizungHttpRouter.RegisterDevice(token: tokenString))
+        .validate()
+        .responseJSON { response in
+          if let error = response.result.error {
+            Error.log(error)
+          }
+      }
     }
   }
 
@@ -252,7 +259,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     application: UIApplication,
     didFailToRegisterForRemoteNotificationsWithError error: NSError
     ) {
-    Error.log(error)
+    // don't show simulator error
+    if error.code != 3010 {
+      Error.log(error)
+    }
   }
 
   // foreground notification received
@@ -262,9 +272,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
                                forRemoteNotification userInfo: [NSObject : AnyObject],
                                                      completionHandler: () -> Void
     ) {
-
-    print("handleRemoteActionWithIdentifier \(identifier) notification: \(userInfo)")
-
     completionHandler()
   }
 
@@ -302,8 +309,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
 
   func onReceived(unseenObject: BaseModel) {
-    if let unseenObject = unseenObject as? UnseenObject {
-      StorageManager.sharedInstance.unseenObjects.append(unseenObject)
+
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        if let unseenObject = unseenObject as? UnseenObject {
+          if unseenObject.timeline != nil && unseenObject.target != nil {
+            storageManager.unseenObjects.insertOrUpdate([unseenObject])
+          } else {
+            // remove if no timeline or target
+            if let index = storageManager.unseenObjects.indexOf(unseenObject) {
+              storageManager.unseenObjects.removeAtIndex(index)
+            }
+          }
+        }
     }
   }
 
@@ -311,7 +329,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
   }
 
   private func loadUrl(url: NSURL) -> Bool {
-
     if let pathComponents = url.pathComponents {
       guard pathComponents.count == 3 else {
 
@@ -343,11 +360,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         self.showLogin()
       }
     }
-
     return true
   }
 
   func openItem(type: String, itemId: String) {
+    Answers.logCustomEventWithName("Open Item at launch",
+                                   customAttributes: [
+                                    "type": type
+      ])
     let itemLoadingViewController = ItemLoadingViewController(nib: R.nib.itemLoadingViewController)
     itemLoadingViewController.type = type
     itemLoadingViewController.itemId = itemId

@@ -30,12 +30,13 @@ class ConversationsTableViewController: UITableViewController {
 
   func initData() {
 
-    // listen to unseenObject changes
-    StorageManager.sharedInstance.unseenObjects.observeNext { _ in
-      self.tableView.reloadData()
-      }.disposeIn(rBag)
-
     StorageManager.storageForSelectedOrganization().onSuccess { storageManager in
+
+      // listen to unseenObject changes
+      storageManager.unseenObjects.observeNext { _ in
+        self.tableView.reloadData()
+        }.disposeIn(self.rBag)
+
       storageManager.conversations.sort { left, right in
         return left.title.compare(right.title) == .OrderedAscending
         }.bindTo(self.sortedCollection)
@@ -82,7 +83,7 @@ class ConversationsTableViewController: UITableViewController {
             }
           }
 
-          let unseenObjects = StorageManager.sharedInstance.unseenObjects
+          let unseenObjects = storageManager.unseenObjects
 
           let hasUnseenObject = unseenObjects.collection.contains { obj in
             return obj.conversationId == conversation.id

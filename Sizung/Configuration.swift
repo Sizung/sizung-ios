@@ -36,19 +36,17 @@ class Configuration: NSObject {
   }
 
   class func reset() {
+    NSUserDefaults.resetStandardUserDefaults()
+    KeychainWrapper.removeObjectForKey(Configuration.Settings.kDeviceId)
     KeychainWrapper.removeObjectForKey(Configuration.Settings.kAuthToken)
-    KeychainWrapper.removeObjectForKey(Configuration.Settings.kSelectedOrganization)
   }
 
-  class func getDeviceId() -> String {
+  class func setDeviceId(deviceId: String) {
+    KeychainWrapper.setString(deviceId, forKey: Configuration.Settings.kDeviceId)
+  }
 
-    if let deviceId = KeychainWrapper.stringForKey(Configuration.Settings.kDeviceId) {
-      return deviceId
-    } else {
-      let deviceId = NSUUID().UUIDString
-      KeychainWrapper.setString(deviceId, forKey: Configuration.Settings.kDeviceId)
-      return deviceId
-    }
+  class func getDeviceId() -> String? {
+    return KeychainWrapper.stringForKey(Configuration.Settings.kDeviceId)
   }
 
   class func getAuthToken() -> String? {
@@ -60,16 +58,16 @@ class Configuration: NSObject {
   }
 
   class func getSelectedOrganization() -> String? {
-  return KeychainWrapper.stringForKey(Configuration.Settings.kSelectedOrganization)
+    return NSUserDefaults.standardUserDefaults().stringForKey(Configuration.Settings.kSelectedOrganization)
   }
 
   class func setSelectedOrganization(data: String) {
-    KeychainWrapper.setString(data, forKey: Configuration.Settings.kSelectedOrganization)
+    NSUserDefaults.standardUserDefaults().setValue(data, forKey: Configuration.Settings.kSelectedOrganization)
   }
 
   private struct Settings {
     static let kAuthToken = "AUTH_TOKEN"
-    static let kDeviceId = "DEVICE_ID"
+    static let kDeviceId = "V2::DEVICE_ID"
     static let kSelectedOrganization = "SELECTED_ORGANIZATION"
   }
 

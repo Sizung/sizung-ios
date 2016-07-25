@@ -14,6 +14,7 @@ import ReactiveUIKit
 class OrganizationsTableViewController: UITableViewController {
 
   let organizations: CollectionProperty <[Organization]> = CollectionProperty([])
+  var unseenObjects: Set<UnseenObject> = []
 
   var organizationTableViewDelegate: OrganizationTableViewDelegate?
 
@@ -49,8 +50,7 @@ class OrganizationsTableViewController: UITableViewController {
         let organization = organizations[indexPath.row]
         cell.nameLabel.text = organization.name
 
-        let unseenObjects = StorageManager.sharedInstance.unseenObjects
-        let hasUnseenObject = unseenObjects.collection.contains { obj in
+        let hasUnseenObject = self.unseenObjects.contains { obj in
           return obj.organizationId == organization.id
         }
 
@@ -69,12 +69,31 @@ class OrganizationsTableViewController: UITableViewController {
   func updateData() {
     StorageManager.sharedInstance.listOrganizations()
       .onSuccess { organizations in
+
+        // query unseenObjects
+        self.fetchUnseenObjectsPage(0)
+
         self.organizations.replace(organizations, performDiff: true)
       }.onFailure { error in
         let message = "\(error)"
         Error.log(message)
       }.onComplete { _ in
         self.refreshControl?.endRefreshing()
+    }
+  }
+
+  func fetchUnseenObjectsPage(page: Int) {
+    if let userId = AuthToken(data: Configuration.getAuthToken()).getUserId() {
+      StorageManager.sharedInstance.listUnseenObjectsForUser(userId, page: page)
+        .onSuccess { unseenObjectsResponse in
+          self.unseenObjects.unionInPlace(unseenObjectsResponse.unseenObjects)
+          if let nextPage = unseenObjectsResponse.nextPage {
+            self.fetchUnseenObjectsPage(nextPage)
+            self.tableView.reloadData()
+          } else {
+            self.tableView.reloadData()
+          }
+      }
     }
   }
 

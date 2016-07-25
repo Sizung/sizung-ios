@@ -14,6 +14,7 @@ enum SizungHttpRouter: URLRequestConvertible {
 
   case Login(email: String, password: String)
   case RegisterDevice(token: String)
+  case UpdateDevice(deviceId: String, token: String)
   case Logout()
   case Organizations()
   case Organization(id: String)
@@ -24,7 +25,8 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Deliverable(id: String)
   case ConversationObjects(parent: BaseModel, page: Int)
   case Comments(comment: Comment)
-  case UnseenObjects(userId: String)
+  case UnseenObjectsForUser(userId: String, page: Int)
+  case UnseenObjectsForOrganization(organizationId: String, page: Int, pageSize: Int)
   case DeleteUnseenObjects(type: String, id: String)
   case CreateDeliverable(deliverable: Sizung.Deliverable)
   case UpdateDeliverable(deliverable: Sizung.Deliverable)
@@ -44,7 +46,8 @@ enum SizungHttpRouter: URLRequestConvertible {
          .CreateDeliverable,
          .CreateAttachment:
       return .POST
-    case .UpdateDeliverable,
+    case .UpdateDevice,
+         .UpdateDeliverable,
          .UpdateAgendaItem,
          .UpdateConversation:
       return .PUT
@@ -63,6 +66,8 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/session_tokens"
     case .RegisterDevice:
       return "/devices"
+    case .UpdateDevice(let deviceId):
+      return "/devices/\(deviceId)"
     case .Organizations:
       return "/organizations"
     case .Organization(let id):
@@ -95,8 +100,10 @@ enum SizungHttpRouter: URLRequestConvertible {
       fatalError("unkown router call to .ConversationObjects")
     case .Comments:
       return "/comments"
-    case .UnseenObjects(let userId):
+    case .UnseenObjectsForUser(let userId, _):
       return "/users/\(userId)/unseen_objects"
+    case .UnseenObjectsForOrganization(let organizationId, _, _):
+      return "/organizations/\(organizationId)/unseen_objects"
     case .DeleteUnseenObjects(let type, let id):
       return "/\(type)/\(id)/unseen_objects"
     case .GetUploadAttachmentURL(let attachment):
@@ -134,6 +141,12 @@ enum SizungHttpRouter: URLRequestConvertible {
           "token": deviceToken
         ]
       ]
+    case .UpdateDevice(_, let deviceToken):
+      return [
+        "device": [
+          "token": deviceToken
+        ]
+      ]
     case .CreateConversation(let conversation):
       let members = conversation.members.map {user in
         return [
@@ -164,8 +177,6 @@ enum SizungHttpRouter: URLRequestConvertible {
         ]
       ]
     case .Comments(let comment):
-
-      // TODO: workaround for incorrect type
       let commentableType = String(comment.commentable.type.capitalizedString.characters.dropLast()).stringByReplacingOccurrencesOfString("_", withString: "")
       return [
         "comment": [
@@ -249,9 +260,16 @@ enum SizungHttpRouter: URLRequestConvertible {
         "page[number]": page,
         "page[size]": 20
       ]
-    case .UnseenObjects:
+    case .UnseenObjectsForUser(_, let page):
       return [
-        "include": "target,timeline"
+        "page[number]": page,
+        "page[size]": 1000
+      ]
+    case .UnseenObjectsForOrganization(_, let page, let pageSize):
+      return [
+        "include": "target,timeline",
+        "page[number]": page,
+        "page[size]": pageSize
       ]
     case .GetUploadAttachmentURL(let attachment):
       return [
@@ -279,6 +297,7 @@ enum SizungHttpRouter: URLRequestConvertible {
     switch self {
     case .Login,
          .RegisterDevice,
+         .UpdateDevice,
          .CreateDeliverable,
          .UpdateDeliverable,
          .CreateAgendaItem,
@@ -292,7 +311,8 @@ enum SizungHttpRouter: URLRequestConvertible {
         parameters: self.jsonParameters
         ).0
     case .ConversationObjects,
-         .UnseenObjects,
+         .UnseenObjectsForUser,
+         .UnseenObjectsForOrganization,
          .GetUploadAttachmentURL:
       return Alamofire.ParameterEncoding.URL.encode(
         mutableURLRequest,

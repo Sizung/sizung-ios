@@ -15,6 +15,7 @@ import SwiftKeychainWrapper
 enum StorageError: ErrorType {
   case NotFound
   case NotAuthenticated
+  case NonRecoverable
   case Other
 }
 
@@ -57,11 +58,9 @@ class StorageManager {
   // networking queue
   static let networkQueue = dispatch_queue_create("\(NSBundle.mainBundle().bundleIdentifier).networking-queue", DISPATCH_QUEUE_CONCURRENT)
 
-  let unseenObjects: CollectionProperty <[UnseenObject]> = CollectionProperty([])
   var websocket: Websocket?
 
   func reset() {
-    unseenObjects.replace([])
     storages = [:]
   }
 
@@ -83,9 +82,28 @@ class StorageManager {
         case .Failure
           where response.response?.statusCode == 404:
           promise.failure(.NotFound)
+        case .Failure
+          where response.response?.statusCode == 500:
+          promise.failure(.NonRecoverable)
         case .Failure:
           if let error = response.result.error {
-            Error.log(error)
+            switch error.code {
+            // only log certain errors
+            case -1001, // Timeout
+            -1018: //  International roaming is currently off
+              Log.error(error, response.request?.URLString).send()
+            // report the rest
+            default:
+              var userInfo = error.userInfo
+              if let originalLocalizedDescription = userInfo[NSLocalizedDescriptionKey] {
+                userInfo[NSLocalizedDescriptionKey] = "\(originalLocalizedDescription) url: \(response.request?.URLString)"
+              } else {
+                userInfo[NSLocalizedDescriptionKey] = "failed for url: \(response.request?.URLString)"
+              }
+
+              let newError = NSError(domain: error.domain, code: error.code, userInfo: userInfo)
+              Error.log(newError)
+            }
           } else {
             Error.log("Something failed")
           }
@@ -140,42 +158,15 @@ class StorageManager {
   }
 
 
-  func listUnseenObjects(userId: String) -> Future<[UnseenObject], StorageError> {
-    let promise = Promise<[UnseenObject], StorageError>()
+  func listUnseenObjectsForUser(userId: String, page: Int) -> Future<UnseenObjectsResponse, StorageError> {
+    let promise = Promise<UnseenObjectsResponse, StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.UnseenObjects(userId: userId))
+    StorageManager.makeRequest(SizungHttpRouter.UnseenObjectsForUser(userId: userId, page: page))
       .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
-        let unseenObjects = unseenObjectsResponse.unseenObjects.map { (unseenObject: UnseenObject) -> (UnseenObject) in
-          unseenObject.target = unseenObjectsResponse.included.filter { include in
-            return include.id == unseenObject.targetId
-            }.first
-
-          unseenObject.timeline = unseenObjectsResponse.included.filter { include in
-            return include.id == unseenObject.timelineId
-            }.first
-          return unseenObject
-        }
-
-        promise.success(unseenObjects)
-        self.unseenObjects.insertOrUpdate(unseenObjects)
+        promise.success(unseenObjectsResponse)
       }.onFailure { error in
         promise.failure(error)
     }
-    return promise.future
-  }
-
-  func sawTimeLineFor(object: BaseModel) -> Future<[UnseenObject], StorageError> {
-    let promise = Promise<[UnseenObject], StorageError>()
-
-    StorageManager.makeRequest(SizungHttpRouter.DeleteUnseenObjects(type: object.type, id: object.id))
-      .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
-        let diff = Set(self.unseenObjects.collection).subtract(unseenObjectsResponse.unseenObjects)
-        self.unseenObjects.replace(Array(diff))
-        promise.success(unseenObjectsResponse.unseenObjects)
-      }.onFailure { error in
-        promise.failure(error)
-    }
-
     return promise.future
   }
 
