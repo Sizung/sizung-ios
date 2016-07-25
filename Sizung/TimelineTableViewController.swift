@@ -778,17 +778,16 @@ extension TimelineTableViewController {
               previewController.dataSource = self
               self.presentViewController(previewController, animated: true, completion: nil)
             }
-            
             MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
         }
-        
         // display a stop button for large files
         if attachment.fileSize > 10*1024*1024 {
           progressView.stopBlock = { progressOverlayView in
             request.cancel()
           }
         }
-        
+
+
       case is Comment:
         // don't react to comment clicks
         break
@@ -797,13 +796,13 @@ extension TimelineTableViewController {
       }
     }
   }
-  
+
   func numberOfPreviewItemsInPreviewController(controller: QLPreviewController) -> Int {
     return 1
   }
-  
+
   func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
     return previewFilePath!
   }
-  
+
 }

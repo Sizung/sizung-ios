@@ -362,7 +362,9 @@ class OrganizationStorageManager {
   func listUnseenObjectsForOrganization(orgId: String, page: Int) -> Future<UnseenObjectsResponse, StorageError> {
     let promise = Promise<UnseenObjectsResponse, StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.UnseenObjectsForOrganization(organizationId: orgId, page: page))
+    let pageSize = 200
+
+    StorageManager.makeRequest(SizungHttpRouter.UnseenObjectsForOrganization(organizationId: orgId, page: page, pageSize: pageSize))
       .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
         let unseenObjects = unseenObjectsResponse.unseenObjects.map { (unseenObject: UnseenObject) -> (UnseenObject) in
           unseenObject.target = unseenObjectsResponse.included.filter { include in
@@ -388,8 +390,7 @@ class OrganizationStorageManager {
 
     StorageManager.makeRequest(SizungHttpRouter.DeleteUnseenObjects(type: object.type, id: object.id))
       .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
-        let diff = Set(self.unseenObjects.collection).subtract(unseenObjectsResponse.unseenObjects)
-        self.unseenObjects.replace(Array(diff))
+        // ignore returned objects for now - should be set over websocket
         promise.success(unseenObjectsResponse.unseenObjects)
       }.onFailure { error in
         promise.failure(error)

@@ -26,7 +26,7 @@ enum SizungHttpRouter: URLRequestConvertible {
   case ConversationObjects(parent: BaseModel, page: Int)
   case Comments(comment: Comment)
   case UnseenObjectsForUser(userId: String, page: Int)
-  case UnseenObjectsForOrganization(organizationId: String, page: Int)
+  case UnseenObjectsForOrganization(organizationId: String, page: Int, pageSize: Int)
   case DeleteUnseenObjects(type: String, id: String)
   case CreateDeliverable(deliverable: Sizung.Deliverable)
   case UpdateDeliverable(deliverable: Sizung.Deliverable)
@@ -102,7 +102,7 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/comments"
     case .UnseenObjectsForUser(let userId, _):
       return "/users/\(userId)/unseen_objects"
-    case .UnseenObjectsForOrganization(let organizationId, _):
+    case .UnseenObjectsForOrganization(let organizationId, _, _):
       return "/organizations/\(organizationId)/unseen_objects"
     case .DeleteUnseenObjects(let type, let id):
       return "/\(type)/\(id)/unseen_objects"
@@ -265,11 +265,11 @@ enum SizungHttpRouter: URLRequestConvertible {
         "page[number]": page,
         "page[size]": 1000
       ]
-    case .UnseenObjectsForOrganization(_, let page):
+    case .UnseenObjectsForOrganization(_, let page, let pageSize):
       return [
         "include": "target,timeline",
         "page[number]": page,
-        "page[size]": 100
+        "page[size]": pageSize
       ]
     case .GetUploadAttachmentURL(let attachment):
       return [

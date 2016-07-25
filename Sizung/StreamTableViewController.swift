@@ -16,6 +16,7 @@ class StreamTableViewController: UITableViewController {
   let userId = AuthToken(data: Configuration.getAuthToken()).getUserId()!
 
   var filteredUnseenObjects = CollectionProperty<Array<UnseenObject>>([])
+  var filteredUnseenObjectsDisposable: Disposable? = nil
   var streamObjects = CollectionProperty<Array<StreamObject>>([])
 
   var finishedLoading = false
@@ -86,12 +87,7 @@ class StreamTableViewController: UITableViewController {
       .onSuccess { storageManager in
         self.storageManager = storageManager
 
-        // filter for subscribed unseenObjects in the selected organizations
-        storageManager.unseenObjects.filter { unseenObject in
-          return unseenObject.subscribed && unseenObject.organizationId == Configuration.getSelectedOrganization()
-          }.bindTo(self.filteredUnseenObjects)
-
-        self.filteredUnseenObjects.observeNext { _ in
+        self.filteredUnseenObjects.observeNext { diff in
 
           let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
           dispatch_async(dispatch_get_global_queue(priority, 0)) {
@@ -108,16 +104,17 @@ class StreamTableViewController: UITableViewController {
               self.hideLoadingView()
             }
           }
-
-          }.disposeIn(self.rBag)
+        }.disposeIn(self.rBag)
 
         self.streamObjects.bindTo(self.tableView, animated: true, createCell: self.cellForRow)
 
+        self.showSubscribed()
         self.updateData()
     }
   }
 
   func updateData() {
+    showSubscribed()
     self.finishedLoading = false
     self.fetchUnseenObjectsPage(0)
   }
@@ -149,7 +146,7 @@ class StreamTableViewController: UITableViewController {
         var unseenObjectText: String
         if let unseenCount = self.storageManager?.unseenObjects.count {
           if unseenCount > 0 {
-            unseenObjectText = "You have \(unseenCount) unseen Objects without subscription.\n\nClick to show."
+            unseenObjectText = "There is still something you haven't seen,\nbut are not subscribed to.\n\nTouch here to show."
             self.emptyView.addGestureRecognizer(self.showUnsubscribedGestureRecognizer!)
           } else {
             unseenObjectText = "You’re all caught up.\n\nEat a cupcake!"
@@ -159,13 +156,24 @@ class StreamTableViewController: UITableViewController {
 
           self.unseenObjectsLabel.text = unseenObjectText
         }
-
       }
     }
   }
 
+  func showSubscribed() {
+    self.filteredUnseenObjectsDisposable?.dispose()
+    // filter for subscribed unseenObjects in the selected organizations
+    self.filteredUnseenObjectsDisposable = storageManager!.unseenObjects.filter { unseenObject in
+      return unseenObject.subscribed && unseenObject.organizationId == Configuration.getSelectedOrganization()
+      }.bindTo(self.filteredUnseenObjects)
+  }
+
   func showUnsubscribed() {
-    print("unsubscribed")
+    self.filteredUnseenObjectsDisposable?.dispose()
+    // filter for subscribed unseenObjects in the selected organizations
+    self.filteredUnseenObjectsDisposable = storageManager!.unseenObjects.filter { unseenObject in
+      return unseenObject.organizationId == Configuration.getSelectedOrganization()
+      }.bindTo(self.filteredUnseenObjects)
   }
 
   func reduceUnseenObjectsToStreamObjects(prev: [StreamObject], unseenObject: UnseenObject) -> [StreamObject] {
@@ -220,6 +228,9 @@ class StreamTableViewController: UITableViewController {
           streamObject.mentionAuthors.insert(user)
         }
       }
+    case is Deliverable:
+      // don't handle Deliverables
+      break
     case is Attachment:
       // don't handle attachments
       break
