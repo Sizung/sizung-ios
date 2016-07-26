@@ -20,13 +20,16 @@ enum Log: SizungLog {
 
   var attributes: Dictionary<String, AnyObject> {
     switch self {
-      case .error(let error, let additionalInfo):
-      var attributes = [
+    case .error(let error, let additionalInfo):
+      var attributes: Dictionary<String, AnyObject> = [
         "domain": error.domain,
         "code": error.code,
-        "message": error.userInfo[NSLocalizedFailureReasonErrorKey]!,
         "raw": error.debugDescription
       ]
+
+      if let errorReason = error.userInfo[NSLocalizedFailureReasonErrorKey] {
+        attributes["message"] = errorReason
+      }
 
       if let additionalInfo = additionalInfo {
         attributes["additional_info"] = additionalInfo
