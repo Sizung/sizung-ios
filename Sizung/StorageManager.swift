@@ -91,6 +91,8 @@ class StorageManager {
             // only log certain errors
             case -1001, // Timeout
               -1003, // A server with the specified hostname could not be found
+              -1005, // The network connection was lost
+              -1009, // The Internet connection appears to be offline.
               -1018: //  International roaming is currently off
                 Log.error(error, response.request?.URLString).send()
             // report the rest
