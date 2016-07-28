@@ -95,10 +95,15 @@ class StorageManager {
             // report the rest
             default:
               var userInfo = error.userInfo
-              if let originalLocalizedDescription = userInfo[NSLocalizedDescriptionKey] {
-                userInfo[NSLocalizedDescriptionKey] = "\(originalLocalizedDescription) url: \(response.request?.URLString)"
+
+              if let urlString = response.request?.URLString {
+                if let originalLocalizedDescription = userInfo[NSLocalizedDescriptionKey] {
+                  userInfo[NSLocalizedDescriptionKey] = "\(originalLocalizedDescription) url: \(urlString)"
+                } else {
+                  userInfo[NSLocalizedDescriptionKey] = "failed for url: \(urlString)"
+                }
               } else {
-                userInfo[NSLocalizedDescriptionKey] = "failed for url: \(response.request?.URLString)"
+                fatalError()
               }
 
               let newError = NSError(domain: error.domain, code: error.code, userInfo: userInfo)
@@ -203,7 +208,7 @@ class StorageManager {
       }.onFailure { error in
         promise.failure(error)
     }
-
+    
     return promise.future
   }
 }
