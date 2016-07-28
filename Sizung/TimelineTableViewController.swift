@@ -141,10 +141,10 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
           self.collection.insertOrUpdate([TimelineObject(newMessagesDate: lastUnseenMessageDate)])
         }
 
-        // mark unseenObjects as read
-        storageManager.sawTimeLineFor(self.timelineParent)
-          .onFailure { error in
-            InAppMessage.showErrorMessage("There was an error marking everything as seen")
+        // mark unseenObjects as read if not archived
+
+        if self.timelineParent.archived != true {
+          storageManager.sawTimeLineFor(self.timelineParent)
         }
     }
 
@@ -160,10 +160,15 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         self.storageManager = storageManager
-        storageManager.sawTimeLineFor(self.timelineParent)
-          .onFailure { error in
-            InAppMessage.showErrorMessage("There was an error marking everything as seen")
+
+        if self.timelineParent.archived != true {
+          storageManager.sawTimeLineFor(self.timelineParent)
+            .onFailure { error in
+              InAppMessage.showErrorMessage("There was an error marking everything as seen")
+          }
         }
+
+
     }
 
 
@@ -244,6 +249,12 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
 
     let filteredItems = items
       .filter({ conversationObject in
+
+        // ignore archived objects
+        if conversationObject.archived == true {
+          return false
+        }
+
         switch conversationObject {
         case let comment as Comment:
           if let commentable = comment.commentable {

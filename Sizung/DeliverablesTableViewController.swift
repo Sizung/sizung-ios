@@ -73,6 +73,10 @@ class DeliverablesTableViewController: UITableViewController {
             return false
           }
 
+          if deliverable.archived == true {
+            return false
+          }
+
           if self.filter == .Mine {
             return deliverable.assigneeId == self.userId
           } else {

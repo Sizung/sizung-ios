@@ -211,7 +211,7 @@ enum SizungHttpRouter: URLRequestConvertible {
 
       var deliverableJSON: Dictionary<String, AnyObject> = [
         "status": deliverable.status,
-        "archived": deliverable.archived
+        "archived": deliverable.archived == true
       ]
 
       let dateString = ISODateTransform().transformToJSON(deliverable.dueOn)
@@ -231,7 +231,7 @@ enum SizungHttpRouter: URLRequestConvertible {
 
       let agendaItemJSON: Dictionary<String, AnyObject> = [
         "status": agendaItem.status,
-        "archived": agendaItem.archived
+        "archived": agendaItem.archived == true
       ]
 
       return [

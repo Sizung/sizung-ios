@@ -86,7 +86,9 @@ CalendarViewDelegate {
   func updateStatusText() {
     var statusString = deliverable.status
 
-    if !deliverable.isCompleted(), let dueDate = deliverable.dueOn {
+    if deliverable.archived == true {
+      statusString = "Archived"
+    } else if !deliverable.isCompleted(), let dueDate = deliverable.dueOn {
       statusString = DueDateHelper.getDueDateString(dueDate)
     }
 
@@ -176,6 +178,9 @@ CalendarViewDelegate {
         storageManager.updateDeliverable(self.deliverable)
           .onSuccess { deliverable in
             storageManager.deliverables.insertOrUpdate([deliverable])
+            if deliverable.archived == true {
+              self.navigationController?.popViewControllerAnimated(true)
+            }
             self.updateStatusText()
         }
     }

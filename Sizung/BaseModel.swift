@@ -14,6 +14,7 @@ class BaseModel: Mappable, Equatable, Hashable, DateSortable, CustomStringConver
   // swiftlint:disable:next variable_name
   var id: String!
   var type: String!
+  var archived: Bool?
   var createdAt: NSDate!
   var updatedAt: NSDate!
 
@@ -44,6 +45,7 @@ class BaseModel: Mappable, Equatable, Hashable, DateSortable, CustomStringConver
   func mapping(map: Map) {
     id <- map["id"]
     type <- map["type"]
+    archived <- map["attributes.archived"]
     createdAt <- (map["attributes.created_at"], ISODateTimeTransform())
     updatedAt <- (map["attributes.updated_at"], ISODateTimeTransform())
   }

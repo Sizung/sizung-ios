@@ -11,7 +11,6 @@ import ObjectMapper
 class Deliverable: BaseModel {
   var title: String!
   var status: String!
-  var archived: Bool!
   var dueOn: NSDate?
 
   var ownerId: String!
@@ -61,7 +60,6 @@ class Deliverable: BaseModel {
     title <- map["attributes.title"]
     status <- map["attributes.status"]
     dueOn <- (map["attributes.due_on"], ISODateTransform())
-    archived <- map["attributes.archived"]
     ownerId <- map["relationships.owner.data.id"]
     assigneeId <- map["relationships.assignee.data.id"]
     parentId <- map["relationships.parent.data.id"]

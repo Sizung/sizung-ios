@@ -78,6 +78,10 @@ class AgendaItemViewController: UIViewController {
           .onSuccess { agendaItem in
             storageManager.agendaItems.insertOrUpdate([agendaItem])
 
+            if agendaItem.archived == true {
+              self.navigationController?.popViewControllerAnimated(true)
+            }
+
             // update status text
             self.statusButton.setTitle(agendaItem.status, forState: .Normal)
         }
