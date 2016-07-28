@@ -228,6 +228,9 @@ class StreamTableViewController: UITableViewController {
           streamObject.mentionAuthors.insert(user)
         }
       }
+    case is Conversation:
+      // don't handle Conversations
+      break
     case is AgendaItem:
       // don't handle Agendas
       break
