@@ -66,7 +66,7 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/session_tokens"
     case .RegisterDevice:
       return "/devices"
-    case .UpdateDevice(let deviceId):
+    case .UpdateDevice(let deviceId, _):
       return "/devices/\(deviceId)"
     case .Organizations:
       return "/organizations"

@@ -63,7 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       as? [String: AnyObject] {
       self.application(application, didReceiveRemoteNotification: userInfo)
     }
-
     return true
   }
 
@@ -253,20 +252,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     }
 
     if let deviceId = Configuration.getDeviceId() {
-      Alamofire.request(SizungHttpRouter.UpdateDevice(deviceId: deviceId, token: tokenString))
-        .validate()
-        .responseJSON { response in
-          if let error = response.result.error {
-            Error.log(error)
-          }
+      StorageManager.makeRequest(SizungHttpRouter.UpdateDevice(deviceId: deviceId, token: tokenString))
+        .onSuccess { (deviceResponse: DeviceResponse) in
+          Configuration.setDeviceId(deviceResponse.deviceId)
       }
     } else {
-      Alamofire.request(SizungHttpRouter.RegisterDevice(token: tokenString))
-        .validate()
-        .responseJSON { response in
-          if let error = response.result.error {
-            Error.log(error)
-          }
+      StorageManager.makeRequest(SizungHttpRouter.RegisterDevice(token: tokenString))
+        .onSuccess { (deviceResponse: DeviceResponse) in
+          Configuration.setDeviceId(deviceResponse.deviceId)
       }
     }
   }
@@ -408,9 +401,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     organizationViewController.conversationViewController = viewController
     self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
   }
-
+  
   func organizationSelected(organization: Organization) {
-
+    
     self.organizationsViewController?.dismissViewControllerAnimated(true) {
       self.organizationsViewController = nil
       self.switchToOrganization(organization.id)
