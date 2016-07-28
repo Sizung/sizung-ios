@@ -26,7 +26,8 @@ enum SizungHttpRouter: URLRequestConvertible {
   case ConversationObjects(parent: BaseModel, page: Int)
   case Comments(comment: Comment)
   case UnseenObjectsForUser(userId: String, page: Int)
-  case UnseenObjectsForOrganization(organizationId: String, page: Int, pageSize: Int)
+  case SubscribedUnseenObjectsForOrganization(organizationId: String, page: Int, pageSize: Int)
+  case UnsubscribedUnseenObjectsForOrganization(organizationId: String, page: Int, pageSize: Int)
   case DeleteUnseenObjects(type: String, id: String)
   case CreateDeliverable(deliverable: Sizung.Deliverable)
   case UpdateDeliverable(deliverable: Sizung.Deliverable)
@@ -102,7 +103,9 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/comments"
     case .UnseenObjectsForUser(let userId, _):
       return "/users/\(userId)/unseen_objects"
-    case .UnseenObjectsForOrganization(let organizationId, _, _):
+    case .UnsubscribedUnseenObjectsForOrganization(let organizationId, _, _):
+      return "/organizations/\(organizationId)/unseen_objects"
+    case .SubscribedUnseenObjectsForOrganization(let organizationId, _, _):
       return "/organizations/\(organizationId)/unseen_objects"
     case .DeleteUnseenObjects(let type, let id):
       return "/\(type)/\(id)/unseen_objects"
@@ -265,12 +268,21 @@ enum SizungHttpRouter: URLRequestConvertible {
         "page[number]": page,
         "page[size]": 1000
       ]
-    case .UnseenObjectsForOrganization(_, let page, let pageSize):
+    case .SubscribedUnseenObjectsForOrganization(_, let page, let pageSize):
       return [
         "include": "target,timeline",
         "page[number]": page,
-        "page[size]": pageSize
+        "page[size]": pageSize,
+        "fitler": "subscribed"
       ]
+    case .UnsubscribedUnseenObjectsForOrganization(_, let page, let pageSize):
+      return [
+        "include": "target,timeline",
+        "page[number]": page,
+        "page[size]": pageSize,
+        "fitler": "unsubscribed"
+      ]
+
     case .GetUploadAttachmentURL(let attachment):
       return [
         "objectName": attachment.fileName,
@@ -312,7 +324,8 @@ enum SizungHttpRouter: URLRequestConvertible {
         ).0
     case .ConversationObjects,
          .UnseenObjectsForUser,
-         .UnseenObjectsForOrganization,
+         .SubscribedUnseenObjectsForOrganization,
+         .UnsubscribedUnseenObjectsForOrganization,
          .GetUploadAttachmentURL:
       return Alamofire.ParameterEncoding.URL.encode(
         mutableURLRequest,

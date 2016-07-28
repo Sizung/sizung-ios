@@ -116,19 +116,24 @@ class StreamTableViewController: UITableViewController {
   func updateData() {
     showSubscribed()
     self.finishedLoading = false
-    self.fetchUnseenObjectsPage(0)
+    self.fetchUnseenObjectsPage(0, subscribed: true)
   }
 
-  func fetchUnseenObjectsPage(page: Int) {
+  func fetchUnseenObjectsPage(page: Int, subscribed: Bool) {
     if let orgId = Configuration.getSelectedOrganization() {
-      storageManager!.listUnseenObjectsForOrganization(orgId, page: page)
+      storageManager!.listUnseenObjectsForOrganization(subscribed, orgId: orgId, page: page)
         .onSuccess { unseenObjectsResponse in
 
           if let nextPage = unseenObjectsResponse.nextPage {
-            self.fetchUnseenObjectsPage(nextPage)
+            self.fetchUnseenObjectsPage(nextPage, subscribed: subscribed)
           } else {
-            self.finishedLoading = true
-            self.hideLoadingView()
+            if subscribed {
+              self.finishedLoading = true
+              self.hideLoadingView()
+
+              // load all unsubscribed objects
+              self.fetchUnseenObjectsPage(0, subscribed: false)
+            }
           }
       }
     }

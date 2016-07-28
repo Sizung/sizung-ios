@@ -815,5 +815,4 @@ extension TimelineTableViewController {
   func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
     return previewFilePath!
   }
-
 }

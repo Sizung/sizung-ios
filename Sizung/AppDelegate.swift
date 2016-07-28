@@ -401,9 +401,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     organizationViewController.conversationViewController = viewController
     self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
   }
-  
+
   func organizationSelected(organization: Organization) {
-    
+
     self.organizationsViewController?.dismissViewControllerAnimated(true) {
       self.organizationsViewController = nil
       self.switchToOrganization(organization.id)
