@@ -134,16 +134,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     }
   }
 
+  func getPresentedViewController(viewController: UIViewController) -> UIViewController {
+
+    if let presentedViewController = viewController.presentedViewController {
+      return getPresentedViewController(presentedViewController)
+    } else {
+      return viewController
+    }
+  }
+
   func showLogin() {
+
     guard loginViewController == nil else {
       return
     }
+
+    let email = Configuration.getLoginEmail()
+    let currentTopViewController = self.getPresentedViewController(self.window!.rootViewController!)
+
     // make sure we are on main thread
     dispatch_async(dispatch_get_main_queue()) {
+
       let loginViewController = R.storyboard.login.initialViewController()!
+      loginViewController.email = email
       loginViewController.loginDelegate = self
 
-      self.window?.rootViewController?.showViewController(loginViewController, sender: self)
+      currentTopViewController.showViewController(loginViewController, sender: self)
 
       self.loginViewController = loginViewController
     }
