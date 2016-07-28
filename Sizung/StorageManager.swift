@@ -90,8 +90,9 @@ class StorageManager {
             switch error.code {
             // only log certain errors
             case -1001, // Timeout
-            -1018: //  International roaming is currently off
-              Log.error(error, response.request?.URLString).send()
+              -1003, // A server with the specified hostname could not be found
+              -1018: //  International roaming is currently off
+                Log.error(error, response.request?.URLString).send()
             // report the rest
             default:
               var userInfo = error.userInfo
