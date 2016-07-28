@@ -75,8 +75,7 @@ class OrganizationsTableViewController: UITableViewController {
 
         self.organizations.replace(organizations, performDiff: true)
       }.onFailure { error in
-        let message = "\(error)"
-        Error.log(message)
+        InAppMessage.showErrorMessage("There was an error fetching your organizations\n\nPlease try again")
       }.onComplete { _ in
         self.refreshControl?.endRefreshing()
     }
