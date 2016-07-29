@@ -71,6 +71,10 @@ class AgendaItemsTableViewController: UITableViewController {
               return false
             }
 
+            if agendaItem.archived == true {
+              return false
+            }
+
             if self.filter == .Mine {
               return agendaItem.ownerId == self.userId
             } else {

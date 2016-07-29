@@ -206,11 +206,11 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="PVp-XY-W0G">
-                                    <rect key="frame" x="204" y="8" width="193" height="29"/>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PVp-XY-W0G">
+                                    <rect key="frame" x="253" y="8" width="95" height="29"/>
                                     <segments>
-                                        <segment title="Team Actions"/>
-                                        <segment title="My Actions"/>
+                                        <segment title="Team"/>
+                                        <segment title="My"/>
                                     </segments>
                                     <color key="tintColor" red="0.48235294220000002" green="0.40784314269999999" blue="0.31372550129999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <connections>
@@ -259,11 +259,11 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="NuH-Sj-83w">
-                                    <rect key="frame" x="195" y="8" width="211" height="29"/>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NuH-Sj-83w">
+                                    <rect key="frame" x="253" y="8" width="95" height="29"/>
                                     <segments>
-                                        <segment title="Team Priorities"/>
-                                        <segment title="My Priorities"/>
+                                        <segment title="Team"/>
+                                        <segment title="My"/>
                                     </segments>
                                     <color key="tintColor" red="0.0" green="0.31764705879999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <connections>

@@ -36,7 +36,8 @@ class Configuration: NSObject {
   }
 
   class func reset() {
-    NSUserDefaults.resetStandardUserDefaults()
+    let appDomain = NSBundle.mainBundle().bundleIdentifier
+    NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain!)
     KeychainWrapper.removeObjectForKey(Configuration.Settings.kDeviceId)
     KeychainWrapper.removeObjectForKey(Configuration.Settings.kAuthToken)
   }
@@ -65,10 +66,19 @@ class Configuration: NSObject {
     NSUserDefaults.standardUserDefaults().setValue(data, forKey: Configuration.Settings.kSelectedOrganization)
   }
 
+  class func getLoginEmail() -> String? {
+    return NSUserDefaults.standardUserDefaults().stringForKey(Configuration.Settings.kLoginEmail)
+  }
+
+  class func setLoginEmail(email: String) {
+    NSUserDefaults.standardUserDefaults().setValue(email, forKey: Configuration.Settings.kLoginEmail)
+  }
+
   private struct Settings {
     static let kAuthToken = "AUTH_TOKEN"
     static let kDeviceId = "V2::DEVICE_ID"
     static let kSelectedOrganization = "SELECTED_ORGANIZATION"
+    static let kLoginEmail = "LOGIN_EMAIL"
   }
 
   struct NotificationConstants {

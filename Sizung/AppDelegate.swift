@@ -63,7 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       as? [String: AnyObject] {
       self.application(application, didReceiveRemoteNotification: userInfo)
     }
-
     return true
   }
 
@@ -134,16 +133,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     }
   }
 
+  func getPresentedViewController(viewController: UIViewController) -> UIViewController {
+
+    if let presentedViewController = viewController.presentedViewController {
+      return getPresentedViewController(presentedViewController)
+    } else {
+      return viewController
+    }
+  }
+
   func showLogin() {
+
     guard loginViewController == nil else {
       return
     }
+
+    let email = Configuration.getLoginEmail()
+    let currentTopViewController = self.getPresentedViewController(self.window!.rootViewController!)
+
     // make sure we are on main thread
     dispatch_async(dispatch_get_main_queue()) {
+
       let loginViewController = R.storyboard.login.initialViewController()!
+      loginViewController.email = email
       loginViewController.loginDelegate = self
 
-      self.window?.rootViewController?.showViewController(loginViewController, sender: self)
+      currentTopViewController.showViewController(loginViewController, sender: self)
 
       self.loginViewController = loginViewController
     }
@@ -237,20 +252,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     }
 
     if let deviceId = Configuration.getDeviceId() {
-      Alamofire.request(SizungHttpRouter.UpdateDevice(deviceId: deviceId, token: tokenString))
-        .validate()
-        .responseJSON { response in
-          if let error = response.result.error {
-            Error.log(error)
-          }
+      StorageManager.makeRequest(SizungHttpRouter.UpdateDevice(deviceId: deviceId, token: tokenString))
+        .onSuccess { (deviceResponse: DeviceResponse) in
+          Configuration.setDeviceId(deviceResponse.deviceId)
       }
     } else {
-      Alamofire.request(SizungHttpRouter.RegisterDevice(token: tokenString))
-        .validate()
-        .responseJSON { response in
-          if let error = response.result.error {
-            Error.log(error)
-          }
+      StorageManager.makeRequest(SizungHttpRouter.RegisterDevice(token: tokenString))
+        .onSuccess { (deviceResponse: DeviceResponse) in
+          Configuration.setDeviceId(deviceResponse.deviceId)
       }
     }
   }

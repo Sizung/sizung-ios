@@ -74,9 +74,6 @@ class OrganizationsTableViewController: UITableViewController {
         self.fetchUnseenObjectsPage(0)
 
         self.organizations.replace(organizations, performDiff: true)
-      }.onFailure { error in
-        let message = "\(error)"
-        Error.log(message)
       }.onComplete { _ in
         self.refreshControl?.endRefreshing()
     }

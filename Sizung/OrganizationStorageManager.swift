@@ -359,12 +359,17 @@ class OrganizationStorageManager {
     return promise.future
   }
 
-  func listUnseenObjectsForOrganization(orgId: String, page: Int) -> Future<UnseenObjectsResponse, StorageError> {
+  func listUnseenObjectsForOrganization(subscribed: Bool, orgId: String, page: Int) -> Future<UnseenObjectsResponse, StorageError> {
     let promise = Promise<UnseenObjectsResponse, StorageError>()
 
-    let pageSize = 200
+    var request: SizungHttpRouter
+    if subscribed {
+      request = SizungHttpRouter.SubscribedUnseenObjectsForOrganization(organizationId: orgId, page: page)
+    } else {
+      request = SizungHttpRouter.UnsubscribedUnseenObjectsForOrganization(organizationId: orgId, page: page)
+    }
 
-    StorageManager.makeRequest(SizungHttpRouter.UnseenObjectsForOrganization(organizationId: orgId, page: page, pageSize: pageSize))
+    StorageManager.makeRequest(request)
       .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
         let unseenObjects = unseenObjectsResponse.unseenObjects.map { (unseenObject: UnseenObject) -> (UnseenObject) in
           unseenObject.target = unseenObjectsResponse.included.filter { include in
@@ -395,7 +400,6 @@ class OrganizationStorageManager {
       }.onFailure { error in
         promise.failure(error)
     }
-
     return promise.future
   }
 }

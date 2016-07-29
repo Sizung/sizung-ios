@@ -15,8 +15,20 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
   @IBOutlet weak var passwordTextField: UITextField!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var loginButton: UIButton!
+  @IBOutlet weak var logoutButton: UIButton!
 
   var loginDelegate: LoginDelegate?
+  var email: String?
+
+  override public func viewDidLoad() {
+    super.viewDidLoad()
+
+    if email != nil {
+      logoutButton.hidden = false
+      emailTextField.enabled = false
+      emailTextField.text = email
+    }
+  }
 
   @IBAction func login(sender: AnyObject) {
     let email = emailTextField.text
@@ -49,6 +61,7 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
 
           token.validateAndStore()
             .onSuccess() { _ in
+              Configuration.setLoginEmail(email!)
               self.loginDelegate?.loginSuccess(self)
             }.onFailure() { error in
               let message = "login error: \(error)"
@@ -109,6 +122,15 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
     }
 
     return true
+  }
+
+  @IBAction func logout(sender: AnyObject) {
+    Configuration.reset()
+    StorageManager.sharedInstance.reset()
+
+    logoutButton.hidden = true
+    emailTextField.enabled = true
+    emailTextField.text = ""
   }
 }
 

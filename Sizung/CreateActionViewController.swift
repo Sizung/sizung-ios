@@ -165,8 +165,7 @@ class CreateActionContentViewController: UIViewController, CalendarViewDelegate,
       } else {
         self.assigneeButton.setTitle("", forState: .Normal)
       }
-
-      self.assigneeButton.setTitle("\(assignee.firstName) \(assignee.lastName)", forState: .Normal)
+      self.assigneeButton.setTitle(assignee.fullName, forState: .Normal)
     } else {
       self.assigneeImageView.hidden = true
       self.assigneeButton.setTitle("No one assigned yet", forState: .Normal)

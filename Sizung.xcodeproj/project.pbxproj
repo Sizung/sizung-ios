@@ -108,6 +108,7 @@
 		5AC0E5E81CF33C8300BBEF45 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0E5E71CF33C8300BBEF45 /* Comment.swift */; };
 		5ACBA0BD1D2675D3007BC605 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACBA0BC1D2675D3007BC605 /* CalendarViewController.swift */; };
 		5ACBA0BF1D26A962007BC605 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ACBA0BE1D26A962007BC605 /* CalendarViewController.xib */; };
+		5AD9AF6F1D4A085900867DF9 /* DeviceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9AF6E1D4A085900867DF9 /* DeviceResponse.swift */; };
 		5AD9F1B31CE9C09200455D98 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1B21CE9C09200455D98 /* Conversation.swift */; };
 		5AD9F1B51CE9D03000455D98 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1B41CE9D03000455D98 /* User.swift */; };
 		5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9F1B61CE9D0A100455D98 /* OrganzationMember.swift */; };
@@ -272,6 +273,7 @@
 		5AC0E5E71CF33C8300BBEF45 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		5ACBA0BC1D2675D3007BC605 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		5ACBA0BE1D26A962007BC605 /* CalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
+		5AD9AF6E1D4A085900867DF9 /* DeviceResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceResponse.swift; sourceTree = "<group>"; };
 		5AD9F1B21CE9C09200455D98 /* Conversation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		5AD9F1B41CE9D03000455D98 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5AD9F1B61CE9D0A100455D98 /* OrganzationMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganzationMember.swift; sourceTree = "<group>"; };
@@ -616,6 +618,7 @@
 				5AE24D0B1D216BD200FB691B /* DeliverableResponse.swift */,
 				5A8F79081CFF14BF00953495 /* DeliverablesResponse.swift */,
 				5A9EDEAF1D00232100D389EC /* UserResponse.swift */,
+				5AD9AF6E1D4A085900867DF9 /* DeviceResponse.swift */,
 				5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */,
 				5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */,
 				5A85E0701D3F7E4B00010693 /* AttachmentResponse.swift */,
@@ -1130,6 +1133,7 @@
 				5A68DC051D3CE40500687107 /* AssigneeSelectionViewController.swift in Sources */,
 				5AD9F1BB1CE9D5E600455D98 /* AgendaItem.swift in Sources */,
 				5AA891021CF5A6AE00ED391B /* DeliverablesTableViewController.swift in Sources */,
+				5AD9AF6F1D4A085900867DF9 /* DeviceResponse.swift in Sources */,
 				5AD9F1B51CE9D03000455D98 /* User.swift in Sources */,
 				5AD9F1BD1CE9D63300455D98 /* Deliverable.swift in Sources */,
 				5A68DBFA1D3C0CA100687107 /* MemberTableViewCell.swift in Sources */,

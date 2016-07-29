@@ -10,7 +10,6 @@ import ObjectMapper
 
 class Conversation: BaseModel {
   var title: String!
-  var archived: Bool!
   var organizationId: String!
   var agendaItems: [AgendaItem]!
   var deliverables: [Deliverable]!

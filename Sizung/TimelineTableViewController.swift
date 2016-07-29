@@ -141,10 +141,10 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
           self.collection.insertOrUpdate([TimelineObject(newMessagesDate: lastUnseenMessageDate)])
         }
 
-        // mark unseenObjects as read
-        storageManager.sawTimeLineFor(self.timelineParent)
-          .onFailure { error in
-            InAppMessage.showErrorMessage("There was an error marking everything as seen")
+        // mark unseenObjects as read if not archived
+
+        if self.timelineParent.archived != true {
+          storageManager.sawTimeLineFor(self.timelineParent)
         }
     }
 
@@ -160,10 +160,15 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         self.storageManager = storageManager
-        storageManager.sawTimeLineFor(self.timelineParent)
-          .onFailure { error in
-            InAppMessage.showErrorMessage("There was an error marking everything as seen")
+
+        if self.timelineParent.archived != true {
+          storageManager.sawTimeLineFor(self.timelineParent)
+            .onFailure { error in
+              InAppMessage.showErrorMessage("There was an error marking everything as seen")
+          }
         }
+
+
     }
 
 
@@ -244,6 +249,12 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
 
     let filteredItems = items
       .filter({ conversationObject in
+
+        // ignore archived objects
+        if conversationObject.archived == true {
+          return false
+        }
+
         switch conversationObject {
         case let comment as Comment:
           if let commentable = comment.commentable {
@@ -290,15 +301,11 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
   }
 
   func copyCellMessage(gesture: UIGestureRecognizer) {
-    guard let cell = gesture.view as? CommentTableViewCell else {
-      return
-    }
-
-    if let indexPath = self.tableView.indexPathForCell(cell) {
-
-      if let comment = sortedCollection[indexPath.row].model as? Comment {
-        UIPasteboard.generalPasteboard().string = comment.body
-      }
+    if let cell = gesture.view as? CommentTableViewCell {
+      let menuController = UIMenuController.sharedMenuController()
+      menuController.setTargetRect(cell.frame, inView: self.tableView)
+      menuController.setMenuVisible(true, animated:true)
+      cell.becomeFirstResponder()
     }
   }
 
@@ -425,7 +432,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
 
           if word.characters.count > 0 {
             array = conversationUsers.filter { user in
-              return user.name.lowercaseString.hasPrefix(word.lowercaseString)
+              return user.fullName.lowercaseString.containsString(word.lowercaseString)
             }
           } else {
             array = conversationUsers
@@ -804,5 +811,4 @@ extension TimelineTableViewController {
   func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
     return previewFilePath!
   }
-
 }
