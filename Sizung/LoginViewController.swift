@@ -128,9 +128,9 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
     Configuration.reset()
     StorageManager.sharedInstance.reset()
 
-    logoutButton.hidden = false
-    emailTextField.enabled = false
-    emailTextField.text = email
+    logoutButton.hidden = true
+    emailTextField.enabled = true
+    emailTextField.text = ""
   }
 }
 

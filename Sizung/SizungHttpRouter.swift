@@ -26,8 +26,8 @@ enum SizungHttpRouter: URLRequestConvertible {
   case ConversationObjects(parent: BaseModel, page: Int)
   case Comments(comment: Comment)
   case UnseenObjectsForUser(userId: String, page: Int)
-  case SubscribedUnseenObjectsForOrganization(organizationId: String, page: Int, pageSize: Int)
-  case UnsubscribedUnseenObjectsForOrganization(organizationId: String, page: Int, pageSize: Int)
+  case SubscribedUnseenObjectsForOrganization(organizationId: String, page: Int)
+  case UnsubscribedUnseenObjectsForOrganization(organizationId: String, page: Int)
   case DeleteUnseenObjects(type: String, id: String)
   case CreateDeliverable(deliverable: Sizung.Deliverable)
   case UpdateDeliverable(deliverable: Sizung.Deliverable)
@@ -103,9 +103,9 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/comments"
     case .UnseenObjectsForUser(let userId, _):
       return "/users/\(userId)/unseen_objects"
-    case .UnsubscribedUnseenObjectsForOrganization(let organizationId, _, _):
+    case .UnsubscribedUnseenObjectsForOrganization(let organizationId, _):
       return "/organizations/\(organizationId)/unseen_objects"
-    case .SubscribedUnseenObjectsForOrganization(let organizationId, _, _):
+    case .SubscribedUnseenObjectsForOrganization(let organizationId, _):
       return "/organizations/\(organizationId)/unseen_objects"
     case .DeleteUnseenObjects(let type, let id):
       return "/\(type)/\(id)/unseen_objects"
@@ -268,19 +268,19 @@ enum SizungHttpRouter: URLRequestConvertible {
         "page[number]": page,
         "page[size]": 1000
       ]
-    case .SubscribedUnseenObjectsForOrganization(_, let page, let pageSize):
+    case .SubscribedUnseenObjectsForOrganization(_, let page):
       return [
         "include": "target,timeline",
         "page[number]": page,
-        "page[size]": pageSize,
-        "fitler": "subscribed"
+        "page[size]": 100,
+        "filter": "subscribed"
       ]
-    case .UnsubscribedUnseenObjectsForOrganization(_, let page, let pageSize):
+    case .UnsubscribedUnseenObjectsForOrganization(_, let page):
       return [
         "include": "target,timeline",
         "page[number]": page,
-        "page[size]": pageSize,
-        "fitler": "unsubscribed"
+        "page[size]": 500,
+        "filter": "unsubscribed"
       ]
 
     case .GetUploadAttachmentURL(let attachment):

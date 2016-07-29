@@ -129,11 +129,11 @@ class StreamTableViewController: UITableViewController {
           } else {
             if subscribed {
               self.finishedLoading = true
-              self.hideLoadingView()
 
               // load all unsubscribed objects
               self.fetchUnseenObjectsPage(0, subscribed: false)
             }
+            self.hideLoadingView()
           }
       }
     }
@@ -144,22 +144,24 @@ class StreamTableViewController: UITableViewController {
     if self.finishedLoading {
       self.refreshControl?.endRefreshing()
       self.logoView.stopAnimating()
-      UIView.animateWithDuration(0.2) {
+      UIView.animateWithDuration(0.5) {
         self.loadingView.alpha = 0
         self.emptyView.alpha = 1
 
-        var unseenObjectText: String
+//        var unseenObjectText: String
         if let unseenCount = self.storageManager?.unseenObjects.count {
           if unseenCount > 0 {
-            unseenObjectText = "You have read your subscriptions.\nBut there is still something you haven't seen\n\nTouch here to show."
+            //            unseenObjectText = "You have read your subscriptions.\nBut there is still something you haven't seen\n\nTouch here to show."
+            self.emptyView.userInteractionEnabled = true
             self.emptyView.addGestureRecognizer(self.showUnsubscribedGestureRecognizer!)
           } else {
-            unseenObjectText = "You’re all caught up.\n\nEat a cupcake!"
+//            unseenObjectText = "You’re all caught up.\n\nEat a cupcake!"
             self.emptyView.userInteractionEnabled = false
             self.emptyView.removeGestureRecognizer(self.showUnsubscribedGestureRecognizer!)
           }
 
-          self.unseenObjectsLabel.text = unseenObjectText
+          self.unseenObjectsLabel.text = "You’re all caught up.\n\nEat a cupcake!"
+
         }
       }
     }

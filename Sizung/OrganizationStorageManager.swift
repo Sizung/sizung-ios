@@ -362,13 +362,11 @@ class OrganizationStorageManager {
   func listUnseenObjectsForOrganization(subscribed: Bool, orgId: String, page: Int) -> Future<UnseenObjectsResponse, StorageError> {
     let promise = Promise<UnseenObjectsResponse, StorageError>()
 
-    let pageSize = 200
-
     var request: SizungHttpRouter
     if subscribed {
-      request = SizungHttpRouter.SubscribedUnseenObjectsForOrganization(organizationId: orgId, page: page, pageSize: pageSize)
+      request = SizungHttpRouter.SubscribedUnseenObjectsForOrganization(organizationId: orgId, page: page)
     } else {
-      request = SizungHttpRouter.UnsubscribedUnseenObjectsForOrganization(organizationId: orgId, page: page, pageSize: pageSize)
+      request = SizungHttpRouter.UnsubscribedUnseenObjectsForOrganization(organizationId: orgId, page: page)
     }
 
     StorageManager.makeRequest(request)
