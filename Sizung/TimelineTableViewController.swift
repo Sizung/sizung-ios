@@ -436,7 +436,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
 
           if word.characters.count > 0 {
             array = conversationUsers.filter { user in
-              return user.name.lowercaseString.hasPrefix(word.lowercaseString)
+              return user.fullName.lowercaseString.containsString(word.lowercaseString)
             }
           } else {
             array = conversationUsers
