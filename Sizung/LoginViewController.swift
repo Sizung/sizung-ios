@@ -15,6 +15,7 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
   @IBOutlet weak var passwordTextField: UITextField!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var loginButton: UIButton!
+  @IBOutlet weak var logoutButton: UIButton!
 
   var loginDelegate: LoginDelegate?
   var email: String?
@@ -23,6 +24,7 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
     super.viewDidLoad()
 
     if email != nil {
+      logoutButton.hidden = false
       emailTextField.enabled = false
       emailTextField.text = email
     }
@@ -120,6 +122,15 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
     }
 
     return true
+  }
+
+  @IBAction func logout(sender: AnyObject) {
+    Configuration.reset()
+    StorageManager.sharedInstance.reset()
+
+    logoutButton.hidden = false
+    emailTextField.enabled = false
+    emailTextField.text = email
   }
 }
 
