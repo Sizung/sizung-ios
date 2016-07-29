@@ -9,6 +9,7 @@
 import UIKit
 import ReactiveKit
 import Rswift
+import MRProgress
 
 class StreamTableViewController: UITableViewController {
 
@@ -104,7 +105,7 @@ class StreamTableViewController: UITableViewController {
               self.hideLoadingView()
             }
           }
-        }.disposeIn(self.rBag)
+          }.disposeIn(self.rBag)
 
         self.streamObjects.bindTo(self.tableView, animated: true, createCell: self.cellForRow)
 
@@ -126,6 +127,11 @@ class StreamTableViewController: UITableViewController {
 
           if let nextPage = unseenObjectsResponse.nextPage {
             self.fetchUnseenObjectsPage(nextPage, subscribed: subscribed)
+
+            // hide/update loadingview if not subsribed
+            if !subscribed {
+              self.hideLoadingView()
+            }
           } else {
             if subscribed {
               self.finishedLoading = true
@@ -148,14 +154,14 @@ class StreamTableViewController: UITableViewController {
         self.loadingView.alpha = 0
         self.emptyView.alpha = 1
 
-//        var unseenObjectText: String
+        //        var unseenObjectText: String
         if let unseenCount = self.storageManager?.unseenObjects.count {
           if unseenCount > 0 {
             //            unseenObjectText = "You have read your subscriptions.\nBut there is still something you haven't seen\n\nTouch here to show."
             self.emptyView.userInteractionEnabled = true
             self.emptyView.addGestureRecognizer(self.showUnsubscribedGestureRecognizer!)
           } else {
-//            unseenObjectText = "You’re all caught up.\n\nEat a cupcake!"
+            //            unseenObjectText = "You’re all caught up.\n\nEat a cupcake!"
             self.emptyView.userInteractionEnabled = false
             self.emptyView.removeGestureRecognizer(self.showUnsubscribedGestureRecognizer!)
           }
@@ -274,29 +280,43 @@ class StreamTableViewController: UITableViewController {
   }
 
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+
+    let cell = self.tableView.cellForRowAtIndexPath(indexPath)
+
+    MRProgressOverlayView.showOverlayAddedTo(cell, animated: true)
+
+    func errorFunc(error: StorageError) {
+      InAppMessage.showErrorMessage("There was a problem loading your unseen object. Please try again")
+      MRProgressOverlayView.dismissOverlayForView(cell, animated: true)
+    }
+
     let streamObject = self.streamObjects[indexPath.row]
 
     switch streamObject.subject {
     case let conversation as Conversation:
+      MRProgressOverlayView.dismissOverlayForView(cell, animated: true)
       self.openViewControllerFor(nil, inConversation: conversation)
     case let agendaItem as AgendaItem:
-      StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
+      StorageManager.sharedInstance.getConversation(agendaItem.conversationId).onComplete {test in print("")}
         .onSuccess { conversation in
           self.openViewControllerFor(agendaItem, inConversation: conversation)
-      }
+        }.onFailure(callback: errorFunc)
+        .onComplete(callback: { _ in MRProgressOverlayView.dismissOverlayForView(cell, animated: true)})
     case let agendaItemDeliverable as AgendaItemDeliverable:
       StorageManager.sharedInstance.getAgendaItem(agendaItemDeliverable.agendaItemId)
         .onSuccess { agendaItem in
           StorageManager.sharedInstance.getConversation(agendaItem.conversationId)
             .onSuccess { conversation in
               self.openViewControllerFor(agendaItemDeliverable, inConversation: conversation)
-          }
-      }
+            }.onFailure(callback: errorFunc)
+            .onComplete(callback: { _ in MRProgressOverlayView.dismissOverlayForView(cell, animated: true)})
+        }.onFailure(callback: errorFunc)
     case let deliverable as Deliverable:
       StorageManager.sharedInstance.getConversation(deliverable.parentId)
         .onSuccess { conversation in
           self.openViewControllerFor(deliverable, inConversation: conversation)
-      }
+        }.onFailure(callback: errorFunc)
+        .onComplete(callback: { _ in MRProgressOverlayView.dismissOverlayForView(cell, animated: true)})
 
     default:
       fatalError()
