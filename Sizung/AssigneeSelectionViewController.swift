@@ -57,11 +57,7 @@ class AssigneeSelectionViewController: UIViewController, UITableViewDelegate, UI
       let user = collection[indexPath.row]
 
       cell.avatarImage.user = user
-      if let firstName = user.firstName, lastName = user.lastName {
-        cell.nameLabel.text = "\(firstName) \(lastName)"
-      } else {
-        cell.nameLabel.text = "unkown"
-      }
+      cell.nameLabel.text = user.fullName
       cell.deleteButton.hidden = true
 
       return cell
@@ -90,11 +86,7 @@ class AssigneeSelectionViewController: UIViewController, UITableViewDelegate, UI
 
     if let filterString = self.filterString {
       self.collection = self.collection.filter { user in
-        if let firstName = user.firstName, lastName = user.lastName {
-          return firstName.containsString(filterString) || lastName.containsString(filterString)
-        } else {
-          return false
-        }
+        return user.fullName.containsString(filterString)
       }
     }
 
