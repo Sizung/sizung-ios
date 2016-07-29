@@ -301,15 +301,11 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
   }
 
   func copyCellMessage(gesture: UIGestureRecognizer) {
-    guard let cell = gesture.view as? CommentTableViewCell else {
-      return
-    }
-
-    if let indexPath = self.tableView.indexPathForCell(cell) {
-
-      if let comment = sortedCollection[indexPath.row].model as? Comment {
-        UIPasteboard.generalPasteboard().string = comment.body
-      }
+    if let cell = gesture.view as? CommentTableViewCell {
+      let menuController = UIMenuController.sharedMenuController()
+      menuController.setTargetRect(cell.frame, inView: self.tableView)
+      menuController.setMenuVisible(true, animated:true)
+      cell.becomeFirstResponder()
     }
   }
 

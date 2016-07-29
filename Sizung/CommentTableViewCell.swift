@@ -37,4 +37,23 @@ class CommentTableViewCell: UITableViewCell, TTTAttributedLabelDelegate {
   func attributedLabel(label: TTTAttributedLabel!, didSelectLinkWithURL url: NSURL!) {
     UIApplication.sharedApplication().openURL(url)
   }
+
+  override func canBecomeFirstResponder() -> Bool {
+    return true
+  }
+
+  override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+    switch action.description {
+    case "copy:":
+      return true
+    default:
+      return false
+    }
+  }
+
+  // MARK: - UIResponderStandardEditActions
+
+  override func copy(sender: AnyObject?) {
+    UIPasteboard.generalPasteboard().string = bodyLabel.text
+  }
 }
