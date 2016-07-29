@@ -64,6 +64,7 @@ FilesPickerDelegate {
 
         let agendaItemsTableViewController =
           R.storyboard.conversation.agendaItemsTableViewController()!
+        agendaItemsTableViewController.filter = .All
         agendaItemsTableViewController.conversation = self.conversation
 
         self.mainPageViewController.orderedViewControllers.append(agendaItemsTableViewController)
@@ -74,6 +75,7 @@ FilesPickerDelegate {
 
         let deliverablesTableViewController =
           R.storyboard.conversation.conversationDeliverablesTableViewController()!
+        deliverablesTableViewController.filter = .All
         deliverablesTableViewController.conversation = self.conversation
         self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
       } else {
