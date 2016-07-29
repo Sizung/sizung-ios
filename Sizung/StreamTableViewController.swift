@@ -93,7 +93,7 @@ class StreamTableViewController: UITableViewController {
           let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
           dispatch_async(dispatch_get_global_queue(priority, 0)) {
 
-            let reducedStreamObjects = self.filteredUnseenObjects.collection.reduce(self.streamObjects.collection, combine: self.reduceUnseenObjectsToStreamObjects)
+            let reducedStreamObjects = self.filteredUnseenObjects.collection.reduce([], combine: self.reduceUnseenObjectsToStreamObjects)
 
             let sortedObjects = reducedStreamObjects.sort {
               $0.0.sortDate.isLaterThan($0.1.sortDate)
