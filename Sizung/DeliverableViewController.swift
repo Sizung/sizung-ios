@@ -7,11 +7,15 @@
 //
 
 import UIKit
-import AlamofireImage
+import KCFloatingActionButton
+import ImageFilesPicker
+import MRProgress
 
 class DeliverableViewController: UIViewController,
   UIPopoverPresentationControllerDelegate,
-CalendarViewDelegate {
+  CalendarViewDelegate,
+  KCFloatingActionButtonDelegate,
+  FilesPickerDelegate {
 
   @IBOutlet weak var titleBar: UIView!
   @IBOutlet weak var titleLabel: UILabel!
@@ -25,6 +29,10 @@ CalendarViewDelegate {
   var oldConstraintConstant: CGFloat = 0
 
   var deliverable: Deliverable!
+
+  var floatingActionButton: KCFloatingActionButton?
+
+  var filePicker = JVTImageFilePicker()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -47,6 +55,8 @@ CalendarViewDelegate {
 
     oldConstraintConstant = titleTopConstraint.constant
     registerForKeyboardChanges()
+
+    initFloatingActionButton()
   }
 
   func registerForKeyboardChanges() {
@@ -182,6 +192,71 @@ CalendarViewDelegate {
               self.navigationController?.popViewControllerAnimated(true)
             }
             self.updateStatusText()
+        }
+    }
+  }
+
+  // MARK: - FAB
+
+  func initFloatingActionButton() {
+
+    floatingActionButton = KCFloatingActionButton()
+    floatingActionButton?.plusColor = UIColor.whiteColor()
+    floatingActionButton?.buttonColor = Color.ADDBUTTON
+    floatingActionButton?.fabDelegate = self
+    self.view.addSubview(floatingActionButton!)
+
+    self.filePicker.delegate = self
+  }
+
+  func emptyKCFABSelected(fab: KCFloatingActionButton) {
+    self.filePicker.presentFilesPickerOnController(self.parentViewController)
+  }
+
+  func createAttachment(buttonItem: KCFloatingActionButtonItem) {
+    self.filePicker.presentFilesPickerOnController(self.parentViewController)
+  }
+
+  func actionCreated(action: Deliverable) {
+
+    let actionViewController = R.storyboard.deliverable.initialViewController()!
+    actionViewController.deliverable = action
+
+    self.navigationController?.pushViewController(actionViewController, animated: false)
+  }
+
+  func didPickImage(image: UIImage!, withImageName imageName: String!) {
+    self.didPickFile(UIImageJPEGRepresentation(image, 0.9), fileName: "photo.jpg")
+  }
+
+  func didPickFile(file: NSData!, fileName: String!) {
+
+    let progressView = MRProgressOverlayView.showOverlayAddedTo(self.view, animated: true)
+    progressView.mode = .DeterminateCircular
+
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+
+        let parentItem = self.deliverable
+
+        let fileType = Helper.getMimeType(fileName)
+
+        let attachment = Attachment(
+          fileName: fileName,
+          fileSize: file.length,
+          fileType: fileType,
+          parentId: parentItem.id,
+          parentType: parentItem.type
+        )
+        storageManager.uploadAttachment(attachment, data: file, progress: { progress in
+          progressView.setProgress(progress, animated: true)
+        })
+          .onSuccess { attachment in
+            InAppMessage.showSuccessMessage("File successfully uploaded")
+          }.onFailure { error in
+            InAppMessage.showErrorMessage("There has been an error uploading your file - Please try again")
+          }.onComplete { _ in
+            progressView.dismiss(true)
         }
     }
   }

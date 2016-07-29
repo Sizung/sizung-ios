@@ -10,7 +10,6 @@ import UIKit
 import KCFloatingActionButton
 import ImageFilesPicker
 import MRProgress
-import MobileCoreServices
 
 class ConversationContentViewController: UIViewController,
   MainPageViewControllerDelegate,
@@ -198,7 +197,7 @@ FilesPickerDelegate {
 
         let parentItem = self.getCurrentItem()
 
-        let fileType = self.getMimeType(fileName)
+        let fileType = Helper.getMimeType(fileName)
 
         let attachment = Attachment(
           fileName: fileName,
@@ -233,26 +232,5 @@ FilesPickerDelegate {
     default:
       fatalError()
     }
-  }
-
-  func getMimeType(fileName: String) -> String {
-
-
-    if let fileExtension = NSURL(string: fileName)!.pathExtension {
-      let UTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, nil)!.takeRetainedValue()
-
-      let mimeType = UTTypeCopyPreferredTagWithClass(UTI, kUTTagClassMIMEType)?.takeRetainedValue()
-
-      guard mimeType != nil else {
-        return "application/octet-stream"
-      }
-
-      if let mimeType = mimeType {
-        return mimeType as String
-      }
-    }
-
-    // should have returned before
-    fatalError()
   }
 }
