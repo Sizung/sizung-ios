@@ -30,6 +30,7 @@
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -169,12 +170,20 @@
                                     <segue destination="tRE-uj-v9M" kind="show" id="Chf-0e-Yfp"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRx-cs-xrN">
+                                <rect key="frame" x="20" y="20" width="67" height="36"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="25"/>
+                                <color key="textColor" red="0.2156862745" green="0.67450980390000004" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="eRx-cs-xrN" firstAttribute="leading" secondItem="fQq-P9-zEm" secondAttribute="leadingMargin" id="4mz-bn-fMQ"/>
                             <constraint firstItem="s9Q-6V-7Lw" firstAttribute="top" secondItem="hUe-TX-JBL" secondAttribute="bottom" id="7Jn-IV-gov"/>
                             <constraint firstItem="OcB-Nq-sas" firstAttribute="top" secondItem="0YF-uI-1qC" secondAttribute="bottom" constant="20" id="GB9-kN-dso"/>
                             <constraint firstItem="saM-Gf-f8A" firstAttribute="trailing" secondItem="OcB-Nq-sas" secondAttribute="trailing" id="IYa-gl-xld"/>
+                            <constraint firstItem="eRx-cs-xrN" firstAttribute="top" secondItem="hUe-TX-JBL" secondAttribute="bottom" id="N8Z-iz-LEJ"/>
                             <constraint firstItem="0YF-uI-1qC" firstAttribute="top" secondItem="s9Q-6V-7Lw" secondAttribute="bottom" constant="80" id="XIW-hk-jNa"/>
                             <constraint firstItem="saM-Gf-f8A" firstAttribute="leading" secondItem="OcB-Nq-sas" secondAttribute="leading" id="aSl-4A-FCV"/>
                             <constraint firstItem="fsn-2m-Hca" firstAttribute="top" secondItem="saM-Gf-f8A" secondAttribute="bottom" constant="20" id="bQ0-z6-M8K"/>
