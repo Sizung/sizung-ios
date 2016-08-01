@@ -14,7 +14,7 @@ enum Custom: DropStatable {
 
   var backgroundColor: UIColor? {
     switch self {
-    case .Success: return .greenColor()
+    case .Success: return Color.SIZUNG
     case .Error: return .redColor()
     }
   }
