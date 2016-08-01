@@ -12,7 +12,8 @@ import Alamofire
 class ConfirmationHandler {
   let token: String
 
-  init(urlComponents: NSURLComponents) {
+  init(url: NSURL) {
+    let urlComponents = NSURLComponents(string: url.URLString)!
     let queryItems = urlComponents.queryItems
     self.token = queryItems!.filter({$0.name == "confirmation_token"}).first!.value!
   }

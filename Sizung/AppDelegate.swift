@@ -221,7 +221,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     ) -> Bool {
     if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
       if let url = userActivity.webpageURL {
-        self.loadUrl(url)
+        return self.loadUrl(url)
       }
     }
     return false
@@ -347,10 +347,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       }
 
       if pathComponents[1] == "users" && pathComponents[2] == "confirmation"{
-        // do not handle confirmation links for now
-//        let urlComponents = NSURLComponents(string: url.URLString)!
-//        let confirmationHandler = ConfirmationHandler(urlComponents: urlComponents)
+//        let confirmationHandler = ConfirmationHandler(url: url)
 //        confirmationHandler.confirm()
+        Alamofire.request(.GET, url.absoluteString)
+          .responseString { response in
+            InAppMessage.showSuccessMessage("Your email address has been successfully confirmed.\nYou can login now")
+        }
+
         return false
       }
 
