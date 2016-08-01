@@ -8,12 +8,12 @@
 
 import UIKit
 import Alamofire
+import MRProgress
 
 public class LoginViewController: UIViewController, UITextFieldDelegate {
 
   @IBOutlet weak var emailTextField: UITextField!
   @IBOutlet weak var passwordTextField: UITextField!
-  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var loginButton: UIButton!
   @IBOutlet weak var logoutButton: UIButton!
 
@@ -44,11 +44,7 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
       return
     }
 
-    UIView.animateWithDuration(0.5,
-                               animations: {
-                                self.loginButton.alpha = 0
-    })
-    self.activityIndicator.startAnimating()
+    MRProgressOverlayView.showOverlayAddedTo(self.view, animated: true)
 
     Alamofire.request(SizungHttpRouter.Login(email: email!, password: password!))
       .validate()
@@ -78,11 +74,7 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
           self.showAlert("Something went wrong")
         }
 
-        self.activityIndicator.stopAnimating()
-        UIView.animateWithDuration(0.5,
-          animations: {
-            self.loginButton.alpha = 1
-        })
+        MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
     }
 
   }

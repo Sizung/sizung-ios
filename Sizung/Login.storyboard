@@ -5,6 +5,14 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Brandon_med.otf">
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Login View Controller-->
         <scene sceneID="e4n-S7-8yG">
@@ -18,68 +26,138 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name@mail.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cxp-O3-4K4">
-                                <rect key="frame" x="200" y="192" width="200" height="30"/>
-                                <accessibility key="accessibilityConfiguration" identifier="email"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0YF-uI-1qC" customClass="BorderView" customModule="Sizung" customModuleProvider="target">
+                                <rect key="frame" x="20" y="137" width="560" height="147"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="QvN-bR-Zjd">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="147"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ve9-Li-lo6">
+                                                <rect key="frame" x="0.0" y="0.0" width="560" height="73"/>
+                                                <subviews>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cxp-O3-4K4" customClass="JVFloatLabeledTextField">
+                                                        <rect key="frame" x="20" y="15" width="520" height="43"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="email"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="200" id="TNT-lA-EZg"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="floatingLabelActiveTextColor">
+                                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="TNT-lA-EZg"/>
+                                                            </mask>
+                                                        </variation>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="Od7-ue-FcS" id="hxE-Hd-wfH"/>
+                                                        </connections>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="cxp-O3-4K4" secondAttribute="bottom" constant="15" id="H6m-XM-wC1"/>
+                                                    <constraint firstItem="cxp-O3-4K4" firstAttribute="leading" secondItem="ve9-Li-lo6" secondAttribute="leading" constant="20" id="I0R-dZ-NqT"/>
+                                                    <constraint firstItem="cxp-O3-4K4" firstAttribute="top" secondItem="ve9-Li-lo6" secondAttribute="top" constant="15" id="hIr-de-6hY"/>
+                                                    <constraint firstAttribute="trailing" secondItem="cxp-O3-4K4" secondAttribute="trailing" constant="20" id="qq9-nK-ylm"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ATA-OH-mQc">
+                                                <rect key="frame" x="0.0" y="73" width="560" height="1"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="yoD-6q-sIU"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37h-b7-icU">
+                                                <rect key="frame" x="0.0" y="74" width="560" height="73"/>
+                                                <subviews>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0rF-O4-cpH" customClass="JVFloatLabeledTextField">
+                                                        <rect key="frame" x="20" y="15" width="520" height="43"/>
+                                                        <accessibility key="accessibilityConfiguration" identifier="password"/>
+                                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="floatingLabelActiveTextColor">
+                                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="Od7-ue-FcS" id="dPT-kW-OSV"/>
+                                                        </connections>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="0rF-O4-cpH" secondAttribute="bottom" constant="15" id="BBt-xQ-06U"/>
+                                                    <constraint firstItem="0rF-O4-cpH" firstAttribute="leading" secondItem="37h-b7-icU" secondAttribute="leading" constant="20" id="SkK-c5-jQU"/>
+                                                    <constraint firstAttribute="trailing" secondItem="0rF-O4-cpH" secondAttribute="trailing" constant="20" id="a99-km-k2L"/>
+                                                    <constraint firstItem="0rF-O4-cpH" firstAttribute="top" secondItem="37h-b7-icU" secondAttribute="top" constant="15" id="vJE-sk-bGv"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="TNT-lA-EZg"/>
+                                    <constraint firstItem="QvN-bR-Zjd" firstAttribute="top" secondItem="0YF-uI-1qC" secondAttribute="top" id="DEz-CH-x0V"/>
+                                    <constraint firstItem="QvN-bR-Zjd" firstAttribute="leading" secondItem="0YF-uI-1qC" secondAttribute="leading" id="L5y-h0-tq4"/>
+                                    <constraint firstAttribute="trailing" secondItem="QvN-bR-Zjd" secondAttribute="trailing" id="Vxg-5A-Tij"/>
+                                    <constraint firstAttribute="bottom" secondItem="QvN-bR-Zjd" secondAttribute="bottom" id="Wsr-Sc-kFo"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s9Q-6V-7Lw">
+                                <rect key="frame" x="533" y="20" width="47" height="37"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                <state key="normal" title="Logout">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
-                                    <outlet property="delegate" destination="Od7-ue-FcS" id="hxE-Hd-wfH"/>
+                                    <action selector="logout:" destination="Od7-ue-FcS" eventType="touchUpInside" id="iaT-sR-Mdw"/>
                                 </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0rF-O4-cpH">
-                                <rect key="frame" x="200" y="244" width="200" height="30"/>
-                                <accessibility key="accessibilityConfiguration" identifier="password"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="Od7-ue-FcS" id="dPT-kW-OSV"/>
-                                </connections>
-                            </textField>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OcB-Nq-sas">
-                                <rect key="frame" x="280" y="284" width="40" height="32"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="Login">
+                                <rect key="frame" x="428" y="304" width="137" height="40"/>
+                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
+                                <inset key="contentEdgeInsets" minX="45" minY="0.0" maxX="45" maxY="0.0"/>
+                                <state key="normal" title="LOGIN" backgroundImage="bg_button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="login:" destination="Od7-ue-FcS" eventType="touchUpInside" id="Z5Q-2Y-ulj"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="sNo-qp-niX">
-                                <rect key="frame" x="282" y="281" width="37" height="37"/>
-                            </activityIndicatorView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s9Q-6V-7Lw">
-                                <rect key="frame" x="532" y="20" width="48" height="30"/>
-                                <state key="normal" title="Logout">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="logout:" destination="Od7-ue-FcS" eventType="touchUpInside" id="iaT-sR-Mdw"/>
-                                </connections>
-                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="s9Q-6V-7Lw" firstAttribute="top" secondItem="hUe-TX-JBL" secondAttribute="bottom" id="7Jn-IV-gov"/>
-                            <constraint firstItem="0rF-O4-cpH" firstAttribute="centerX" secondItem="fQq-P9-zEm" secondAttribute="centerX" id="AED-48-6xU"/>
-                            <constraint firstItem="sNo-qp-niX" firstAttribute="centerX" secondItem="fQq-P9-zEm" secondAttribute="centerX" id="CSK-Kd-T6I"/>
-                            <constraint firstItem="OcB-Nq-sas" firstAttribute="top" secondItem="0rF-O4-cpH" secondAttribute="bottom" constant="10" id="Fsw-Dm-HNH"/>
-                            <constraint firstItem="0rF-O4-cpH" firstAttribute="width" secondItem="cxp-O3-4K4" secondAttribute="width" id="K9v-IF-9pg"/>
-                            <constraint firstItem="OcB-Nq-sas" firstAttribute="centerY" secondItem="fQq-P9-zEm" secondAttribute="centerY" id="KtR-tB-rWp"/>
-                            <constraint firstItem="OcB-Nq-sas" firstAttribute="centerX" secondItem="fQq-P9-zEm" secondAttribute="centerX" id="Lgw-hZ-k9V"/>
-                            <constraint firstItem="0rF-O4-cpH" firstAttribute="top" secondItem="cxp-O3-4K4" secondAttribute="bottom" constant="22" id="eIE-Yi-Y4d"/>
-                            <constraint firstItem="sNo-qp-niX" firstAttribute="centerY" secondItem="fQq-P9-zEm" secondAttribute="centerY" id="lgb-jM-ezz"/>
-                            <constraint firstItem="cxp-O3-4K4" firstAttribute="centerX" secondItem="fQq-P9-zEm" secondAttribute="centerX" id="mdc-Gj-Xvn"/>
-                            <constraint firstItem="0rF-O4-cpH" firstAttribute="top" secondItem="cxp-O3-4K4" secondAttribute="bottom" constant="22" id="rqD-bD-JXE"/>
+                            <constraint firstItem="OcB-Nq-sas" firstAttribute="top" secondItem="0YF-uI-1qC" secondAttribute="bottom" constant="20" id="GB9-kN-dso"/>
+                            <constraint firstItem="0YF-uI-1qC" firstAttribute="top" secondItem="s9Q-6V-7Lw" secondAttribute="bottom" constant="80" id="XIW-hk-jNa"/>
+                            <constraint firstItem="0YF-uI-1qC" firstAttribute="centerY" secondItem="fQq-P9-zEm" secondAttribute="centerY" id="eXe-Oi-c1c"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="OcB-Nq-sas" secondAttribute="trailing" constant="15" id="n1z-xo-ouS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0YF-uI-1qC" secondAttribute="trailing" id="pP4-br-IaA"/>
                             <constraint firstItem="s9Q-6V-7Lw" firstAttribute="trailing" secondItem="fQq-P9-zEm" secondAttribute="trailingMargin" id="ucd-2j-yaP"/>
+                            <constraint firstItem="0YF-uI-1qC" firstAttribute="leading" secondItem="fQq-P9-zEm" secondAttribute="leadingMargin" id="zMd-hj-PRp"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="eXe-Oi-c1c"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="sNo-qp-niX" id="Vbe-e1-K5c"/>
                         <outlet property="emailTextField" destination="cxp-O3-4K4" id="nv5-Z5-Dbe"/>
                         <outlet property="loginButton" destination="OcB-Nq-sas" id="txr-Zj-k0c"/>
                         <outlet property="logoutButton" destination="s9Q-6V-7Lw" id="xeY-tR-vf0"/>
@@ -91,4 +169,7 @@
             <point key="canvasLocation" x="350" y="410"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bg_button" width="45" height="40"/>
+    </resources>
 </document>
