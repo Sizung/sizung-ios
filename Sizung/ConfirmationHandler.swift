@@ -1,0 +1,27 @@
+//
+//  ConfirmationHandler.swift
+//  Sizung
+//
+//  Created by Markus Klepp on 01/08/16.
+//  Copyright © 2016 Sizung. All rights reserved.
+//
+
+import Foundation
+import Alamofire
+
+class ConfirmationHandler {
+  let token: String
+
+  init(urlComponents: NSURLComponents) {
+    let queryItems = urlComponents.queryItems
+    self.token = queryItems!.filter({$0.name == "confirmation_token"}).first!.value!
+  }
+
+  func confirm() {
+    Alamofire.request(SizungHttpRouter.ConfirmationLink(token: self.token))
+      .validate()
+      .responseString { response in
+        print(response)
+    }
+  }
+}

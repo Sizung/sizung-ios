@@ -1044,9 +1044,27 @@ struct _R: Rswift.Validatable {
       
       let bundle = _R.hostingBundle
       let name = "Login"
+      let signUp = StoryboardViewControllerResource<UINavigationController>(identifier: "SignUp")
+      let signupOrganizationViewController = StoryboardViewControllerResource<SignupOrganizationViewController>(identifier: "SignupOrganizationViewController")
+      let signupProfileViewController = StoryboardViewControllerResource<SignupProfileViewController>(identifier: "SignupProfileViewController")
+      
+      func signUp(_: Void) -> UINavigationController? {
+        return UIStoryboard(resource: self).instantiateViewController(signUp)
+      }
+      
+      func signupOrganizationViewController(_: Void) -> SignupOrganizationViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(signupOrganizationViewController)
+      }
+      
+      func signupProfileViewController(_: Void) -> SignupProfileViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(signupProfileViewController)
+      }
       
       static func validate() throws {
         if UIImage(named: "bg_button") == nil { throw ValidationError(description: "[R.swift] Image named 'bg_button' is used in storyboard 'Login', but couldn't be loaded.") }
+        if _R.storyboard.login().signupProfileViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'signupProfileViewController' could not be loaded from storyboard 'Login' as 'SignupProfileViewController'.") }
+        if _R.storyboard.login().signUp() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'signUp' could not be loaded from storyboard 'Login' as 'UINavigationController'.") }
+        if _R.storyboard.login().signupOrganizationViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'signupOrganizationViewController' could not be loaded from storyboard 'Login' as 'SignupOrganizationViewController'.") }
       }
       
       private init() {}

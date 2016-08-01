@@ -346,6 +346,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         return false
       }
 
+      if pathComponents[1] == "users" && pathComponents[2] == "confirmation"{
+        // do not handle confirmation links for now
+//        let urlComponents = NSURLComponents(string: url.URLString)!
+//        let confirmationHandler = ConfirmationHandler(urlComponents: urlComponents)
+//        confirmationHandler.confirm()
+        return false
+      }
+
       let type = pathComponents[1]
       let itemId = pathComponents[2]
 

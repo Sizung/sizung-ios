@@ -12,6 +12,9 @@ import SwiftKeychainWrapper
 
 enum SizungHttpRouter: URLRequestConvertible {
 
+  case CheckEmailAvailability(email: String)
+  case RegisterUser(user: Sizung.RegisterUser)
+  case ConfirmationLink(token: String)
   case Login(email: String, password: String)
   case RegisterDevice(token: String)
   case UpdateDevice(deviceId: String, token: String)
@@ -39,7 +42,8 @@ enum SizungHttpRouter: URLRequestConvertible {
 
   var method: Alamofire.Method {
     switch self {
-    case .Login,
+    case .RegisterUser,
+         .Login,
          .RegisterDevice,
          .Comments,
          .CreateConversation,
@@ -62,6 +66,11 @@ enum SizungHttpRouter: URLRequestConvertible {
 
   var path: String {
     switch self {
+    case .RegisterUser,
+         .CheckEmailAvailability:
+      return "/users"
+    case .ConfirmationLink:
+      return "/users/confirmation"
     case .Login,
          .Logout:
       return "/session_tokens"
@@ -118,7 +127,8 @@ enum SizungHttpRouter: URLRequestConvertible {
 
   var authentication: String? {
     switch self {
-    case .Login:
+    case .RegisterUser,
+         .Login:
       return nil
     default:
       if let authToken = Configuration.getAuthToken() {
@@ -131,6 +141,19 @@ enum SizungHttpRouter: URLRequestConvertible {
 
   var jsonParameters: [String: AnyObject]? {
     switch self {
+    case .RegisterUser(let user):
+      return [
+        "user": [
+          "email": user.email!,
+          "password": user.password!,
+          "password_confirmation": user.passwordConfirmation!,
+          "first_name": user.firstname!,
+          "last_name": user.lastname!,
+          "organization": [
+            "name": user.organizationName!
+          ]
+        ]
+      ]
     case .Login(let email, let password):
       return [
         "user": [
@@ -258,6 +281,14 @@ enum SizungHttpRouter: URLRequestConvertible {
 
   var urlParams: [String: AnyObject]? {
     switch self {
+    case .CheckEmailAvailability(let email):
+      return [
+        "email": email
+      ]
+    case .ConfirmationLink(let token):
+      return [
+        "confirmation_token": token
+      ]
     case .ConversationObjects(_, let page):
       return [
         "page[number]": page,
@@ -307,7 +338,8 @@ enum SizungHttpRouter: URLRequestConvertible {
     mutableURLRequest.setValue(self.authentication, forHTTPHeaderField: "Authorization")
 
     switch self {
-    case .Login,
+    case .RegisterUser,
+         .Login,
          .RegisterDevice,
          .UpdateDevice,
          .CreateDeliverable,
@@ -322,7 +354,9 @@ enum SizungHttpRouter: URLRequestConvertible {
         mutableURLRequest,
         parameters: self.jsonParameters
         ).0
-    case .ConversationObjects,
+    case .CheckEmailAvailability,
+         .ConfirmationLink,
+         .ConversationObjects,
          .UnseenObjectsForUser,
          .SubscribedUnseenObjectsForOrganization,
          .UnsubscribedUnseenObjectsForOrganization,
