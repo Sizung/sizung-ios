@@ -124,6 +124,9 @@
 		5ADC88361D105C4E00596D67 /* ISODateTimeTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC88351D105C4E00596D67 /* ISODateTimeTransform.swift */; };
 		5ADC88381D105F3300596D67 /* DeliverableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ADC88371D105F3300596D67 /* DeliverableTableViewCell.xib */; };
 		5ADC88401D109FD500596D67 /* DeliverableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADC883E1D109FD500596D67 /* DeliverableViewController.swift */; };
+		5ADD5D0D1D4F2B49005FBA17 /* BorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD5D0C1D4F2B49005FBA17 /* BorderView.swift */; };
+		5ADD5D0F1D4F360A005FBA17 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD5D0E1D4F360A005FBA17 /* SignupViewController.swift */; };
+		5ADD5D111D4FA993005FBA17 /* ConfirmationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD5D101D4FA993005FBA17 /* ConfirmationHandler.swift */; };
 		5AE0CCA11D0AEF3900690C72 /* CommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */; };
 		5AE24D0C1D216BD200FB691B /* DeliverableResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE24D0B1D216BD200FB691B /* DeliverableResponse.swift */; };
 		5AE24D0E1D216C1100FB691B /* AgendaItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE24D0D1D216C1100FB691B /* AgendaItemResponse.swift */; };
@@ -289,6 +292,9 @@
 		5ADC88351D105C4E00596D67 /* ISODateTimeTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISODateTimeTransform.swift; sourceTree = "<group>"; };
 		5ADC88371D105F3300596D67 /* DeliverableTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeliverableTableViewCell.xib; sourceTree = "<group>"; };
 		5ADC883E1D109FD500596D67 /* DeliverableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverableViewController.swift; sourceTree = "<group>"; };
+		5ADD5D0C1D4F2B49005FBA17 /* BorderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderView.swift; sourceTree = "<group>"; };
+		5ADD5D0E1D4F360A005FBA17 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		5ADD5D101D4FA993005FBA17 /* ConfirmationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmationHandler.swift; sourceTree = "<group>"; };
 		5AE0CCA01D0AEF3900690C72 /* CommentResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentResponse.swift; sourceTree = "<group>"; };
 		5AE24D0B1D216BD200FB691B /* DeliverableResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliverableResponse.swift; sourceTree = "<group>"; };
 		5AE24D0D1D216C1100FB691B /* AgendaItemResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemResponse.swift; sourceTree = "<group>"; };
@@ -562,6 +568,7 @@
 				5A86B12D1CE5CF19001C2E7A /* AlamofireManagerExtension.swift */,
 				5A86B1301CE5D035001C2E7A /* SizungHttpRouter.swift */,
 				5ABA4FB71CFDCE5D00110030 /* responses */,
+				5ADD5D101D4FA993005FBA17 /* ConfirmationHandler.swift */,
 			);
 			name = network;
 			sourceTree = "<group>";
@@ -644,6 +651,7 @@
 				5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */,
 				5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */,
 				5A8C4B481D242BA0004EA24D /* AvatarImageView.swift */,
+				5ADD5D0C1D4F2B49005FBA17 /* BorderView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -655,6 +663,7 @@
 				5AF675C91D3788AB008C813D /* ItemLoadingViewController.swift */,
 				5AF675CA1D3788AB008C813D /* ItemLoadingViewController.xib */,
 				5ABE8E341CDB5AC9004537C6 /* LoginViewController.swift */,
+				5ADD5D0E1D4F360A005FBA17 /* SignupViewController.swift */,
 				5AA806DF1D130E7300788DDF /* OrganizationsViewController.swift */,
 				5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */,
 				5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */,
@@ -1101,6 +1110,8 @@
 				5ADC882B1D0F57D400596D67 /* WebsocketResponse.swift in Sources */,
 				5A9EDEB01D00232100D389EC /* UserResponse.swift in Sources */,
 				5AB781411CFD79D00024DFE9 /* AccountViewController.swift in Sources */,
+				5ADD5D111D4FA993005FBA17 /* ConfirmationHandler.swift in Sources */,
+				5ADD5D0F1D4F360A005FBA17 /* SignupViewController.swift in Sources */,
 				5A9EDEBC1D01CEB900D389EC /* Color.swift in Sources */,
 				5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */,
 				5ABA4FBB1CFEBE3500110030 /* OrganizationResponse.swift in Sources */,
@@ -1118,6 +1129,7 @@
 				5AE8839A1D09A5460044364B /* CollectionPropertyExtension.swift in Sources */,
 				5A29E0D31D2F7F3E002A7840 /* SizungButton.swift in Sources */,
 				5AD9F1B31CE9C09200455D98 /* Conversation.swift in Sources */,
+				5ADD5D0D1D4F2B49005FBA17 /* BorderView.swift in Sources */,
 				5A7B95A41CF8E58B00FE36CB /* MainPageViewController.swift in Sources */,
 				5A6D37121D1E90DE00F00B87 /* DateSortable.swift in Sources */,
 				5AC0E5E11CF04D8D00BBEF45 /* OrganizationsTableViewController.swift in Sources */,

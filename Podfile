@@ -26,6 +26,7 @@ target 'Sizung' do
   pod 'AlamofireNetworkActivityIndicator'
   pod 'MRProgress'
   pod 'ImageFilesPicker'
+  pod 'JVFloatLabeledTextField'
   
   pod 'R.swift', '~> 2.3'
 

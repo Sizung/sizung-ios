@@ -134,7 +134,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 22 images.
+  /// This `R.image` struct is generated, and contains static references to 23 images.
   struct image {
     /// Image `action`.
     static let action = ImageResource(bundle: _R.hostingBundle, name: "action")
@@ -152,6 +152,8 @@ struct R: Rswift.Validatable {
     static let attachment_large = ImageResource(bundle: _R.hostingBundle, name: "attachment_large")
     /// Image `bg_actions`.
     static let bg_actions = ImageResource(bundle: _R.hostingBundle, name: "bg_actions")
+    /// Image `bg_button`.
+    static let bg_button = ImageResource(bundle: _R.hostingBundle, name: "bg_button")
     /// Image `bg_conversations`.
     static let bg_conversations = ImageResource(bundle: _R.hostingBundle, name: "bg_conversations")
     /// Image `bg_priorities`.
@@ -219,6 +221,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "bg_actions", bundle: ..., traitCollection: ...)`
     static func bg_actions(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.bg_actions, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "bg_button", bundle: ..., traitCollection: ...)`
+    static func bg_button(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.bg_button, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "bg_conversations", bundle: ..., traitCollection: ...)`
@@ -910,6 +917,7 @@ struct _R: Rswift.Validatable {
       try organization.validate()
       try agendaItem.validate()
       try conversation.validate()
+      try login.validate()
       try conversations.validate()
       try main.validate()
     }
@@ -1031,11 +1039,33 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
-    struct login: StoryboardResourceWithInitialControllerType {
+    struct login: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = LoginViewController
       
       let bundle = _R.hostingBundle
       let name = "Login"
+      let signUp = StoryboardViewControllerResource<UINavigationController>(identifier: "SignUp")
+      let signupOrganizationViewController = StoryboardViewControllerResource<SignupOrganizationViewController>(identifier: "SignupOrganizationViewController")
+      let signupProfileViewController = StoryboardViewControllerResource<SignupProfileViewController>(identifier: "SignupProfileViewController")
+      
+      func signUp(_: Void) -> UINavigationController? {
+        return UIStoryboard(resource: self).instantiateViewController(signUp)
+      }
+      
+      func signupOrganizationViewController(_: Void) -> SignupOrganizationViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(signupOrganizationViewController)
+      }
+      
+      func signupProfileViewController(_: Void) -> SignupProfileViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(signupProfileViewController)
+      }
+      
+      static func validate() throws {
+        if UIImage(named: "bg_button") == nil { throw ValidationError(description: "[R.swift] Image named 'bg_button' is used in storyboard 'Login', but couldn't be loaded.") }
+        if _R.storyboard.login().signupProfileViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'signupProfileViewController' could not be loaded from storyboard 'Login' as 'SignupProfileViewController'.") }
+        if _R.storyboard.login().signUp() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'signUp' could not be loaded from storyboard 'Login' as 'UINavigationController'.") }
+        if _R.storyboard.login().signupOrganizationViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'signupOrganizationViewController' could not be loaded from storyboard 'Login' as 'SignupOrganizationViewController'.") }
+      }
       
       private init() {}
     }
