@@ -61,7 +61,7 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
               self.loginDelegate?.loginSuccess(self)
             }.onFailure() { error in
               let message = "login error: \(error)"
-              Error.log(message)
+              Log.message(message)
               self.showAlert("Something went wrong. Please try again")
           }
 
