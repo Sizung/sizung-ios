@@ -27,13 +27,19 @@ protocol SignupViewControllerDelegate {
 
 class SignupViewController: UIViewController, SignupViewControllerDelegate, UITextFieldDelegate {
 
+  @IBOutlet weak var scrollView: UIScrollView!
+
   var registerUser = RegisterUser()
 
   var responderChain: [UIResponder] { return [] }
   var nextViewController: SignupViewController? { return nil }
+  var activeTextField: UITextField?
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
 
     self.responderChain.first!.becomeFirstResponder()
   }
@@ -41,14 +47,47 @@ class SignupViewController: UIViewController, SignupViewControllerDelegate, UITe
   func textFieldShouldReturn(textField: UITextField) -> Bool {
 
     if let index = self.responderChain.indexOf(textField) {
-      if index < responderChain.count {
+      if index < responderChain.count - 1 {
         self.responderChain[index+1].becomeFirstResponder()
       } else {
         self.validateAndNext()
       }
     }
-
     return true
+  }
+
+
+  func textFieldDidBeginEditing(textField: UITextField) {
+    self.activeTextField = textField
+
+    // scroll to bottom for last textfield
+    if activeTextField == self.responderChain.last {
+      let bottomRect = CGRect(x: 0, y: self.scrollView.contentSize.height, width: 1, height: 1)
+      self.scrollView.scrollRectToVisible(bottomRect, animated: true)
+    }
+  }
+
+  func textFieldDidEndEditing(textField: UITextField) {
+    self.activeTextField = nil
+  }
+
+  func keyboardDidShow(notification: NSNotification) {
+    if let activeTextField = self.activeTextField, keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+      let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+      self.scrollView.contentInset = contentInsets
+      self.scrollView.scrollIndicatorInsets = contentInsets
+      var aRect = self.view.frame
+      aRect.size.height -= keyboardSize.size.height
+      if !aRect.contains(activeTextField.frame.origin) {
+        self.scrollView.scrollRectToVisible(activeTextField.frame, animated: true)
+      }
+    }
+  }
+
+  func keyboardWillBeHidden(notification: NSNotification) {
+    let contentInsets = UIEdgeInsetsZero
+    self.scrollView.contentInset = contentInsets
+    self.scrollView.scrollIndicatorInsets = contentInsets
   }
 
   @IBAction func validateAndNext() {

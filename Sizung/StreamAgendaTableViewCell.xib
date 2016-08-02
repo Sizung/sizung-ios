@@ -30,7 +30,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cqE-pr-d9U" customClass="CardView" customModule="Sizung" customModuleProvider="target">
                         <rect key="frame" x="18" y="8" width="564" height="235"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bMe-QB-U7n" customClass="AvatarImageView" customModule="Sizung" customModuleProvider="target">
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bMe-QB-U7n" customClass="AvatarImageView" customModule="Sizung" customModuleProvider="target">
                                 <rect key="frame" x="20" y="12" width="102" height="54"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Xhc-bS-ouA"/>
