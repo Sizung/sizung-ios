@@ -168,8 +168,10 @@ class Websocket {
   }
 
   func followUser(userId: String) {
+
+    willFollowUserChannels.insert(userId)
+
     guard client.connected else {
-      willFollowUserChannels.insert(userId)
       client.connect()
       return
     }
