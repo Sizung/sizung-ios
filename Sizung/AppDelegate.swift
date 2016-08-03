@@ -15,7 +15,7 @@ import ActionCableClient
 import AlamofireNetworkActivityIndicator
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketDelegate, ItemLoadDelegate, OrganizationTableViewDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDelegate {
 
   var window: UIWindow?
 
@@ -164,17 +164,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     }
   }
 
-  func loginSuccess(loginViewController: LoginViewController) {
-
-    self.loginViewController = nil
-    self.registerForPushNotifications()
-    self.initWebsocketConnection()
-
-    loginViewController.dismissViewControllerAnimated(true) {
-      self.loadInitialViewController()
-    }
-  }
-
   func applicationDidBecomeActive(application: UIApplication) {
 
     //ensure websocket connection is open
@@ -211,6 +200,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
         websocket.followUser(userId)
       }
     }
+  }
+
+  private func loadUrl(url: NSURL) -> Bool {
+    if let pathComponents = url.pathComponents {
+      guard pathComponents.count == 3 else {
+
+        let message = "loadURL wrong number of path components: \(url)"
+        Error.log(message)
+        return false
+      }
+
+      if pathComponents[1] == "users" && pathComponents[2] == "confirmation"{
+        //        let confirmationHandler = ConfirmationHandler(url: url)
+        //        confirmationHandler.confirm()
+        Alamofire.request(.GET, url.absoluteString)
+          .responseString { response in
+            InAppMessage.showSuccessMessage("Your email address has been successfully confirmed.\nYou can login now")
+        }
+
+        return false
+      }
+
+      let type = pathComponents[1]
+      let itemId = pathComponents[2]
+
+      // check for known types only
+      guard ["agenda_items", "deliverables", "conversations", "attachments", "organizations"].contains(type) else {
+        let message = "link to unknown type \(type) with id:\(itemId)"
+        Error.log(message)
+        return false
+      }
+
+      // check if logged in
+      if let authToken = Configuration.getAuthToken() {
+        let token = AuthToken(data: authToken)
+        token.validate()
+          .onSuccess { _ in
+            self.openItem(type, itemId: itemId)
+          }.onFailure { error in
+            self.showLogin()
+        }
+      } else {
+        self.showLogin()
+      }
+    }
+    return true
   }
 
   // universal link support
@@ -307,82 +342,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     }
   }
 
-  // websocket delegate
-
-  func onConnectFailed() {
-    InAppMessage.showErrorMessage("There has been an error connecting to Sizung")
-  }
-
-  func onDisconnected() {
-    InAppMessage.showErrorMessage("You have been disconnected from Sizung")
-  }
-
-  func onReceived(unseenObject: BaseModel) {
-
-    StorageManager.storageForSelectedOrganization()
-      .onSuccess { storageManager in
-        if let unseenObject = unseenObject as? UnseenObject {
-          if unseenObject.timeline != nil && unseenObject.target != nil {
-            storageManager.unseenObjects.insertOrUpdate([unseenObject])
-          } else {
-            // remove if no timeline or target
-            if let index = storageManager.unseenObjects.indexOf(unseenObject) {
-              storageManager.unseenObjects.removeAtIndex(index)
-            }
-          }
-        }
-    }
-  }
-
-  func onFollowSuccess(channelName: String) {
-  }
-
-  private func loadUrl(url: NSURL) -> Bool {
-    if let pathComponents = url.pathComponents {
-      guard pathComponents.count == 3 else {
-
-        let message = "loadURL wrong number of path components: \(url)"
-        Error.log(message)
-        return false
-      }
-
-      if pathComponents[1] == "users" && pathComponents[2] == "confirmation"{
-//        let confirmationHandler = ConfirmationHandler(url: url)
-//        confirmationHandler.confirm()
-        Alamofire.request(.GET, url.absoluteString)
-          .responseString { response in
-            InAppMessage.showSuccessMessage("Your email address has been successfully confirmed.\nYou can login now")
-        }
-
-        return false
-      }
-
-      let type = pathComponents[1]
-      let itemId = pathComponents[2]
-
-      // check for known types only
-      guard ["agenda_items", "deliverables", "conversations", "attachments", "organizations"].contains(type) else {
-        let message = "link to unknown type \(type) with id:\(itemId)"
-        Error.log(message)
-        return false
-      }
-
-      // check if logged in
-      if let authToken = Configuration.getAuthToken() {
-        let token = AuthToken(data: authToken)
-        token.validate()
-          .onSuccess { _ in
-            self.openItem(type, itemId: itemId)
-          }.onFailure { error in
-            self.showLogin()
-        }
-      } else {
-        self.showLogin()
-      }
-    }
-    return true
-  }
-
   func openItem(type: String, itemId: String) {
     Answers.logCustomEventWithName("Open Item at launch",
                                    customAttributes: [
@@ -397,22 +356,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
     self.window?.rootViewController = itemLoadingViewController
   }
 
-  func onItemLoaded(organizationId: String, viewController: UIViewController?) {
-
-    self.window?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
-    self.window?.rootViewController = R.storyboard.main.initialViewController()
-
-    if organizationId != Configuration.getSelectedOrganization() {
-      // reset storage
-      StorageManager.sharedInstance.reset()
-      Configuration.setSelectedOrganization(organizationId)
-    }
-
-    let organizationViewController = R.storyboard.organization.initialViewController()!
-    organizationViewController.conversationViewController = viewController
-    self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
-  }
-
+  // org selection delegate
   func organizationSelected(organization: Organization) {
 
     self.organizationsViewController?.dismissViewControllerAnimated(true) {
@@ -420,4 +364,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginDelegate, WebsocketD
       self.switchToOrganization(organization.id)
     }
   }
+
 }

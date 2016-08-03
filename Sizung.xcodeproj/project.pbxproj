@@ -23,6 +23,9 @@
 		5A304B3B1D18367F009CBBAD /* StartOfConversationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */; };
 		5A304B3D1D1843DE009CBBAD /* UnseenObjectsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */; };
 		5A304B3F1D184427009CBBAD /* UnseenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A304B3E1D184427009CBBAD /* UnseenObject.swift */; };
+		5A3114191D51D4DC007535D1 /* AppLoginDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3114181D51D4DC007535D1 /* AppLoginDelegate.swift */; };
+		5A31141B1D51D532007535D1 /* AppWebsocketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A31141A1D51D532007535D1 /* AppWebsocketDelegate.swift */; };
+		5A31141D1D51D5C4007535D1 /* AppItemLoadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A31141C1D51D5C4007535D1 /* AppItemLoadDelegate.swift */; };
 		5A35A52B1CDCDDE8005E5B1B /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35A52A1CDCDDE8005E5B1B /* Test.swift */; };
 		5A35DC0C1D0AF9C300916118 /* AutoCompletionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */; };
 		5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */; };
@@ -183,6 +186,9 @@
 		5A304B3A1D18367F009CBBAD /* StartOfConversationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StartOfConversationView.xib; sourceTree = "<group>"; };
 		5A304B3C1D1843DE009CBBAD /* UnseenObjectsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnseenObjectsResponse.swift; sourceTree = "<group>"; };
 		5A304B3E1D184427009CBBAD /* UnseenObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnseenObject.swift; sourceTree = "<group>"; };
+		5A3114181D51D4DC007535D1 /* AppLoginDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLoginDelegate.swift; sourceTree = "<group>"; };
+		5A31141A1D51D532007535D1 /* AppWebsocketDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppWebsocketDelegate.swift; sourceTree = "<group>"; };
+		5A31141C1D51D5C4007535D1 /* AppItemLoadDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppItemLoadDelegate.swift; sourceTree = "<group>"; };
 		5A35A52A1CDCDDE8005E5B1B /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompletionTableCell.swift; sourceTree = "<group>"; };
 		5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoCompletionTableCell.xib; sourceTree = "<group>"; };
@@ -463,6 +469,9 @@
 				5A86B1391CE60520001C2E7A /* Models */,
 				5A86B12A1CE4BBF3001C2E7A /* Support */,
 				5A653E8E1CD7A96000FB3DEB /* AppDelegate.swift */,
+				5A3114181D51D4DC007535D1 /* AppLoginDelegate.swift */,
+				5A31141A1D51D532007535D1 /* AppWebsocketDelegate.swift */,
+				5A31141C1D51D5C4007535D1 /* AppItemLoadDelegate.swift */,
 				5A9D0EE01D119DD000037589 /* R.generated.swift */,
 				5AC85CA01CFC553C0028B560 /* UI */,
 				5A653E991CD7A96000FB3DEB /* LaunchScreen.storyboard */,
@@ -1097,10 +1106,12 @@
 				5A68DC031D3CD05400687107 /* CreateActionViewController.swift in Sources */,
 				5AA806E01D130E7300788DDF /* OrganizationsViewController.swift in Sources */,
 				5A68DBFD1D3CB58100687107 /* ConversationsViewController.swift in Sources */,
+				5A3114191D51D4DC007535D1 /* AppLoginDelegate.swift in Sources */,
 				5AD9F1BF1CE9D65900455D98 /* AgendaItemDeliverable.swift in Sources */,
 				5A8F79091CFF14BF00953495 /* DeliverablesResponse.swift in Sources */,
 				5A8F79071CFF0E6B00953495 /* AgendaItemsResponse.swift in Sources */,
 				5AE0CCA11D0AEF3900690C72 /* CommentResponse.swift in Sources */,
+				5A31141D1D51D5C4007535D1 /* AppItemLoadDelegate.swift in Sources */,
 				5A85E0711D3F7E4B00010693 /* AttachmentResponse.swift in Sources */,
 				5A208E5E1D43601A00F765C9 /* StreamAgendaTableViewCell.swift in Sources */,
 				5A9D0EE91D11BB9800037589 /* StreamTableViewController.swift in Sources */,
@@ -1162,6 +1173,7 @@
 				5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */,
 				5ABA4FBF1CFEC3B600110030 /* OrganizationViewController.swift in Sources */,
 				5AA890FC1CF4D1B900ED391B /* TableViewCellDisplayable.swift in Sources */,
+				5A31141B1D51D532007535D1 /* AppWebsocketDelegate.swift in Sources */,
 				5A208E5C1D43601A00F765C9 /* StreamActionTableViewCell.swift in Sources */,
 				5A59500B1D391B340065F044 /* LoadingViewController.swift in Sources */,
 				5AC0E5E81CF33C8300BBEF45 /* Comment.swift in Sources */,
