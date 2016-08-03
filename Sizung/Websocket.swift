@@ -109,7 +109,6 @@ class Websocket {
 
     // A channel was unsubscribed, either manually or from a client disconnect.
     channel.onUnsubscribed = {
-
     }
 
     // The attempt at subscribing to a channel was rejected by the server.
@@ -125,14 +124,15 @@ class Websocket {
 
   func followConversation(conversationId: String) {
 
+// will guarantee reconnect until conversation is unfollowed
+    willFollowConversationChannels.insert(conversationId)
+
     guard client.connected else {
-      willFollowConversationChannels.insert(conversationId)
       client.connect()
       return
     }
 
     guard conversationChannel != nil && conversationChannel!.subscribed else {
-      willFollowConversationChannels.insert(conversationId)
       return
     }
 
