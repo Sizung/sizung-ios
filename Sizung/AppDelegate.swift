@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
   var loginViewController: LoginViewController?
   var organizationsViewController: OrganizationsViewController?
 
+  private var reachabilityManager: NetworkReachabilityManager!
+
   func application(
     application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?
@@ -37,7 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
     UINavigationBar.appearance().barStyle = .Black
     UINavigationBar.appearance().tintColor = UIColor.whiteColor()
 
+    // network related stuff
     NetworkActivityIndicatorManager.sharedManager.isEnabled = true
+
+    setupReachability()
 
     self.registerNotifications()
 
@@ -47,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
         .onSuccess { _ in
 
           self.registerForPushNotifications()
-          self.fetchUnseenObjects()
 
           self.loadInitialViewController()
 
@@ -83,6 +87,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
       name: Configuration.NotificationConstants.kNotificationKeyAuthError,
       object: nil
     )
+  }
+
+  func setupReachability() {
+    reachabilityManager = NetworkReachabilityManager(host: Configuration.APIEndpoint())
+    reachabilityManager.listener = { status in
+      switch status {
+      case .NotReachable:
+        // move error messages here
+        break
+      case .Reachable(_):
+        self.initWebsocketConnection()
+      case .Unknown:
+        break
+      }
+    }
+    reachabilityManager.startListening()
   }
 
   func switchToOrganization(orgId: String) {
@@ -164,20 +184,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
     }
   }
 
-  func applicationDidBecomeActive(application: UIApplication) {
-
-    //ensure websocket connection is open
-    if let websocket = StorageManager.sharedInstance.websocket {
-      if !websocket.client.connected {
-        initWebsocketConnection()
-      }
-    } else {
-      initWebsocketConnection()
-    }
-
-    self.fetchUnseenObjects()
-  }
-
   func initWebsocketConnection() {
     let authToken = AuthToken(data: Configuration.getAuthToken())
 
@@ -187,18 +193,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
         websocket.userWebsocketDelegate = self
         StorageManager.sharedInstance.websocket = websocket
 
-        self.fetchUnseenObjects()
-    }
-  }
-
-  func fetchUnseenObjects() {
-    // update unseenobjects
-    if let userId = AuthToken(data: Configuration.getAuthToken()).getUserId() {
-      // subscribe to user channel
-      if let websocket = StorageManager.sharedInstance.websocket {
-        websocket.userWebsocketDelegate = self
-        websocket.followUser(userId)
-      }
+        // subscribe to user channel for unseenobjects
+        if let userId = AuthToken(data: Configuration.getAuthToken()).getUserId() {
+          if let websocket = StorageManager.sharedInstance.websocket {
+            websocket.userWebsocketDelegate = self
+            websocket.followUser(userId)
+          }
+        }
     }
   }
 
