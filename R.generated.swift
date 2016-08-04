@@ -134,7 +134,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 23 images.
+  /// This `R.image` struct is generated, and contains static references to 25 images.
   struct image {
     /// Image `action`.
     static let action = ImageResource(bundle: _R.hostingBundle, name: "action")
@@ -158,6 +158,8 @@ struct R: Rswift.Validatable {
     static let bg_conversations = ImageResource(bundle: _R.hostingBundle, name: "bg_conversations")
     /// Image `bg_priorities`.
     static let bg_priorities = ImageResource(bundle: _R.hostingBundle, name: "bg_priorities")
+    /// Image `bg_search`.
+    static let bg_search = ImageResource(bundle: _R.hostingBundle, name: "bg_search")
     /// Image `close`.
     static let close = ImageResource(bundle: _R.hostingBundle, name: "close")
     /// Image `cupcake`.
@@ -172,6 +174,8 @@ struct R: Rswift.Validatable {
     static let group_list = ImageResource(bundle: _R.hostingBundle, name: "group_list")
     /// Image `logo`.
     static let logo = ImageResource(bundle: _R.hostingBundle, name: "logo")
+    /// Image `organization_fallback`.
+    static let organization_fallback = ImageResource(bundle: _R.hostingBundle, name: "organization_fallback")
     /// Image `priorities_filter_all`.
     static let priorities_filter_all = ImageResource(bundle: _R.hostingBundle, name: "priorities_filter_all")
     /// Image `priorities_filter_mine`.
@@ -238,6 +242,11 @@ struct R: Rswift.Validatable {
       return UIImage(resource: R.image.bg_priorities, compatibleWithTraitCollection: traitCollection)
     }
     
+    /// `UIImage(named: "bg_search", bundle: ..., traitCollection: ...)`
+    static func bg_search(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.bg_search, compatibleWithTraitCollection: traitCollection)
+    }
+    
     /// `UIImage(named: "close", bundle: ..., traitCollection: ...)`
     static func close(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.close, compatibleWithTraitCollection: traitCollection)
@@ -271,6 +280,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "logo", bundle: ..., traitCollection: ...)`
     static func logo(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.logo, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "organization_fallback", bundle: ..., traitCollection: ...)`
+    static func organization_fallback(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.organization_fallback, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "priorities_filter_all", bundle: ..., traitCollection: ...)`
@@ -477,7 +491,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.segue` struct is generated, and contains static references to 8 view controllers.
+  /// This `R.segue` struct is generated, and contains static references to 9 view controllers.
   struct segue {
     /// This struct is generated for `AgendaItemViewController`, and contains static references to 1 segues.
     struct agendaItemViewController {
@@ -569,16 +583,31 @@ struct R: Rswift.Validatable {
       private init() {}
     }
     
-    /// This struct is generated for `OrganizationViewController`, and contains static references to 1 segues.
-    struct organizationViewController {
-      /// Segue identifier `embed`.
-      static let embed: StoryboardSegueIdentifier<UIStoryboardSegue, OrganizationViewController, MainPageViewController> = StoryboardSegueIdentifier(identifier: "embed")
+    /// This struct is generated for `OrganizationContentViewController`, and contains static references to 1 segues.
+    struct organizationContentViewController {
+      /// Segue identifier `embedMainPage`.
+      static let embedMainPage: StoryboardSegueIdentifier<UIStoryboardSegue, OrganizationContentViewController, MainPageViewController> = StoryboardSegueIdentifier(identifier: "embedMainPage")
       
-      /// Optionally returns a typed version of segue `embed`.
+      /// Optionally returns a typed version of segue `embedMainPage`.
       /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
       /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
-      static func embed(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, OrganizationViewController, MainPageViewController>? {
-        return TypedStoryboardSegueInfo(segueIdentifier: R.segue.organizationViewController.embed, segue: segue)
+      static func embedMainPage(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, OrganizationContentViewController, MainPageViewController>? {
+        return TypedStoryboardSegueInfo(segueIdentifier: R.segue.organizationContentViewController.embedMainPage, segue: segue)
+      }
+      
+      private init() {}
+    }
+    
+    /// This struct is generated for `OrganizationViewController`, and contains static references to 1 segues.
+    struct organizationViewController {
+      /// Segue identifier `embedNav`.
+      static let embedNav: StoryboardSegueIdentifier<UIStoryboardSegue, OrganizationViewController, UINavigationController> = StoryboardSegueIdentifier(identifier: "embedNav")
+      
+      /// Optionally returns a typed version of segue `embedNav`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      static func embedNav(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, OrganizationViewController, UINavigationController>? {
+        return TypedStoryboardSegueInfo(segueIdentifier: R.segue.organizationViewController.embedNav, segue: segue)
       }
       
       private init() {}
@@ -1145,7 +1174,8 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIImage(named: "cupcake") == nil { throw ValidationError(description: "[R.swift] Image named 'cupcake' is used in storyboard 'Organization', but couldn't be loaded.") }
-        if UIImage(named: "group_list") == nil { throw ValidationError(description: "[R.swift] Image named 'group_list' is used in storyboard 'Organization', but couldn't be loaded.") }
+        if UIImage(named: "organization_fallback") == nil { throw ValidationError(description: "[R.swift] Image named 'organization_fallback' is used in storyboard 'Organization', but couldn't be loaded.") }
+        if UIImage(named: "bg_search") == nil { throw ValidationError(description: "[R.swift] Image named 'bg_search' is used in storyboard 'Organization', but couldn't be loaded.") }
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Organization', but couldn't be loaded.") }
         if UIImage(named: "logo") == nil { throw ValidationError(description: "[R.swift] Image named 'logo' is used in storyboard 'Organization', but couldn't be loaded.") }
         if UIImage(named: "priority") == nil { throw ValidationError(description: "[R.swift] Image named 'priority' is used in storyboard 'Organization', but couldn't be loaded.") }

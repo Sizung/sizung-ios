@@ -28,6 +28,7 @@
 		5A31141D1D51D5C4007535D1 /* AppItemLoadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A31141C1D51D5C4007535D1 /* AppItemLoadDelegate.swift */; };
 		5A3114221D51E515007535D1 /* StreamDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3114201D51E515007535D1 /* StreamDateTableViewCell.swift */; };
 		5A3114231D51E515007535D1 /* StreamDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A3114211D51E515007535D1 /* StreamDateTableViewCell.xib */; };
+		5A3114251D534F72007535D1 /* OrganizationContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3114241D534F72007535D1 /* OrganizationContentViewController.swift */; };
 		5A35A52B1CDCDDE8005E5B1B /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35A52A1CDCDDE8005E5B1B /* Test.swift */; };
 		5A35DC0C1D0AF9C300916118 /* AutoCompletionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */; };
 		5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */; };
@@ -193,6 +194,7 @@
 		5A31141C1D51D5C4007535D1 /* AppItemLoadDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppItemLoadDelegate.swift; sourceTree = "<group>"; };
 		5A3114201D51E515007535D1 /* StreamDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamDateTableViewCell.swift; sourceTree = "<group>"; };
 		5A3114211D51E515007535D1 /* StreamDateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamDateTableViewCell.xib; sourceTree = "<group>"; };
+		5A3114241D534F72007535D1 /* OrganizationContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationContentViewController.swift; sourceTree = "<group>"; };
 		5A35A52A1CDCDDE8005E5B1B /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompletionTableCell.swift; sourceTree = "<group>"; };
 		5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoCompletionTableCell.xib; sourceTree = "<group>"; };
@@ -681,6 +683,7 @@
 				5ADD5D0E1D4F360A005FBA17 /* SignupViewController.swift */,
 				5AA806DF1D130E7300788DDF /* OrganizationsViewController.swift */,
 				5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */,
+				5A3114241D534F72007535D1 /* OrganizationContentViewController.swift */,
 				5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */,
 				5AB781401CFD79D00024DFE9 /* AccountViewController.swift */,
 				5A2E3C251D2E3E1800D4D3EA /* ConversationViewController.swift */,
@@ -1192,6 +1195,7 @@
 				5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */,
 				5A8C4B491D242BA0004EA24D /* AvatarImageView.swift in Sources */,
 				5A68DBF71D3C064300687107 /* CreateConversationViewController.swift in Sources */,
+				5A3114251D534F72007535D1 /* OrganizationContentViewController.swift in Sources */,
 				5A29E0D61D2FA44A002A7840 /* OrganizationStorageManager.swift in Sources */,
 				5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */,
 				5A208E621D436BD100F765C9 /* StreamObjects.swift in Sources */,
