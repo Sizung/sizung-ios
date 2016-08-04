@@ -26,6 +26,8 @@ class OrganizationViewController: UIViewController, OrganizationTableViewDelegat
   // used for initial loading of conversation
   var conversationViewController: UIViewController?
 
+  @IBOutlet weak var closeButtonHiddenConstraint: NSLayoutConstraint!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -112,6 +114,11 @@ class OrganizationViewController: UIViewController, OrganizationTableViewDelegat
     closeButton.alpha = 0
     UIView.animateWithDuration(0.2) {self.closeButton.alpha = 1}
 
+    closeButtonHiddenConstraint.priority = UILayoutPriorityDefaultHigh-1
+    UIView.animateWithDuration(0.2) {
+      self.searchBar.layoutIfNeeded()
+    }
+
     let transition = CATransition()
     transition.duration = 0.3
     transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
@@ -130,6 +137,11 @@ class OrganizationViewController: UIViewController, OrganizationTableViewDelegat
       }, completion: { _ in
         self.closeButton.hidden = true
     })
+
+    closeButtonHiddenConstraint.priority = UILayoutPriorityDefaultHigh+1
+    UIView.animateWithDuration(0.2) {
+      self.searchBar.layoutIfNeeded()
+    }
 
     let transition = CATransition()
     transition.duration = 0.3
