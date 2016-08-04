@@ -10,7 +10,7 @@ import UIKit
 import SwiftKeychainWrapper
 import KCFloatingActionButton
 
-class OrganizationViewController: UIViewController, OrganizationTableViewDelegate {
+class OrganizationViewController: UIViewController, OrganizationTableViewDelegate, ConversationTableViewDelegate {
 
   @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var searchBar: UITextField!
@@ -27,7 +27,7 @@ class OrganizationViewController: UIViewController, OrganizationTableViewDelegat
   var conversationViewController: UIViewController?
 
   @IBOutlet weak var closeButtonHiddenConstraint: NSLayoutConstraint!
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -116,7 +116,7 @@ class OrganizationViewController: UIViewController, OrganizationTableViewDelegat
 
     closeButtonHiddenConstraint.priority = UILayoutPriorityDefaultHigh-1
     UIView.animateWithDuration(0.2) {
-      self.searchBar.layoutIfNeeded()
+      self.searchBar.layoutSubviews()
     }
 
     let transition = CATransition()
@@ -126,6 +126,7 @@ class OrganizationViewController: UIViewController, OrganizationTableViewDelegat
     self.navController?.view.layer.addAnimation(transition, forKey: nil)
 
     conversationListViewController = R.storyboard.conversations.initialViewController()
+    conversationListViewController?.conversationTableViewDelegate = self
     self.navController?.pushViewController(conversationListViewController!, animated: false)
   }
 
@@ -140,8 +141,9 @@ class OrganizationViewController: UIViewController, OrganizationTableViewDelegat
     })
 
     closeButtonHiddenConstraint.priority = UILayoutPriorityDefaultHigh+1
+
     UIView.animateWithDuration(0.2) {
-      self.searchBar.layoutIfNeeded()
+      self.searchBar.layoutSubviews()
     }
 
     let transition = CATransition()
@@ -152,6 +154,21 @@ class OrganizationViewController: UIViewController, OrganizationTableViewDelegat
 
     self.navController?.popViewControllerAnimated(false)
     conversationListViewController = nil
+  }
+
+  func conversationSelected(conversation: Conversation) {
+    let conversationViewController = R.storyboard.conversation.initialViewController()!
+    conversationViewController.conversation = conversation
+
+    self.hideConversations()
+
+    let transition = CATransition()
+    transition.duration = 0.3
+    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    transition.type = kCATransitionFade
+    conversationViewController.view.layer.addAnimation(transition, forKey: nil)
+
+    self.presentViewController(conversationViewController, animated: false, completion: nil)
   }
 }
 
@@ -167,6 +184,6 @@ extension OrganizationViewController: UITextFieldDelegate {
 
   @IBAction func textFieldDidChange(sender: UITextField) {
     let text = sender.text ?? ""
-    self.conversationListViewController?.conversationTableViewController?.filterFor(text)
+    self.conversationListViewController?.filterFor(text)
   }
 }

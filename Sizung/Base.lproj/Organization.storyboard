@@ -239,7 +239,7 @@
                                         </constraints>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                         <connections>
                                             <action selector="textFieldDidChange:" destination="jC2-I1-SwL" eventType="editingChanged" id="3Pr-HW-CDQ"/>
                                             <outlet property="delegate" destination="jC2-I1-SwL" id="5we-cd-sZl"/>
@@ -265,7 +265,7 @@
                                     <constraint firstItem="Qaa-Mh-6hu" firstAttribute="leading" secondItem="0dl-LS-tg6" secondAttribute="trailing" constant="10" id="eKr-qN-kzb"/>
                                     <constraint firstItem="0dl-LS-tg6" firstAttribute="centerY" secondItem="2Nt-o4-xOt" secondAttribute="centerY" id="eya-kq-9T9"/>
                                     <constraint firstItem="Qaa-Mh-6hu" firstAttribute="centerY" secondItem="2Nt-o4-xOt" secondAttribute="centerY" id="n4e-Yp-62h"/>
-                                    <constraint firstAttribute="trailing" secondItem="UPU-bF-efE" secondAttribute="trailing" constant="20" id="qST-eV-NXW"/>
+                                    <constraint firstAttribute="trailing" secondItem="UPU-bF-efE" secondAttribute="trailing" constant="10" id="qST-eV-NXW"/>
                                     <constraint firstAttribute="height" constant="48" id="s3M-Bw-FF0"/>
                                     <constraint firstItem="0dl-LS-tg6" firstAttribute="leading" secondItem="2Nt-o4-xOt" secondAttribute="leading" constant="20" id="v4k-FT-NpL"/>
                                     <constraint firstItem="0dl-LS-tg6" firstAttribute="centerY" secondItem="2Nt-o4-xOt" secondAttribute="centerY" id="zMD-Yp-yot"/>

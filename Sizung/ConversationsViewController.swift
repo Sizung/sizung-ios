@@ -13,6 +13,8 @@ class ConversationsViewController: UIViewController, KCFloatingActionButtonDeleg
 
   var conversationTableViewController: ConversationsTableViewController?
 
+  var conversationTableViewDelegate: ConversationTableViewDelegate?
+
   @IBOutlet weak var floatingActionButton: KCFloatingActionButton!
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -25,10 +27,15 @@ class ConversationsViewController: UIViewController, KCFloatingActionButtonDeleg
     self.showViewController(createConversationViewController, sender: nil)
   }
 
+  func filterFor(filterString: String) {
+    self.conversationTableViewController?.filterFor(filterString)
+  }
+
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if R.segue.conversationsViewController.embedConversationList(segue: segue) != nil {
       if let conversationTableViewController = segue.destinationViewController as? ConversationsTableViewController {
         self.conversationTableViewController = conversationTableViewController
+        self.conversationTableViewController?.delegate = conversationTableViewDelegate
       } else {
         fatalError()
       }

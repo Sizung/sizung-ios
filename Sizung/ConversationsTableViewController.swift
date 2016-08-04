@@ -18,6 +18,8 @@ class ConversationsTableViewController: UITableViewController {
   let sortedCollection: CollectionProperty <[Conversation]> = CollectionProperty([])
   let filteredCollection: CollectionProperty <[Conversation]> = CollectionProperty([])
 
+  var delegate: ConversationTableViewDelegate?
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -129,10 +131,11 @@ class ConversationsTableViewController: UITableViewController {
   }
 
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let conversationViewController = R.storyboard.conversation.initialViewController()!
     let selectedConversation = sortedCollection[indexPath.row]
-    conversationViewController.conversation = selectedConversation
-
-    self.showViewController(conversationViewController, sender: self)
+    delegate?.conversationSelected(selectedConversation)
   }
+}
+
+protocol ConversationTableViewDelegate {
+  func conversationSelected(conversation: Conversation)
 }
