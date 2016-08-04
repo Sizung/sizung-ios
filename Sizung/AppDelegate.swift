@@ -118,6 +118,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
     Configuration.reset()
     StorageManager.sharedInstance.reset()
 
+    // delete cookies
+    let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+    for cookie in storage.cookies! {
+      storage.deleteCookie(cookie)
+    }
+
     self.window?.rootViewController = R.storyboard.main.initialViewController()
 
     showLogin()
