@@ -44,7 +44,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecc-i2-b3G">
                                 <rect key="frame" x="0.0" y="80" width="600" height="520"/>
                                 <connections>
-                                    <segue destination="bB6-t6-x02" kind="embed" id="pB9-or-LIx"/>
+                                    <segue destination="bB6-t6-x02" kind="embed" identifier="embedConversationList" id="pB9-or-LIx"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZ6-LT-ZeM" customClass="KCFloatingActionButton" customModule="KCFloatingActionButton">

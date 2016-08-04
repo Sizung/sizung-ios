@@ -131,6 +131,7 @@ class OrganizationViewController: UIViewController, OrganizationTableViewDelegat
 
   func hideConversations() {
     self.searchBar.resignFirstResponder()
+    self.searchBar.text = ""
 
     UIView.animateWithDuration(0.2, animations: {
       self.closeButton.alpha = 0
@@ -162,5 +163,10 @@ extension OrganizationViewController: UITextFieldDelegate {
 
   func textFieldDidEndEditing(textField: UITextField) {
     self.hideConversations()
+  }
+
+  @IBAction func textFieldDidChange(sender: UITextField) {
+    let text = sender.text ?? ""
+    self.conversationListViewController?.conversationTableViewController?.filterFor(text)
   }
 }

@@ -13,7 +13,10 @@ import SwiftKeychainWrapper
 
 class ConversationsTableViewController: UITableViewController {
 
+  var filterDisposable: Disposable?
+
   let sortedCollection: CollectionProperty <[Conversation]> = CollectionProperty([])
+  let filteredCollection: CollectionProperty <[Conversation]> = CollectionProperty([])
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -41,8 +44,9 @@ class ConversationsTableViewController: UITableViewController {
         return left.title.compare(right.title) == .OrderedAscending
         }.bindTo(self.sortedCollection)
 
+      self.filterFor("")
 
-      self.sortedCollection.bindTo(self.tableView) { indexPath, conversations, tableView in
+      self.filteredCollection.bindTo(self.tableView, animated: true) { indexPath, conversations, tableView in
         if let cell = tableView.dequeueReusableCellWithIdentifier(
           R.nib.conversationTableViewCell.identifier,
           forIndexPath: indexPath)
@@ -97,6 +101,18 @@ class ConversationsTableViewController: UITableViewController {
         }
       }
     }
+  }
+
+  func filterFor(filterString: String) {
+    filterDisposable?.dispose()
+
+    filterDisposable = sortedCollection.filter { conversation in
+      if filterString.isEmpty {
+        return true
+      } else {
+        return conversation.title.containsString(filterString)
+      }
+    }.bindTo(filteredCollection)
   }
 
   func updateData() {
