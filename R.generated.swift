@@ -309,7 +309,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 17 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 18 nibs.
   struct nib {
     /// Nib `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell = _R.nib._AgendaItemTableViewCell()
@@ -341,6 +341,8 @@ struct R: Rswift.Validatable {
     static let streamAgendaTableViewCell = _R.nib._StreamAgendaTableViewCell()
     /// Nib `StreamConversationTableViewCell`.
     static let streamConversationTableViewCell = _R.nib._StreamConversationTableViewCell()
+    /// Nib `StreamDateTableViewCell`.
+    static let streamDateTableViewCell = _R.nib._StreamDateTableViewCell()
     /// Nib `TimelineAgendaItemTableViewCell`.
     static let timelineAgendaItemTableViewCell = _R.nib._TimelineAgendaItemTableViewCell()
     /// Nib `TimelineDeliverableTableViewCell`.
@@ -421,6 +423,11 @@ struct R: Rswift.Validatable {
       return UINib(resource: R.nib.streamConversationTableViewCell)
     }
     
+    /// `UINib(name: "StreamDateTableViewCell", bundle: ...)`
+    static func streamDateTableViewCell(_: Void) -> UINib {
+      return UINib(resource: R.nib.streamDateTableViewCell)
+    }
+    
     /// `UINib(name: "TimelineAgendaItemTableViewCell", bundle: ...)`
     static func timelineAgendaItemTableViewCell(_: Void) -> UINib {
       return UINib(resource: R.nib.timelineAgendaItemTableViewCell)
@@ -434,7 +441,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 14 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 15 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `AgendaItemTableViewCell`.
     static let agendaItemTableViewCell: ReuseIdentifier<AgendaItemTableViewCell> = ReuseIdentifier(identifier: "AgendaItemTableViewCell")
@@ -458,6 +465,8 @@ struct R: Rswift.Validatable {
     static let streamActionTableViewCell: ReuseIdentifier<StreamActionTableViewCell> = ReuseIdentifier(identifier: "StreamActionTableViewCell")
     /// Reuse identifier `StreamAgendaTableViewCell`.
     static let streamAgendaTableViewCell: ReuseIdentifier<StreamAgendaTableViewCell> = ReuseIdentifier(identifier: "StreamAgendaTableViewCell")
+    /// Reuse identifier `StreamDateTableViewCell`.
+    static let streamDateTableViewCell: ReuseIdentifier<StreamDateTableViewCell> = ReuseIdentifier(identifier: "StreamDateTableViewCell")
     /// Reuse identifier `StreamTableViewCell`.
     static let streamTableViewCell: ReuseIdentifier<StreamConversationTableViewCell> = ReuseIdentifier(identifier: "StreamTableViewCell")
     /// Reuse identifier `TimelineAgendaItemTableViewCell`.
@@ -875,6 +884,20 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> StreamConversationTableViewCell? {
         return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? StreamConversationTableViewCell
+      }
+      
+      private init() {}
+    }
+    
+    struct _StreamDateTableViewCell: NibResourceType, ReuseIdentifierType {
+      typealias ReusableType = StreamDateTableViewCell
+      
+      let bundle = _R.hostingBundle
+      let identifier = "StreamDateTableViewCell"
+      let name = "StreamDateTableViewCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [NSObject : AnyObject]? = nil) -> StreamDateTableViewCell? {
+        return instantiateWithOwner(ownerOrNil, options: optionsOrNil)[0] as? StreamDateTableViewCell
       }
       
       private init() {}

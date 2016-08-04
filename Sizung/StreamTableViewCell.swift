@@ -27,7 +27,7 @@ class StreamTableViewCell: UITableViewCell {
     }
   }
 
-  var streamObject: StreamObject? {
+  var streamObject: StreamBaseObject? {
     didSet {
       self.renderStreamItems()
     }

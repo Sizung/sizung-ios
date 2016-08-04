@@ -7,30 +7,57 @@
 //
 
 import Foundation
+import DateTools
 
-protocol StreamObjectProtocol {
+protocol StreamBaseObjectProtocol {
   var subject: BaseModel! { get }
 }
 
-class StreamObject: StreamObjectProtocol, Hashable, Equatable, DateSortable {
+class StreamObject: Hashable, DateSortable {
+  var date: NSDate = NSDate.distantPast()
+
+  var sortDate: NSDate { return date }
+  var hashValue: Int { return date.hashValue }
+
+  init() {
+
+  }
+}
+
+class StreamBaseObject: StreamObject, StreamBaseObjectProtocol {
 
   var subject: BaseModel! { return nil }
-  private var lastActionDate: NSDate! = NSDate.distantPast()
 
   func updateLastActionDate(date: NSDate) {
-    if date.isLaterThan(lastActionDate) {
-      lastActionDate = date
+    if date.isLaterThan(self.date) {
+      self.date = date
     }
   }
 
   var mentionAuthors: Set<User>! = []
   var commentAuthors: Set<User>! = []
 
-  var sortDate: NSDate { return lastActionDate }
-  var hashValue: Int { return subject.id.hashValue }
+  override var sortDate: NSDate { return date }
+  override var hashValue: Int { return subject.id.hashValue }
+
 }
 
-class StreamConversationObject: StreamObject {
+class StreamDateObject: StreamObject {
+
+  init(date: NSDate) {
+    super.init()
+    let beginningOfDay = NSCalendar.currentCalendar().startOfDayForDate(date)
+    // 23:59:59
+    self.date = beginningOfDay.dateByAddingHours(23).dateByAddingMinutes(59).dateByAddingSeconds(59)
+  }
+
+  func containsDate(date: NSDate) -> Bool {
+    let dayPeriod = DTTimePeriod(size: .Day, startingAt: self.date)
+    return dayPeriod.containsDate(date, interval: .Open)
+  }
+}
+
+class StreamConversationObject: StreamBaseObject {
   let conversation: Conversation!
 
   override var subject: BaseModel! { return conversation }
@@ -40,7 +67,7 @@ class StreamConversationObject: StreamObject {
   }
 }
 
-class StreamActionObject: StreamObject {
+class StreamActionObject: StreamBaseObject {
   let action: Deliverable!
   let author: User!
   let conversation: Conversation!
@@ -54,7 +81,7 @@ class StreamActionObject: StreamObject {
   }
 }
 
-class StreamAgendaObject: StreamObject {
+class StreamAgendaObject: StreamBaseObject {
   let agenda: AgendaItem!
   let owner: User!
   let conversation: Conversation!
@@ -70,5 +97,13 @@ class StreamAgendaObject: StreamObject {
 
 
 func == (lhs: StreamObject, rhs: StreamObject) -> Bool {
-  return lhs.subject.id == rhs.subject.id
+
+  // compare by id if both are Streambaseobject else use date
+  switch (lhs, rhs) {
+  case (let lhs as StreamBaseObject, let rhs as StreamBaseObject):
+    return lhs.subject.id == rhs.subject.id
+  default:
+    // group by day
+    return lhs.sortDate == rhs.sortDate
+  }
 }

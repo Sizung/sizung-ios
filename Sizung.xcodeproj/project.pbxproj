@@ -26,6 +26,8 @@
 		5A3114191D51D4DC007535D1 /* AppLoginDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3114181D51D4DC007535D1 /* AppLoginDelegate.swift */; };
 		5A31141B1D51D532007535D1 /* AppWebsocketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A31141A1D51D532007535D1 /* AppWebsocketDelegate.swift */; };
 		5A31141D1D51D5C4007535D1 /* AppItemLoadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A31141C1D51D5C4007535D1 /* AppItemLoadDelegate.swift */; };
+		5A3114221D51E515007535D1 /* StreamDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3114201D51E515007535D1 /* StreamDateTableViewCell.swift */; };
+		5A3114231D51E515007535D1 /* StreamDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A3114211D51E515007535D1 /* StreamDateTableViewCell.xib */; };
 		5A35A52B1CDCDDE8005E5B1B /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35A52A1CDCDDE8005E5B1B /* Test.swift */; };
 		5A35DC0C1D0AF9C300916118 /* AutoCompletionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */; };
 		5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */; };
@@ -189,6 +191,8 @@
 		5A3114181D51D4DC007535D1 /* AppLoginDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLoginDelegate.swift; sourceTree = "<group>"; };
 		5A31141A1D51D532007535D1 /* AppWebsocketDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppWebsocketDelegate.swift; sourceTree = "<group>"; };
 		5A31141C1D51D5C4007535D1 /* AppItemLoadDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppItemLoadDelegate.swift; sourceTree = "<group>"; };
+		5A3114201D51E515007535D1 /* StreamDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamDateTableViewCell.swift; sourceTree = "<group>"; };
+		5A3114211D51E515007535D1 /* StreamDateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamDateTableViewCell.xib; sourceTree = "<group>"; };
 		5A35A52A1CDCDDE8005E5B1B /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompletionTableCell.swift; sourceTree = "<group>"; };
 		5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoCompletionTableCell.xib; sourceTree = "<group>"; };
@@ -416,6 +420,8 @@
 				5A208E591D43601A00F765C9 /* StreamActionTableViewCell.xib */,
 				5A208E5A1D43601A00F765C9 /* StreamAgendaTableViewCell.swift */,
 				5A208E5B1D43601A00F765C9 /* StreamAgendaTableViewCell.xib */,
+				5A3114201D51E515007535D1 /* StreamDateTableViewCell.swift */,
+				5A3114211D51E515007535D1 /* StreamDateTableViewCell.xib */,
 			);
 			name = Stream;
 			sourceTree = "<group>";
@@ -884,6 +890,7 @@
 				5A304B3B1D18367F009CBBAD /* StartOfConversationView.xib in Resources */,
 				5A86B1291CE4BB64001C2E7A /* Configurations.plist in Resources */,
 				5A7329F91D05B1FC006531A5 /* Brandon_bld.otf in Resources */,
+				5A3114231D51E515007535D1 /* StreamDateTableViewCell.xib in Resources */,
 				5AF675CE1D37922B008C813D /* Main.storyboard in Resources */,
 				5A653E981CD7A96000FB3DEB /* Assets.xcassets in Resources */,
 				5A9D0EDC1D11998D00037589 /* Organizations.storyboard in Resources */,
@@ -1169,6 +1176,7 @@
 				5ADC88341D10508800596D67 /* TimelineAgendaItemTableViewCell.swift in Sources */,
 				5A68DC071D3D13C300687107 /* Attachment.swift in Sources */,
 				5A208E651D45252800F765C9 /* Log.swift in Sources */,
+				5A3114221D51E515007535D1 /* StreamDateTableViewCell.swift in Sources */,
 				5A304B3F1D184427009CBBAD /* UnseenObject.swift in Sources */,
 				5AD9F1B71CE9D0A100455D98 /* OrganzationMember.swift in Sources */,
 				5ABA4FBF1CFEC3B600110030 /* OrganizationViewController.swift in Sources */,

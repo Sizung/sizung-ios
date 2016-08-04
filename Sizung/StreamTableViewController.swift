@@ -35,6 +35,7 @@ class StreamTableViewController: UITableViewController {
     tableView.registerNib(R.nib.streamConversationTableViewCell)
     tableView.registerNib(R.nib.streamAgendaTableViewCell)
     tableView.registerNib(R.nib.streamActionTableViewCell)
+    tableView.registerNib(R.nib.streamDateTableViewCell)
 
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 100
@@ -93,7 +94,15 @@ class StreamTableViewController: UITableViewController {
           let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
           dispatch_async(dispatch_get_global_queue(priority, 0)) {
 
-            let reducedStreamObjects = self.filteredUnseenObjects.collection.reduce([], combine: self.reduceUnseenObjectsToStreamObjects)
+            var reducedStreamObjects: Set<StreamObject> = self.filteredUnseenObjects.collection.reduce(Set(), combine: self.reduceUnseenObjectsToStreamObjects)
+
+            // calculate days
+            let daySet: Set<StreamObject> = Set(reducedStreamObjects.map { object in
+              return StreamDateObject(date: object.sortDate)
+            })
+
+            // add day objects to array
+            reducedStreamObjects.unionInPlace(daySet)
 
             let sortedObjects = reducedStreamObjects.sort {
               $0.0.sortDate.isLaterThan($0.1.sortDate)
@@ -189,7 +198,7 @@ class StreamTableViewController: UITableViewController {
       }.bindTo(self.filteredUnseenObjects)
   }
 
-  func reduceUnseenObjectsToStreamObjects(prev: [StreamObject], unseenObject: UnseenObject) -> [StreamObject] {
+  func reduceUnseenObjectsToStreamObjects(prev: Set<StreamBaseObject>, unseenObject: UnseenObject) -> Set<StreamBaseObject> {
     var next = prev
 
     var streamObject = prev.filter { streamObject in
@@ -218,7 +227,7 @@ class StreamTableViewController: UITableViewController {
         return next
       }
 
-      next.append(streamObject!)
+      next.insert(streamObject!)
     }
 
     // update last actiondate
@@ -229,7 +238,7 @@ class StreamTableViewController: UITableViewController {
     return next
   }
 
-  func fillFromTarget(streamObject: StreamObject, unseenObject: UnseenObject) {
+  func fillFromTarget(streamObject: StreamBaseObject, unseenObject: UnseenObject) {
     switch unseenObject.target {
     case let comment as Comment:
       if let user = storageManager!.users[comment.authorId] {
@@ -260,26 +269,54 @@ class StreamTableViewController: UITableViewController {
 
   func cellForRow(indexPath: NSIndexPath, streamObjects: [StreamObject], tableView: UITableView) -> UITableViewCell {
 
-    var cell: StreamTableViewCell
     let streamObject = streamObjects[indexPath.row]
 
-    switch streamObject.subject {
-    case is Conversation:
-      cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamConversationTableViewCell, forIndexPath: indexPath)!
-    case is AgendaItem:
-      cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamAgendaTableViewCell, forIndexPath: indexPath)!
-    case is Deliverable:
-      cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamActionTableViewCell, forIndexPath: indexPath)!
+    switch streamObject {
+    case is StreamDateObject:
+      let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamDateTableViewCell, forIndexPath: indexPath)!
+      cell.setDate(streamObject.date)
+
+      return cell
+    case let streamBaseObject as StreamBaseObject:
+
+      var cell: StreamTableViewCell
+
+      switch streamBaseObject.subject {
+      case is Conversation:
+        cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamConversationTableViewCell, forIndexPath: indexPath)!
+      case is AgendaItem:
+        cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamAgendaTableViewCell, forIndexPath: indexPath)!
+      case is Deliverable:
+        cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamActionTableViewCell, forIndexPath: indexPath)!
+      default:
+        fatalError("unkown streamobject \(streamBaseObject.subject)")
+      }
+      cell.streamObject = streamBaseObject
+
+      return cell
+
     default:
-      fatalError("unkown streamobject \(streamObject.subject)")
+      fatalError("unkown type: \(streamObject.dynamicType)")
     }
+  }
 
-    cell.streamObject = streamObject
-
-    return cell
+  override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    switch self.streamObjects[indexPath.row] {
+    case is StreamDateObject:
+      return 44
+    default:
+      return UITableViewAutomaticDimension
+    }
   }
 
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+
+
+    let streamObject = self.streamObjects[indexPath.row]
+
+    guard let streamBaseObject = streamObject as? StreamBaseObject else {
+      return
+    }
 
     let cell = self.tableView.cellForRowAtIndexPath(indexPath)
 
@@ -290,9 +327,8 @@ class StreamTableViewController: UITableViewController {
       MRProgressOverlayView.dismissOverlayForView(cell, animated: true)
     }
 
-    let streamObject = self.streamObjects[indexPath.row]
 
-    switch streamObject.subject {
+    switch streamBaseObject.subject {
     case let conversation as Conversation:
       MRProgressOverlayView.dismissOverlayForView(cell, animated: true)
       self.openViewControllerFor(nil, inConversation: conversation)

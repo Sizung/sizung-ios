@@ -10,7 +10,7 @@ import UIKit
 
 class StreamConversationTableViewCell: StreamTableViewCell {
 
-  override var streamObject: StreamObject? {
+  override var streamObject: StreamBaseObject? {
     didSet {
       if let streamObject = streamObject as? StreamConversationObject {
         self.titleButton.setTitle(streamObject.conversation.title, forState: .Normal)
