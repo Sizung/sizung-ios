@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import MRProgress
 
-extension TimelineTableViewController {
+extension TimelineTableViewController: UIViewControllerTransitioningDelegate {
 
   // MARK: - UITableViewDataSource Methods
 
@@ -242,12 +242,12 @@ extension TimelineTableViewController {
         let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
         agendaItemViewController.agendaItem = agendaItem
 
-        self.navigationController?.pushViewController(agendaItemViewController, animated: true)
+        self.showViewController(agendaItemViewController, fromFrame: tableView.rectForRowAtIndexPath(indexPath))
       case let deliverable as Deliverable:
         let deliverableViewController = R.storyboard.deliverable.initialViewController()!
         deliverableViewController.deliverable = deliverable
 
-        self.navigationController?.pushViewController(deliverableViewController, animated: true)
+        self.showViewController(deliverableViewController, fromFrame: tableView.rectForRowAtIndexPath(indexPath))
       case let attachment as Attachment:
         var localPath: NSURL?
 
@@ -289,8 +289,6 @@ extension TimelineTableViewController {
             request.cancel()
           }
         }
-        
-        
       case is Comment:
         // don't react to comment clicks
         break
@@ -298,5 +296,9 @@ extension TimelineTableViewController {
         fatalError("unkown row at didSelectRowAtIndexPath \(indexPath)")
       }
     }
+  }
+
+  func showViewController(viewController: UIViewController, fromFrame frame: CGRect) {
+    self.presentViewController(viewController, animated: true, completion: nil)
   }
 }
