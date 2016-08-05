@@ -1114,6 +1114,7 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIImage(named: "action_title") == nil { throw ValidationError(description: "[R.swift] Image named 'action_title' is used in storyboard 'Deliverable', but couldn't be loaded.") }
+        if UIImage(named: "bg_actions") == nil { throw ValidationError(description: "[R.swift] Image named 'bg_actions' is used in storyboard 'Deliverable', but couldn't be loaded.") }
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Deliverable', but couldn't be loaded.") }
         if _R.storyboard.deliverable().create() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'create' could not be loaded from storyboard 'Deliverable' as 'CreateActionViewController'.") }
         if _R.storyboard.deliverable().createActionContentViewController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'createActionContentViewController' could not be loaded from storyboard 'Deliverable' as 'CreateActionContentViewController'.") }

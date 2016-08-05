@@ -15,6 +15,7 @@ class CreateAgendaItemViewController: UIViewController, UITextFieldDelegate {
   var agendaItemCreateDelegate: AgendaItemCreateDelegate?
   var storageManager: OrganizationStorageManager?
 
+  @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var agendaItemNameTextField: UITextField!
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -26,6 +27,10 @@ class CreateAgendaItemViewController: UIViewController, UITextFieldDelegate {
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         self.storageManager = storageManager
+    }
+
+    if let title = agendaItem?.title {
+      self.titleLabel.text = "Edit '\(title)'"
     }
 
     agendaItemNameTextField.text = self.agendaItem?.title
@@ -62,7 +67,11 @@ class CreateAgendaItemViewController: UIViewController, UITextFieldDelegate {
     }
 
     // save agenda
-    storageManager?.createAgendaItem(agendaItem!).onSuccess(callback: successFunc).onFailure(callback: errorFunc)
+    if agendaItem!.new {
+      storageManager?.createAgendaItem(agendaItem!).onSuccess(callback: successFunc).onFailure(callback: errorFunc)
+    } else {
+      storageManager?.updateAgendaItem(agendaItem!).onSuccess(callback: successFunc).onFailure(callback: errorFunc)
+    }
   }
 
   func textFieldShouldReturn(textField: UITextField) -> Bool {

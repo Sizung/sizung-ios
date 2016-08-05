@@ -83,7 +83,7 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     conversationNameTextField.text = conversation.title
 
     if !conversation.new {
-      titleButton.text = "Edit \(conversation.title)"
+      titleButton.text = "Edit '\(conversation.title)'"
     }
 
   }

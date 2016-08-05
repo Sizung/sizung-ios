@@ -13,7 +13,7 @@ import MRProgress
 class AgendaItemViewController: UIViewController,
 ActionCreateDelegate,
 FilesPickerDelegate,
-AgendaItemCreateDelegate{
+AgendaItemCreateDelegate {
 
   @IBOutlet weak var agendaOwnerAvatarView: AvatarImageView!
   @IBOutlet weak var titleButton: UIButton!
@@ -51,7 +51,7 @@ AgendaItemCreateDelegate{
         timelineTableViewController.timelineParent = agendaItem
     }
   }
-  
+
   @IBAction func edit(sender: AnyObject) {
     let createAgendaItemViewController = R.storyboard.agendaItem.create()!
     createAgendaItemViewController.agendaItem = self.agendaItem

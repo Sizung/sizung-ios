@@ -6,8 +6,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="Brandon Text W01 Medium.ttf">
+            <string>BrandonTextW01-Medium</string>
+        </mutableArray>
         <mutableArray key="Brandon_med.otf">
-            <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
@@ -35,20 +37,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NfS-yD-wtj">
-                                <rect key="frame" x="0.0" y="20" width="600" height="55"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="45"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8D5-1o-hBO">
-                                        <rect key="frame" x="20" y="9" width="42" height="37"/>
-                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
-                                        <state key="normal" title="&lt; back">
-                                            <color key="titleColor" red="0.97647058959999999" green="0.40000000600000002" blue="0.37647059560000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="back:" destination="GPy-5R-nwL" eventType="touchUpInside" id="Xgd-IB-ZSR"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg1-da-c05">
-                                        <rect key="frame" x="540" y="9" width="40" height="37"/>
+                                        <rect key="frame" x="540" y="4" width="40" height="37"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <state key="normal" title="status">
                                             <color key="titleColor" red="0.97647058959999999" green="0.40000000600000002" blue="0.37647059560000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -57,47 +49,50 @@
                                             <action selector="showStatusPopover:" destination="GPy-5R-nwL" eventType="touchUpInside" id="dyV-Io-6hk"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BtO-YG-58F" customClass="AvatarImageView" customModule="Sizung" customModuleProvider="target">
-                                        <rect key="frame" x="490" y="12" width="30" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nYB-1C-4Be">
+                                        <rect key="frame" x="15" y="8" width="87" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="BBR-lT-6hA"/>
-                                            <constraint firstAttribute="height" constant="30" id="f36-fi-veZ"/>
+                                            <constraint firstAttribute="height" constant="30" id="LQ6-nc-zW5"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="BrandonTextW01-Medium" family="BrandonTextW01-Medium" pointSize="15"/>
+                                        <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <state key="normal" title="title" backgroundImage="bg_actions">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="edit:" destination="GPy-5R-nwL" eventType="touchUpInside" id="lnC-AD-T5j"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BtO-YG-58F" customClass="AvatarImageView" customModule="Sizung" customModuleProvider="target">
+                                        <rect key="frame" x="17" y="10" width="26" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="26" id="BBR-lT-6hA"/>
+                                            <constraint firstAttribute="height" constant="26" id="f36-fi-veZ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="10"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="BtO-YG-58F" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8D5-1o-hBO" secondAttribute="trailing" constant="20" id="D4e-md-Jx8"/>
                                     <constraint firstAttribute="trailing" secondItem="vg1-da-c05" secondAttribute="trailing" constant="20" id="DD8-qt-UnK"/>
-                                    <constraint firstItem="8D5-1o-hBO" firstAttribute="leading" secondItem="NfS-yD-wtj" secondAttribute="leading" constant="20" id="MAY-Pf-vtg"/>
-                                    <constraint firstItem="8D5-1o-hBO" firstAttribute="centerY" secondItem="NfS-yD-wtj" secondAttribute="centerY" id="Oud-3X-bGO"/>
-                                    <constraint firstItem="vg1-da-c05" firstAttribute="centerY" secondItem="8D5-1o-hBO" secondAttribute="centerY" id="W7r-A4-m4E"/>
-                                    <constraint firstAttribute="height" constant="55" id="gaW-eT-I6B"/>
+                                    <constraint firstItem="vg1-da-c05" firstAttribute="centerY" secondItem="nYB-1C-4Be" secondAttribute="centerY" id="DJO-b9-v5t"/>
+                                    <constraint firstItem="nYB-1C-4Be" firstAttribute="centerY" secondItem="NfS-yD-wtj" secondAttribute="centerY" id="Eru-1L-Nzl"/>
+                                    <constraint firstItem="BtO-YG-58F" firstAttribute="leading" secondItem="nYB-1C-4Be" secondAttribute="leading" constant="2" id="TbN-fV-URe"/>
+                                    <constraint firstItem="nYB-1C-4Be" firstAttribute="leading" secondItem="NfS-yD-wtj" secondAttribute="leading" constant="15" id="VYb-Ry-rJT"/>
+                                    <constraint firstItem="vg1-da-c05" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nYB-1C-4Be" secondAttribute="trailing" constant="15" id="aW3-v0-myQ"/>
+                                    <constraint firstAttribute="height" constant="45" id="gaW-eT-I6B"/>
                                     <constraint firstItem="vg1-da-c05" firstAttribute="centerY" secondItem="BtO-YG-58F" secondAttribute="centerY" id="kXd-aZ-Kcx"/>
+                                    <constraint firstItem="BtO-YG-58F" firstAttribute="centerY" secondItem="nYB-1C-4Be" secondAttribute="centerY" id="plW-yj-75f"/>
                                     <constraint firstItem="vg1-da-c05" firstAttribute="leading" secondItem="BtO-YG-58F" secondAttribute="trailing" constant="20" id="vXp-Wm-8fW"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B1z-Bp-NfA">
-                                <rect key="frame" x="0.0" y="75" width="600" height="45"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TIA-Ju-D2o">
-                                        <rect key="frame" x="20" y="10" width="560" height="25"/>
-                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
-                                        <color key="textColor" red="0.97647058959999999" green="0.40000000600000002" blue="0.37647059560000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.92086140760000001" green="0.93563458519999998" blue="0.90608822990000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="TIA-Ju-D2o" firstAttribute="leading" secondItem="B1z-Bp-NfA" secondAttribute="leading" constant="20" id="8pm-ns-8Nd"/>
-                                    <constraint firstAttribute="bottom" secondItem="TIA-Ju-D2o" secondAttribute="bottom" constant="10" id="A8a-on-3kZ"/>
-                                    <constraint firstItem="TIA-Ju-D2o" firstAttribute="top" secondItem="B1z-Bp-NfA" secondAttribute="top" constant="10" id="Elg-pS-O86"/>
-                                    <constraint firstAttribute="trailing" secondItem="TIA-Ju-D2o" secondAttribute="trailing" constant="20" id="bni-yj-aT7"/>
-                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="vXp-Wm-8fW"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3E-Ai-F2L">
-                                <rect key="frame" x="0.0" y="120" width="600" height="480"/>
+                                <rect key="frame" x="0.0" y="65" width="600" height="535"/>
                                 <connections>
                                     <segue destination="Mz8-Qe-oEK" kind="embed" identifier="embed" id="fkn-o5-abH"/>
                                 </connections>
@@ -107,15 +102,12 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="NfS-yD-wtj" secondAttribute="trailing" constant="-20" id="2jT-3V-k92"/>
                             <constraint firstItem="NfS-yD-wtj" firstAttribute="top" secondItem="9rz-ZZ-vna" secondAttribute="bottom" id="6E1-oD-kAn"/>
-                            <constraint firstItem="x3E-Ai-F2L" firstAttribute="top" secondItem="B1z-Bp-NfA" secondAttribute="bottom" id="8Mw-2d-nu3"/>
                             <constraint firstItem="FcR-Qm-Tyy" firstAttribute="top" secondItem="x3E-Ai-F2L" secondAttribute="bottom" id="9cp-Pl-ntp"/>
+                            <constraint firstItem="x3E-Ai-F2L" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="bottom" id="JpZ-SW-AEx"/>
                             <constraint firstItem="x3E-Ai-F2L" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="bottom" id="Kfy-Tt-Ejq"/>
                             <constraint firstAttribute="trailing" secondItem="x3E-Ai-F2L" secondAttribute="trailing" id="V58-A3-SMs"/>
-                            <constraint firstItem="B1z-Bp-NfA" firstAttribute="leading" secondItem="O7V-TP-UOm" secondAttribute="leading" id="XGZ-rU-VK3"/>
                             <constraint firstItem="x3E-Ai-F2L" firstAttribute="leading" secondItem="O7V-TP-UOm" secondAttribute="leading" id="euc-uq-ou1"/>
-                            <constraint firstItem="B1z-Bp-NfA" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="bottom" id="xwL-bq-zLB"/>
                             <constraint firstItem="NfS-yD-wtj" firstAttribute="leading" secondItem="O7V-TP-UOm" secondAttribute="leadingMargin" constant="-20" id="ygW-Li-hcc"/>
-                            <constraint firstAttribute="trailing" secondItem="B1z-Bp-NfA" secondAttribute="trailing" id="zsC-SN-4dW"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -126,13 +118,8 @@
                     <toolbarItems/>
                     <connections>
                         <outlet property="assigneeImageView" destination="BtO-YG-58F" id="8mA-OR-Ad2"/>
-                        <outlet property="backButton" destination="8D5-1o-hBO" id="nrU-90-mYG"/>
-                        <outlet property="statusBar" destination="NfS-yD-wtj" id="Cqw-SB-2CN"/>
                         <outlet property="statusButton" destination="vg1-da-c05" id="AgE-aI-O5W"/>
-                        <outlet property="titleBar" destination="B1z-Bp-NfA" id="ILm-sF-sd2"/>
-                        <outlet property="titleBottomConstraint" destination="A8a-on-3kZ" id="YVw-wV-cAh"/>
-                        <outlet property="titleLabel" destination="TIA-Ju-D2o" id="0lQ-g1-pHY"/>
-                        <outlet property="titleTopConstraint" destination="Elg-pS-O86" id="6XA-Hf-aHp"/>
+                        <outlet property="titleButton" destination="nYB-1C-4Be" id="bA0-Wp-Yqv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BO4-Kt-VOn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -148,7 +135,7 @@
                         <viewControllerLayoutGuide type="bottom" id="vDd-0G-jah"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="KCh-Ee-fve">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="535"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -172,7 +159,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1pZ-X2-gDc">
                                 <rect key="frame" x="0.0" y="20" width="600" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Action" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIs-bd-LkA">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="New Action" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIs-bd-LkA">
                                         <rect key="frame" x="85" y="17" width="80" height="25"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -187,7 +174,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gO7-aJ-Yad">
-                                        <rect key="frame" x="516" y="15" width="34" height="30"/>
+                                        <rect key="frame" x="519" y="11" width="31" height="37"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <state key="normal" title="Save">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -206,6 +194,7 @@
                                     <constraint firstItem="zNc-UW-Z8R" firstAttribute="leading" secondItem="1pZ-X2-gDc" secondAttribute="leading" constant="20" id="ITy-nS-zTC"/>
                                     <constraint firstItem="XIs-bd-LkA" firstAttribute="centerY" secondItem="1pZ-X2-gDc" secondAttribute="centerY" id="Iw2-vf-Bnt"/>
                                     <constraint firstItem="e1U-jq-75c" firstAttribute="centerY" secondItem="1pZ-X2-gDc" secondAttribute="centerY" id="Jc7-wk-eZ1"/>
+                                    <constraint firstItem="gO7-aJ-Yad" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XIs-bd-LkA" secondAttribute="trailing" constant="8" id="K53-ID-Azt"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="NQm-D2-QxB"/>
                                     <constraint firstItem="gO7-aJ-Yad" firstAttribute="centerY" secondItem="XIs-bd-LkA" secondAttribute="centerY" id="kCV-0L-wfl"/>
                                     <constraint firstItem="XIs-bd-LkA" firstAttribute="leading" secondItem="1pZ-X2-gDc" secondAttribute="leading" constant="19" id="kYC-Tk-a78"/>
@@ -258,6 +247,7 @@
                     </view>
                     <connections>
                         <outlet property="actionNameTextField" destination="zgg-k0-EE6" id="Yz7-VV-n2h"/>
+                        <outlet property="titleLabel" destination="XIs-bd-LkA" id="JO9-2P-tjm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TaU-4c-KTU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -441,6 +431,7 @@
     </scenes>
     <resources>
         <image name="action_title" width="57" height="57"/>
+        <image name="bg_actions" width="45" height="30"/>
         <image name="close" width="32" height="32"/>
     </resources>
 </document>

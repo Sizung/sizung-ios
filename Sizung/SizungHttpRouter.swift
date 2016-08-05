@@ -236,6 +236,8 @@ enum SizungHttpRouter: URLRequestConvertible {
     case .UpdateDeliverable(let deliverable):
 
       var deliverableJSON: Dictionary<String, AnyObject> = [
+        "title": deliverable.title,
+        "assignee_id": deliverable.assigneeId,
         "status": deliverable.status,
         "archived": deliverable.archived == true
       ]
@@ -250,12 +252,15 @@ enum SizungHttpRouter: URLRequestConvertible {
       return [
         "agenda_item": [
           "conversation_id": agendaItem.conversationId,
-          "title": agendaItem.title
+          "title": agendaItem.title,
+          "owner_id": agendaItem.ownerId
         ]
       ]
     case .UpdateAgendaItem(let agendaItem):
 
       let agendaItemJSON: Dictionary<String, AnyObject> = [
+        "title": agendaItem.title,
+        "owner_id": agendaItem.ownerId,
         "status": agendaItem.status,
         "archived": agendaItem.archived == true
       ]
