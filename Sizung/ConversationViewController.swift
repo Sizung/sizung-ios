@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConversationViewController: UIViewController {
+class ConversationViewController: UIViewController, UINavigationControllerDelegate {
 
   var conversation: Conversation!
 
@@ -43,6 +43,8 @@ class ConversationViewController: UIViewController {
       if let navController = segue.destinationViewController as? UINavigationController {
 
         self.navController = navController
+
+        navController.delegate = self
 
         if let conversationContentViewController = navController.viewControllers.first as? ConversationContentViewController {
           conversationContentViewController.conversation = self.conversation
@@ -86,6 +88,19 @@ class ConversationViewController: UIViewController {
       }
     } else {
       fatalError()
+    }
+  }
+
+  func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+
+    var titleColor = Color.BACKGROUND
+
+    if navigationController.viewControllers.count > 1 {
+      titleColor = Color.SEARCHBAR
+    }
+
+    UIView.animateWithDuration(0.2) {
+      self.view.backgroundColor = titleColor
     }
   }
 }

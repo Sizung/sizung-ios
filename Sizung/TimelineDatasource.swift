@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import MRProgress
 
-extension TimelineTableViewController: UIViewControllerTransitioningDelegate {
+extension TimelineTableViewController: ExpandingTransitionPresentingViewController {
 
   // MARK: - UITableViewDataSource Methods
 
@@ -249,46 +249,7 @@ extension TimelineTableViewController: UIViewControllerTransitioningDelegate {
 
         self.showViewController(deliverableViewController, fromFrame: tableView.rectForRowAtIndexPath(indexPath))
       case let attachment as Attachment:
-        var localPath: NSURL?
-
-        let progressView = MRProgressOverlayView.showOverlayAddedTo(self.view, animated: true)
-        progressView.mode = .DeterminateCircular
-
-        let request = Alamofire.download(.GET, attachment.fileUrl,
-          destination: { (temporaryURL, response) in
-            let tempPath = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
-
-            let subFolder = tempPath.URLByAppendingPathComponent(attachment.id, isDirectory: true)
-
-            do {
-              try NSFileManager.defaultManager().createDirectoryAtURL(subFolder, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-              fatalError()
-            }
-
-            localPath = subFolder.URLByAppendingPathComponent(attachment.fileName)
-
-            return localPath!
-        })
-          .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-            let progress = Float(totalBytesRead)/Float(totalBytesExpectedToRead)
-            progressView.setProgress(progress, animated: true)
-          }
-          .response { (request, response, _, error) in
-            if let localPath = localPath {
-
-              self.previewFilePath = localPath
-
-              self.showPreview()
-            }
-            MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
-        }
-        // display a stop button for large files
-        if attachment.fileSize > 10*1024*1024 {
-          progressView.stopBlock = { progressOverlayView in
-            request.cancel()
-          }
-        }
+        self.loadAttachment(attachment)
       case is Comment:
         // don't react to comment clicks
         break
@@ -298,7 +259,67 @@ extension TimelineTableViewController: UIViewControllerTransitioningDelegate {
     }
   }
 
+  func loadAttachment(attachment: Attachment) {
+    var localPath: NSURL?
+
+    let progressView = MRProgressOverlayView.showOverlayAddedTo(self.view, animated: true)
+    progressView.mode = .DeterminateCircular
+
+    let request = Alamofire.download(.GET, attachment.fileUrl,
+      destination: { (temporaryURL, response) in
+        let tempPath = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+
+        let subFolder = tempPath.URLByAppendingPathComponent(attachment.id, isDirectory: true)
+
+        do {
+          try NSFileManager.defaultManager().createDirectoryAtURL(subFolder, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+          fatalError()
+        }
+
+        localPath = subFolder.URLByAppendingPathComponent(attachment.fileName)
+
+        return localPath!
+    })
+      .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+        let progress = Float(totalBytesRead)/Float(totalBytesExpectedToRead)
+        progressView.setProgress(progress, animated: true)
+      }
+      .response { (request, response, _, error) in
+        if let localPath = localPath {
+
+          self.previewFilePath = localPath
+
+          self.showPreview()
+        }
+        MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
+    }
+    // display a stop button for large files
+    if attachment.fileSize > 10*1024*1024 {
+      progressView.stopBlock = { progressOverlayView in
+        request.cancel()
+      }
+    }
+  }
+
   func showViewController(viewController: UIViewController, fromFrame frame: CGRect) {
-    self.presentViewController(viewController, animated: true, completion: nil)
+    let transition = CATransition()
+    transition.duration = 0.3
+    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    transition.type = kCATransitionPush
+    transition.subtype = kCATransitionFromTop
+    self.navigationController?.view.layer.addAnimation(transition, forKey: nil)
+
+    self.navigationController?.pushViewController(viewController, animated: false)
+  }
+
+  // MARK: ExpandingTransitionPresentingViewController
+
+  func expandingTransitionTargetViewForTransition(transition: ExpandingCellTransition) -> UIView! {
+    if let indexPath = selectedIndexPath {
+      return tableView.cellForRowAtIndexPath(indexPath)
+    } else {
+      return nil
+    }
   }
 }

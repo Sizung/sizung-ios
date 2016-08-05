@@ -17,4 +17,6 @@ struct Color {
   static let STREAM = TEAM
   static let TODO = UIColor(red: 0.94, green: 0.46, blue: 0.45, alpha: 1)
   static let CHAT = UIColor(red: 0.43, green: 0.77, blue: 0.82, alpha: 1)
+  static let BACKGROUND = UIColor(red:0.10, green:0.11, blue:0.14, alpha:1.0)
+  static let SEARCHBAR = UIColor(red:0.87, green:0.87, blue:0.85, alpha:1.0)
 }

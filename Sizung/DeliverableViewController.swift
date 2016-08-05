@@ -105,11 +105,6 @@ class DeliverableViewController: UIViewController,
     statusButton.setTitle(statusString, forState: .Normal)
   }
 
-  @IBAction func close(sender: AnyObject) {
-    self.dismissViewControllerAnimated(true, completion: nil)
-  }
-
-
   // MARK: - Navigation
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -159,7 +154,16 @@ class DeliverableViewController: UIViewController,
 
   // show previous view controller
   @IBAction func back(sender: AnyObject) {
-    self.navigationController?.popViewControllerAnimated(true)
+
+    let transition = CATransition()
+    transition.duration = 0.3
+    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    transition.type = kCATransitionPush
+    transition.subtype = kCATransitionFromBottom
+
+    self.navigationController?.view.layer.addAnimation(transition, forKey: nil)
+
+    self.navigationController?.popViewControllerAnimated(false)
   }
 
   func showDatePicker(sender: UIButton) {

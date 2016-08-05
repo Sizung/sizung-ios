@@ -36,6 +36,9 @@ class TimelineTableViewController: SLKTextViewController {
 
   var previewFilePath: NSURL?
 
+  let expandingCellTransition = ExpandingCellTransition()
+  var selectedIndexPath: NSIndexPath?
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -153,6 +156,7 @@ class TimelineTableViewController: SLKTextViewController {
   }
 
   func commonInit() {func commonInit() {
+    self.transitioningDelegate = expandingCellTransition
     NSNotificationCenter.defaultCenter().addObserver(self.tableView, selector: #selector(UITableView.reloadData), name: UIContentSizeCategoryDidChangeNotification, object: nil)
     }
   }
