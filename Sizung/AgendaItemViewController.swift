@@ -12,31 +12,32 @@ import MRProgress
 
 class AgendaItemViewController: UIViewController,
 ActionCreateDelegate,
-FilesPickerDelegate {
+FilesPickerDelegate,
+AgendaItemCreateDelegate{
 
+  @IBOutlet weak var agendaOwnerAvatarView: AvatarImageView!
+  @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var statusButton: UIButton!
 
   var agendaItem: AgendaItem!
-
-  @IBOutlet weak var titleBar: UIView!
-  @IBOutlet weak var titleLabel: UILabel!
-
-  @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
-  @IBOutlet weak var titleBottomConstraint: NSLayoutConstraint!
-  var oldConstraintConstant: CGFloat = 0
 
   var floatingActionButton: KCFloatingActionButton?
 
   var filePicker = JVTImageFilePicker()
 
+  var storageManager: OrganizationStorageManager?
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.titleLabel.text = self.agendaItem.title
-    statusButton.setTitle(agendaItem.status, forState: .Normal)
+    self.titleButton.setTitle(self.agendaItem.title, forState: .Normal)
 
-    oldConstraintConstant = titleTopConstraint.constant
-    registerForKeyboardChanges()
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        self.storageManager = storageManager
+
+        self.agendaOwnerAvatarView.user = storageManager.users[self.agendaItem.ownerId]
+    }
 
     initFloatingActionButton()
   }
@@ -49,6 +50,14 @@ FilesPickerDelegate {
       as? TimelineTableViewController {
         timelineTableViewController.timelineParent = agendaItem
     }
+  }
+  
+  @IBAction func edit(sender: AnyObject) {
+    let createAgendaItemViewController = R.storyboard.agendaItem.create()!
+    createAgendaItemViewController.agendaItem = self.agendaItem
+    createAgendaItemViewController.conversation = self.storageManager?.conversations[agendaItem.conversationId]
+    createAgendaItemViewController.agendaItemCreateDelegate = self
+    self.presentViewController(createAgendaItemViewController, animated: true, completion: nil)
   }
 
   @IBAction func showStatusPopover(sender: UIButton) {
@@ -106,40 +115,6 @@ FilesPickerDelegate {
 
     self.navigationController?.popViewControllerAnimated(false)
 
-  }
-
-  func registerForKeyboardChanges() {
-    NSNotificationCenter.defaultCenter().addObserver(
-      self,
-      selector: #selector(self.keyboardWillShow),
-      name: UIKeyboardWillShowNotification,
-      object: nil
-    )
-
-    NSNotificationCenter.defaultCenter().addObserver(
-      self,
-      selector: #selector(self.keyboardWillHide),
-      name: UIKeyboardWillHideNotification,
-      object: nil
-    )
-  }
-
-  func keyboardWillShow() {
-    self.titleTopConstraint.constant = 0
-    self.titleBottomConstraint.constant = 0
-    UIView.animateWithDuration(5) {
-      self.titleLabel.text = nil
-      self.titleBar.layoutIfNeeded()
-    }
-  }
-
-  func keyboardWillHide() {
-    self.titleTopConstraint.constant = oldConstraintConstant
-    self.titleBottomConstraint.constant = oldConstraintConstant
-    UIView.animateWithDuration(5) {
-      self.titleLabel.text = self.agendaItem.title
-      self.titleBar.layoutIfNeeded()
-    }
   }
 
   // MARK: - FAB
@@ -227,5 +202,10 @@ FilesPickerDelegate {
             progressView.dismiss(true)
         }
     }
+  }
+
+  func agendaItemCreated(agendaItem: AgendaItem) {
+    self.titleButton.setTitle(agendaItem.title, forState: .Normal)
+    InAppMessage.showSuccessMessage("Updated agenda")
   }
 }

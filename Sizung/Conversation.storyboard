@@ -53,7 +53,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KMu-4V-qY2">
-                                        <rect key="frame" x="493" y="4" width="51" height="26"/>
+                                        <rect key="frame" x="243" y="4" width="51" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26" id="mZY-pg-zA7"/>
                                         </constraints>
@@ -89,14 +89,14 @@
                                 <constraints>
                                     <constraint firstItem="KMu-4V-qY2" firstAttribute="centerY" secondItem="nja-wa-7fB" secondAttribute="centerY" id="0la-XO-eeg"/>
                                     <constraint firstAttribute="trailing" secondItem="nja-wa-7fB" secondAttribute="trailing" id="FY1-vu-y4T"/>
-                                    <constraint firstItem="KMu-4V-qY2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1Je-gS-fJ1" secondAttribute="trailing" constant="10" id="Gb1-kO-RsK"/>
+                                    <constraint firstItem="KMu-4V-qY2" firstAttribute="leading" secondItem="1Je-gS-fJ1" secondAttribute="trailing" constant="15" id="Gb1-kO-RsK"/>
                                     <constraint firstAttribute="trailing" secondItem="qpD-n7-zcf" secondAttribute="trailing" constant="10" id="L7C-fJ-Di8"/>
                                     <constraint firstItem="nja-wa-7fB" firstAttribute="leading" secondItem="2gc-wH-8Dw" secondAttribute="leading" constant="40" id="RxZ-yR-nLy"/>
                                     <constraint firstItem="1Je-gS-fJ1" firstAttribute="leading" secondItem="nja-wa-7fB" secondAttribute="leading" constant="4" id="ac4-4K-3o4"/>
                                     <constraint firstItem="1Je-gS-fJ1" firstAttribute="centerY" secondItem="nja-wa-7fB" secondAttribute="centerY" id="bnU-u8-I4i"/>
                                     <constraint firstItem="qpD-n7-zcf" firstAttribute="centerY" secondItem="2gc-wH-8Dw" secondAttribute="centerY" id="i21-HZ-ard"/>
                                     <constraint firstAttribute="height" constant="34" id="iT2-AW-DYf"/>
-                                    <constraint firstItem="KMu-4V-qY2" firstAttribute="trailing" secondItem="nja-wa-7fB" secondAttribute="trailing" constant="-4" id="k06-Jb-xlZ"/>
+                                    <constraint firstItem="KMu-4V-qY2" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="nja-wa-7fB" secondAttribute="trailing" constant="-4" id="k06-Jb-xlZ"/>
                                     <constraint firstItem="nja-wa-7fB" firstAttribute="top" secondItem="2gc-wH-8Dw" secondAttribute="top" id="zH9-uB-rRk"/>
                                     <constraint firstItem="qpD-n7-zcf" firstAttribute="leading" secondItem="nja-wa-7fB" secondAttribute="trailing" constant="10" id="zVT-AN-eRC"/>
                                 </constraints>
@@ -141,6 +141,7 @@
                     <navigationItem key="navigationItem" id="Ao5-cL-J90"/>
                     <connections>
                         <outlet property="conversationMemberButton" destination="KMu-4V-qY2" id="WYD-wP-ZoD"/>
+                        <outlet property="leftTitleConstraint" destination="RxZ-yR-nLy" id="L6C-6a-b0n"/>
                         <outlet property="titleButton" destination="1Je-gS-fJ1" id="76g-0f-byq"/>
                     </connections>
                 </viewController>

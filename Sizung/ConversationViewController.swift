@@ -18,6 +18,7 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
 
   @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var conversationMemberButton: UIButton!
+  @IBOutlet weak var leftTitleConstraint: NSLayoutConstraint!
 
   override func viewDidLoad() {
     self.titleButton.setTitle(self.conversation.title, forState: .Normal)
@@ -96,11 +97,15 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
     var titleColor = Color.BACKGROUND
 
     if navigationController.viewControllers.count > 1 {
+      self.leftTitleConstraint.constant = 11
       titleColor = Color.SEARCHBAR
+    } else {
+      self.leftTitleConstraint.constant = 40
     }
 
     UIView.animateWithDuration(0.2) {
       self.view.backgroundColor = titleColor
+      self.view.layoutIfNeeded()
     }
   }
 }

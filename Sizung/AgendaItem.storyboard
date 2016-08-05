@@ -11,7 +11,6 @@
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
-            <string>BrandonGrotesque-Medium</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -28,20 +27,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NfS-yD-wtj">
-                                <rect key="frame" x="0.0" y="20" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="45"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8D5-1o-hBO">
-                                        <rect key="frame" x="20" y="10" width="42" height="30"/>
-                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
-                                        <state key="normal" title="&lt; back">
-                                            <color key="titleColor" red="0.0" green="0.31764705879999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="back:" destination="GPy-5R-nwL" eventType="touchUpInside" id="LSR-AZ-d48"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg1-da-c05">
-                                        <rect key="frame" x="540" y="10" width="40" height="30"/>
+                                        <rect key="frame" x="540" y="10" width="40" height="25"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <state key="normal" title="status">
                                             <color key="titleColor" red="0.0" green="0.31764705879999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -50,39 +39,49 @@
                                             <action selector="showStatusPopover:" destination="GPy-5R-nwL" eventType="touchUpInside" id="foO-yJ-BBW"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rhH-jD-2qa">
+                                        <rect key="frame" x="15" y="8" width="354" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="6G0-9w-udl"/>
+                                            <constraint firstAttribute="height" constant="30" id="i34-4M-BEe"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
+                                        <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <state key="normal" title="There should be plenty of space for an agenda title" backgroundImage="bg_priorities">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="6G0-9w-udl"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="edit:" destination="GPy-5R-nwL" eventType="touchUpInside" id="OhP-ov-FrP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7o-0M-ia1" customClass="AvatarImageView" customModule="Sizung" customModuleProvider="target">
+                                        <rect key="frame" x="17" y="10" width="26" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="26" id="0mI-Tn-krJ"/>
+                                            <constraint firstAttribute="width" constant="26" id="kgh-Fy-kbD"/>
+                                        </constraints>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.8666666666666667" green="0.87450980392156863" blue="0.85490196078431369" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="vg1-da-c05" secondAttribute="bottom" constant="10" id="3eA-YC-uL9"/>
+                                    <constraint firstItem="rhH-jD-2qa" firstAttribute="centerY" secondItem="q7o-0M-ia1" secondAttribute="centerY" id="KXs-Iv-JQf"/>
                                     <constraint firstAttribute="trailing" secondItem="vg1-da-c05" secondAttribute="trailing" constant="20" id="aeH-Nb-Rdd"/>
-                                    <constraint firstItem="8D5-1o-hBO" firstAttribute="leading" secondItem="NfS-yD-wtj" secondAttribute="leading" constant="20" id="epk-bT-kbO"/>
-                                    <constraint firstAttribute="height" constant="50" id="hcf-dg-lnJ"/>
-                                    <constraint firstItem="8D5-1o-hBO" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="top" constant="10" id="o5D-8G-gVW"/>
+                                    <constraint firstAttribute="height" constant="45" id="hcf-dg-lnJ"/>
+                                    <constraint firstItem="rhH-jD-2qa" firstAttribute="leading" secondItem="NfS-yD-wtj" secondAttribute="leading" constant="15" id="k3W-Au-uCe"/>
+                                    <constraint firstItem="rhH-jD-2qa" firstAttribute="centerY" secondItem="NfS-yD-wtj" secondAttribute="centerY" id="mrm-jc-lkc"/>
+                                    <constraint firstItem="vg1-da-c05" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rhH-jD-2qa" secondAttribute="trailing" constant="15" id="nRn-Sj-HFa"/>
                                     <constraint firstItem="vg1-da-c05" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="top" constant="10" id="tby-3N-oxd"/>
-                                    <constraint firstItem="vg1-da-c05" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8D5-1o-hBO" secondAttribute="trailing" constant="20" id="z9J-eM-Z45"/>
-                                    <constraint firstAttribute="bottom" secondItem="8D5-1o-hBO" secondAttribute="bottom" constant="10" id="zN0-hL-eAa"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bGK-Xf-6wH">
-                                <rect key="frame" x="0.0" y="70" width="600" height="45"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAV-1i-Jgq">
-                                        <rect key="frame" x="20" y="10" width="560" height="25"/>
-                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.31764706969261169" blue="0.29803922772407532" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.92086140755646728" green="0.93563458521780107" blue="0.90608822989513371" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="ZAV-1i-Jgq" secondAttribute="bottom" constant="10" id="I66-dW-e0y"/>
-                                    <constraint firstItem="ZAV-1i-Jgq" firstAttribute="top" secondItem="bGK-Xf-6wH" secondAttribute="top" constant="10" id="IIN-N8-341"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZAV-1i-Jgq" secondAttribute="trailing" constant="20" id="Lh8-9f-EYv"/>
-                                    <constraint firstItem="ZAV-1i-Jgq" firstAttribute="leading" secondItem="bGK-Xf-6wH" secondAttribute="leading" constant="20" id="qFu-zE-A1q"/>
+                                    <constraint firstItem="rhH-jD-2qa" firstAttribute="leading" secondItem="q7o-0M-ia1" secondAttribute="leading" constant="-2" id="ydV-fd-fXu"/>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3E-Ai-F2L">
-                                <rect key="frame" x="0.0" y="115" width="600" height="485"/>
+                                <rect key="frame" x="0.0" y="65" width="600" height="535"/>
                                 <connections>
                                     <segue destination="Mz8-Qe-oEK" kind="embed" identifier="embed" id="fkn-o5-abH"/>
                                 </connections>
@@ -92,12 +91,8 @@
                         <constraints>
                             <constraint firstItem="NfS-yD-wtj" firstAttribute="leading" secondItem="O7V-TP-UOm" secondAttribute="leadingMargin" constant="-20" id="2mt-Mw-BxP"/>
                             <constraint firstItem="x3E-Ai-F2L" firstAttribute="leading" secondItem="O7V-TP-UOm" secondAttribute="leadingMargin" constant="-20" id="3wh-Up-vmJ"/>
-                            <constraint firstItem="x3E-Ai-F2L" firstAttribute="top" secondItem="bGK-Xf-6wH" secondAttribute="bottom" id="Bd3-6Y-Yjf"/>
-                            <constraint firstItem="bGK-Xf-6wH" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="bottom" id="Cr7-as-t7K"/>
-                            <constraint firstAttribute="trailing" secondItem="bGK-Xf-6wH" secondAttribute="trailing" id="IyS-x0-Fsp"/>
-                            <constraint firstItem="bGK-Xf-6wH" firstAttribute="leading" secondItem="O7V-TP-UOm" secondAttribute="leading" id="Jpl-fp-l2L"/>
-                            <constraint firstItem="x3E-Ai-F2L" firstAttribute="top" secondItem="bGK-Xf-6wH" secondAttribute="bottom" id="Qks-uP-GoI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="NfS-yD-wtj" secondAttribute="trailing" constant="-20" id="Sv8-DX-kvD"/>
+                            <constraint firstItem="x3E-Ai-F2L" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="bottom" id="W3H-f8-QR5"/>
                             <constraint firstItem="x3E-Ai-F2L" firstAttribute="top" secondItem="NfS-yD-wtj" secondAttribute="bottom" id="c35-Oy-aFl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="x3E-Ai-F2L" secondAttribute="trailing" constant="-20" id="gQt-De-sue"/>
                             <constraint firstAttribute="bottomMargin" secondItem="x3E-Ai-F2L" secondAttribute="bottom" id="h8w-D0-6jV"/>
@@ -105,18 +100,15 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="Qks-uP-GoI"/>
                                 <exclude reference="c35-Oy-aFl"/>
                             </mask>
                         </variation>
                     </view>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="agendaOwnerAvatarView" destination="q7o-0M-ia1" id="87U-an-HZj"/>
                         <outlet property="statusButton" destination="vg1-da-c05" id="AgE-aI-O5W"/>
-                        <outlet property="titleBar" destination="bGK-Xf-6wH" id="fNf-0d-oPS"/>
-                        <outlet property="titleBottomConstraint" destination="I66-dW-e0y" id="wNv-1d-28v"/>
-                        <outlet property="titleLabel" destination="ZAV-1i-Jgq" id="pMD-w6-VqX"/>
-                        <outlet property="titleTopConstraint" destination="IIN-N8-341" id="zzM-2G-hc1"/>
+                        <outlet property="titleButton" destination="rhH-jD-2qa" id="IvL-aK-gXe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BO4-Kt-VOn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -132,7 +124,7 @@
                         <viewControllerLayoutGuide type="bottom" id="vDd-0G-jah"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="KCh-Ee-fve">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="485"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="535"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -165,7 +157,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpM-Dj-P4u" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpM-Dj-P4u" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
                                         <rect key="frame" x="548" y="8" width="44" height="44"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="close"/>
@@ -173,7 +165,7 @@
                                             <action selector="close:" destination="X5N-Tt-7YQ" eventType="touchUpInside" id="mkL-Ol-QiR"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6K-ql-FGc">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6K-ql-FGc">
                                         <rect key="frame" x="504" y="15" width="34" height="30"/>
                                         <state key="normal" title="Save">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -251,6 +243,7 @@
     </scenes>
     <resources>
         <image name="agenda_title" width="59" height="59"/>
+        <image name="bg_priorities" width="45" height="30"/>
         <image name="close" width="32" height="32"/>
     </resources>
 </document>

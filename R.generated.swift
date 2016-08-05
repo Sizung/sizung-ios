@@ -1023,6 +1023,7 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIImage(named: "agenda_title") == nil { throw ValidationError(description: "[R.swift] Image named 'agenda_title' is used in storyboard 'AgendaItem', but couldn't be loaded.") }
+        if UIImage(named: "bg_priorities") == nil { throw ValidationError(description: "[R.swift] Image named 'bg_priorities' is used in storyboard 'AgendaItem', but couldn't be loaded.") }
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'AgendaItem', but couldn't be loaded.") }
         if _R.storyboard.agendaItem().create() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'create' could not be loaded from storyboard 'AgendaItem' as 'CreateAgendaItemViewController'.") }
       }
