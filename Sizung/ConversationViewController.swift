@@ -10,30 +10,25 @@ import UIKit
 
 class ConversationViewController: UIViewController {
 
-  @IBOutlet weak var titleButton: UIButton!
-
   var conversation: Conversation!
 
   var openItem: BaseModel?
 
   var navController: UINavigationController?
 
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(true)
+  @IBOutlet weak var titleButton: UIButton!
+  @IBOutlet weak var conversationMemberButton: UIButton!
 
-    self.titleButton.setTitle("\(conversation.title)", forState: .Normal)
-  }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  override func viewDidLoad() {
+    self.titleButton.setTitle(self.conversation.title, forState: .Normal)
+    self.conversationMemberButton.setTitle(String(self.conversation.members.count), forState: .Normal)
   }
 
   @IBAction func titleClicked(sender: AnyObject) {
     if self.navController?.viewControllers.count == 1 {
       let createConversationViewController = R.storyboard.conversations.create()!
       createConversationViewController.conversation = conversation
-      self.showViewController(createConversationViewController, sender: nil)
+      self.presentViewController(createConversationViewController, animated: true, completion: nil)
     } else {
       self.navController?.popToRootViewControllerAnimated(true)
     }

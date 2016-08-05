@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "bg_search.pdf",
+      "filename" : "bg_conversation_members.pdf",
       "resizing" : {
         "mode" : "3-part-horizontal",
         "center" : {
@@ -11,7 +11,7 @@
         },
         "cap-insets" : {
           "right" : 13,
-          "left" : 13
+          "left" : 30
         }
       }
     }

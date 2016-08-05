@@ -103,21 +103,52 @@ class OrganizationViewController: UIViewController, OrganizationTableViewDelegat
   }
 
   @IBAction func closeButtonTouched(sender: AnyObject) {
+    self.hideCloseButton()
+
     if self.conversationListViewController != nil {
       hideConversations()
     }
+
+    let transition = CATransition()
+    transition.duration = 0.3
+    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    transition.type = kCATransitionFade
+    self.navController?.view.layer.addAnimation(transition, forKey: nil)
+
+    self.navController?.popToRootViewControllerAnimated(false)
   }
 
-  func showConversations() {
-
+  func showCloseButton() {
     closeButton.hidden = false
     closeButton.alpha = 0
     UIView.animateWithDuration(0.2) {self.closeButton.alpha = 1}
 
     closeButtonHiddenConstraint.priority = UILayoutPriorityDefaultHigh-1
-    UIView.animateWithDuration(0.2) {
-      self.searchBar.layoutSubviews()
+
+    self.animateSearchBarWidthChange()
+  }
+
+  func hideCloseButton() {
+    UIView.animateWithDuration(0.2, animations: {
+      self.closeButton.alpha = 0
+      }, completion: { _ in
+        self.closeButton.hidden = true
+    })
+
+    closeButtonHiddenConstraint.priority = UILayoutPriorityDefaultHigh+1
+
+    self.animateSearchBarWidthChange()
+  }
+
+    func animateSearchBarWidthChange() {
+      UIView.animateWithDuration(0.2) {
+        self.searchBar.layoutIfNeeded()
+      }
     }
+
+  func showConversations() {
+
+    self.showCloseButton()
 
     let transition = CATransition()
     transition.duration = 0.3
@@ -134,17 +165,7 @@ class OrganizationViewController: UIViewController, OrganizationTableViewDelegat
     self.searchBar.resignFirstResponder()
     self.searchBar.text = ""
 
-    UIView.animateWithDuration(0.2, animations: {
-      self.closeButton.alpha = 0
-      }, completion: { _ in
-        self.closeButton.hidden = true
-    })
-
-    closeButtonHiddenConstraint.priority = UILayoutPriorityDefaultHigh+1
-
-    UIView.animateWithDuration(0.2) {
-      self.searchBar.layoutSubviews()
-    }
+    self.hideCloseButton()
 
     let transition = CATransition()
     transition.duration = 0.3
@@ -157,18 +178,16 @@ class OrganizationViewController: UIViewController, OrganizationTableViewDelegat
   }
 
   func conversationSelected(conversation: Conversation) {
+    self.showConversation(conversation)
+  }
+
+  func showConversation(conversation: Conversation) {
     let conversationViewController = R.storyboard.conversation.initialViewController()!
     conversationViewController.conversation = conversation
+    conversationViewController.modalTransitionStyle = .CrossDissolve
 
     self.hideConversations()
-
-    let transition = CATransition()
-    transition.duration = 0.3
-    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-    transition.type = kCATransitionFade
-    conversationViewController.view.layer.addAnimation(transition, forKey: nil)
-
-    self.presentViewController(conversationViewController, animated: false, completion: nil)
+    self.presentViewController(conversationViewController, animated: true, completion: nil)
   }
 }
 

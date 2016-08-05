@@ -45,6 +45,10 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
   var collection: [User] {
     get {
+      guard storageManager != nil else {
+        return []
+      }
+
       if addMode {
         return possibleMembers
       } else {

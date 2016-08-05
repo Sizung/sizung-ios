@@ -34,9 +34,9 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="CiJ-hi-Y1g">
-                                    <rect key="frame" x="253" y="8" width="95" height="29"/>
+                                    <rect key="frame" x="267" y="8" width="67" height="29"/>
                                     <segments>
-                                        <segment title="Team"/>
+                                        <segment title="All"/>
                                         <segment title="My"/>
                                     </segments>
                                     <color key="tintColor" red="0.0" green="0.31764705879999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -245,8 +245,8 @@
                                             <outlet property="delegate" destination="jC2-I1-SwL" id="5we-cd-sZl"/>
                                         </connections>
                                     </textField>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPU-bF-efE" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
-                                        <rect key="frame" x="548" y="3" width="32" height="32"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPU-bF-efE" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                                        <rect key="frame" x="546" y="-3" width="44" height="44"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="close"/>
                                         <connections>
@@ -311,13 +311,9 @@
                         </subviews>
                         <color key="backgroundColor" red="0.1019607843" green="0.1137254902" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="czt-S6-48m" firstAttribute="leading" secondItem="z0H-DV-eXO" secondAttribute="leading" id="Bj9-kO-8Ki"/>
-                            <constraint firstAttribute="trailing" secondItem="R4K-F3-CPc" secondAttribute="trailing" id="CJd-0o-WBo"/>
+                            <constraint firstItem="czt-S6-48m" firstAttribute="leading" secondItem="z0H-DV-eXO" secondAttribute="leading" id="3Zn-TQ-DU7"/>
                             <constraint firstItem="czt-S6-48m" firstAttribute="top" secondItem="2Nt-o4-xOt" secondAttribute="bottom" constant="20" id="CnI-SZ-WBO"/>
-                            <constraint firstItem="R4K-F3-CPc" firstAttribute="top" secondItem="2Nt-o4-xOt" secondAttribute="bottom" constant="20" id="JBQ-vY-m50"/>
-                            <constraint firstItem="R4K-F3-CPc" firstAttribute="leading" secondItem="z0H-DV-eXO" secondAttribute="leading" id="QLV-lw-2PB"/>
                             <constraint firstAttribute="trailing" secondItem="czt-S6-48m" secondAttribute="trailing" id="bdW-uL-U66"/>
-                            <constraint firstAttribute="bottom" secondItem="R4K-F3-CPc" secondAttribute="bottom" id="gkZ-re-E4O"/>
                             <constraint firstItem="2Nt-o4-xOt" firstAttribute="leading" secondItem="z0H-DV-eXO" secondAttribute="leadingMargin" constant="-20" id="m4b-wl-vpL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2Nt-o4-xOt" secondAttribute="trailing" constant="-20" id="rFL-D6-AtW"/>
                             <constraint firstItem="2Nt-o4-xOt" firstAttribute="top" secondItem="MbN-Vi-sHB" secondAttribute="bottom" constant="5" id="tN9-Ip-ZDw"/>
@@ -421,9 +417,9 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="L1y-D4-5kJ">
-                                    <rect key="frame" x="253" y="8" width="95" height="29"/>
+                                    <rect key="frame" x="267" y="8" width="67" height="29"/>
                                     <segments>
-                                        <segment title="Team"/>
+                                        <segment title="All"/>
                                         <segment title="My"/>
                                     </segments>
                                     <color key="tintColor" red="0.48235294220000002" green="0.40784314269999999" blue="0.31372550129999999" alpha="1" colorSpace="calibratedRGB"/>
