@@ -7,10 +7,24 @@
 //
 
 import UIKit
+import KCFloatingActionButton
 
-class AgendaItemActionListController: UIViewController {
+class AgendaItemActionListController: UIViewController,
+KCFloatingActionButtonDelegate,
+ActionCreateDelegate {
 
   var agendaItem: AgendaItem?
+
+  var floatingActionButton: KCFloatingActionButton?
+
+  override func viewDidLoad() {
+    floatingActionButton = KCFloatingActionButton()
+    floatingActionButton?.plusColor = UIColor.whiteColor()
+    floatingActionButton?.buttonColor = Color.ADDBUTTON
+    floatingActionButton?.fabDelegate = self
+
+    self.view.addSubview(floatingActionButton!)
+  }
 
   @IBAction func back(sender: AnyObject) {
     self.navigationController?.popViewControllerAnimated(true)
@@ -28,4 +42,23 @@ class AgendaItemActionListController: UIViewController {
       fatalError("unkown segue \(segue.identifier)")
     }
   }
+
+  func emptyKCFABSelected(fab: KCFloatingActionButton) {
+    createAction()
+  }
+
+  func createAction() {
+    let createDeliverableViewController = R.storyboard.deliverable.create()!
+    createDeliverableViewController.parent = self.agendaItem
+    createDeliverableViewController.actionCreateDelegate = self
+    self.presentViewController(createDeliverableViewController, animated: true, completion: nil)
+  }
+
+  func actionCreated(action: Deliverable) {
+    let actionViewController = R.storyboard.deliverable.initialViewController()!
+    actionViewController.deliverable = action
+    self.navigationController?.pushViewController(actionViewController, animated: false)
+  }
+
+
 }

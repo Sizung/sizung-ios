@@ -33,9 +33,16 @@ AgendaItemCreateDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    update()
-
     initFloatingActionButton()
+
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+
+        // listen for changes to deliverables
+        storageManager.deliverables.observeNext { _ in
+          self.update()
+        }.disposeIn(self.rBag)
+    }
   }
 
   // MARK: - Navigation
@@ -79,7 +86,13 @@ AgendaItemCreateDelegate {
     }
 
     // update status text
-    self.statusButton.setTitle(agendaItem.status, forState: .Normal)
+    if agendaItem.isCompleted() {
+      self.statusButton.setTitle("✓", forState: .Normal)
+      self.statusButton.backgroundColor = Color.AGENDAITEM
+    } else {
+      self.statusButton.setTitle("", forState: .Normal)
+      self.statusButton.backgroundColor = UIColor.whiteColor()
+    }
   }
 
   @IBAction func edit(sender: AnyObject) {
@@ -163,7 +176,7 @@ AgendaItemCreateDelegate {
 
     addItemToFab("ATTACHMENT", color: Color.ATTACHMENT, icon: R.image.attachment()!, handler: createAttachment)
 
-    addItemToFab("ACTION", color: Color.TODO, icon: R.image.action()!, handler: createAction)
+    addItemToFab("ACTION", color: Color.ACTION, icon: R.image.action()!, handler: createAction)
 
     self.view.addSubview(floatingActionButton!)
 

@@ -35,7 +35,7 @@ FilesPickerDelegate {
     super.viewDidLoad()
 
     segmentedControl.items = ["PRIORITIES", "CHAT", "ACTIONS"]
-    segmentedControl.thumbColors = [Color.TODISCUSS, Color.CHAT, Color.TODO]
+    segmentedControl.thumbColors = [Color.AGENDAITEM, Color.CHAT, Color.ACTION]
     segmentedControl.addTarget(
       self,
       action: #selector(self.segmentedControlDidChange),
@@ -127,11 +127,11 @@ FilesPickerDelegate {
     floatingActionButton?.plusColor = UIColor.whiteColor()
     floatingActionButton?.buttonColor = Color.ADDBUTTON
 
-    agendaItem = addItemToFab("AGENDA", color: Color.TODISCUSS, icon: R.image.priority()!, handler: createAgenda)
+    agendaItem = addItemToFab("AGENDA", color: Color.AGENDAITEM, icon: R.image.priority()!, handler: createAgenda)
 
     attachmentItem = addItemToFab("ATTACHMENT", color: Color.ATTACHMENT, icon: R.image.attachment()!, handler: createAttachment)
 
-    actionItem = addItemToFab("ACTION", color: Color.TODO, icon: R.image.action()!, handler: createAction)
+    actionItem = addItemToFab("ACTION", color: Color.ACTION, icon: R.image.action()!, handler: createAction)
 
     self.view.addSubview(floatingActionButton!)
   }
