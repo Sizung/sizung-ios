@@ -41,6 +41,23 @@ class AssigneeSelectionViewController: UIViewController, UITableViewDelegate, UI
 
         self.updateTableView()
     }
+
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+  }
+
+  func keyboardDidShow(notification: NSNotification) {
+    if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+      let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+      self.tableView.contentInset = contentInsets
+      self.tableView.scrollIndicatorInsets = contentInsets
+    }
+  }
+
+  func keyboardWillBeHidden(notification: NSNotification) {
+    let contentInsets = UIEdgeInsetsZero
+    self.tableView.contentInset = contentInsets
+    self.tableView.scrollIndicatorInsets = contentInsets
   }
 
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
