@@ -86,7 +86,7 @@ class AssigneeSelectionViewController: UIViewController, UITableViewDelegate, UI
 
     if let filterString = self.filterString {
       self.collection = self.collection.filter { user in
-        return user.fullName.containsString(filterString)
+        return user.fullName.lowercaseString.containsString(filterString.lowercaseString)
       }
     }
 

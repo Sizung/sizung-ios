@@ -31,12 +31,7 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
       let diff = Set(storageManager!.users.collection).subtract(conversationMembers)
       if let filterString = filterString {
         return Array(diff).filter { user in
-          if let firstName = user.firstName, lastName = user.lastName {
-            return firstName.containsString(filterString) || lastName.containsString(filterString)
-          } else {
-            return false
-          }
-        }
+          return user.fullName.lowerCaseString.containsString(filterString.lowerCaseString)        }
       } else {
         return Array(diff)
       }
