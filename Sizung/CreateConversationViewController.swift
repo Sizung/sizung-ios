@@ -45,6 +45,10 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
   var collection: [User] {
     get {
+      guard storageManager != nil else {
+        return []
+      }
+
       if addMode {
         return possibleMembers
       } else {
@@ -79,7 +83,7 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     conversationNameTextField.text = conversation.title
 
     if !conversation.new {
-      titleButton.text = "Edit \(conversation.title)"
+      titleButton.text = "Edit '\(conversation.title)'"
     }
 
   }

@@ -21,7 +21,11 @@ class DueDateHelper {
     } else if dueDate.isYesterday() {
       return "Yesterday"
     } else if dueDate.daysAgo() > 0 {
-      return "Overdue"
+      let formatter = NSDateFormatter()
+      formatter.dateStyle = .MediumStyle
+      formatter.timeStyle = .NoStyle
+
+      return "Overdue - \(formatter.stringFromDate(dueDate))"
     } else {
       let formatter = NSDateFormatter()
       formatter.dateStyle = .MediumStyle

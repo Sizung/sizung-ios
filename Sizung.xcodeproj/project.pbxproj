@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		2FF81000B72F237F09D8B781 /* Pods_SizungUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13B42A82CE8590D9FB4161 /* Pods_SizungUITests.framework */; };
+		5A18181A1D547F14003E6B48 /* TimelineObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1818191D547F14003E6B48 /* TimelineObject.swift */; };
+		5A18181C1D547F3F003E6B48 /* TimelineWebsocketDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A18181B1D547F3F003E6B48 /* TimelineWebsocketDelegate.swift */; };
+		5A18181E1D547F87003E6B48 /* TimelinePreviewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A18181D1D547F87003E6B48 /* TimelinePreviewDelegate.swift */; };
+		5A1818201D54806F003E6B48 /* TimelineDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A18181F1D54806F003E6B48 /* TimelineDatasource.swift */; };
+		5A1818241D548B83003E6B48 /* ExpandingCellTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1818231D548B83003E6B48 /* ExpandingCellTransition.swift */; };
 		5A1DDBD21D1A74700089CD45 /* AgendaItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */; };
 		5A208E571D435D6700F765C9 /* StreamConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A208E561D435D6700F765C9 /* StreamConversationTableViewCell.swift */; };
 		5A208E5C1D43601A00F765C9 /* StreamActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A208E581D43601A00F765C9 /* StreamActionTableViewCell.swift */; };
@@ -16,6 +21,8 @@
 		5A208E5F1D43601A00F765C9 /* StreamAgendaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A208E5B1D43601A00F765C9 /* StreamAgendaTableViewCell.xib */; };
 		5A208E621D436BD100F765C9 /* StreamObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A208E611D436BD100F765C9 /* StreamObjects.swift */; };
 		5A208E651D45252800F765C9 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A208E641D45252800F765C9 /* Log.swift */; };
+		5A21B9581D58753E003A90DA /* UILayerBorderColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21B9571D58753E003A90DA /* UILayerBorderColorExtension.swift */; };
+		5A21B95A1D587DF2003A90DA /* AgendaItemActionListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21B9591D587DF2003A90DA /* AgendaItemActionListController.swift */; };
 		5A29E0D31D2F7F3E002A7840 /* SizungButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */; };
 		5A29E0D61D2FA44A002A7840 /* OrganizationStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A29E0D51D2FA44A002A7840 /* OrganizationStorageManager.swift */; };
 		5A2E3C241D2E3A3900D4D3EA /* Conversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */; };
@@ -28,6 +35,7 @@
 		5A31141D1D51D5C4007535D1 /* AppItemLoadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A31141C1D51D5C4007535D1 /* AppItemLoadDelegate.swift */; };
 		5A3114221D51E515007535D1 /* StreamDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3114201D51E515007535D1 /* StreamDateTableViewCell.swift */; };
 		5A3114231D51E515007535D1 /* StreamDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A3114211D51E515007535D1 /* StreamDateTableViewCell.xib */; };
+		5A3114251D534F72007535D1 /* OrganizationContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3114241D534F72007535D1 /* OrganizationContentViewController.swift */; };
 		5A35A52B1CDCDDE8005E5B1B /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35A52A1CDCDDE8005E5B1B /* Test.swift */; };
 		5A35DC0C1D0AF9C300916118 /* AutoCompletionTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */; };
 		5A35DC0D1D0AF9C300916118 /* AutoCompletionTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */; };
@@ -173,6 +181,11 @@
 
 /* Begin PBXFileReference section */
 		40B7D9774635EF03564CDA84 /* Pods_SizungTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SizungTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A1818191D547F14003E6B48 /* TimelineObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineObject.swift; sourceTree = "<group>"; };
+		5A18181B1D547F3F003E6B48 /* TimelineWebsocketDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineWebsocketDelegate.swift; sourceTree = "<group>"; };
+		5A18181D1D547F87003E6B48 /* TimelinePreviewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelinePreviewDelegate.swift; sourceTree = "<group>"; };
+		5A18181F1D54806F003E6B48 /* TimelineDatasource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineDatasource.swift; sourceTree = "<group>"; };
+		5A1818231D548B83003E6B48 /* ExpandingCellTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandingCellTransition.swift; sourceTree = "<group>"; };
 		5A1DDBD11D1A74700089CD45 /* AgendaItemTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AgendaItemTableViewCell.xib; sourceTree = "<group>"; };
 		5A208E561D435D6700F765C9 /* StreamConversationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamConversationTableViewCell.swift; sourceTree = "<group>"; };
 		5A208E581D43601A00F765C9 /* StreamActionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamActionTableViewCell.swift; sourceTree = "<group>"; };
@@ -181,6 +194,8 @@
 		5A208E5B1D43601A00F765C9 /* StreamAgendaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamAgendaTableViewCell.xib; sourceTree = "<group>"; };
 		5A208E611D436BD100F765C9 /* StreamObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamObjects.swift; sourceTree = "<group>"; };
 		5A208E641D45252800F765C9 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		5A21B9571D58753E003A90DA /* UILayerBorderColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILayerBorderColorExtension.swift; sourceTree = "<group>"; };
+		5A21B9591D587DF2003A90DA /* AgendaItemActionListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemActionListController.swift; sourceTree = "<group>"; };
 		5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungButton.swift; sourceTree = "<group>"; };
 		5A29E0D51D2FA44A002A7840 /* OrganizationStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationStorageManager.swift; sourceTree = "<group>"; };
 		5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversation.storyboard; sourceTree = "<group>"; };
@@ -193,6 +208,7 @@
 		5A31141C1D51D5C4007535D1 /* AppItemLoadDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppItemLoadDelegate.swift; sourceTree = "<group>"; };
 		5A3114201D51E515007535D1 /* StreamDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamDateTableViewCell.swift; sourceTree = "<group>"; };
 		5A3114211D51E515007535D1 /* StreamDateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamDateTableViewCell.xib; sourceTree = "<group>"; };
+		5A3114241D534F72007535D1 /* OrganizationContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationContentViewController.swift; sourceTree = "<group>"; };
 		5A35A52A1CDCDDE8005E5B1B /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		5A35DC0A1D0AF9C300916118 /* AutoCompletionTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompletionTableCell.swift; sourceTree = "<group>"; };
 		5A35DC0B1D0AF9C300916118 /* AutoCompletionTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AutoCompletionTableCell.xib; sourceTree = "<group>"; };
@@ -384,6 +400,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		5A1818181D547EFB003E6B48 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */,
+				5A1818191D547F14003E6B48 /* TimelineObject.swift */,
+				5A18181B1D547F3F003E6B48 /* TimelineWebsocketDelegate.swift */,
+				5A18181D1D547F87003E6B48 /* TimelinePreviewDelegate.swift */,
+				5A18181F1D54806F003E6B48 /* TimelineDatasource.swift */,
+				5A1818231D548B83003E6B48 /* ExpandingCellTransition.swift */,
+			);
+			name = Timeline;
+			sourceTree = "<group>";
+		};
 		5A208E601D436BC500F765C9 /* stream */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,6 +428,14 @@
 				5A208E641D45252800F765C9 /* Log.swift */,
 			);
 			name = Reporting;
+			sourceTree = "<group>";
+		};
+		5A21B9561D587525003A90DA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5A21B9571D58753E003A90DA /* UILayerBorderColorExtension.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		5A29E0D41D2FA43B002A7840 /* storage */ = {
@@ -470,6 +507,7 @@
 				5A7329F31D05B1E9006531A5 /* Resources */,
 				5A7B95A51CF8FC9700FE36CB /* Sizung.entitlements */,
 				5AA890FA1CF4D19600ED391B /* Protocols */,
+				5A21B9561D587525003A90DA /* Extensions */,
 				5AC0E5E21CF0531100BBEF45 /* ViewControllers */,
 				5AC0E5DD1CF04CE100BBEF45 /* Views */,
 				5A86B1391CE60520001C2E7A /* Models */,
@@ -674,6 +712,7 @@
 		5AC0E5E21CF0531100BBEF45 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				5A1818181D547EFB003E6B48 /* Timeline */,
 				5A59500A1D391B340065F044 /* LoadingViewController.swift */,
 				5AF675C91D3788AB008C813D /* ItemLoadingViewController.swift */,
 				5AF675CA1D3788AB008C813D /* ItemLoadingViewController.xib */,
@@ -681,6 +720,7 @@
 				5ADD5D0E1D4F360A005FBA17 /* SignupViewController.swift */,
 				5AA806DF1D130E7300788DDF /* OrganizationsViewController.swift */,
 				5ABA4FBE1CFEC3B600110030 /* OrganizationViewController.swift */,
+				5A3114241D534F72007535D1 /* OrganizationContentViewController.swift */,
 				5A7B95A31CF8E58B00FE36CB /* MainPageViewController.swift */,
 				5AB781401CFD79D00024DFE9 /* AccountViewController.swift */,
 				5A2E3C251D2E3E1800D4D3EA /* ConversationViewController.swift */,
@@ -695,6 +735,7 @@
 				5A68DBFE1D3CB68900687107 /* CreateAgendaItemViewController.swift */,
 				5A68DC021D3CD05400687107 /* CreateActionViewController.swift */,
 				5A68DC041D3CE40500687107 /* AssigneeSelectionViewController.swift */,
+				5A21B9591D587DF2003A90DA /* AgendaItemActionListController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -740,7 +781,6 @@
 		5ADC883D1D109E3F00596D67 /* TableViews */ = {
 			isa = PBXGroup;
 			children = (
-				5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */,
 				5A9D0EE81D11BB9800037589 /* StreamTableViewController.swift */,
 				5AC0E5E01CF04D8D00BBEF45 /* OrganizationsTableViewController.swift */,
 				5AC0E5E31CF0628200BBEF45 /* ConversationsTableViewController.swift */,
@@ -1133,6 +1173,7 @@
 				5A9EDEBC1D01CEB900D389EC /* Color.swift in Sources */,
 				5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */,
 				5ABA4FBB1CFEBE3500110030 /* OrganizationResponse.swift in Sources */,
+				5A21B95A1D587DF2003A90DA /* AgendaItemActionListController.swift in Sources */,
 				5A7329F01D05877D006531A5 /* CardView.swift in Sources */,
 				5AD9F1B91CE9D3D700455D98 /* ConversationMember.swift in Sources */,
 				5AF675D01D38D448008C813D /* Helper.swift in Sources */,
@@ -1140,6 +1181,7 @@
 				5A68DC001D3CB68900687107 /* CreateAgendaItemViewController.swift in Sources */,
 				5AE24D0E1D216C1100FB691B /* AgendaItemResponse.swift in Sources */,
 				5A732A011D06060C006531A5 /* DeliverableTableViewCell.swift in Sources */,
+				5A18181A1D547F14003E6B48 /* TimelineObject.swift in Sources */,
 				5AC0E5DF1CF04D0000BBEF45 /* SizungTableViewCell.swift in Sources */,
 				5ABACCDA1D09ACD30093CF21 /* SizungMarkdownParser.swift in Sources */,
 				5A7329FD1D05FEB2006531A5 /* AgendaItemTableViewCell.swift in Sources */,
@@ -1153,6 +1195,7 @@
 				5AC0E5E11CF04D8D00BBEF45 /* OrganizationsTableViewController.swift in Sources */,
 				5ABE8E351CDB5AC9004537C6 /* LoginViewController.swift in Sources */,
 				5ADC88401D109FD500596D67 /* DeliverableViewController.swift in Sources */,
+				5A18181C1D547F3F003E6B48 /* TimelineWebsocketDelegate.swift in Sources */,
 				5AE24D0C1D216BD200FB691B /* DeliverableResponse.swift in Sources */,
 				5ACBA0BD1D2675D3007BC605 /* CalendarViewController.swift in Sources */,
 				5AA891001CF5A63A00ED391B /* AgendaItemsTableViewController.swift in Sources */,
@@ -1160,6 +1203,7 @@
 				5A86B12E1CE5CF19001C2E7A /* AlamofireManagerExtension.swift in Sources */,
 				5A5346B01D0EE0560065278E /* Websocket.swift in Sources */,
 				5AECC1D61D115C8700AD8ACE /* AgendaItemViewController.swift in Sources */,
+				5A1818201D54806F003E6B48 /* TimelineDatasource.swift in Sources */,
 				5A68DC051D3CE40500687107 /* AssigneeSelectionViewController.swift in Sources */,
 				5AD9F1BB1CE9D5E600455D98 /* AgendaItem.swift in Sources */,
 				5AA891021CF5A6AE00ED391B /* DeliverablesTableViewController.swift in Sources */,
@@ -1171,6 +1215,7 @@
 				5ABACCE01D0AA82F0093CF21 /* ISODateTransform.swift in Sources */,
 				5ADC88321D10505700596D67 /* TimelineDeliverableTableViewCell.swift in Sources */,
 				5AF675CB1D3788AB008C813D /* ItemLoadingViewController.swift in Sources */,
+				5A21B9581D58753E003A90DA /* UILayerBorderColorExtension.swift in Sources */,
 				5A68DC0C1D3D158B00687107 /* AttachmentTableViewCell.swift in Sources */,
 				5A208E571D435D6700F765C9 /* StreamConversationTableViewCell.swift in Sources */,
 				5ADC88341D10508800596D67 /* TimelineAgendaItemTableViewCell.swift in Sources */,
@@ -1187,11 +1232,14 @@
 				5AC0E5E81CF33C8300BBEF45 /* Comment.swift in Sources */,
 				5A504B071CEF0FDC001BEFA3 /* StorageManager.swift in Sources */,
 				5A504B141CEF2413001BEFA3 /* AuthToken.swift in Sources */,
+				5A1818241D548B83003E6B48 /* ExpandingCellTransition.swift in Sources */,
 				5AE24D121D22571300FB691B /* Error.swift in Sources */,
 				5A9EDEB81D01BB5C00D389EC /* SizungSegmentedControl.swift in Sources */,
+				5A18181E1D547F87003E6B48 /* TimelinePreviewDelegate.swift in Sources */,
 				5A86B13B1CE60634001C2E7A /* Organization.swift in Sources */,
 				5A8C4B491D242BA0004EA24D /* AvatarImageView.swift in Sources */,
 				5A68DBF71D3C064300687107 /* CreateConversationViewController.swift in Sources */,
+				5A3114251D534F72007535D1 /* OrganizationContentViewController.swift in Sources */,
 				5A29E0D61D2FA44A002A7840 /* OrganizationStorageManager.swift in Sources */,
 				5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */,
 				5A208E621D436BD100F765C9 /* StreamObjects.swift in Sources */,

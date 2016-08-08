@@ -10,19 +10,30 @@ import UIKit
 
 class CreateAgendaItemViewController: UIViewController, UITextFieldDelegate {
 
+  var agendaItem: AgendaItem?
   var conversation: Conversation?
   var agendaItemCreateDelegate: AgendaItemCreateDelegate?
   var storageManager: OrganizationStorageManager?
 
+  @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var agendaItemNameTextField: UITextField!
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    if agendaItem == nil {
+      agendaItem = AgendaItem(conversationId: conversation!.id)
+    }
 
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         self.storageManager = storageManager
     }
 
+    if let title = agendaItem?.title {
+      self.titleLabel.text = "Edit '\(title)'"
+    }
+
+    agendaItemNameTextField.text = self.agendaItem?.title
     agendaItemNameTextField.becomeFirstResponder()
     agendaItemNameTextField.delegate = self
   }
@@ -34,11 +45,9 @@ class CreateAgendaItemViewController: UIViewController, UITextFieldDelegate {
 
   @IBAction func save(sender: UIButton?) {
 
-    let agendaItem = AgendaItem(conversationId: conversation!.id)
+    agendaItem!.title = agendaItemNameTextField.text
 
-    agendaItem.title = agendaItemNameTextField.text
-
-    guard agendaItem.title.characters.count > 0 else {
+    guard agendaItem!.title.characters.count > 0 else {
       InAppMessage.showErrorMessage("Please enter a title")
       agendaItemNameTextField.becomeFirstResponder()
       return
@@ -58,7 +67,11 @@ class CreateAgendaItemViewController: UIViewController, UITextFieldDelegate {
     }
 
     // save agenda
-    storageManager?.createAgendaItem(agendaItem).onSuccess(callback: successFunc).onFailure(callback: errorFunc)
+    if agendaItem!.new {
+      storageManager?.createAgendaItem(agendaItem!).onSuccess(callback: successFunc).onFailure(callback: errorFunc)
+    } else {
+      storageManager?.updateAgendaItem(agendaItem!).onSuccess(callback: successFunc).onFailure(callback: errorFunc)
+    }
   }
 
   func textFieldShouldReturn(textField: UITextField) -> Bool {

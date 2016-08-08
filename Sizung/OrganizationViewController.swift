@@ -8,44 +8,32 @@
 
 import UIKit
 import SwiftKeychainWrapper
-import Sheriff
 import KCFloatingActionButton
 
-class OrganizationViewController: UIViewController, MainPageViewControllerDelegate, OrganizationTableViewDelegate {
-
-
-  @IBOutlet weak var segmentedControl: SizungSegmentedControl!
+class OrganizationViewController: UIViewController, OrganizationTableViewDelegate, ConversationTableViewDelegate {
 
   @IBOutlet weak var titleButton: UIButton!
-  @IBOutlet weak var groupsButton: UIButton!
+  @IBOutlet weak var searchBar: UITextField!
+  @IBOutlet weak var closeButton: SizungButton!
 
   var storageManager: OrganizationStorageManager?
 
-  var groupsBadgeView = GIBadgeView()
-
-  var mainPageViewController: MainPageViewController!
+  var navController: UINavigationController?
 
   var organizationsViewController: OrganizationsViewController?
+  var conversationListViewController: ConversationsViewController?
+
+  // used for initial loading of conversation
   var conversationViewController: UIViewController?
-  var groupsViewController: UIViewController?
+
+  @IBOutlet weak var closeButtonHiddenConstraint: NSLayoutConstraint!
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    groupsBadgeView.userInteractionEnabled = false
-    groupsBadgeView.topOffset = 10
-    groupsBadgeView.rightOffset = 10
-    self.groupsButton.addSubview(groupsBadgeView)
-
     UIApplication.sharedApplication().statusBarStyle = .Default
 
-    segmentedControl.items = ["PRIORITY", "STREAM", "ACTION"]
-    segmentedControl.thumbColors = [Color.TODISCUSS, Color.STREAM, Color.TODO]
-    segmentedControl.addTarget(
-      self, action:
-      #selector(self.segmentedControlDidChange),
-      forControlEvents: .ValueChanged
-    )
+    searchBar.attributedPlaceholder = NSAttributedString(string: searchBar.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
 
     UIApplication.sharedApplication().statusBarStyle = .LightContent
 
@@ -53,18 +41,6 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
       .onSuccess { storageManager in
 
         self.storageManager = storageManager
-
-        // register for unseenobject changes
-        storageManager.unseenObjects.observeNext { _ in
-          let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-
-          dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            let unseenCount = self.calculateUnseenConversations()
-            dispatch_async(dispatch_get_main_queue()) {
-              self.groupsBadgeView.badgeValue = unseenCount
-            }
-          }
-          }.disposeIn(self.rBag)
 
         // load conversation
         if let conversationViewController = self.conversationViewController {
@@ -87,13 +63,6 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     return unseenConversationSet.count
   }
 
-  func segmentedControlDidChange(sender: SizungSegmentedControl) {
-
-    let selectedIndex = sender.selectedIndex
-
-    self.mainPageViewController.setSelectedIndex(selectedIndex)
-  }
-
   @IBAction func showOrganizations(sender: AnyObject) {
     organizationsViewController = R.storyboard.organizations.initialViewController()
     organizationsViewController?.organizationTableViewDelegate = self
@@ -105,51 +74,16 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     organizationsViewController = nil
   }
 
-  @IBAction func showGroups(sender: AnyObject) {
-    groupsViewController = R.storyboard.conversations.initialViewController()
-    self.showViewController(groupsViewController!, sender: self)
-  }
-
-  @IBAction func hideGroups(sender: AnyObject) {
-    groupsViewController?.dismissViewControllerAnimated(true, completion: nil)
-    groupsViewController = nil
-  }
-
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "embed" {
-      if let mainPageViewController = segue.destinationViewController as? MainPageViewController {
-        self.mainPageViewController = mainPageViewController
-        self.mainPageViewController.mainPageViewControllerDelegate = self
-
-        self.mainPageViewController.orderedViewControllers
-          .append(R.storyboard.organization.agendaItemsTableViewController()!)
-        self.mainPageViewController.orderedViewControllers
-          .append(R.storyboard.organization.streamTableViewController()!)
-
-        let deliverablesTableViewController =
-          R.storyboard.organization.userDeliverablesTableViewController()!
-
-        let token = AuthToken(data: Configuration.getAuthToken())
-        let userId = token.getUserId()
-
-        deliverablesTableViewController.userId = userId
-
-        self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
-
+    if R.segue.organizationViewController.embedNav(segue: segue) != nil {
+      if let navController = segue.destinationViewController as? UINavigationController {
+        self.navController = navController
       } else {
-        fatalError("unexpected segue destinationViewcontroller " +
-          "\(segue.destinationViewController.dynamicType)")
+        fatalError()
       }
     } else {
-      fatalError("unexpected segue \(segue.identifier)")
+      fatalError()
     }
-
-  }
-
-  func mainpageViewController(
-    mainPageViewController: MainPageViewController,
-    didSwitchToIndex index: Int) {
-    segmentedControl.selectedIndex = index
   }
 
   func organizationSelected(organization: Organization) {
@@ -166,5 +100,109 @@ class OrganizationViewController: UIViewController, MainPageViewControllerDelega
     } else {
       self.hideOrganizations(self)
     }
+  }
+
+  @IBAction func closeButtonTouched(sender: AnyObject) {
+    self.hideCloseButton()
+
+    if self.conversationListViewController != nil {
+      hideConversations()
+    }
+
+    let transition = CATransition()
+    transition.duration = 0.3
+    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    transition.type = kCATransitionFade
+    self.navController?.view.layer.addAnimation(transition, forKey: nil)
+
+    self.navController?.popToRootViewControllerAnimated(false)
+  }
+
+  func showCloseButton() {
+    closeButton.hidden = false
+    closeButton.alpha = 0
+    UIView.animateWithDuration(0.2) {self.closeButton.alpha = 1}
+
+    closeButtonHiddenConstraint.priority = UILayoutPriorityDefaultHigh-1
+
+    self.animateSearchBarWidthChange()
+  }
+
+  func hideCloseButton() {
+    UIView.animateWithDuration(0.2, animations: {
+      self.closeButton.alpha = 0
+      }, completion: { _ in
+        self.closeButton.hidden = true
+    })
+
+    closeButtonHiddenConstraint.priority = UILayoutPriorityDefaultHigh+1
+
+    self.animateSearchBarWidthChange()
+  }
+
+    func animateSearchBarWidthChange() {
+      UIView.animateWithDuration(0.2) {
+        self.searchBar.layoutIfNeeded()
+      }
+    }
+
+  func showConversations() {
+
+    self.showCloseButton()
+
+    let transition = CATransition()
+    transition.duration = 0.3
+    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    transition.type = kCATransitionFade
+    self.navController?.view.layer.addAnimation(transition, forKey: nil)
+
+    conversationListViewController = R.storyboard.conversations.initialViewController()
+    conversationListViewController?.conversationTableViewDelegate = self
+    self.navController?.pushViewController(conversationListViewController!, animated: false)
+  }
+
+  func hideConversations() {
+    self.searchBar.resignFirstResponder()
+    self.searchBar.text = ""
+
+    self.hideCloseButton()
+
+    let transition = CATransition()
+    transition.duration = 0.3
+    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    transition.type = kCATransitionFade
+    self.navController?.view.layer.addAnimation(transition, forKey: nil)
+
+    self.navController?.popViewControllerAnimated(false)
+    conversationListViewController = nil
+  }
+
+  func conversationSelected(conversation: Conversation) {
+    self.showConversation(conversation)
+  }
+
+  func showConversation(conversation: Conversation) {
+    let conversationViewController = R.storyboard.conversation.initialViewController()!
+    conversationViewController.conversation = conversation
+    conversationViewController.modalTransitionStyle = .CrossDissolve
+
+    self.hideConversations()
+    self.presentViewController(conversationViewController, animated: true, completion: nil)
+  }
+}
+
+extension OrganizationViewController: UITextFieldDelegate {
+
+  func textFieldDidBeginEditing(textField: UITextField) {
+    self.showConversations()
+  }
+
+  func textFieldDidEndEditing(textField: UITextField) {
+    self.hideConversations()
+  }
+
+  @IBAction func textFieldDidChange(sender: UITextField) {
+    let text = sender.text ?? ""
+    self.conversationListViewController?.filterFor(text)
   }
 }
