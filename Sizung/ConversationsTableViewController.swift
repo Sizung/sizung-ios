@@ -116,7 +116,7 @@ class ConversationsTableViewController: UITableViewController, ConversationCreat
       if filterString.isEmpty {
         return true
       } else {
-        return conversation.title.containsString(filterString)
+        return conversation.title.lowercaseString.containsString(filterString.lowercaseString)
       }
     }.bindTo(filteredCollection)
   }
