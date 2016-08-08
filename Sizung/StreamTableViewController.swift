@@ -364,6 +364,6 @@ class StreamTableViewController: UITableViewController {
     conversationController.conversation = conversation
     conversationController.openItem = item
 
-    self.showViewController(conversationController, sender: nil)
+    self.presentViewController(conversationController, animated: true, completion: nil)
   }
 }
