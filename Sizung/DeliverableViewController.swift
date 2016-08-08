@@ -92,15 +92,24 @@ ActionCreateDelegate {
         }
     }
 
-    var statusString = deliverable.status
+    var statusBorderColor = Color.AGENDAITEM
+    var statusBackgroundColor = UIColor.whiteColor()
+    var statusTextColor = Color.AGENDAITEM
+    var statusString = "…"
 
-    if deliverable.archived == true {
-      statusString = "Archived"
-    } else if !deliverable.isCompleted(), let dueDate = deliverable.dueOn {
-      statusString = DueDateHelper.getDueDateString(dueDate)
+    if deliverable.isCompleted() {
+      statusBorderColor = Color.AGENDAITEM
+      statusBackgroundColor = statusBorderColor
+    } else if deliverable.isOverdue() {
+      statusBackgroundColor = statusBorderColor
+      statusString = "!"
+      statusTextColor = UIColor.whiteColor()
     }
 
     statusButton.setTitle(statusString, forState: .Normal)
+    statusButton.setTitleColor(statusTextColor, forState: .Normal)
+    statusButton.layer.borderUIColor = statusBorderColor
+    statusButton.backgroundColor = statusBackgroundColor
 
   }
 
@@ -118,7 +127,16 @@ ActionCreateDelegate {
 
     if !deliverable.isCompleted() {
 
-      let optionMenu = UIAlertController(title: nil, message: "Edit", preferredStyle: .ActionSheet)
+      var statusString = deliverable.getStatus()
+
+      if deliverable.archived == true {
+        statusString = "Archived"
+      } else if !deliverable.isCompleted(), let dueDate = deliverable.dueOn {
+        statusString = DueDateHelper.getDueDateString(dueDate)
+      }
+
+
+      let optionMenu = UIAlertController(title: nil, message: statusString, preferredStyle: .ActionSheet)
 
       let dateAction = UIAlertAction(title: "Change due date", style: .Default, handler: { _ in
         self.showDatePicker(sender)
@@ -263,7 +281,7 @@ ActionCreateDelegate {
 
   func actionCreated(action: Deliverable) {
     self.deliverable = action
-   
+
     self.update()
     InAppMessage.showSuccessMessage("Updated action")
   }

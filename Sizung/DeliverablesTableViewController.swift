@@ -176,7 +176,7 @@ class DeliverablesTableViewController: UITableViewController {
         if deliverable.isCompleted() {
           statusColor = UIColor(red:0.33, green:0.75, blue:0.59, alpha:1.0)
           textStatusColor = statusColor
-        } else if deliverable.dueOn != nil && deliverable.dueOn?.daysAgo() >= 0 {
+        } else if deliverable.isOverdue() {
           //overdue or today
           statusColor = UIColor(red:0.98, green:0.40, blue:0.38, alpha:1.0)
           textStatusColor = statusColor

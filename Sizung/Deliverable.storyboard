@@ -39,16 +39,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NfS-yD-wtj">
                                 <rect key="frame" x="0.0" y="20" width="600" height="45"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg1-da-c05">
-                                        <rect key="frame" x="540" y="4" width="40" height="37"/>
-                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
-                                        <state key="normal" title="status">
-                                            <color key="titleColor" red="0.97647058959999999" green="0.40000000600000002" blue="0.37647059560000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="showStatusPopover:" destination="GPy-5R-nwL" eventType="touchUpInside" id="dyV-Io-6hk"/>
-                                        </connections>
-                                    </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k2r-bI-A4N">
                                         <rect key="frame" x="15" y="8" width="30" height="30"/>
                                         <constraints>
@@ -82,28 +72,47 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" name="BrandonText-Regular" family="Brandon Text" pointSize="10"/>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3pB-gc-Cov">
+                                        <rect key="frame" x="535" y="8" width="30" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Os0-L8-v50"/>
+                                            <constraint firstAttribute="width" constant="30" id="Znp-QN-rME"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                        <state key="normal">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderUIColor">
+                                                <color key="value" red="0.97647058963775635" green="0.40000000596046448" blue="0.37647059559822083" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="showStatusPopover:" destination="GPy-5R-nwL" eventType="touchUpInside" id="9fG-br-6La"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="3pB-gc-Cov" secondAttribute="trailing" constant="35" id="95k-vE-oz0"/>
                                     <constraint firstItem="k2r-bI-A4N" firstAttribute="centerY" secondItem="NfS-yD-wtj" secondAttribute="centerY" id="B1a-Yp-QPZ"/>
                                     <constraint firstItem="nYB-1C-4Be" firstAttribute="leading" secondItem="k2r-bI-A4N" secondAttribute="trailing" priority="250" constant="15" id="Coh-sn-H6R"/>
-                                    <constraint firstAttribute="trailing" secondItem="vg1-da-c05" secondAttribute="trailing" constant="20" id="DD8-qt-UnK"/>
-                                    <constraint firstItem="vg1-da-c05" firstAttribute="centerY" secondItem="nYB-1C-4Be" secondAttribute="centerY" id="DJO-b9-v5t"/>
                                     <constraint firstItem="nYB-1C-4Be" firstAttribute="centerY" secondItem="NfS-yD-wtj" secondAttribute="centerY" id="Eru-1L-Nzl"/>
                                     <constraint firstItem="k2r-bI-A4N" firstAttribute="leading" secondItem="NfS-yD-wtj" secondAttribute="leading" constant="15" id="JQd-wF-17m"/>
                                     <constraint firstItem="BtO-YG-58F" firstAttribute="leading" secondItem="nYB-1C-4Be" secondAttribute="leading" constant="2" id="TbN-fV-URe"/>
                                     <constraint firstItem="nYB-1C-4Be" firstAttribute="leading" secondItem="NfS-yD-wtj" secondAttribute="leading" priority="750" constant="15" id="VYb-Ry-rJT"/>
-                                    <constraint firstItem="vg1-da-c05" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nYB-1C-4Be" secondAttribute="trailing" constant="15" id="aW3-v0-myQ"/>
+                                    <constraint firstItem="3pB-gc-Cov" firstAttribute="centerY" secondItem="NfS-yD-wtj" secondAttribute="centerY" id="ao4-0n-zk5"/>
                                     <constraint firstAttribute="height" constant="45" id="gaW-eT-I6B"/>
-                                    <constraint firstItem="vg1-da-c05" firstAttribute="centerY" secondItem="BtO-YG-58F" secondAttribute="centerY" id="kXd-aZ-Kcx"/>
                                     <constraint firstItem="BtO-YG-58F" firstAttribute="centerY" secondItem="nYB-1C-4Be" secondAttribute="centerY" id="plW-yj-75f"/>
-                                    <constraint firstItem="vg1-da-c05" firstAttribute="leading" secondItem="BtO-YG-58F" secondAttribute="trailing" constant="20" id="vXp-Wm-8fW"/>
+                                    <constraint firstItem="3pB-gc-Cov" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nYB-1C-4Be" secondAttribute="trailing" constant="20" id="pqd-lb-tbl"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="vXp-Wm-8fW"/>
-                                    </mask>
-                                </variation>
                             </view>
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x3E-Ai-F2L">
                                 <rect key="frame" x="0.0" y="65" width="600" height="535"/>
@@ -134,7 +143,7 @@
                         <outlet property="assigneeImageView" destination="BtO-YG-58F" id="8mA-OR-Ad2"/>
                         <outlet property="parentAgendaItemButton" destination="k2r-bI-A4N" id="eFD-xJ-veN"/>
                         <outlet property="parentAgendaItemDistance" destination="Coh-sn-H6R" id="2KD-8E-ChV"/>
-                        <outlet property="statusButton" destination="vg1-da-c05" id="AgE-aI-O5W"/>
+                        <outlet property="statusButton" destination="3pB-gc-Cov" id="adN-hh-oHT"/>
                         <outlet property="titleButton" destination="nYB-1C-4Be" id="bA0-Wp-Yqv"/>
                     </connections>
                 </viewController>
