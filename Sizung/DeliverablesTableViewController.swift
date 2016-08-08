@@ -15,7 +15,7 @@ class DeliverablesTableViewController: UITableViewController {
 
   var collection: [Deliverable]?
 
-  var conversation: Conversation?
+  var parent: BaseModel?
 
   var storageManager: OrganizationStorageManager?
 
@@ -69,7 +69,7 @@ class DeliverablesTableViewController: UITableViewController {
       .onSuccess { storageManager in
         self.collection = storageManager.deliverables.collection.filter { deliverable in
 
-          if self.conversation != nil && self.conversation!.id != deliverable.parentId {
+          if self.parent != nil && self.parent!.id != deliverable.parentId {
             return false
           }
 
@@ -220,8 +220,13 @@ class DeliverablesTableViewController: UITableViewController {
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
     if let selectedDeliverable = collection?[indexPath.row] {
+      switch parent {
+      case is AgendaItem:
+        let deliverableViewController = R.storyboard.deliverable.initialViewController()!
+        deliverableViewController.deliverable = selectedDeliverable
 
-      if self.navigationController?.viewControllers.first is ConversationContentViewController {
+        self.navigationController?.pushViewController(deliverableViewController, animated: true)
+      case is Conversation:
         let deliverableViewController = R.storyboard.deliverable.initialViewController()!
         deliverableViewController.deliverable = selectedDeliverable
 
@@ -233,7 +238,7 @@ class DeliverablesTableViewController: UITableViewController {
         self.navigationController?.view.layer.addAnimation(transition, forKey: nil)
 
         self.navigationController?.pushViewController(deliverableViewController, animated: false)
-      } else {
+      default:
         let conversationController = R.storyboard.conversation.initialViewController()!
         conversationController.conversation = storageManager!.conversations[getConversationId(selectedDeliverable)]
         conversationController.openItem = selectedDeliverable

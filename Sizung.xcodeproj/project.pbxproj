@@ -21,6 +21,8 @@
 		5A208E5F1D43601A00F765C9 /* StreamAgendaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A208E5B1D43601A00F765C9 /* StreamAgendaTableViewCell.xib */; };
 		5A208E621D436BD100F765C9 /* StreamObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A208E611D436BD100F765C9 /* StreamObjects.swift */; };
 		5A208E651D45252800F765C9 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A208E641D45252800F765C9 /* Log.swift */; };
+		5A21B9581D58753E003A90DA /* UILayerBorderColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21B9571D58753E003A90DA /* UILayerBorderColorExtension.swift */; };
+		5A21B95A1D587DF2003A90DA /* AgendaItemActionListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A21B9591D587DF2003A90DA /* AgendaItemActionListController.swift */; };
 		5A29E0D31D2F7F3E002A7840 /* SizungButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */; };
 		5A29E0D61D2FA44A002A7840 /* OrganizationStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A29E0D51D2FA44A002A7840 /* OrganizationStorageManager.swift */; };
 		5A2E3C241D2E3A3900D4D3EA /* Conversation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */; };
@@ -192,6 +194,8 @@
 		5A208E5B1D43601A00F765C9 /* StreamAgendaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StreamAgendaTableViewCell.xib; sourceTree = "<group>"; };
 		5A208E611D436BD100F765C9 /* StreamObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamObjects.swift; sourceTree = "<group>"; };
 		5A208E641D45252800F765C9 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		5A21B9571D58753E003A90DA /* UILayerBorderColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILayerBorderColorExtension.swift; sourceTree = "<group>"; };
+		5A21B9591D587DF2003A90DA /* AgendaItemActionListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaItemActionListController.swift; sourceTree = "<group>"; };
 		5A29E0D21D2F7F3E002A7840 /* SizungButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizungButton.swift; sourceTree = "<group>"; };
 		5A29E0D51D2FA44A002A7840 /* OrganizationStorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationStorageManager.swift; sourceTree = "<group>"; };
 		5A2E3C231D2E3A3900D4D3EA /* Conversation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Conversation.storyboard; sourceTree = "<group>"; };
@@ -426,6 +430,14 @@
 			name = Reporting;
 			sourceTree = "<group>";
 		};
+		5A21B9561D587525003A90DA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5A21B9571D58753E003A90DA /* UILayerBorderColorExtension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		5A29E0D41D2FA43B002A7840 /* storage */ = {
 			isa = PBXGroup;
 			children = (
@@ -495,6 +507,7 @@
 				5A7329F31D05B1E9006531A5 /* Resources */,
 				5A7B95A51CF8FC9700FE36CB /* Sizung.entitlements */,
 				5AA890FA1CF4D19600ED391B /* Protocols */,
+				5A21B9561D587525003A90DA /* Extensions */,
 				5AC0E5E21CF0531100BBEF45 /* ViewControllers */,
 				5AC0E5DD1CF04CE100BBEF45 /* Views */,
 				5A86B1391CE60520001C2E7A /* Models */,
@@ -722,6 +735,7 @@
 				5A68DBFE1D3CB68900687107 /* CreateAgendaItemViewController.swift */,
 				5A68DC021D3CD05400687107 /* CreateActionViewController.swift */,
 				5A68DC041D3CE40500687107 /* AssigneeSelectionViewController.swift */,
+				5A21B9591D587DF2003A90DA /* AgendaItemActionListController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -1159,6 +1173,7 @@
 				5A9EDEBC1D01CEB900D389EC /* Color.swift in Sources */,
 				5A653E8F1CD7A96000FB3DEB /* AppDelegate.swift in Sources */,
 				5ABA4FBB1CFEBE3500110030 /* OrganizationResponse.swift in Sources */,
+				5A21B95A1D587DF2003A90DA /* AgendaItemActionListController.swift in Sources */,
 				5A7329F01D05877D006531A5 /* CardView.swift in Sources */,
 				5AD9F1B91CE9D3D700455D98 /* ConversationMember.swift in Sources */,
 				5AF675D01D38D448008C813D /* Helper.swift in Sources */,
@@ -1200,6 +1215,7 @@
 				5ABACCE01D0AA82F0093CF21 /* ISODateTransform.swift in Sources */,
 				5ADC88321D10505700596D67 /* TimelineDeliverableTableViewCell.swift in Sources */,
 				5AF675CB1D3788AB008C813D /* ItemLoadingViewController.swift in Sources */,
+				5A21B9581D58753E003A90DA /* UILayerBorderColorExtension.swift in Sources */,
 				5A68DC0C1D3D158B00687107 /* AttachmentTableViewCell.swift in Sources */,
 				5A208E571D435D6700F765C9 /* StreamConversationTableViewCell.swift in Sources */,
 				5ADC88341D10508800596D67 /* TimelineAgendaItemTableViewCell.swift in Sources */,

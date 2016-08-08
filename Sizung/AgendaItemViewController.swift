@@ -27,17 +27,13 @@ AgendaItemCreateDelegate {
 
   var storageManager: OrganizationStorageManager?
 
+  @IBOutlet weak var actionItemListButton: UIButton!
+  @IBOutlet weak var noActionItemsConstraint: NSLayoutConstraint!
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.titleButton.setTitle(self.agendaItem.title, forState: .Normal)
-
-    StorageManager.storageForSelectedOrganization()
-      .onSuccess { storageManager in
-        self.storageManager = storageManager
-
-        self.agendaOwnerAvatarView.user = storageManager.users[self.agendaItem.ownerId]
-    }
+    update()
 
     initFloatingActionButton()
   }
@@ -50,6 +46,40 @@ AgendaItemCreateDelegate {
       as? TimelineTableViewController {
         timelineTableViewController.timelineParent = agendaItem
     }
+  }
+
+  func update() {
+    self.titleButton.setTitle(self.agendaItem.title, forState: .Normal)
+
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        self.storageManager = storageManager
+
+        self.agendaOwnerAvatarView.user = storageManager.users[self.agendaItem.ownerId]
+
+        let actionItemListCount = storageManager.deliverables.collection.reduce(0) { prev, deliverable in
+          if deliverable.parentId == self.agendaItem.id {
+            return prev + 1
+          } else {
+            return prev
+          }
+        }
+
+        let unresolvedActionItemListCount = storageManager.deliverables.collection.reduce(0) { prev, deliverable in
+          if deliverable.parentId == self.agendaItem.id && !deliverable.isCompleted() {
+            return prev + 1
+          } else {
+            return prev
+          }
+        }
+
+        self.statusButton.hidden = unresolvedActionItemListCount > 0
+
+        self.actionItemListButton.setTitle("\(actionItemListCount)", forState: .Normal)
+    }
+
+    // update status text
+    self.statusButton.setTitle(agendaItem.status, forState: .Normal)
   }
 
   @IBAction func edit(sender: AnyObject) {
@@ -97,8 +127,7 @@ AgendaItemCreateDelegate {
               self.navigationController?.popViewControllerAnimated(true)
             }
 
-            // update status text
-            self.statusButton.setTitle(agendaItem.status, forState: .Normal)
+            self.update()
         }
     }
   }
@@ -114,7 +143,14 @@ AgendaItemCreateDelegate {
     self.navigationController?.view.layer.addAnimation(transition, forKey: nil)
 
     self.navigationController?.popViewControllerAnimated(false)
+  }
 
+  @IBAction func showActionItems(sender: AnyObject) {
+
+    let agendaItemActionListController = R.storyboard.agendaItem.agendaItemActionListController()!
+    agendaItemActionListController.agendaItem = self.agendaItem
+
+    self.navigationController?.pushViewController(agendaItemActionListController, animated: true)
   }
 
   // MARK: - FAB
@@ -205,7 +241,7 @@ AgendaItemCreateDelegate {
   }
 
   func agendaItemCreated(agendaItem: AgendaItem) {
-    self.titleButton.setTitle(agendaItem.title, forState: .Normal)
+    self.update()
     InAppMessage.showSuccessMessage("Updated agenda")
   }
 }

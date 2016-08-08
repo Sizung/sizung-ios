@@ -307,6 +307,7 @@ extension TimelineTableViewController: ExpandingTransitionPresentingViewControll
   }
 
   func showViewController(viewController: UIViewController, fromFrame frame: CGRect) {
+
     let transition = CATransition()
     transition.duration = 0.3
     transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)

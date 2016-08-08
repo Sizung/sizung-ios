@@ -40,7 +40,7 @@
                                             </mask>
                                         </variation>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Je-gS-fJ1">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Je-gS-fJ1">
                                         <rect key="frame" x="44" y="4" width="184" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26" id="rZO-Kr-bn7"/>
@@ -52,7 +52,7 @@
                                             <action selector="titleClicked:" destination="eN5-b6-JVW" eventType="touchUpInside" id="d8g-XU-eD0"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KMu-4V-qY2">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KMu-4V-qY2">
                                         <rect key="frame" x="243" y="4" width="51" height="26"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="26" id="mZY-pg-zA7"/>

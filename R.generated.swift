@@ -512,8 +512,23 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.segue` struct is generated, and contains static references to 10 view controllers.
+  /// This `R.segue` struct is generated, and contains static references to 11 view controllers.
   struct segue {
+    /// This struct is generated for `AgendaItemActionListController`, and contains static references to 1 segues.
+    struct agendaItemActionListController {
+      /// Segue identifier `embedActionList`.
+      static let embedActionList: StoryboardSegueIdentifier<UIStoryboardSegue, AgendaItemActionListController, DeliverablesTableViewController> = StoryboardSegueIdentifier(identifier: "embedActionList")
+      
+      /// Optionally returns a typed version of segue `embedActionList`.
+      /// Returns nil if either the segue identifier, the source, destination, or segue types don't match.
+      /// For use inside `prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)`.
+      static func embedActionList(segue segue: UIStoryboardSegue) -> TypedStoryboardSegueInfo<UIStoryboardSegue, AgendaItemActionListController, DeliverablesTableViewController>? {
+        return TypedStoryboardSegueInfo(segueIdentifier: R.segue.agendaItemActionListController.embedActionList, segue: segue)
+      }
+      
+      private init() {}
+    }
+    
     /// This struct is generated for `AgendaItemViewController`, and contains static references to 1 segues.
     struct agendaItemViewController {
       /// Segue identifier `embed`.
@@ -1013,9 +1028,14 @@ struct _R: Rswift.Validatable {
     struct agendaItem: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = AgendaItemViewController
       
+      let agendaItemActionListController = StoryboardViewControllerResource<AgendaItemActionListController>(identifier: "AgendaItemActionListController")
       let bundle = _R.hostingBundle
       let create = StoryboardViewControllerResource<CreateAgendaItemViewController>(identifier: "create")
       let name = "AgendaItem"
+      
+      func agendaItemActionListController(_: Void) -> AgendaItemActionListController? {
+        return UIStoryboard(resource: self).instantiateViewController(agendaItemActionListController)
+      }
       
       func create(_: Void) -> CreateAgendaItemViewController? {
         return UIStoryboard(resource: self).instantiateViewController(create)
@@ -1026,6 +1046,7 @@ struct _R: Rswift.Validatable {
         if UIImage(named: "bg_priorities") == nil { throw ValidationError(description: "[R.swift] Image named 'bg_priorities' is used in storyboard 'AgendaItem', but couldn't be loaded.") }
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'AgendaItem', but couldn't be loaded.") }
         if _R.storyboard.agendaItem().create() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'create' could not be loaded from storyboard 'AgendaItem' as 'CreateAgendaItemViewController'.") }
+        if _R.storyboard.agendaItem().agendaItemActionListController() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'agendaItemActionListController' could not be loaded from storyboard 'AgendaItem' as 'AgendaItemActionListController'.") }
       }
       
       private init() {}

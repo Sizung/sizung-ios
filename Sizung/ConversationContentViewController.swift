@@ -76,7 +76,7 @@ FilesPickerDelegate {
         let deliverablesTableViewController =
           R.storyboard.conversation.conversationDeliverablesTableViewController()!
         deliverablesTableViewController.filter = .All
-        deliverablesTableViewController.conversation = self.conversation
+        deliverablesTableViewController.parent = self.conversation
         self.mainPageViewController.orderedViewControllers.append(deliverablesTableViewController)
       } else {
         fatalError("unexpected destinationviewcontroller " +
