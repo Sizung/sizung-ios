@@ -134,7 +134,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 28 images.
+  /// This `R.image` struct is generated, and contains static references to 32 images.
   struct image {
     /// Image `action`.
     static let action = ImageResource(bundle: _R.hostingBundle, name: "action")
@@ -142,8 +142,20 @@ struct R: Rswift.Validatable {
     static let action_title = ImageResource(bundle: _R.hostingBundle, name: "action_title")
     /// Image `actions_filter_all`.
     static let actions_filter_all = ImageResource(bundle: _R.hostingBundle, name: "actions_filter_all")
+    /// Image `actions_filter_all_selected`.
+    static let actions_filter_all_selected = ImageResource(bundle: _R.hostingBundle, name: "actions_filter_all_selected")
     /// Image `actions_filter_mine`.
     static let actions_filter_mine = ImageResource(bundle: _R.hostingBundle, name: "actions_filter_mine")
+    /// Image `actions_filter_mine_selected`.
+    static let actions_filter_mine_selected = ImageResource(bundle: _R.hostingBundle, name: "actions_filter_mine_selected")
+    /// Image `agenda_filter_all`.
+    static let agenda_filter_all = ImageResource(bundle: _R.hostingBundle, name: "agenda_filter_all")
+    /// Image `agenda_filter_all_selected`.
+    static let agenda_filter_all_selected = ImageResource(bundle: _R.hostingBundle, name: "agenda_filter_all_selected")
+    /// Image `agenda_filter_mine`.
+    static let agenda_filter_mine = ImageResource(bundle: _R.hostingBundle, name: "agenda_filter_mine")
+    /// Image `agenda_filter_mine_selected`.
+    static let agenda_filter_mine_selected = ImageResource(bundle: _R.hostingBundle, name: "agenda_filter_mine_selected")
     /// Image `agenda_title`.
     static let agenda_title = ImageResource(bundle: _R.hostingBundle, name: "agenda_title")
     /// Image `attachment`.
@@ -182,10 +194,6 @@ struct R: Rswift.Validatable {
     static let logo = ImageResource(bundle: _R.hostingBundle, name: "logo")
     /// Image `organization_fallback`.
     static let organization_fallback = ImageResource(bundle: _R.hostingBundle, name: "organization_fallback")
-    /// Image `priorities_filter_all`.
-    static let priorities_filter_all = ImageResource(bundle: _R.hostingBundle, name: "priorities_filter_all")
-    /// Image `priorities_filter_mine`.
-    static let priorities_filter_mine = ImageResource(bundle: _R.hostingBundle, name: "priorities_filter_mine")
     /// Image `priority`.
     static let priority = ImageResource(bundle: _R.hostingBundle, name: "priority")
     /// Image `priority_color`.
@@ -208,9 +216,39 @@ struct R: Rswift.Validatable {
       return UIImage(resource: R.image.actions_filter_all, compatibleWithTraitCollection: traitCollection)
     }
     
+    /// `UIImage(named: "actions_filter_all_selected", bundle: ..., traitCollection: ...)`
+    static func actions_filter_all_selected(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.actions_filter_all_selected, compatibleWithTraitCollection: traitCollection)
+    }
+    
     /// `UIImage(named: "actions_filter_mine", bundle: ..., traitCollection: ...)`
     static func actions_filter_mine(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.actions_filter_mine, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "actions_filter_mine_selected", bundle: ..., traitCollection: ...)`
+    static func actions_filter_mine_selected(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.actions_filter_mine_selected, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "agenda_filter_all", bundle: ..., traitCollection: ...)`
+    static func agenda_filter_all(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.agenda_filter_all, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "agenda_filter_all_selected", bundle: ..., traitCollection: ...)`
+    static func agenda_filter_all_selected(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.agenda_filter_all_selected, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "agenda_filter_mine", bundle: ..., traitCollection: ...)`
+    static func agenda_filter_mine(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.agenda_filter_mine, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "agenda_filter_mine_selected", bundle: ..., traitCollection: ...)`
+    static func agenda_filter_mine_selected(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.agenda_filter_mine_selected, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "agenda_title", bundle: ..., traitCollection: ...)`
@@ -306,16 +344,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "organization_fallback", bundle: ..., traitCollection: ...)`
     static func organization_fallback(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.organization_fallback, compatibleWithTraitCollection: traitCollection)
-    }
-    
-    /// `UIImage(named: "priorities_filter_all", bundle: ..., traitCollection: ...)`
-    static func priorities_filter_all(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
-      return UIImage(resource: R.image.priorities_filter_all, compatibleWithTraitCollection: traitCollection)
-    }
-    
-    /// `UIImage(named: "priorities_filter_mine", bundle: ..., traitCollection: ...)`
-    static func priorities_filter_mine(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
-      return UIImage(resource: R.image.priorities_filter_mine, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "priority", bundle: ..., traitCollection: ...)`

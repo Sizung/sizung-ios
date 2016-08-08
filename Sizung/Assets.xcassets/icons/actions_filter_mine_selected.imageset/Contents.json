@@ -8,12 +8,12 @@
           "width" : 1
         },
         "cap-insets" : {
-          "right" : 12,
-          "left" : 23
+          "right" : 11,
+          "left" : 24
         }
       },
       "idiom" : "universal",
-      "filename" : "actions_filter_all.pdf",
+      "filename" : "actions_filter_mine_selected.pdf",
       "scale" : "1x"
     },
     {

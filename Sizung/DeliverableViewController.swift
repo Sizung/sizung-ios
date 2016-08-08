@@ -101,7 +101,8 @@ ActionCreateDelegate {
       statusBorderColor = Color.AGENDAITEM
       statusBackgroundColor = statusBorderColor
     } else if deliverable.isOverdue() {
-      statusBackgroundColor = statusBorderColor
+      statusBorderColor = Color.ACTION
+      statusBackgroundColor = Color.ACTION
       statusString = "!"
       statusTextColor = UIColor.whiteColor()
     }

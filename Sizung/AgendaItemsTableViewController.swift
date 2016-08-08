@@ -9,6 +9,7 @@
 import UIKit
 import SwiftKeychainWrapper
 import ReactiveKit
+import AKSegmentedControl
 
 class AgendaItemsTableViewController: UITableViewController {
 
@@ -18,6 +19,8 @@ class AgendaItemsTableViewController: UITableViewController {
   var userId: String?
 
   var storageManager: OrganizationStorageManager?
+
+  @IBOutlet weak var segmentedControl: AKSegmentedControl!
 
   enum Filter {
     case Mine
@@ -43,10 +46,39 @@ class AgendaItemsTableViewController: UITableViewController {
       data: Configuration.getAuthToken()).getUserId()
 
     self.initData()
+
+    self.initSegmentedControl()
   }
 
-  @IBAction func filterValueChanged(sender: UISegmentedControl) {
-    switch sender.selectedSegmentIndex {
+  func initSegmentedControl() {
+    let allButton = UIButton()
+    allButton.setBackgroundImage(R.image.agenda_filter_all(), forState: .Normal)
+    allButton.setBackgroundImage(R.image.agenda_filter_all_selected(), forState: .Selected)
+    allButton.titleLabel?.font = R.font.brandonGrotesqueMedium(size: 15)
+    allButton.setTitleColor(Color.AGENDAITEM, forState: .Normal)
+    allButton.setTitleColor(UIColor.whiteColor(), forState: .Selected)
+    allButton.setTitle("All", forState: .Normal)
+
+    let myButton = UIButton()
+    myButton.setBackgroundImage(R.image.agenda_filter_mine(), forState: .Normal)
+    myButton.setBackgroundImage(R.image.agenda_filter_mine_selected(), forState: .Selected)
+    myButton.titleLabel?.font = R.font.brandonGrotesqueMedium(size: 15)
+    myButton.setTitleColor(Color.AGENDAITEM, forState: .Normal)
+    myButton.setTitleColor(UIColor.whiteColor(), forState: .Selected)
+    myButton.setTitle("My", forState: .Normal)
+
+    segmentedControl.buttonsArray = [allButton, myButton]
+
+    switch self.filter {
+    case .All:
+      segmentedControl.setSelectedIndex(0)
+    case .Mine:
+      segmentedControl.setSelectedIndex(1)
+    }
+  }
+
+  @IBAction func filterValueChanged(sender: AKSegmentedControl) {
+    switch sender.selectedIndexes.firstIndex {
     case 0:
       self.filter = .All
     case 1:

@@ -381,22 +381,22 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GFq-LS-CKg">
-                                    <rect key="frame" x="267" y="8" width="67" height="29"/>
-                                    <segments>
-                                        <segment title="All"/>
-                                        <segment title="My"/>
-                                    </segments>
-                                    <color key="tintColor" red="0.48235294220000002" green="0.40784314269999999" blue="0.31372550129999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DxY-uU-6cM" customClass="AKSegmentedControl">
+                                    <rect key="frame" x="200" y="11" width="200" height="23"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="23" id="NRf-Ji-IqG"/>
+                                        <constraint firstAttribute="width" constant="200" id="zf1-xh-oq7"/>
+                                    </constraints>
                                     <connections>
-                                        <action selector="filterValueChanged:" destination="hsS-k8-sD5" eventType="valueChanged" id="pXC-Aa-jwI"/>
+                                        <action selector="filterValueChanged:" destination="hsS-k8-sD5" eventType="valueChanged" id="TpD-Vk-azi"/>
                                     </connections>
-                                </segmentedControl>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="GFq-LS-CKg" firstAttribute="centerX" secondItem="67q-bZ-5td" secondAttribute="centerX" id="E08-38-jto"/>
-                                <constraint firstItem="GFq-LS-CKg" firstAttribute="centerY" secondItem="67q-bZ-5td" secondAttribute="centerY" id="lJO-As-BS3"/>
+                                <constraint firstItem="DxY-uU-6cM" firstAttribute="centerX" secondItem="67q-bZ-5td" secondAttribute="centerX" id="Afc-zp-gzb"/>
+                                <constraint firstItem="DxY-uU-6cM" firstAttribute="centerY" secondItem="67q-bZ-5td" secondAttribute="centerY" id="ExB-hL-SK6"/>
                             </constraints>
                         </view>
                         <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing there yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hUF-Q9-q59">
@@ -417,6 +417,9 @@
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="lR7-Ps-38y">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
+                    <connections>
+                        <outlet property="segmentedControl" destination="DxY-uU-6cM" id="Afw-Z2-EHK"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v0y-m9-Nw6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

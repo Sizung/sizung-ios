@@ -33,22 +33,22 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="CiJ-hi-Y1g">
-                                    <rect key="frame" x="267" y="8" width="67" height="29"/>
-                                    <segments>
-                                        <segment title="All"/>
-                                        <segment title="My"/>
-                                    </segments>
-                                    <color key="tintColor" red="0.0" green="0.31764705879999999" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2o-Jy-m15" customClass="AKSegmentedControl">
+                                    <rect key="frame" x="200" y="10" width="200" height="23"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="23" id="8hz-F7-aAP"/>
+                                        <constraint firstAttribute="width" constant="200" id="lyI-5v-kr8"/>
+                                    </constraints>
                                     <connections>
-                                        <action selector="filterValueChanged:" destination="7Kt-Xg-hqO" eventType="valueChanged" id="6j6-p9-c3b"/>
+                                        <action selector="filterValueChanged:" destination="7Kt-Xg-hqO" eventType="valueChanged" id="YuB-hr-e8e"/>
                                     </connections>
-                                </segmentedControl>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="CiJ-hi-Y1g" firstAttribute="centerX" secondItem="Z6t-Wq-lbV" secondAttribute="centerX" id="21F-6z-znH"/>
-                                <constraint firstItem="CiJ-hi-Y1g" firstAttribute="centerY" secondItem="Z6t-Wq-lbV" secondAttribute="centerY" id="eKw-FK-sLC"/>
+                                <constraint firstItem="K2o-Jy-m15" firstAttribute="centerX" secondItem="Z6t-Wq-lbV" secondAttribute="centerX" id="HZx-pM-k3g"/>
+                                <constraint firstItem="K2o-Jy-m15" firstAttribute="centerY" secondItem="Z6t-Wq-lbV" secondAttribute="centerY" id="otd-ke-5aE"/>
                             </constraints>
                         </view>
                         <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing there yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NX9-EG-Ubu">
@@ -143,6 +143,9 @@
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="9Nf-Ns-Q3u">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
+                    <connections>
+                        <outlet property="segmentedControl" destination="K2o-Jy-m15" id="ppm-Fq-xjP"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qfM-cW-SgY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -416,22 +419,22 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="L1y-D4-5kJ">
-                                    <rect key="frame" x="267" y="8" width="67" height="29"/>
-                                    <segments>
-                                        <segment title="All"/>
-                                        <segment title="My"/>
-                                    </segments>
-                                    <color key="tintColor" red="0.48235294220000002" green="0.40784314269999999" blue="0.31372550129999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buy-Qr-rOV" customClass="AKSegmentedControl">
+                                    <rect key="frame" x="200" y="11" width="200" height="23"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="23" id="fgG-QX-Xdd"/>
+                                        <constraint firstAttribute="width" constant="200" id="sLa-hZ-Dk9"/>
+                                    </constraints>
                                     <connections>
-                                        <action selector="filterValueChanged:" destination="7zC-UA-nwk" eventType="valueChanged" id="ecw-A8-XTY"/>
+                                        <action selector="filterValueChanged:" destination="7zC-UA-nwk" eventType="valueChanged" id="v0u-aL-i15"/>
                                     </connections>
-                                </segmentedControl>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="L1y-D4-5kJ" firstAttribute="centerX" secondItem="8Ta-fn-7Ew" secondAttribute="centerX" id="1YH-zd-6sv"/>
-                                <constraint firstItem="L1y-D4-5kJ" firstAttribute="centerY" secondItem="8Ta-fn-7Ew" secondAttribute="centerY" id="PAU-Rd-fPb"/>
+                                <constraint firstItem="buy-Qr-rOV" firstAttribute="centerY" secondItem="8Ta-fn-7Ew" secondAttribute="centerY" id="aTu-f8-7pY"/>
+                                <constraint firstItem="buy-Qr-rOV" firstAttribute="centerX" secondItem="8Ta-fn-7Ew" secondAttribute="centerX" id="c4j-a4-yic"/>
                             </constraints>
                         </view>
                         <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing there yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Box-O0-Ppa">
@@ -519,6 +522,9 @@
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="mPi-Fv-ELk">
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
+                    <connections>
+                        <outlet property="segmentedControl" destination="buy-Qr-rOV" id="TJs-qt-iA0"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rei-DU-maX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -536,13 +542,13 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="601"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-kB-xvX">
+                                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-kB-xvX">
                                     <rect key="frame" x="196" y="228" width="209" height="145"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cupcake" translatesAutoresizingMaskIntoConstraints="NO" id="ji6-3u-s8g">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="cupcake" translatesAutoresizingMaskIntoConstraints="NO" id="ji6-3u-s8g">
                                             <rect key="frame" x="0.0" y="0.0" width="209" height="82"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have additional unread objects,  click here to see them" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRr-eX-SII">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="You have additional unread objects,  click here to see them" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRr-eX-SII">
                                             <rect key="frame" x="0.0" y="102" width="209" height="43"/>
                                             <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -550,13 +556,13 @@
                                         </label>
                                     </subviews>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="0Lv-v1-Epb">
+                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="0Lv-v1-Epb">
                                     <rect key="frame" x="186" y="164" width="229" height="274"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="OSC-k1-EDF">
                                             <rect key="frame" x="0.0" y="0.0" width="229" height="229"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your stream is loading…" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwA-7P-zng">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Your stream is loading…" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwA-7P-zng">
                                             <rect key="frame" x="0.0" y="249" width="229" height="25"/>
                                             <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>

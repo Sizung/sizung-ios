@@ -26,6 +26,7 @@ target 'Sizung' do
   pod 'MRProgress'
   pod 'ImageFilesPicker'
   pod 'JVFloatLabeledTextField'
+  pod 'AKSegmentedControl'
   
   pod 'R.swift', '~> 2.3'
 
