@@ -31,7 +31,7 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
       let diff = Set(storageManager!.users.collection).subtract(conversationMembers)
       if let filterString = filterString {
         return Array(diff).filter { user in
-          return user.fullName.lowerCaseString.containsString(filterString.lowerCaseString)        }
+          return user.fullName.lowercaseString.containsString(filterString.lowercaseString)        }
       } else {
         return Array(diff)
       }
@@ -83,6 +83,22 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
       titleButton.text = "Edit '\(conversation.title)'"
     }
 
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
+  }
+
+  func keyboardDidShow(notification: NSNotification) {
+    if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+      let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize.height, right: 0.0)
+      self.tableView.contentInset = contentInsets
+      self.tableView.scrollIndicatorInsets = contentInsets
+    }
+  }
+
+  func keyboardWillBeHidden(notification: NSNotification) {
+    let contentInsets = UIEdgeInsetsZero
+    self.tableView.contentInset = contentInsets
+    self.tableView.scrollIndicatorInsets = contentInsets
   }
 
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
