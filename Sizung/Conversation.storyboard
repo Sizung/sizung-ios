@@ -300,7 +300,6 @@
         <!--Agenda Items Table View Controller-->
         <scene sceneID="1q2-lG-z9E">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HMl-Fn-qSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="AgendaItemsTableViewController" id="00M-3n-r6a" customClass="AgendaItemsTableViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="71" sectionHeaderHeight="28" sectionFooterHeight="28" id="Spg-mI-rb5">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -347,6 +346,7 @@
                         <outlet property="segmentedControl" destination="F20-Uf-PAw" id="eNf-7W-ykR"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HMl-Fn-qSW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4167" y="-1172"/>
         </scene>

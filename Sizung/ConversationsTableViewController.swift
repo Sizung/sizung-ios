@@ -11,7 +11,7 @@ import ReactiveKit
 import ReactiveUIKit
 import SwiftKeychainWrapper
 
-class ConversationsTableViewController: UITableViewController {
+class ConversationsTableViewController: UITableViewController, ConversationCreateDelegate {
 
   var filterDisposable: Disposable?
 
@@ -103,6 +103,10 @@ class ConversationsTableViewController: UITableViewController {
         }
       }
     }
+
+    filteredCollection.observeNext { _ in
+      self.tableView.tableFooterView?.hidden = self.filteredCollection.count > 0
+    }.disposeIn(rBag)
   }
 
   func filterFor(filterString: String) {
@@ -133,6 +137,16 @@ class ConversationsTableViewController: UITableViewController {
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let selectedConversation = sortedCollection[indexPath.row]
     delegate?.conversationSelected(selectedConversation)
+  }
+
+  @IBAction func tableFooterClicked(sender: AnyObject) {
+    let createConversationViewController = R.storyboard.conversations.create()!
+    createConversationViewController.delegate = self
+    self.presentViewController(createConversationViewController, animated: true, completion: nil)
+  }
+
+  func conversationCreated(conversation: Conversation) {
+    delegate?.conversationSelected(conversation)
   }
 }
 

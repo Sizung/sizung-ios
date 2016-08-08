@@ -9,7 +9,7 @@
 import UIKit
 import KCFloatingActionButton
 
-class ConversationsViewController: UIViewController, KCFloatingActionButtonDelegate {
+class ConversationsViewController: UIViewController, KCFloatingActionButtonDelegate, ConversationCreateDelegate {
 
   var conversationTableViewController: ConversationsTableViewController?
 
@@ -24,6 +24,7 @@ class ConversationsViewController: UIViewController, KCFloatingActionButtonDeleg
 
   func emptyKCFABSelected(fab: KCFloatingActionButton) {
     let createConversationViewController = R.storyboard.conversations.create()!
+    createConversationViewController.delegate = self
     self.showViewController(createConversationViewController, sender: nil)
   }
 
@@ -42,5 +43,9 @@ class ConversationsViewController: UIViewController, KCFloatingActionButtonDeleg
     } else {
       fatalError()
     }
+  }
+
+  func conversationCreated(conversation: Conversation) {
+    conversationTableViewDelegate?.conversationSelected(conversation)
   }
 }
