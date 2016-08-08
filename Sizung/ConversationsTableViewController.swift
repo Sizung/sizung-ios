@@ -11,9 +11,14 @@ import ReactiveKit
 import ReactiveUIKit
 import SwiftKeychainWrapper
 
-class ConversationsTableViewController: UITableViewController {
+class ConversationsTableViewController: UITableViewController, ConversationCreateDelegate {
+
+  var filterDisposable: Disposable?
 
   let sortedCollection: CollectionProperty <[Conversation]> = CollectionProperty([])
+  let filteredCollection: CollectionProperty <[Conversation]> = CollectionProperty([])
+
+  var delegate: ConversationTableViewDelegate?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -41,8 +46,9 @@ class ConversationsTableViewController: UITableViewController {
         return left.title.compare(right.title) == .OrderedAscending
         }.bindTo(self.sortedCollection)
 
+      self.filterFor("")
 
-      self.sortedCollection.bindTo(self.tableView) { indexPath, conversations, tableView in
+      self.filteredCollection.bindTo(self.tableView, animated: true) { indexPath, conversations, tableView in
         if let cell = tableView.dequeueReusableCellWithIdentifier(
           R.nib.conversationTableViewCell.identifier,
           forIndexPath: indexPath)
@@ -97,6 +103,22 @@ class ConversationsTableViewController: UITableViewController {
         }
       }
     }
+
+    filteredCollection.observeNext { _ in
+      self.tableView.tableFooterView?.hidden = self.filteredCollection.count > 0
+    }.disposeIn(rBag)
+  }
+
+  func filterFor(filterString: String) {
+    filterDisposable?.dispose()
+
+    filterDisposable = sortedCollection.filter { conversation in
+      if filterString.isEmpty {
+        return true
+      } else {
+        return conversation.title.containsString(filterString)
+      }
+    }.bindTo(filteredCollection)
   }
 
   func updateData() {
@@ -113,10 +135,21 @@ class ConversationsTableViewController: UITableViewController {
   }
 
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let conversationViewController = R.storyboard.conversation.initialViewController()!
     let selectedConversation = sortedCollection[indexPath.row]
-    conversationViewController.conversation = selectedConversation
-
-    self.showViewController(conversationViewController, sender: self)
+    delegate?.conversationSelected(selectedConversation)
   }
+
+  @IBAction func tableFooterClicked(sender: AnyObject) {
+    let createConversationViewController = R.storyboard.conversations.create()!
+    createConversationViewController.delegate = self
+    self.presentViewController(createConversationViewController, animated: true, completion: nil)
+  }
+
+  func conversationCreated(conversation: Conversation) {
+    delegate?.conversationSelected(conversation)
+  }
+}
+
+protocol ConversationTableViewDelegate {
+  func conversationSelected(conversation: Conversation)
 }

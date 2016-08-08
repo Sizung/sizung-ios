@@ -12,37 +12,37 @@ import MRProgress
 
 class AgendaItemViewController: UIViewController,
 ActionCreateDelegate,
-FilesPickerDelegate {
+FilesPickerDelegate,
+AgendaItemCreateDelegate {
 
+  @IBOutlet weak var agendaOwnerAvatarView: AvatarImageView!
+  @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var statusButton: UIButton!
 
   var agendaItem: AgendaItem!
-
-  @IBOutlet weak var titleBar: UIView!
-  @IBOutlet weak var titleLabel: UILabel!
-
-  @IBOutlet weak var titleTopConstraint: NSLayoutConstraint!
-  @IBOutlet weak var titleBottomConstraint: NSLayoutConstraint!
-  var oldConstraintConstant: CGFloat = 0
 
   var floatingActionButton: KCFloatingActionButton?
 
   var filePicker = JVTImageFilePicker()
 
+  var storageManager: OrganizationStorageManager?
+
+  @IBOutlet weak var actionItemListButton: UIButton!
+  @IBOutlet weak var noActionItemsConstraint: NSLayoutConstraint!
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.titleLabel.text = self.agendaItem.title
-    statusButton.setTitle(agendaItem.status, forState: .Normal)
-
-    oldConstraintConstant = titleTopConstraint.constant
-    registerForKeyboardChanges()
-
     initFloatingActionButton()
-  }
 
-  @IBAction func close(sender: AnyObject) {
-    self.dismissViewControllerAnimated(true, completion: nil)
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+
+        // listen for changes to deliverables
+        storageManager.deliverables.observeNext { _ in
+          self.update()
+        }.disposeIn(self.rBag)
+    }
   }
 
   // MARK: - Navigation
@@ -53,6 +53,54 @@ FilesPickerDelegate {
       as? TimelineTableViewController {
         timelineTableViewController.timelineParent = agendaItem
     }
+  }
+
+  func update() {
+    self.titleButton.setTitle(self.agendaItem.title, forState: .Normal)
+
+    StorageManager.storageForSelectedOrganization()
+      .onSuccess { storageManager in
+        self.storageManager = storageManager
+
+        self.agendaOwnerAvatarView.user = storageManager.users[self.agendaItem.ownerId]
+
+        let actionItemListCount = storageManager.deliverables.collection.reduce(0) { prev, deliverable in
+          if deliverable.parentId == self.agendaItem.id {
+            return prev + 1
+          } else {
+            return prev
+          }
+        }
+
+        let unresolvedActionItemListCount = storageManager.deliverables.collection.reduce(0) { prev, deliverable in
+          if deliverable.parentId == self.agendaItem.id && !deliverable.isCompleted() {
+            return prev + 1
+          } else {
+            return prev
+          }
+        }
+
+        self.statusButton.hidden = unresolvedActionItemListCount > 0
+
+        self.actionItemListButton.setTitle("\(actionItemListCount)", forState: .Normal)
+    }
+
+    // update status text
+    if agendaItem.isCompleted() {
+      self.statusButton.setTitle("✓", forState: .Normal)
+      self.statusButton.backgroundColor = Color.AGENDAITEM
+    } else {
+      self.statusButton.setTitle("", forState: .Normal)
+      self.statusButton.backgroundColor = UIColor.whiteColor()
+    }
+  }
+
+  @IBAction func edit(sender: AnyObject) {
+    let createAgendaItemViewController = R.storyboard.agendaItem.create()!
+    createAgendaItemViewController.agendaItem = self.agendaItem
+    createAgendaItemViewController.conversation = self.storageManager?.conversations[agendaItem.conversationId]
+    createAgendaItemViewController.agendaItemCreateDelegate = self
+    self.presentViewController(createAgendaItemViewController, animated: true, completion: nil)
   }
 
   @IBAction func showStatusPopover(sender: UIButton) {
@@ -92,48 +140,30 @@ FilesPickerDelegate {
               self.navigationController?.popViewControllerAnimated(true)
             }
 
-            // update status text
-            self.statusButton.setTitle(agendaItem.status, forState: .Normal)
+            self.update()
         }
     }
   }
 
   @IBAction func back(sender: AnyObject) {
-    self.navigationController?.popViewControllerAnimated(true)
+
+    let transition = CATransition()
+    transition.duration = 0.3
+    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+    transition.type = kCATransitionPush
+    transition.subtype = kCATransitionFromBottom
+
+    self.navigationController?.view.layer.addAnimation(transition, forKey: nil)
+
+    self.navigationController?.popViewControllerAnimated(false)
   }
 
-  func registerForKeyboardChanges() {
-    NSNotificationCenter.defaultCenter().addObserver(
-      self,
-      selector: #selector(self.keyboardWillShow),
-      name: UIKeyboardWillShowNotification,
-      object: nil
-    )
+  @IBAction func showActionItems(sender: AnyObject) {
 
-    NSNotificationCenter.defaultCenter().addObserver(
-      self,
-      selector: #selector(self.keyboardWillHide),
-      name: UIKeyboardWillHideNotification,
-      object: nil
-    )
-  }
+    let agendaItemActionListController = R.storyboard.agendaItem.agendaItemActionListController()!
+    agendaItemActionListController.agendaItem = self.agendaItem
 
-  func keyboardWillShow() {
-    self.titleTopConstraint.constant = 0
-    self.titleBottomConstraint.constant = 0
-    UIView.animateWithDuration(5) {
-      self.titleLabel.text = nil
-      self.titleBar.layoutIfNeeded()
-    }
-  }
-
-  func keyboardWillHide() {
-    self.titleTopConstraint.constant = oldConstraintConstant
-    self.titleBottomConstraint.constant = oldConstraintConstant
-    UIView.animateWithDuration(5) {
-      self.titleLabel.text = self.agendaItem.title
-      self.titleBar.layoutIfNeeded()
-    }
+    self.navigationController?.pushViewController(agendaItemActionListController, animated: true)
   }
 
   // MARK: - FAB
@@ -146,7 +176,7 @@ FilesPickerDelegate {
 
     addItemToFab("ATTACHMENT", color: Color.ATTACHMENT, icon: R.image.attachment()!, handler: createAttachment)
 
-    addItemToFab("ACTION", color: Color.TODO, icon: R.image.action()!, handler: createAction)
+    addItemToFab("ACTION", color: Color.ACTION, icon: R.image.action()!, handler: createAction)
 
     self.view.addSubview(floatingActionButton!)
 
@@ -221,5 +251,10 @@ FilesPickerDelegate {
             progressView.dismiss(true)
         }
     }
+  }
+
+  func agendaItemCreated(agendaItem: AgendaItem) {
+    self.update()
+    InAppMessage.showSuccessMessage("Updated agenda")
   }
 }

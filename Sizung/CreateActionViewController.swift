@@ -10,12 +10,15 @@ import UIKit
 
 class CreateActionViewController: UIViewController, UITextFieldDelegate, ActionContentDelegate {
 
+  var action: Deliverable?
+
   var parent: BaseModel?
   var actionCreateDelegate: ActionCreateDelegate?
   var storageManager: OrganizationStorageManager?
 
   var createActionContentViewController: CreateActionContentViewController?
 
+  @IBOutlet weak var titleLabel: UILabel!
   var dueDate: NSDate?
   var assignee: User?
 
@@ -28,12 +31,16 @@ class CreateActionViewController: UIViewController, UITextFieldDelegate, ActionC
       .onSuccess { storageManager in
         self.storageManager = storageManager
 
-        let authToken = AuthToken(data: Configuration.getAuthToken())
-        let user = storageManager.users[authToken.getUserId()!]!
+        if self.action == nil {
+          let authToken = AuthToken(data: Configuration.getAuthToken())
+          self.assignee = storageManager.users[authToken.getUserId()!]!
+        } else {
+          self.assignee = storageManager.users[self.action?.assigneeId]
+          self.dueDate = self.action?.dueOn
+        }
 
-        self.assignee = user
-
-        self.createActionContentViewController!.updateAssignee(user)
+        self.createActionContentViewController!.updateAssignee(self.assignee)
+        self.createActionContentViewController!.updateDueDate(self.dueDate)
 
         let conversation = storageManager.conversations[self.getConversationId()]!
         self.createActionContentViewController!.conversation = conversation
@@ -41,6 +48,12 @@ class CreateActionViewController: UIViewController, UITextFieldDelegate, ActionC
 
     actionNameTextField.becomeFirstResponder()
     actionNameTextField.delegate = self
+
+    if let title = action?.title {
+      self.titleLabel.text = "Edit '\(title)'"
+    }
+
+    actionNameTextField.text = action?.title
   }
 
   @IBAction func close(sender: AnyObject) {
@@ -49,22 +62,22 @@ class CreateActionViewController: UIViewController, UITextFieldDelegate, ActionC
 
   @IBAction func save(sender: UIButton?) {
 
-    var action: Deliverable
-
-    switch parent {
-    case let agendaItem as AgendaItem:
-      action = AgendaItemDeliverable(agendaItemId: agendaItem.id)
-    case let conversation as Conversation:
-      action = Deliverable(conversationId: conversation.id)
-    default:
-      fatalError()
+    if action == nil {
+      switch parent {
+      case let agendaItem as AgendaItem:
+        action = AgendaItemDeliverable(agendaItemId: agendaItem.id)
+      case let conversation as Conversation:
+        action = Deliverable(conversationId: conversation.id)
+      default:
+        fatalError()
+      }
     }
 
-    action.title = actionNameTextField.text
-    action.assigneeId = assignee?.id
-    action.dueOn = dueDate
+    action!.title = actionNameTextField.text
+    action!.assigneeId = assignee?.id
+    action!.dueOn = dueDate
 
-    guard action.title.characters.count > 0 else {
+    guard action!.title.characters.count > 0 else {
       InAppMessage.showErrorMessage("Please enter a title")
       actionNameTextField.becomeFirstResponder()
       return
@@ -83,8 +96,12 @@ class CreateActionViewController: UIViewController, UITextFieldDelegate, ActionC
       sender?.enabled = true
     }
 
-    // save agenda
-    storageManager?.createDeliverable(action).onSuccess(callback: successFunc).onFailure(callback: errorFunc)
+    // save action
+    if action!.new {
+      storageManager?.createDeliverable(action!).onSuccess(callback: successFunc).onFailure(callback: errorFunc)
+    } else {
+      storageManager?.updateDeliverable(action!).onSuccess(callback: successFunc).onFailure(callback: errorFunc)
+    }
   }
 
   func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -111,10 +128,15 @@ class CreateActionViewController: UIViewController, UITextFieldDelegate, ActionC
     switch parent {
     case is AgendaItem:
       return storageManager!.agendaItems[parent!.id]!.conversationId
-    default:
+    case is Conversation:
       return parent!.id
+    default:
+      if let parentAgendaItem = storageManager!.agendaItems[self.action!.parentId] {
+        return parentAgendaItem.conversationId
+      } else {
+        return self.action!.parentId
+      }
     }
-
   }
 
   func dueDateChanged(dueDate: NSDate) {
@@ -175,6 +197,10 @@ class CreateActionContentViewController: UIViewController, CalendarViewDelegate,
   func updateDueDate(date: NSDate?) {
 
     self.dueDate = date
+
+    guard dueDateButton != nil else {
+      return
+    }
 
     var title = "No due date"
     if let dueDate = dueDate {

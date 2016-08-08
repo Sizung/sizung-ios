@@ -2,6 +2,7 @@ PODS:
   - ActionCableClient (0.1.3):
     - Starscream (~> 1.1.2)
     - SwiftyJSON (~> 2.3.1)
+  - AKSegmentedControl (1.0.4)
   - Alamofire (3.4.1)
   - AlamofireImage (2.4.0):
     - Alamofire (~> 3.3)
@@ -69,7 +70,6 @@ PODS:
     - ReactiveKit (~> 2.0)
   - Result (2.1.1)
   - RSDayFlow (1.5.1)
-  - Sheriff (0.3.2)
   - SlackTextViewController (1.9.3)
   - Starscream (1.1.3)
   - SwiftKeychainWrapper (1.0.11)
@@ -79,6 +79,7 @@ PODS:
 
 DEPENDENCIES:
   - ActionCableClient (= 0.1.3)
+  - AKSegmentedControl
   - Alamofire (~> 3.4)
   - AlamofireImage (~> 2.0)
   - AlamofireNetworkActivityIndicator
@@ -99,7 +100,6 @@ DEPENDENCIES:
   - ReactiveKit (~> 2.0)
   - ReactiveUIKit (~> 2.0)
   - RSDayFlow
-  - Sheriff
   - SlackTextViewController (~> 1.9)
   - SwiftKeychainWrapper (~> 1.0)
   - SwiftyDrop
@@ -107,6 +107,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   ActionCableClient: a267d85d8eed1749f83cbc63596da3edf1e7945a
+  AKSegmentedControl: c076491ef773c0d70b70d03a8e5a0c04a9efbf08
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
   AlamofireNetworkActivityIndicator: 49a6e39afb947136f7b1872bae2d684957c26697
@@ -129,7 +130,6 @@ SPEC CHECKSUMS:
   ReactiveUIKit: af6e401a61d196502267ff216b7ac6f4c37c0dc5
   Result: 822c879f145943320cc80a9a8372378e3d699fe4
   RSDayFlow: dac09ceeef8a37badc403779875017d4953c6a5a
-  Sheriff: d3d03fe6d35aa781e3f42d48f3fb53ed7d04958d
   SlackTextViewController: bd2a34c188d4f7dec93cf42388f38551263fac82
   Starscream: d662732354b40dd19ed1ece3e3c44c80b536b83c
   SwiftKeychainWrapper: 011a6946923948ffa49708014dd691164d7621d1
@@ -137,6 +137,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 820b2cf465548b7e3c06e4b5739c79489d42470c
+PODFILE CHECKSUM: 2fcc583535c2529039193ed0e2ee2848f8546ee1
 
 COCOAPODS: 1.0.1

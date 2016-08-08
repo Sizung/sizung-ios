@@ -51,6 +51,18 @@ class Deliverable: BaseModel {
     return "resolved" == self.status
   }
 
+  func isOverdue() -> Bool {
+    guard let dueOn = dueOn else {
+      return false
+    }
+
+    guard !isCompleted() else {
+      return false
+    }
+
+    return dueOn.daysAgo() >= 0
+  }
+
   func getStatus() -> String {
     return self.status.capitalizedString
   }

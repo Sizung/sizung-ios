@@ -10,17 +10,20 @@ import UIKit
 import SwiftKeychainWrapper
 import ReactiveKit
 import DateTools
+import AKSegmentedControl
 
 class DeliverablesTableViewController: UITableViewController {
 
   var collection: [Deliverable]?
 
-  var conversation: Conversation?
+  var parent: BaseModel?
 
   var storageManager: OrganizationStorageManager?
 
   var userId: String?
   var filter: Filter = .Mine
+
+  @IBOutlet weak var segmentedControl: AKSegmentedControl!
 
   enum Filter {
     case Mine
@@ -49,10 +52,38 @@ class DeliverablesTableViewController: UITableViewController {
     userId = AuthToken(data: Configuration.getAuthToken()).getUserId()
 
     self.initData()
+    self.initSegmentedControl()
   }
 
-  @IBAction func filterValueChanged(sender: UISegmentedControl) {
-    switch sender.selectedSegmentIndex {
+  func initSegmentedControl() {
+    let allButton = UIButton()
+    allButton.setBackgroundImage(R.image.actions_filter_all(), forState: .Normal)
+    allButton.setBackgroundImage(R.image.actions_filter_all_selected(), forState: .Selected)
+    allButton.titleLabel?.font = R.font.brandonGrotesqueMedium(size: 15)
+    allButton.setTitleColor(Color.ADDBUTTON, forState: .Normal)
+    allButton.setTitleColor(UIColor.whiteColor(), forState: .Selected)
+    allButton.setTitle("All", forState: .Normal)
+
+    let myButton = UIButton()
+    myButton.setBackgroundImage(R.image.actions_filter_mine(), forState: .Normal)
+    myButton.setBackgroundImage(R.image.actions_filter_mine_selected(), forState: .Selected)
+    myButton.titleLabel?.font = R.font.brandonGrotesqueMedium(size: 15)
+    myButton.setTitleColor(Color.ADDBUTTON, forState: .Normal)
+    myButton.setTitleColor(UIColor.whiteColor(), forState: .Selected)
+    myButton.setTitle("My", forState: .Normal)
+
+    segmentedControl.buttonsArray = [allButton, myButton]
+
+    switch self.filter {
+    case .All:
+      segmentedControl.setSelectedIndex(0)
+    case .Mine:
+      segmentedControl.setSelectedIndex(1)
+    }
+  }
+
+  @IBAction func filterValueChanged(sender: AKSegmentedControl) {
+    switch sender.selectedIndexes.firstIndex {
     case 0:
       self.filter = .All
     case 1:
@@ -69,7 +100,7 @@ class DeliverablesTableViewController: UITableViewController {
       .onSuccess { storageManager in
         self.collection = storageManager.deliverables.collection.filter { deliverable in
 
-          if self.conversation != nil && self.conversation!.id != deliverable.parentId {
+          if self.parent != nil && self.parent!.id != deliverable.parentId {
             return false
           }
 
@@ -176,7 +207,7 @@ class DeliverablesTableViewController: UITableViewController {
         if deliverable.isCompleted() {
           statusColor = UIColor(red:0.33, green:0.75, blue:0.59, alpha:1.0)
           textStatusColor = statusColor
-        } else if deliverable.dueOn != nil && deliverable.dueOn?.daysAgo() >= 0 {
+        } else if deliverable.isOverdue() {
           //overdue or today
           statusColor = UIColor(red:0.98, green:0.40, blue:0.38, alpha:1.0)
           textStatusColor = statusColor
@@ -220,17 +251,30 @@ class DeliverablesTableViewController: UITableViewController {
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
     if let selectedDeliverable = collection?[indexPath.row] {
-
-      if let navController = self.navigationController {
+      switch parent {
+      case is AgendaItem:
         let deliverableViewController = R.storyboard.deliverable.initialViewController()!
         deliverableViewController.deliverable = selectedDeliverable
 
-        navController.pushViewController(deliverableViewController, animated: true)
-      } else {
+        self.navigationController?.pushViewController(deliverableViewController, animated: true)
+      case is Conversation:
+        let deliverableViewController = R.storyboard.deliverable.initialViewController()!
+        deliverableViewController.deliverable = selectedDeliverable
+
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromTop
+        self.navigationController?.view.layer.addAnimation(transition, forKey: nil)
+
+        self.navigationController?.pushViewController(deliverableViewController, animated: false)
+      default:
         let conversationController = R.storyboard.conversation.initialViewController()!
         conversationController.conversation = storageManager!.conversations[getConversationId(selectedDeliverable)]
         conversationController.openItem = selectedDeliverable
-        showViewController(conversationController, sender: self)
+
+        presentViewController(conversationController, animated:true, completion: nil)
       }
     } else {
       fatalError()

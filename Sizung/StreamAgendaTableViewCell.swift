@@ -13,7 +13,7 @@ class StreamAgendaTableViewCell: StreamTableViewCell {
   @IBOutlet weak var ownerLabel: UILabel!
   @IBOutlet weak var conversationLabel: UILabel!
 
-  override var streamObject: StreamObject? {
+  override var streamObject: StreamBaseObject? {
     didSet {
       if let streamObject = streamObject as? StreamAgendaObject {
         self.titleButton.setTitle(streamObject.agenda.title, forState: .Normal)

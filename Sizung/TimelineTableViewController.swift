@@ -11,53 +11,12 @@ import SwiftKeychainWrapper
 import SlackTextViewController
 import DateTools
 import ReactiveKit
-import Alamofire
-import AlamofireImage
-import MRProgress
-import QuickLook
-
-class TimelineObject: Hashable, DateSortable {
-  let model: BaseModel?
-  let newMessagesDate: NSDate?
-
-  init(model: BaseModel) {
-    self.model = model
-    self.newMessagesDate = nil
-  }
-
-  init(newMessagesDate: NSDate) {
-    self.newMessagesDate = newMessagesDate
-    self.model = nil
-  }
-
-  var hashValue: Int {
-    get {
-      if let hashValue = model?.hashValue {
-        return hashValue
-      } else if let hashValue = newMessagesDate?.hashValue {
-        return hashValue
-      } else {
-        return 0
-      }
-    }
-  }
-
-  var sortDate: NSDate {
-    get {
-      if let date = model?.sortDate {
-        return date
-      } else {
-        return newMessagesDate!
-      }
-    }
-  }
-}
 
 func == (lhs: TimelineObject, rhs: TimelineObject) -> Bool {
   return lhs.hashValue == rhs.hashValue
 }
 
-class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLPreviewControllerDelegate, QLPreviewControllerDataSource {
+class TimelineTableViewController: SLKTextViewController {
 
   var timelineParent: BaseModel!
   var storageManager: OrganizationStorageManager!
@@ -76,6 +35,9 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
   var mentions = Set<User>()
 
   var previewFilePath: NSURL?
+
+  let expandingCellTransition = ExpandingCellTransition()
+  var selectedIndexPath: NSIndexPath?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -167,10 +129,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
               InAppMessage.showErrorMessage("There was an error marking everything as seen")
           }
         }
-
-
     }
-
 
     if let socket = StorageManager.sharedInstance.websocket {
       socket.unfollowConversation(getConversationId())
@@ -197,12 +156,8 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
   }
 
   func commonInit() {func commonInit() {
-
+    self.transitioningDelegate = expandingCellTransition
     NSNotificationCenter.defaultCenter().addObserver(self.tableView, selector: #selector(UITableView.reloadData), name: UIContentSizeCategoryDidChangeNotification, object: nil)
-    //    NSNotificationCenter.defaultCenter().addObserver(self,  selector: #selector(self.textInputbarDidMove(_:)), name: SLKTextInputbarDidMoveNotification, object: nil)
-
-    // Register a SLKTextView subclass, if you need any special appearance and/or behavior customisation.
-    //    self.registerClassForTextView(MessageTextView.classForCoder())
     }
   }
 
@@ -219,22 +174,6 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
         return self.autoCompletionCellForRowAtIndexPath(indexPath)
       }
     }
-  }
-
-  func onConnectFailed() {
-    InAppMessage.showErrorMessage("There has been an error connecting to this Timeline")
-  }
-
-  func onDisconnected() {
-    InAppMessage.showErrorMessage("You have been disconnected from this Timeline")
-  }
-
-  func onFollowSuccess(itemId: String) {
-    self.updateData()
-  }
-
-  func onReceived(conversationObject: BaseModel) {
-    addItemToCollection(conversationObject)
   }
 
   func addItemToCollection(item: BaseModel) {
@@ -318,9 +257,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
 
       if let comment = sortedCollection[indexPath.row].model as? Comment {
         self.editingMessage = comment
-
         self.editText(self.editingMessage!.body)
-
         self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
       }
     }
@@ -356,9 +293,6 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
     mentions.removeAll()
 
     let comment = Comment(authorId: authToken.getUserId()!, body: fulltext, commentable: self.timelineParent)
-    //    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-    //    let rowAnimation: UITableViewRowAnimation = self.inverted ? .Bottom : .Top
-    //    let scrollPosition: UITableViewScrollPosition = self.inverted ? .Bottom : .Top
 
     // push it to server. Ignore result -> will be pushed back over websocket connection
     StorageManager.storageForSelectedOrganization()
@@ -368,24 +302,12 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
             let message = "comment creation failed: \(error)"
             Error.log(message)
 
-
             InAppMessage.showErrorMessage("There has been an error. Please try again")
 
             // set message again
             self.textView.text = comment.body
         }
     }
-    //
-    //    self.tableView.beginUpdates()
-    //    StorageManager.sharedInstance.conversationObjects.insert(comment, atIndex: 0)
-    //    self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: rowAnimation)
-    //    self.tableView.endUpdates()
-
-    //    self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: scrollPosition, animated: true)
-
-    // Fixes the cell from blinking (because of the transform, when using translucent cells)
-    // See https://github.com/slackhq/SlackTextViewController/issues/94#issuecomment-69929927
-    //    self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
 
     super.didPressRightButton(sender)
   }
@@ -450,9 +372,7 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
 
   }
 
-
   override func keyForTextCaching() -> String? {
-
     return "\(NSBundle.mainBundle().bundleIdentifier)\(self.timelineParent.id)"
   }
 
@@ -501,314 +421,5 @@ class TimelineTableViewController: SLKTextViewController, WebsocketDelegate, QLP
           }
         }
     }
-  }
-
-
-  // MARK: - Navigation
-
-  // In a storyboard-based application, you will often want to do a little preparation before navigation
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-
-  }
-}
-
-extension TimelineTableViewController {
-
-  // MARK: - UITableViewDataSource Methods
-
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return 1
-  }
-
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-    if tableView == self.autoCompletionView {
-      if let searchResult = self.searchResult {
-        return searchResult.count
-      }
-    }
-
-    return 0
-  }
-
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    if tableView == self.autoCompletionView {
-      return self.autoCompletionCellForRowAtIndexPath(indexPath)
-    } else {
-      fatalError("unkown tableview in cellForRowAtIndexPath")
-    }
-  }
-
-  func getFooterView() -> UIView {
-    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-    activityIndicator.transform = self.tableView.transform
-    activityIndicator.startAnimating()
-
-    return activityIndicator
-  }
-
-  func messageCellForRowAtIndexPath(indexPath: NSIndexPath) -> UITableViewCell {
-
-    var cell: UITableViewCell
-
-    switch sortedCollection[indexPath.row].model {
-    case let deliverable as Deliverable:
-      cell = self.cellForDeliverable(deliverable)
-    case let agendaItem as AgendaItem:
-      cell = self.cellForAgendaItem(agendaItem)
-    case let comment as Comment:
-      cell = self.cellForComment(comment)
-    case let attachment as Attachment:
-      cell = self.cellForAttachment(attachment)
-    default:
-      if sortedCollection[indexPath.row].newMessagesDate != nil {
-        cell = self.cellForNewMessageSeparator()
-      } else {
-        fatalError("unkown row type for \(self)")
-      }
-    }
-
-    // Cells must inherit the table view's transform
-    // This is very important, since the main table view may be inverted
-    cell.transform = self.tableView.transform
-
-    cell.backgroundColor = UIColor.clearColor()
-
-    return cell
-  }
-
-  func cellForNewMessageSeparator() -> UITableViewCell {
-    return tableView.dequeueReusableCellWithIdentifier(R.nib.newMessageSeparatorCell.identifier)!
-  }
-
-  func cellForDeliverable(deliverable: Deliverable) -> TimelineDeliverableTableViewCell {
-    if let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.timelineDeliverableTableViewCell.identifier) as? TimelineDeliverableTableViewCell {
-
-      cell.titleLabel.setTitle(deliverable.title, forState: .Normal)
-      cell.dueDateLabel.text = deliverable.dueOn?.timeAgoSinceNow()
-      cell.dateLabel.text = deliverable.createdAt?.timeAgoSinceNow()
-
-      if let author = storageManager.users[deliverable.ownerId] {
-        cell.authorImage.user = author
-      }
-
-      if let assignee = storageManager.users[deliverable.assigneeId] {
-        cell.assigneeImage.user = assignee
-      }
-
-      return cell
-    } else {
-      fatalError("unexpected cell type")
-    }
-  }
-
-  func cellForAgendaItem(agendaItem: AgendaItem) -> TimelineAgendaItemTableViewCell {
-    if let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.timelineAgendaItemTableViewCell.identifier) as? TimelineAgendaItemTableViewCell {
-
-      cell.titleLabel.setTitle(agendaItem.title, forState: .Normal)
-      cell.dateLabel.text = agendaItem.createdAt?.timeAgoSinceNow()
-
-      if let author = storageManager.users[agendaItem.ownerId] {
-        cell.authorImage.user = author
-      }
-
-      return cell
-    } else {
-      fatalError("unexpected cell type")
-    }
-  }
-
-  func cellForAttachment(attachment: Attachment) -> AttachmentTableViewCell {
-    if let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.attachmentTableViewCell.identifier) as? AttachmentTableViewCell {
-
-      cell.setAttachment(attachment)
-
-      return cell
-
-    } else {
-      fatalError()
-    }
-  }
-
-  func cellForComment(comment: Comment) -> CommentTableViewCell {
-    if let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.commentTableViewCell.identifier) as? CommentTableViewCell {
-
-      cell.bodyLabel.setText(textParser.parseMarkdown(comment.body))
-      cell.bodyLabel.textColor = (comment.offline ? UIColor.grayColor() : UIColor.blackColor())
-      cell.datetimeLabel.text = comment.createdAt?.timeAgoSinceNow()
-
-      if let author = storageManager.users[comment.authorId] {
-        cell.authorImage.user = author
-      }
-
-      if cell.gestureRecognizers?.count == nil {
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.didLongPressCell(_:)))
-        cell.addGestureRecognizer(longPress)
-      }
-
-      cell.selectionStyle = .None
-
-      return cell
-
-    } else {
-      fatalError("unexpected cell type")
-    }
-  }
-
-  func autoCompletionCellForRowAtIndexPath(indexPath: NSIndexPath) -> AutoCompletionTableCell {
-
-    if let cell = self.autoCompletionView.dequeueReusableCellWithIdentifier(R.nib.autoCompletionTableCell.identifier) as? AutoCompletionTableCell {
-      cell.selectionStyle = .Default
-
-      guard let searchResult = self.searchResult as? [User] else {
-        return cell
-      }
-
-      let user = searchResult[indexPath.row]
-
-      cell.usernameLabel.text = user.name
-
-      cell.userImage.user = user
-
-      return cell
-    } else {
-      fatalError("unexpected cell type")
-    }
-  }
-
-  override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-
-    if tableView == self.tableView {
-      switch sortedCollection[indexPath.row].model {
-      case _ as Comment:
-        return UITableViewAutomaticDimension
-      case _ as AgendaItem:
-        return TimelineAgendaItemTableViewCell.kHeight
-      case let deliverable as Deliverable where deliverable.dueOn != nil:
-        return TimelineDeliverableTableViewCell.kHeight
-      case _ as Deliverable:
-        return TimelineDeliverableTableViewCell.kHeightWithoutDueDate
-      default:
-        return UITableViewAutomaticDimension
-      }
-    } else {
-      return AutoCompletionTableCell.kMinimumHeight
-    }
-  }
-
-  override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    if tableView == self.tableView {
-      switch sortedCollection[indexPath.row].model {
-      case _ as Comment:
-        return CommentTableViewCell.kMinimumHeight
-      case _ as AgendaItem:
-        return TimelineAgendaItemTableViewCell.kHeight
-      case let deliverable as Deliverable where deliverable.dueOn != nil:
-        return TimelineDeliverableTableViewCell.kHeight
-      case _ as Deliverable:
-        return TimelineDeliverableTableViewCell.kHeightWithoutDueDate
-      case is Attachment:
-        return 20
-      default:
-        return self.tableView.rowHeight
-      }
-    } else {
-      return AutoCompletionTableCell.kMinimumHeight
-    }
-  }
-
-  // MARK: - UITableViewDelegate Methods
-
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
-    if tableView == self.autoCompletionView {
-
-      guard let searchResult = self.searchResult as? [User] else {
-        return
-      }
-
-      let user = searchResult[indexPath.row]
-
-      var text = ""
-
-      if self.foundPrefix == "@" {
-        text += user.name
-        mentions.insert(user)
-      }
-
-      self.acceptAutoCompletionWithString(text)
-    } else {
-      switch sortedCollection[indexPath.row].model {
-      case let agendaItem as AgendaItem:
-
-        let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
-        agendaItemViewController.agendaItem = agendaItem
-
-        self.navigationController?.pushViewController(agendaItemViewController, animated: true)
-      case let deliverable as Deliverable:
-        let deliverableViewController = R.storyboard.deliverable.initialViewController()!
-        deliverableViewController.deliverable = deliverable
-
-        self.navigationController?.pushViewController(deliverableViewController, animated: true)
-      case let attachment as Attachment:
-        var localPath: NSURL?
-
-        let progressView = MRProgressOverlayView.showOverlayAddedTo(self.view, animated: true)
-        progressView.mode = .DeterminateCircular
-
-        let request = Alamofire.download(.GET, attachment.fileUrl,
-          destination: { (temporaryURL, response) in
-            let tempPath = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
-
-            let subFolder = tempPath.URLByAppendingPathComponent(attachment.id, isDirectory: true)
-
-            do {
-              try NSFileManager.defaultManager().createDirectoryAtURL(subFolder, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-              fatalError()
-            }
-
-            localPath = subFolder.URLByAppendingPathComponent(attachment.fileName)
-
-            return localPath!
-        })
-          .progress { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-            let progress = Float(totalBytesRead)/Float(totalBytesExpectedToRead)
-            progressView.setProgress(progress, animated: true)
-          }
-          .response { (request, response, _, error) in
-            if let localPath = localPath {
-
-              self.previewFilePath = localPath
-
-              let previewController = QLPreviewController()
-              previewController.dataSource = self
-              self.presentViewController(previewController, animated: true, completion: nil)
-            }
-            MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
-        }
-        // display a stop button for large files
-        if attachment.fileSize > 10*1024*1024 {
-          progressView.stopBlock = { progressOverlayView in
-            request.cancel()
-          }
-        }
-
-
-      case is Comment:
-        // don't react to comment clicks
-        break
-      default:
-        fatalError("unkown row at didSelectRowAtIndexPath \(indexPath)")
-      }
-    }
-  }
-
-  func numberOfPreviewItemsInPreviewController(controller: QLPreviewController) -> Int {
-    return 1
-  }
-
-  func previewController(controller: QLPreviewController, previewItemAtIndex index: Int) -> QLPreviewItem {
-    return previewFilePath!
   }
 }

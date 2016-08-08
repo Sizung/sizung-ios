@@ -18,7 +18,6 @@ target 'Sizung' do
   pod 'Bumblebee', '~> 1.0'
   pod 'DateTools', '~> 1.0'
   pod 'ActionCableClient', '= 0.1.3'
-  pod 'Sheriff'
   pod 'KCFloatingActionButton'
   pod 'RSDayFlow'
   pod 'SwiftyDrop'
@@ -27,6 +26,7 @@ target 'Sizung' do
   pod 'MRProgress'
   pod 'ImageFilesPicker'
   pod 'JVFloatLabeledTextField'
+  pod 'AKSegmentedControl'
   
   pod 'R.swift', '~> 2.3'
 

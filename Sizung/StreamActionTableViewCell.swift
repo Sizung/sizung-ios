@@ -14,7 +14,7 @@ class StreamActionTableViewCell: StreamTableViewCell {
   @IBOutlet weak var dueDateLabel: UILabel!
   @IBOutlet weak var conversationLabel: UILabel!
 
-  override var streamObject: StreamObject? {
+  override var streamObject: StreamBaseObject? {
     didSet {
       if let streamObject = streamObject as? StreamActionObject {
         self.titleButton.setTitle(streamObject.action.title, forState: .Normal)

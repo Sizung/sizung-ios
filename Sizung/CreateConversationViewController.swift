@@ -21,6 +21,8 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
   var filterString: String?
 
+  var delegate: ConversationCreateDelegate?
+
   var possibleMembers: [User] {
     get {
       let conversationMembers = conversation.members.map {user in
@@ -45,6 +47,10 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
   var collection: [User] {
     get {
+      guard storageManager != nil else {
+        return []
+      }
+
       if addMode {
         return possibleMembers
       } else {
@@ -79,7 +85,7 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     conversationNameTextField.text = conversation.title
 
     if !conversation.new {
-      titleButton.text = "Edit \(conversation.title)"
+      titleButton.text = "Edit '\(conversation.title)'"
     }
 
   }
@@ -141,16 +147,8 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     sender.enabled = false
 
     func successFunc(conversation: Conversation) {
-      let parent = self.presentingViewController!
-      self.dismissViewControllerAnimated(true) {
-
-        // show if new
-        if conversation.new {
-          let conversationViewController = R.storyboard.conversation.initialViewController()!
-          conversationViewController.conversation = conversation
-          parent.showViewController(conversationViewController, sender: nil)
-        }
-      }
+      self.dismissViewControllerAnimated(true, completion: nil)
+      delegate?.conversationCreated(conversation)
     }
 
     func errorFunc(error: StorageError) {
@@ -196,6 +194,8 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     }
     self.tableView.reloadData()
   }
+}
 
-
+protocol ConversationCreateDelegate {
+  func conversationCreated(conversation: Conversation)
 }

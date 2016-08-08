@@ -9,6 +9,9 @@
         <mutableArray key="Brandon_med.otf">
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -27,33 +30,23 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NbH-sl-ve8">
                                 <rect key="frame" x="0.0" y="20" width="600" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aml-fk-h73">
-                                        <rect key="frame" x="19" y="19" width="56" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Conversations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aml-fk-h73">
+                                        <rect key="frame" x="19" y="17" width="95" height="25"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HnZ-m2-39P" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
-                                        <rect key="frame" x="548" y="8" width="44" height="44"/>
-                                        <color key="tintColor" red="0.086274512110000007" green="0.086274512110000007" blue="0.094117648900000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="close"/>
-                                        <connections>
-                                            <action selector="hideGroups:" destination="wAw-vw-HyH" eventType="touchUpInside" id="V3O-YU-pND"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="HnZ-m2-39P" firstAttribute="centerY" secondItem="NbH-sl-ve8" secondAttribute="centerY" id="cEk-tV-Yvq"/>
                                     <constraint firstItem="aml-fk-h73" firstAttribute="centerY" secondItem="NbH-sl-ve8" secondAttribute="centerY" id="cYx-8K-upH"/>
                                     <constraint firstAttribute="height" constant="60" id="icP-vK-nGG"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="HnZ-m2-39P" secondAttribute="trailing" id="joi-qv-cXU"/>
                                     <constraint firstItem="aml-fk-h73" firstAttribute="leading" secondItem="NbH-sl-ve8" secondAttribute="leading" constant="19" id="ycp-ia-52i"/>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ecc-i2-b3G">
                                 <rect key="frame" x="0.0" y="80" width="600" height="520"/>
                                 <connections>
-                                    <segue destination="bB6-t6-x02" kind="embed" id="pB9-or-LIx"/>
+                                    <segue destination="bB6-t6-x02" kind="embed" identifier="embedConversationList" id="pB9-or-LIx"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZ6-LT-ZeM" customClass="KCFloatingActionButton" customModule="KCFloatingActionButton">
@@ -109,7 +102,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxt-fv-BXm">
                                 <rect key="frame" x="0.0" y="20" width="600" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Conversation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjd-zW-dNY">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="New Conversation" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zjd-zW-dNY">
                                         <rect key="frame" x="19" y="17" width="123" height="25"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <color key="textColor" red="0.82352941176470584" green="0.52941176470588236" blue="0.23921568627450979" alpha="1" colorSpace="calibratedRGB"/>
@@ -124,7 +117,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yee-h3-xTD">
-                                        <rect key="frame" x="504" y="15" width="34" height="30"/>
+                                        <rect key="frame" x="507" y="11" width="31" height="37"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <state key="normal" title="Save">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -135,12 +129,12 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="zjd-zW-dNY" firstAttribute="centerY" secondItem="fxt-fv-BXm" secondAttribute="centerY" id="2Rf-8k-fxy"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="4iO-C3-Jmf"/>
+                                    <constraint firstItem="yee-h3-xTD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zjd-zW-dNY" secondAttribute="trailing" constant="20" id="38u-cT-G2N"/>
                                     <constraint firstItem="zjd-zW-dNY" firstAttribute="leading" secondItem="fxt-fv-BXm" secondAttribute="leading" constant="19" id="IOk-xj-E2d"/>
                                     <constraint firstAttribute="height" constant="60" id="MeE-6L-yjE"/>
+                                    <constraint firstItem="yee-h3-xTD" firstAttribute="centerY" secondItem="fxt-fv-BXm" secondAttribute="centerY" id="NCX-ET-962"/>
                                     <constraint firstItem="tDa-xs-bEE" firstAttribute="centerY" secondItem="fxt-fv-BXm" secondAttribute="centerY" id="diZ-7P-UnV"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="tDa-xs-bEE" secondAttribute="trailing" id="dnN-7U-5Q6"/>
-                                    <constraint firstItem="yee-h3-xTD" firstAttribute="centerY" secondItem="zjd-zW-dNY" secondAttribute="centerY" id="qbn-R6-gIQ"/>
                                     <constraint firstItem="tDa-xs-bEE" firstAttribute="leading" secondItem="yee-h3-xTD" secondAttribute="trailing" constant="10" id="yXm-mQ-NmM"/>
                                 </constraints>
                             </view>
@@ -247,6 +241,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="520"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Xh1-Xl-Xgr">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Haven't found what your looking for? Create a Conversation" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ol-Ql-eVK">
+                                    <rect key="frame" x="177" y="25" width="246" height="49"/>
+                                    <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                    <color key="textColor" red="0.66666668653488159" green="0.45882353186607361" blue="0.27450981736183167" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstItem="1Ol-Ql-eVK" firstAttribute="centerY" secondItem="Xh1-Xl-Xgr" secondAttribute="centerY" id="bxx-nK-Zmd"/>
+                                <constraint firstItem="1Ol-Ql-eVK" firstAttribute="centerX" secondItem="Xh1-Xl-Xgr" secondAttribute="centerX" id="krP-ha-LIF"/>
+                            </constraints>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="A2J-78-u9m" appends="YES" id="dd8-o0-ew6"/>
+                            </connections>
+                        </view>
                         <connections>
                             <outlet property="dataSource" destination="bB6-t6-x02" id="VpT-L1-9aB"/>
                             <outlet property="delegate" destination="bB6-t6-x02" id="ddC-YO-XJM"/>
@@ -258,6 +273,11 @@
                     </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iyy-dy-QUv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="A2J-78-u9m">
+                    <connections>
+                        <action selector="tableFooterClicked:" destination="bB6-t6-x02" id="Ske-Ze-HnK"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="381" y="-220"/>
         </scene>
