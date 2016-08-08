@@ -31,12 +31,33 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
       createConversationViewController.conversation = conversation
       self.presentViewController(createConversationViewController, animated: true, completion: nil)
     } else {
-      self.navController?.popToRootViewControllerAnimated(true)
+
+      let transition = CATransition()
+      transition.duration = 0.3
+      transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+      transition.type = kCATransitionPush
+      transition.subtype = kCATransitionFromBottom
+      self.navController?.view.layer.addAnimation(transition, forKey: nil)
+
+      self.navController?.popToRootViewControllerAnimated(false)
     }
   }
 
   @IBAction func close(sender: AnyObject) {
-    dismissViewControllerAnimated(true, completion: nil)
+
+    if self.navController?.viewControllers.count == 1 {
+      dismissViewControllerAnimated(true, completion: nil)
+    } else {
+
+      let transition = CATransition()
+      transition.duration = 0.3
+      transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+      transition.type = kCATransitionPush
+      transition.subtype = kCATransitionFromBottom
+      self.navController?.view.layer.addAnimation(transition, forKey: nil)
+
+      self.navController?.popToRootViewControllerAnimated(false)
+    }
   }
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -92,20 +113,36 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
     }
   }
 
+
   func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
 
-    var titleColor = Color.BACKGROUND
+    var titleColor: UIColor
 
-    if navigationController.viewControllers.count > 1 {
+    switch viewController {
+    case is ConversationContentViewController:
+      self.leftTitleConstraint.constant = 40
+      titleColor = Color.BACKGROUND
+    default:
       self.leftTitleConstraint.constant = 11
       titleColor = Color.SEARCHBAR
-    } else {
-      self.leftTitleConstraint.constant = 40
     }
 
     UIView.animateWithDuration(0.2) {
       self.view.backgroundColor = titleColor
       self.view.layoutIfNeeded()
+    }
+
+
+    print("count: \(navigationController.viewControllers.count)")
+  }
+
+  private func getParentViewController() -> UIViewController? {
+    let navStack = self.navController!.viewControllers
+    if navStack.count > 1 {
+      return navStack[navStack.count - 1]
+    } else {
+      // is only view controller
+      return nil
     }
   }
 }

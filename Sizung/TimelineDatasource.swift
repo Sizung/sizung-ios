@@ -247,7 +247,11 @@ extension TimelineTableViewController: ExpandingTransitionPresentingViewControll
         let deliverableViewController = R.storyboard.deliverable.initialViewController()!
         deliverableViewController.deliverable = deliverable
 
-        self.showViewController(deliverableViewController, fromFrame: tableView.rectForRowAtIndexPath(indexPath))
+        if deliverable is AgendaItemDeliverable {
+          self.navigationController?.pushViewController(deliverableViewController, animated: true)
+        } else {
+          self.showViewController(deliverableViewController, fromFrame: tableView.rectForRowAtIndexPath(indexPath))
+        }
       case let attachment as Attachment:
         self.loadAttachment(attachment)
       case is Comment:

@@ -49,6 +49,17 @@
                                             <action selector="showStatusPopover:" destination="GPy-5R-nwL" eventType="touchUpInside" id="dyV-Io-6hk"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k2r-bI-A4N">
+                                        <rect key="frame" x="15" y="8" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="e7R-6v-sGZ"/>
+                                            <constraint firstAttribute="height" constant="30" id="obx-lf-aUi"/>
+                                        </constraints>
+                                        <state key="normal" image="agenda_title"/>
+                                        <connections>
+                                            <action selector="back:" destination="GPy-5R-nwL" eventType="touchUpInside" id="UNR-1B-Sye"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nYB-1C-4Be">
                                         <rect key="frame" x="15" y="8" width="87" height="30"/>
                                         <constraints>
@@ -74,11 +85,14 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="k2r-bI-A4N" firstAttribute="centerY" secondItem="NfS-yD-wtj" secondAttribute="centerY" id="B1a-Yp-QPZ"/>
+                                    <constraint firstItem="nYB-1C-4Be" firstAttribute="leading" secondItem="k2r-bI-A4N" secondAttribute="trailing" priority="250" constant="15" id="Coh-sn-H6R"/>
                                     <constraint firstAttribute="trailing" secondItem="vg1-da-c05" secondAttribute="trailing" constant="20" id="DD8-qt-UnK"/>
                                     <constraint firstItem="vg1-da-c05" firstAttribute="centerY" secondItem="nYB-1C-4Be" secondAttribute="centerY" id="DJO-b9-v5t"/>
                                     <constraint firstItem="nYB-1C-4Be" firstAttribute="centerY" secondItem="NfS-yD-wtj" secondAttribute="centerY" id="Eru-1L-Nzl"/>
+                                    <constraint firstItem="k2r-bI-A4N" firstAttribute="leading" secondItem="NfS-yD-wtj" secondAttribute="leading" constant="15" id="JQd-wF-17m"/>
                                     <constraint firstItem="BtO-YG-58F" firstAttribute="leading" secondItem="nYB-1C-4Be" secondAttribute="leading" constant="2" id="TbN-fV-URe"/>
-                                    <constraint firstItem="nYB-1C-4Be" firstAttribute="leading" secondItem="NfS-yD-wtj" secondAttribute="leading" constant="15" id="VYb-Ry-rJT"/>
+                                    <constraint firstItem="nYB-1C-4Be" firstAttribute="leading" secondItem="NfS-yD-wtj" secondAttribute="leading" priority="750" constant="15" id="VYb-Ry-rJT"/>
                                     <constraint firstItem="vg1-da-c05" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nYB-1C-4Be" secondAttribute="trailing" constant="15" id="aW3-v0-myQ"/>
                                     <constraint firstAttribute="height" constant="45" id="gaW-eT-I6B"/>
                                     <constraint firstItem="vg1-da-c05" firstAttribute="centerY" secondItem="BtO-YG-58F" secondAttribute="centerY" id="kXd-aZ-Kcx"/>
@@ -118,6 +132,8 @@
                     <toolbarItems/>
                     <connections>
                         <outlet property="assigneeImageView" destination="BtO-YG-58F" id="8mA-OR-Ad2"/>
+                        <outlet property="parentAgendaItemButton" destination="k2r-bI-A4N" id="eFD-xJ-veN"/>
+                        <outlet property="parentAgendaItemDistance" destination="Coh-sn-H6R" id="2KD-8E-ChV"/>
                         <outlet property="statusButton" destination="vg1-da-c05" id="AgE-aI-O5W"/>
                         <outlet property="titleButton" destination="nYB-1C-4Be" id="bA0-Wp-Yqv"/>
                     </connections>
@@ -166,7 +182,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1U-jq-75c" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
-                                        <rect key="frame" x="560" y="14" width="32" height="32"/>
+                                        <rect key="frame" x="548" y="8" width="44" height="44"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="close"/>
                                         <connections>
@@ -174,7 +190,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gO7-aJ-Yad">
-                                        <rect key="frame" x="519" y="11" width="31" height="37"/>
+                                        <rect key="frame" x="507" y="11" width="31" height="37"/>
                                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                         <state key="normal" title="Save">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -431,6 +447,7 @@
     </scenes>
     <resources>
         <image name="action_title" width="57" height="57"/>
+        <image name="agenda_title" width="59" height="59"/>
         <image name="bg_actions" width="45" height="30"/>
         <image name="close" width="32" height="32"/>
     </resources>

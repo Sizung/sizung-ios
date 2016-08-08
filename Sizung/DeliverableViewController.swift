@@ -16,14 +16,18 @@ class DeliverableViewController: UIViewController,
   CalendarViewDelegate,
   KCFloatingActionButtonDelegate,
   FilesPickerDelegate,
-  ActionCreateDelegate {
+ActionCreateDelegate {
 
   @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var statusButton: UIButton!
   @IBOutlet weak var assigneeImageView: AvatarImageView!
 
+  @IBOutlet weak var parentAgendaItemButton: UIButton!
+  @IBOutlet weak var parentAgendaItemDistance: NSLayoutConstraint!
 
   var deliverable: Deliverable!
+
+  var parentAgendaItem: AgendaItem?
 
   var floatingActionButton: KCFloatingActionButton?
 
@@ -32,17 +36,17 @@ class DeliverableViewController: UIViewController,
   override func viewDidLoad() {
     super.viewDidLoad()
 
-//    StorageManager.storageForSelectedOrganization()
-//      .onSuccess { storageManager in
-//        storageManager.getUser(self.deliverable.assigneeId)
-//          .onSuccess { user in
-//            self.assigneeImageView.user = user
-////
-////            if let agendaItem = storageManager.agendaItems[self.deliverable.parentId] {
-////              self.backButton.setTitle("< \(agendaItem.title)", forState: .Normal)
-////            }
-//        }
-//    }
+    //    StorageManager.storageForSelectedOrganization()
+    //      .onSuccess { storageManager in
+    //        storageManager.getUser(self.deliverable.assigneeId)
+    //          .onSuccess { user in
+    //            self.assigneeImageView.user = user
+    ////
+    ////            if let agendaItem = storageManager.agendaItems[self.deliverable.parentId] {
+    ////              self.backButton.setTitle("< \(agendaItem.title)", forState: .Normal)
+    ////            }
+    //        }
+    //    }
 
     update()
 
@@ -63,6 +67,29 @@ class DeliverableViewController: UIViewController,
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         self.assigneeImageView.user = storageManager.users[self.deliverable.assigneeId]
+
+
+        if let parentAgendaItem = storageManager.agendaItems[self.deliverable.parentId] {
+          self.parentAgendaItem = parentAgendaItem
+          self.parentAgendaItemButton.hidden = false
+          self.parentAgendaItemDistance.priority = UILayoutPriorityDefaultHigh + 1
+
+          UIView.animateWithDuration(0.3) {
+            self.parentAgendaItemButton.alpha = 1
+            self.view.layoutIfNeeded()
+          }
+
+        } else {
+          self.parentAgendaItem = nil
+          self.parentAgendaItemDistance.priority = UILayoutPriorityDefaultHigh - 1
+
+          UIView.animateWithDuration(0.3, animations: {
+            self.parentAgendaItemButton.alpha = 0
+            self.view.layoutIfNeeded()
+            }, completion: { _ in
+              self.parentAgendaItemButton.hidden = true
+          })
+        }
     }
 
     var statusString = deliverable.status
@@ -74,6 +101,7 @@ class DeliverableViewController: UIViewController,
     }
 
     statusButton.setTitle(statusString, forState: .Normal)
+
   }
 
   // MARK: - Navigation
@@ -126,15 +154,20 @@ class DeliverableViewController: UIViewController,
   // show previous view controller
   @IBAction func back(sender: AnyObject) {
 
-    let transition = CATransition()
-    transition.duration = 0.3
-    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-    transition.type = kCATransitionPush
-    transition.subtype = kCATransitionFromBottom
+    if parentAgendaItem == nil {
+      let transition = CATransition()
+      transition.duration = 0.3
+      transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+      transition.type = kCATransitionPush
+      transition.subtype = kCATransitionFromBottom
 
-    self.navigationController?.view.layer.addAnimation(transition, forKey: nil)
+      self.navigationController?.view.layer.addAnimation(transition, forKey: nil)
 
-    self.navigationController?.popViewControllerAnimated(false)
+      self.navigationController?.popViewControllerAnimated(false)
+    } else {
+      self.navigationController?.popViewControllerAnimated(true)
+    }
+
   }
 
   func showDatePicker(sender: UIButton) {
@@ -230,7 +263,7 @@ class DeliverableViewController: UIViewController,
 
   func actionCreated(action: Deliverable) {
     self.deliverable = action
-
+   
     self.update()
     InAppMessage.showSuccessMessage("Updated action")
   }
