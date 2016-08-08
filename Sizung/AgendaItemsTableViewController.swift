@@ -181,16 +181,26 @@ class AgendaItemsTableViewController: UITableViewController {
 
     let selectedAgendaItem = self.collection![indexPath.row]
 
-    if let navController = self.navigationController {
+    if self.navigationController?.viewControllers.first is ConversationContentViewController {
       let agendaItemViewController = R.storyboard.agendaItem.initialViewController()!
       agendaItemViewController.agendaItem = selectedAgendaItem
 
-      navController.pushViewController(agendaItemViewController, animated: true)
+      let transition = CATransition()
+      transition.duration = 0.3
+      transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+      transition.type = kCATransitionPush
+      transition.subtype = kCATransitionFromTop
+      self.navigationController?.view.layer.addAnimation(transition, forKey: nil)
+
+      self.navigationController?.pushViewController(agendaItemViewController, animated: false)
     } else {
+
       let conversationController = R.storyboard.conversation.initialViewController()!
       conversationController.conversation = storageManager!.conversations[selectedAgendaItem.conversationId]
       conversationController.openItem = selectedAgendaItem
-      showViewController(conversationController, sender: self)
+
+      presentViewController(conversationController, animated:true, completion: nil)
     }
+
   }
 }

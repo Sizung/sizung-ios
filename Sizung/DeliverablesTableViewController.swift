@@ -221,16 +221,24 @@ class DeliverablesTableViewController: UITableViewController {
 
     if let selectedDeliverable = collection?[indexPath.row] {
 
-      if let navController = self.navigationController {
+      if self.navigationController?.viewControllers.first is ConversationContentViewController {
         let deliverableViewController = R.storyboard.deliverable.initialViewController()!
         deliverableViewController.deliverable = selectedDeliverable
 
-        navController.pushViewController(deliverableViewController, animated: true)
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromTop
+        self.navigationController?.view.layer.addAnimation(transition, forKey: nil)
+
+        self.navigationController?.pushViewController(deliverableViewController, animated: false)
       } else {
         let conversationController = R.storyboard.conversation.initialViewController()!
         conversationController.conversation = storageManager!.conversations[getConversationId(selectedDeliverable)]
         conversationController.openItem = selectedDeliverable
-        showViewController(conversationController, sender: self)
+
+        presentViewController(conversationController, animated:true, completion: nil)
       }
     } else {
       fatalError()

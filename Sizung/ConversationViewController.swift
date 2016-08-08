@@ -45,7 +45,8 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
 
   @IBAction func close(sender: AnyObject) {
 
-    if self.navController?.viewControllers.count == 1 {
+    // close if at conversation level or coming from direct open
+    if self.navController?.viewControllers.count == 1 || openItem != nil {
       dismissViewControllerAnimated(true, completion: nil)
     } else {
 
@@ -116,6 +117,7 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
 
   func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
 
+    var duration = 0.2
     var titleColor: UIColor
 
     switch viewController {
@@ -127,13 +129,17 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
       titleColor = Color.SEARCHBAR
     }
 
-    UIView.animateWithDuration(0.2) {
+    if openItem != nil {
+      duration = 0
+    }
+
+    UIView.animateWithDuration(duration) {
       self.view.backgroundColor = titleColor
       self.view.layoutIfNeeded()
     }
 
 
-    print("count: \(navigationController.viewControllers.count)")
+//    print("count: \(navigationController.viewControllers.count)")
   }
 
   private func getParentViewController() -> UIViewController? {

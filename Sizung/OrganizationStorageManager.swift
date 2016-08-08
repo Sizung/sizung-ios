@@ -65,7 +65,6 @@ class OrganizationStorageManager {
           promise.failure(error)
       }
     }
-
     return promise.future
   }
 
@@ -82,7 +81,6 @@ class OrganizationStorageManager {
       }.onFailure { error in
         promise.failure(error)
     }
-
     return promise.future
   }
 
@@ -99,7 +97,6 @@ class OrganizationStorageManager {
       }.onFailure { error in
         promise.failure(error)
     }
-
     return promise.future
   }
 
@@ -122,7 +119,6 @@ class OrganizationStorageManager {
           promise.failure(error)
       }
     }
-
     return promise.future
   }
 
@@ -143,7 +139,6 @@ class OrganizationStorageManager {
           promise.failure(error)
       }
     }
-
     return promise.future
   }
 
@@ -171,7 +166,6 @@ class OrganizationStorageManager {
         }.onFailure { error in
           promise.failure(error)
       }
-
     }
     return promise.future
   }
@@ -254,8 +248,6 @@ class OrganizationStorageManager {
       }.onFailure { error in
         promise.failure(error)
     }
-
-
     return promise.future
   }
 
