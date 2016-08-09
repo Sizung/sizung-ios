@@ -34,7 +34,7 @@ FilesPickerDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    segmentedControl.items = ["PRIORITIES", "CHAT", "ACTIONS"]
+    segmentedControl.items = ["AGENDA", "DISCUSSION", "ACTION"]
     segmentedControl.thumbColors = [Color.AGENDAITEM, Color.CHAT, Color.ACTION]
     segmentedControl.addTarget(
       self,

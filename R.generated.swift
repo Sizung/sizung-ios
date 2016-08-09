@@ -1051,6 +1051,7 @@ struct _R: Rswift.Validatable {
       try login.validate()
       try conversations.validate()
       try main.validate()
+      try organizations.validate()
     }
     
     struct agendaItem: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
@@ -1280,11 +1281,21 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
-    struct organizations: StoryboardResourceWithInitialControllerType {
+    struct organizations: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = OrganizationsViewController
       
       let bundle = _R.hostingBundle
+      let create = StoryboardViewControllerResource<CreateOrganizationViewController>(identifier: "create")
       let name = "Organizations"
+      
+      func create(_: Void) -> CreateOrganizationViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(create)
+      }
+      
+      static func validate() throws {
+        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Organizations', but couldn't be loaded.") }
+        if _R.storyboard.organizations().create() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'create' could not be loaded from storyboard 'Organizations' as 'CreateOrganizationViewController'.") }
+      }
       
       private init() {}
     }

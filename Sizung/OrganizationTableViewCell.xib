@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -7,6 +7,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Brandon_med.otf">
+            <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
         </mutableArray>
     </customFonts>
@@ -33,22 +34,32 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OrganizationName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHs-47-6Sk">
-                        <rect key="frame" x="55" y="11" width="257" height="27"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="OrganizationName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHs-47-6Sk">
+                        <rect key="frame" x="55" y="11" width="93" height="27"/>
                         <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SYb-t1-FVv">
+                        <rect key="frame" x="267" y="8" width="30" height="34"/>
+                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
+                        <state key="normal" title="Edit">
+                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" red="0.10196078431372549" green="0.11372549019607843" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
+                    <constraint firstItem="SYb-t1-FVv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="UHs-47-6Sk" secondAttribute="trailing" constant="20" id="2CJ-e1-nOd"/>
                     <constraint firstItem="Hk3-MI-7gI" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="59E-wx-veA"/>
+                    <constraint firstItem="SYb-t1-FVv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5zn-yO-ICI"/>
                     <constraint firstItem="Hk3-MI-7gI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="BR8-YR-ciT"/>
                     <constraint firstItem="UHs-47-6Sk" firstAttribute="leading" secondItem="Hk3-MI-7gI" secondAttribute="trailing" constant="20" id="Fa0-ri-kPJ"/>
                     <constraint firstItem="Hk3-MI-7gI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="GGq-QR-nYj"/>
                     <constraint firstItem="Hk3-MI-7gI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="9" id="Jb8-7p-f5b"/>
                     <constraint firstItem="UHs-47-6Sk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="QOn-rV-7VE"/>
                     <constraint firstItem="UHs-47-6Sk" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="ROW-9g-Ugz"/>
+                    <constraint firstItem="SYb-t1-FVv" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-15" id="cSf-EQ-sbN"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Hk3-MI-7gI" secondAttribute="bottom" constant="8" id="qd0-Ac-nLH"/>
                     <constraint firstAttribute="bottomMargin" secondItem="UHs-47-6Sk" secondAttribute="bottom" constant="3" id="ser-Pa-E3N"/>
                 </constraints>
@@ -57,10 +68,12 @@
                         <exclude reference="BR8-YR-ciT"/>
                         <exclude reference="Jb8-7p-f5b"/>
                         <exclude reference="qd0-Ac-nLH"/>
+                        <exclude reference="ROW-9g-Ugz"/>
                     </mask>
                 </variation>
             </tableViewCellContentView>
             <connections>
+                <outlet property="editButton" destination="SYb-t1-FVv" id="5kO-I3-M1x"/>
                 <outlet property="nameLabel" destination="UHs-47-6Sk" id="2lJ-de-u4r"/>
                 <outlet property="unreadStatusView" destination="Hk3-MI-7gI" id="0nJ-A4-sgK"/>
             </connections>

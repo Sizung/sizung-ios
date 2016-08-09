@@ -25,6 +25,12 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
     self.conversationMemberButton.setTitle(String(self.conversation.members.count), forState: .Normal)
   }
 
+  override func viewWillDisappear(animated: Bool) {
+    super.viewWillDisappear(animated)
+
+    UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+  }
+
   @IBAction func titleClicked(sender: AnyObject) {
     if self.navController?.viewControllers.count == 1 {
       let createConversationViewController = R.storyboard.conversations.create()!
@@ -124,9 +130,11 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
     case is ConversationContentViewController:
       self.leftTitleConstraint.constant = 40
       titleColor = Color.BACKGROUND
+      UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
     default:
       self.leftTitleConstraint.constant = 11
       titleColor = Color.SEARCHBAR
+      UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
     }
 
     if openItem != nil {

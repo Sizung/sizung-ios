@@ -60,7 +60,7 @@ class DeliverablesTableViewController: UITableViewController {
     allButton.setBackgroundImage(R.image.actions_filter_all(), forState: .Normal)
     allButton.setBackgroundImage(R.image.actions_filter_all_selected(), forState: .Selected)
     allButton.titleLabel?.font = R.font.brandonGrotesqueMedium(size: 15)
-    allButton.setTitleColor(Color.ADDBUTTON, forState: .Normal)
+    allButton.setTitleColor(Color.ACTION, forState: .Normal)
     allButton.setTitleColor(UIColor.whiteColor(), forState: .Selected)
     allButton.setTitle("All", forState: .Normal)
 
@@ -68,7 +68,7 @@ class DeliverablesTableViewController: UITableViewController {
     myButton.setBackgroundImage(R.image.actions_filter_mine(), forState: .Normal)
     myButton.setBackgroundImage(R.image.actions_filter_mine_selected(), forState: .Selected)
     myButton.titleLabel?.font = R.font.brandonGrotesqueMedium(size: 15)
-    myButton.setTitleColor(Color.ADDBUTTON, forState: .Normal)
+    myButton.setTitleColor(Color.ACTION, forState: .Normal)
     myButton.setTitleColor(UIColor.whiteColor(), forState: .Selected)
     myButton.setTitle("My", forState: .Normal)
 
@@ -198,7 +198,7 @@ class DeliverablesTableViewController: UITableViewController {
         if deliverable.dueOn != nil && !deliverable.isCompleted() {
           cell.statusLabel.text = DueDateHelper.getDueDateString(deliverable.dueOn!)
         } else {
-          cell.statusLabel.text = deliverable.getStatus()
+          cell.statusLabel.text = ""
         }
 
         var statusColor = UIColor(red:0.88, green:0.67, blue:0.71, alpha:1.0)

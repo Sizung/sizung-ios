@@ -24,6 +24,7 @@ class OrganizationStorageManager {
   let unseenObjects: CollectionProperty <[UnseenObject]> = CollectionProperty([])
 
   let users: CollectionProperty <[User]> = CollectionProperty([])
+  let members: CollectionProperty <[OrganizationMember]> = CollectionProperty([])
 
   func getObject(withId itemId: String, type: String) -> BaseModel? {
     switch type {
@@ -39,6 +40,12 @@ class OrganizationStorageManager {
     default:
       fatalError()
     }
+  }
+
+  func getOrganizationMember(userId: String) -> OrganizationMember? {
+    return members.collection.filter { member in
+      member.memberId == userId
+    }.first
   }
 
   func getConversation(itemId: String) -> Future<Conversation, StorageError> {
@@ -392,6 +399,32 @@ class OrganizationStorageManager {
       }.onFailure { error in
         promise.failure(error)
     }
+    return promise.future
+  }
+
+  func inviteOrganizationMember(email: String) -> Future<OrganizationMember, StorageError> {
+    let promise = Promise<OrganizationMember, StorageError>()
+
+    StorageManager.makeRequest(SizungHttpRouter.InviteOrganizationMember(email: email, organizationId: self.organization.id))
+      .onSuccess { (organizationMemberResponse: OrganizationMemberResponse) in
+        promise.success(organizationMemberResponse.member)
+      }.onFailure { error in
+        promise.failure(error)
+    }
+
+    return promise.future
+  }
+
+  func deleteOrganizationMember(memberId: String) -> Future<OrganizationMember, StorageError> {
+    let promise = Promise<OrganizationMember, StorageError>()
+
+    StorageManager.makeRequest(SizungHttpRouter.DeleteOrganizationMember(memberId: memberId))
+      .onSuccess { (organizationMemberResponse: OrganizationMemberResponse) in
+        promise.success(organizationMemberResponse.member)
+      }.onFailure { error in
+        promise.failure(error)
+    }
+
     return promise.future
   }
 }
