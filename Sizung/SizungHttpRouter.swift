@@ -16,6 +16,8 @@ enum SizungHttpRouter: URLRequestConvertible {
   case RegisterUser(user: Sizung.RegisterUser)
   case ConfirmationLink(token: String)
   case Login(email: String, password: String)
+  case LoginWithToken(longLivedToken: String)
+  case GetLongLivedToken(sessionToken: String)
   case RegisterDevice(token: String)
   case UpdateDevice(deviceId: String, token: String)
   case Logout()
@@ -44,6 +46,8 @@ enum SizungHttpRouter: URLRequestConvertible {
     switch self {
     case .RegisterUser,
          .Login,
+         .LoginWithToken,
+         .GetLongLivedToken,
          .RegisterDevice,
          .Comments,
          .CreateConversation,
@@ -72,8 +76,11 @@ enum SizungHttpRouter: URLRequestConvertible {
     case .ConfirmationLink:
       return "/users/confirmation"
     case .Login,
+         .LoginWithToken,
          .Logout:
       return "/session_tokens"
+    case .GetLongLivedToken:
+      return "/long_lived_tokens"
     case .RegisterDevice:
       return "/devices"
     case .UpdateDevice(let deviceId, _):
@@ -128,10 +135,11 @@ enum SizungHttpRouter: URLRequestConvertible {
   var authentication: String? {
     switch self {
     case .RegisterUser,
+         .LoginWithToken,
          .Login:
       return nil
     default:
-      if let authToken = Configuration.getAuthToken() {
+      if let authToken = Configuration.getSessionToken() {
         return "Bearer \(authToken))"
       } else {
         return nil
@@ -160,6 +168,10 @@ enum SizungHttpRouter: URLRequestConvertible {
           "email": email,
           "password": password
         ]
+      ]
+    case .LoginWithToken(let longLivedToken):
+      return [
+        "long_lived_token": longLivedToken
       ]
     case .RegisterDevice(let deviceToken):
       return [
@@ -345,6 +357,7 @@ enum SizungHttpRouter: URLRequestConvertible {
     switch self {
     case .RegisterUser,
          .Login,
+         .LoginWithToken,
          .RegisterDevice,
          .UpdateDevice,
          .CreateDeliverable,

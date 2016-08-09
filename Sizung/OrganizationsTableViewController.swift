@@ -118,7 +118,7 @@ class OrganizationsTableViewController: UITableViewController {
   }
 
   func fetchUnseenObjectsPage(page: Int) {
-    if let userId = AuthToken(data: Configuration.getAuthToken()).getUserId() {
+    if let userId = AuthToken(data: Configuration.getSessionToken()).getUserId() {
       StorageManager.sharedInstance.listUnseenObjectsForUser(userId, page: page)
         .onSuccess { unseenObjectsResponse in
           self.unseenObjects.unionInPlace(unseenObjectsResponse.unseenObjects)

@@ -67,7 +67,9 @@ class StorageManager {
   static func makeRequest<T: Mappable>(urlRequest: URLRequestConvertible) -> Future<T, StorageError> {
     let promise = Promise<T, StorageError>()
 
-    Alamofire.request(urlRequest)
+    let authManager = AuthorizationManager()
+
+    authManager.request(urlRequest)
       .validate()
       .responseJSON(queue: StorageManager.networkQueue) { response in
         switch response.result {

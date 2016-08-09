@@ -44,10 +44,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
 
     setupReachability()
 
-    self.registerNotifications()
+    self.registerLocalAppNotifications()
 
-    if let authToken = Configuration.getAuthToken() {
-      let token = AuthToken(data: authToken)
+    if let sessionToken = Configuration.getSessionToken() {
+      let token = AuthToken(data: sessionToken)
       token.validate()
         .onSuccess { _ in
 
@@ -56,7 +56,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
           self.loadInitialViewController()
 
         }.onFailure { error in
-          self.showLogin()
+          if let longLivedToken = Configuration.getLongLivedToken() {
+            let token = AuthToken(data: longLivedToken)
+              token.validate()
+                .onSuccess { _ in
+                  Alamofire.request(SizungHttpRouter.LoginWithToken(longLivedToken: longLivedToken))
+                    .validate()
+                    .responseJSON { response in
+                      switch response.result {
+                      case .Success(let JSON)
+                        where JSON.objectForKey("token") is String:
+
+                        let token = AuthToken(data: JSON["token"] as? String)
+
+                        token.validateAndStore(.Session)
+                          .onSuccess { _ in
+                            self.registerForPushNotifications()
+
+                            self.loadInitialViewController()
+                          }.onFailure { error in
+                            self.showLogin()
+                        }
+                      }
+                  }
+                }.onFailure { error in
+                  self.showLogin()
+            }
+          }
       }
     } else {
       self.showLogin()
@@ -70,6 +96,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
     return true
   }
 
+  func
+
   func checkSettings() {
     if NSUserDefaults.standardUserDefaults().boolForKey("reset_on_launch") {
       Configuration.reset()
@@ -80,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
     }
   }
 
-  func registerNotifications() {
+  func registerLocalAppNotifications() {
     NSNotificationCenter.defaultCenter().addObserver(
       self,
       selector: #selector(self.showLogin),
@@ -191,7 +219,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
   }
 
   func initWebsocketConnection() {
-    let authToken = AuthToken(data: Configuration.getAuthToken())
+    let authToken = AuthToken(data: Configuration.getSessionToken())
 
     authToken.validate()
       .onSuccess { _ in
@@ -200,7 +228,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
         StorageManager.sharedInstance.websocket = websocket
 
         // subscribe to user channel for unseenobjects
-        if let userId = AuthToken(data: Configuration.getAuthToken()).getUserId() {
+        if let userId = authToken.getUserId() {
           if let websocket = StorageManager.sharedInstance.websocket {
             websocket.userWebsocketDelegate = self
             websocket.followUser(userId)

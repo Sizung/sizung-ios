@@ -32,7 +32,7 @@ class CreateActionViewController: UIViewController, UITextFieldDelegate, ActionC
         self.storageManager = storageManager
 
         if self.action == nil {
-          let authToken = AuthToken(data: Configuration.getAuthToken())
+          let authToken = AuthToken(data: Configuration.getSessionToken())
           self.assignee = storageManager.users[authToken.getUserId()!]!
         } else {
           self.assignee = storageManager.users[self.action?.assigneeId]

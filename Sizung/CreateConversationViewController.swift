@@ -68,7 +68,7 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
         self.storageManager = storageManager
-        let authToken = AuthToken(data: Configuration.getAuthToken())
+        let authToken = AuthToken(data: Configuration.getSessionToken())
         let user = storageManager.users[authToken.getUserId()]!
 
         if self.conversation.new {

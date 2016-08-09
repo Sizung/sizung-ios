@@ -49,7 +49,7 @@ class DeliverablesTableViewController: UITableViewController {
       forCellReuseIdentifier: R.nib.deliverableTableViewCell.identifier
     )
 
-    userId = AuthToken(data: Configuration.getAuthToken()).getUserId()
+    userId = AuthToken(data: Configuration.getSessionToken()).getUserId()
 
     self.initData()
     self.initSegmentedControl()

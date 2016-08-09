@@ -281,7 +281,7 @@ class TimelineTableViewController: SLKTextViewController {
     // This little trick validates any pending auto-correction or auto-spelling just after hitting the 'Send' button
     self.textView.refreshFirstResponder()
 
-    let authToken = AuthToken(data: Configuration.getAuthToken())
+    let authToken = AuthToken(data: Configuration.getSessionToken())
 
     // parse mentions
     var fulltext = self.textView.text
