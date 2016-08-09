@@ -198,7 +198,7 @@ class DeliverablesTableViewController: UITableViewController {
         if deliverable.dueOn != nil && !deliverable.isCompleted() {
           cell.statusLabel.text = DueDateHelper.getDueDateString(deliverable.dueOn!)
         } else {
-          cell.statusLabel.text = deliverable.getStatus()
+          cell.statusLabel.text = ""
         }
 
         var statusColor = UIColor(red:0.88, green:0.67, blue:0.71, alpha:1.0)

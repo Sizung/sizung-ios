@@ -12,5 +12,6 @@ class OrganizationTableViewCell: UITableViewCell {
 
   @IBOutlet weak var unreadStatusView: UIView!
   @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var editButton: UIButton!
 
 }

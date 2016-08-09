@@ -25,7 +25,7 @@ class DueDateHelper {
       formatter.dateStyle = .MediumStyle
       formatter.timeStyle = .NoStyle
 
-      return "Overdue - \(formatter.stringFromDate(dueDate))"
+      return "\(formatter.stringFromDate(dueDate))"
     } else {
       let formatter = NSDateFormatter()
       formatter.dateStyle = .MediumStyle

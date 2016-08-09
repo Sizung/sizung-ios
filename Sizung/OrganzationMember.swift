@@ -9,11 +9,12 @@
 import ObjectMapper
 
 class OrganizationMember: BaseModel {
-  var member: User!
-  var conversation: Conversation!
+  var memberId: String!
+  var organizationId: String!
 
   override func mapping(map: Map) {
-    member     <- map["relationships.member.data"]
-    conversation  <- map["relationships.conversation.data"]
+    super.mapping(map)
+    memberId     <- map["relationships.member.data.id"]
+    organizationId  <- map["relationships.organization.data.id"]
   }
 }

@@ -33,9 +33,9 @@ class OrganizationsViewController: UIViewController, KCFloatingActionButtonDeleg
   }
 
   func emptyKCFABSelected(fab: KCFloatingActionButton) {
-    print("add org")
+    let createOrganizationViewController = R.storyboard.organizations.create()!
+    presentViewController(createOrganizationViewController, animated: true, completion: nil)
   }
-
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if R.segue.organizationsViewController.embed(segue: segue) != nil {
