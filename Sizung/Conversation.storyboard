@@ -30,7 +30,7 @@
                                 <rect key="frame" x="0.0" y="30" width="600" height="34"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_title" translatesAutoresizingMaskIntoConstraints="NO" id="nja-wa-7fB">
-                                        <rect key="frame" x="40" y="0.0" width="496" height="34"/>
+                                        <rect key="frame" x="40" y="0.0" width="520" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="tVQ-LV-AkM"/>
                                         </constraints>
@@ -67,13 +67,13 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpD-n7-zcf" userLabel="I" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
-                                        <rect key="frame" x="546" y="-5" width="44" height="44"/>
+                                        <rect key="frame" x="516" y="-5" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="32" id="RzH-h7-ioL"/>
                                             <constraint firstAttribute="height" constant="32" id="sdo-jd-8Pq"/>
                                             <constraint firstAttribute="height" constant="32" id="ySS-Xf-aNW"/>
                                         </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="close"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -90,10 +90,13 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="KMu-4V-qY2" firstAttribute="centerY" secondItem="nja-wa-7fB" secondAttribute="centerY" id="0la-XO-eeg"/>
+                                    <constraint firstItem="qpD-n7-zcf" firstAttribute="trailing" secondItem="nja-wa-7fB" secondAttribute="trailing" priority="750" id="7xP-Lw-zHT"/>
                                     <constraint firstAttribute="trailing" secondItem="nja-wa-7fB" secondAttribute="trailing" id="FY1-vu-y4T"/>
                                     <constraint firstItem="KMu-4V-qY2" firstAttribute="leading" secondItem="1Je-gS-fJ1" secondAttribute="trailing" constant="15" id="Gb1-kO-RsK"/>
-                                    <constraint firstAttribute="trailing" secondItem="qpD-n7-zcf" secondAttribute="trailing" constant="10" id="L7C-fJ-Di8"/>
+                                    <constraint firstAttribute="trailing" secondItem="nja-wa-7fB" secondAttribute="trailing" constant="40" id="Gil-6m-hQb"/>
+                                    <constraint firstAttribute="trailing" secondItem="qpD-n7-zcf" secondAttribute="trailing" constant="60" id="L7C-fJ-Di8"/>
                                     <constraint firstItem="nja-wa-7fB" firstAttribute="leading" secondItem="2gc-wH-8Dw" secondAttribute="leading" constant="40" id="RxZ-yR-nLy"/>
+                                    <constraint firstAttribute="trailing" secondItem="qpD-n7-zcf" secondAttribute="trailing" priority="250" constant="20" id="XYk-pG-TrA"/>
                                     <constraint firstItem="1Je-gS-fJ1" firstAttribute="leading" secondItem="nja-wa-7fB" secondAttribute="leading" constant="4" id="ac4-4K-3o4"/>
                                     <constraint firstItem="1Je-gS-fJ1" firstAttribute="centerY" secondItem="nja-wa-7fB" secondAttribute="centerY" id="bnU-u8-I4i"/>
                                     <constraint firstItem="qpD-n7-zcf" firstAttribute="centerY" secondItem="2gc-wH-8Dw" secondAttribute="centerY" id="i21-HZ-ard"/>
@@ -105,6 +108,8 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="FY1-vu-y4T"/>
+                                        <exclude reference="L7C-fJ-Di8"/>
+                                        <exclude reference="zVT-AN-eRC"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -142,6 +147,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="Ao5-cL-J90"/>
                     <connections>
+                        <outlet property="closeButton" destination="qpD-n7-zcf" id="xZv-CM-bsR"/>
+                        <outlet property="closeButtonConstraint" destination="XYk-pG-TrA" id="Qrp-zK-XFf"/>
                         <outlet property="conversationMemberButton" destination="KMu-4V-qY2" id="WYD-wP-ZoD"/>
                         <outlet property="leftTitleConstraint" destination="RxZ-yR-nLy" id="L6C-6a-b0n"/>
                         <outlet property="titleButton" destination="1Je-gS-fJ1" id="76g-0f-byq"/>

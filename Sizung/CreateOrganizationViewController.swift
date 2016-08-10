@@ -140,23 +140,21 @@ class CreateOrganizationViewController: UIViewController, UITableViewDelegate, U
 
         self.organization = organization
 
-        //add Member
+        StorageManager.sharedInstance.storageForOrganizationId(organization.id)
+          .onSuccess { storageManager in
+            self.storageManager = storageManager
 
-        self.addLoggedInUser() {
-          StorageManager.sharedInstance.storageForOrganizationId(organization.id)
-            .onSuccess { storageManager in
-              self.storageManager = storageManager
+            self.tableView.reloadData()
 
-              self.tableView.reloadData()
+            self.addMemberTextField.becomeFirstResponder()
 
-              InAppMessage.showSuccessMessage("Organization successfully created\nNow invite someone")
-              self.addMemberContainer.hidden = false
-              UIView.animateWithDuration(0.3) {
-                self.addMemberContainer.alpha = 1
-              }
-            }.onFailure { _ in
-              InAppMessage.showErrorMessage("There has been an error saving your organization - Please try again")
-          }
+            InAppMessage.showSuccessMessage("Organization successfully created\nNow invite someone")
+            self.addMemberContainer.hidden = false
+            UIView.animateWithDuration(0.3) {
+              self.addMemberContainer.alpha = 1
+            }
+          }.onFailure { _ in
+            InAppMessage.showErrorMessage("There has been an error saving your organization - Please try again")
         }
       } else {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -177,13 +175,6 @@ class CreateOrganizationViewController: UIViewController, UITableViewDelegate, U
     }
   }
 
-  func addLoggedInUser(completion: () -> Void ) {
-
-
-
-    completion()
-  }
-
   @IBAction func inviteMember(sender: AnyObject) {
     guard let newMemberEmail = filterString else {
       return
@@ -198,6 +189,8 @@ class CreateOrganizationViewController: UIViewController, UITableViewDelegate, U
       .onSuccess { orgMember in
         self.addMemberTextField.resignFirstResponder()
         self.addMemberTextField.text = ""
+        self.addMemberFieldChanged(self.addMemberTextField)
+
         self.storageManager!.users.append(User(userId: orgMember.memberId, email: newMemberEmail))
         self.storageManager!.members.append(orgMember)
         self.tableView.reloadData()

@@ -601,7 +601,7 @@
     </scenes>
     <resources>
         <image name="bg_search" width="27" height="30"/>
-        <image name="close" width="32" height="32"/>
+        <image name="close" width="15" height="15"/>
         <image name="cupcake" width="69" height="82"/>
         <image name="logo" width="229" height="229"/>
         <image name="organization_fallback" width="30" height="30"/>
