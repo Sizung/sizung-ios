@@ -80,6 +80,16 @@ AgendaItemCreateDelegate {
           }
         }
 
+        if actionItemListCount == 0 {
+          self.noActionItemsConstraint.priority = UILayoutPriorityDefaultHigh + 1
+          self.actionItemListButton.hidden = true
+        } else {
+          self.noActionItemsConstraint.priority = UILayoutPriorityDefaultHigh - 1
+          self.actionItemListButton.hidden = false
+        }
+
+        self.view.layoutIfNeeded()
+
         self.statusButton.hidden = unresolvedActionItemListCount > 0
 
         self.actionItemListButton.setTitle("\(actionItemListCount)", forState: .Normal)
