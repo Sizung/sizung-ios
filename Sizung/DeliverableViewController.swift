@@ -76,7 +76,7 @@ ActionCreateDelegate {
 
           UIView.animateWithDuration(0.3) {
             self.parentAgendaItemButton.alpha = 1
-            self.view.layoutIfNeeded()
+            self.parentAgendaItemButton.layoutIfNeeded()
           }
 
         } else {
@@ -85,7 +85,7 @@ ActionCreateDelegate {
 
           UIView.animateWithDuration(0.3, animations: {
             self.parentAgendaItemButton.alpha = 0
-            self.view.layoutIfNeeded()
+            self.parentAgendaItemButton.layoutIfNeeded()
             }, completion: { _ in
               self.parentAgendaItemButton.hidden = true
           })
