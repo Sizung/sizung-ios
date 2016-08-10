@@ -68,7 +68,7 @@
                                     <action selector="hideOrganizations:" destination="3pB-ZO-H0I" eventType="touchUpInside" id="2DX-Hl-1p4"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eE-qZ-yfG" customClass="KCFloatingActionButton" customModule="KCFloatingActionButton">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eE-qZ-yfG" customClass="KCFloatingActionButton" customModule="KCFloatingActionButton">
                                 <rect key="frame" x="525" y="515" width="50" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -302,6 +302,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="close" width="32" height="32"/>
+        <image name="close" width="15" height="15"/>
     </resources>
 </document>

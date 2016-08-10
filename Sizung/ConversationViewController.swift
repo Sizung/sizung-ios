@@ -21,6 +21,8 @@ ConversationCreateDelegate {
   @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var conversationMemberButton: UIButton!
   @IBOutlet weak var leftTitleConstraint: NSLayoutConstraint!
+  @IBOutlet weak var closeButton: SizungButton!
+  @IBOutlet weak var closeButtonConstraint: NSLayoutConstraint!
 
   override func viewDidLoad() {
     self.update()
@@ -145,10 +147,14 @@ ConversationCreateDelegate {
     switch viewController {
     case is ConversationContentViewController:
       self.leftTitleConstraint.constant = 40
+      self.closeButtonConstraint.priority = UILayoutPriorityDefaultHigh - 1
+      closeButton.tintColor = UIColor.whiteColor()
       titleColor = Color.BACKGROUND
       UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
     default:
       self.leftTitleConstraint.constant = 11
+      self.closeButtonConstraint.priority = UILayoutPriorityDefaultHigh + 1
+      closeButton.tintColor = UIColor.blackColor()
       titleColor = Color.SEARCHBAR
       UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
     }
