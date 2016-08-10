@@ -11,8 +11,8 @@ import ImageFilesPicker
 import MRProgress
 
 class AgendaItemViewController: UIViewController,
-ActionCreateDelegate,
-FilesPickerDelegate,
+  ActionCreateDelegate,
+  FilesPickerDelegate,
 AgendaItemCreateDelegate {
 
   @IBOutlet weak var agendaOwnerAvatarView: AvatarImageView!
@@ -41,7 +41,7 @@ AgendaItemCreateDelegate {
         // listen for changes to deliverables
         storageManager.deliverables.observeNext { _ in
           self.update()
-        }.disposeIn(self.rBag)
+          }.disposeIn(self.rBag)
     }
   }
 
@@ -51,7 +51,7 @@ AgendaItemCreateDelegate {
 
     if let timelineTableViewController = segue.destinationViewController
       as? TimelineTableViewController {
-        timelineTableViewController.timelineParent = agendaItem
+      timelineTableViewController.timelineParent = agendaItem
     }
   }
 
@@ -115,28 +115,28 @@ AgendaItemCreateDelegate {
 
   @IBAction func showStatusPopover(sender: UIButton) {
 
-    if !agendaItem.isCompleted() {
+    let optionMenu = UIAlertController(title: nil, message: "Edit", preferredStyle: .ActionSheet)
 
-      let optionMenu = UIAlertController(title: nil, message: "Edit", preferredStyle: .ActionSheet)
+    if !agendaItem.isCompleted() {
 
       let completeAction = UIAlertAction(title: "Mark as complete", style: .Default, handler: { _ in
         self.agendaItem.setCompleted()
         self.updateAgendaItem()
       })
 
-      let archiveAction = UIAlertAction(title: "Archive", style: .Default, handler: { _ in
-        self.agendaItem.archived = true
-        self.updateAgendaItem()
-      })
-
-      let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-
       optionMenu.addAction(completeAction)
-      optionMenu.addAction(archiveAction)
-      optionMenu.addAction(cancelAction)
-
-      self.presentViewController(optionMenu, animated: true, completion: nil)
     }
+
+    let archiveAction = UIAlertAction(title: "Archive", style: .Default, handler: { _ in
+      self.agendaItem.archived = true
+      self.updateAgendaItem()
+    })
+    optionMenu.addAction(archiveAction)
+
+    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+    optionMenu.addAction(cancelAction)
+
+    self.presentViewController(optionMenu, animated: true, completion: nil)
   }
 
   func updateAgendaItem() {
@@ -262,7 +262,7 @@ AgendaItemCreateDelegate {
         }
     }
   }
-
+  
   func agendaItemCreated(agendaItem: AgendaItem) {
     self.update()
     InAppMessage.showSuccessMessage("Updated agenda")
