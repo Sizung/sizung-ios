@@ -92,23 +92,16 @@ ActionCreateDelegate {
         }
     }
 
-    var statusBorderColor = Color.AGENDAITEM
+    // open, not overdue
+    var statusBorderColor = Color.GREEN
     var statusBackgroundColor = UIColor.whiteColor()
-    var statusTextColor = Color.AGENDAITEM
-    var statusString = "…"
 
     if deliverable.isCompleted() {
-      statusBorderColor = Color.AGENDAITEM
-      statusBackgroundColor = statusBorderColor
+      statusBackgroundColor = Color.GREEN
     } else if deliverable.isOverdue() {
-      statusBorderColor = Color.ACTION
-      statusBackgroundColor = Color.ACTION
-      statusString = "!"
-      statusTextColor = UIColor.whiteColor()
+      statusBorderColor = Color.RED
     }
 
-    statusButton.setTitle(statusString, forState: .Normal)
-    statusButton.setTitleColor(statusTextColor, forState: .Normal)
     statusButton.layer.borderUIColor = statusBorderColor
     statusButton.backgroundColor = statusBackgroundColor
 
@@ -126,42 +119,41 @@ ActionCreateDelegate {
 
   @IBAction func showStatusPopover(sender: UIButton) {
 
+    var statusString = deliverable.getStatus()
+
+    if deliverable.archived == true {
+      statusString = "Archived"
+    } else if !deliverable.isCompleted(), let dueDate = deliverable.dueOn {
+      statusString = DueDateHelper.getDueDateString(dueDate)
+    }
+
+    let optionMenu = UIAlertController(title: nil, message: statusString, preferredStyle: .ActionSheet)
+
     if !deliverable.isCompleted() {
-
-      var statusString = deliverable.getStatus()
-
-      if deliverable.archived == true {
-        statusString = "Archived"
-      } else if !deliverable.isCompleted(), let dueDate = deliverable.dueOn {
-        statusString = DueDateHelper.getDueDateString(dueDate)
-      }
-
-
-      let optionMenu = UIAlertController(title: nil, message: statusString, preferredStyle: .ActionSheet)
-
       let dateAction = UIAlertAction(title: "Change due date", style: .Default, handler: { _ in
         self.showDatePicker(sender)
       })
+      optionMenu.addAction(dateAction)
 
       let completeAction = UIAlertAction(title: "Mark as complete", style: .Default, handler: { _ in
         self.deliverable.setCompleted()
         self.updateDeliverable()
       })
-
-      let archiveAction = UIAlertAction(title: "Archive", style: .Default, handler: { _ in
-        self.deliverable.archived = true
-        self.updateDeliverable()
-      })
-
-      let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-
-      optionMenu.addAction(dateAction)
       optionMenu.addAction(completeAction)
-      optionMenu.addAction(archiveAction)
-      optionMenu.addAction(cancelAction)
-
-      self.presentViewController(optionMenu, animated: true, completion: nil)
     }
+
+    let archiveAction = UIAlertAction(title: "Archive", style: .Default, handler: { _ in
+      self.deliverable.archived = true
+      self.updateDeliverable()
+    })
+
+    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+
+    optionMenu.addAction(archiveAction)
+    optionMenu.addAction(cancelAction)
+
+    self.presentViewController(optionMenu, animated: true, completion: nil)
+
   }
 
   func popoverPresentationControllerDidDismissPopover(
