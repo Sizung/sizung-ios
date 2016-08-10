@@ -57,6 +57,8 @@ import AlamofireImage
 
     self.titleEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
     self.titleLabel?.sizeToFit()
+
+    self.userInteractionEnabled = false
   }
 
   override func layoutSubviews() {
