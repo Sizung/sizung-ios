@@ -74,20 +74,9 @@ class TimelineTableViewController: SLKTextViewController {
 
         // calculate current unread count for comments
         let lastUnseenMessageDate: NSDate = storageManager.unseenObjects.collection.reduce(NSDate.distantFuture(), combine: { earliestDate, unseenObject in
-          var comparisonObject: BaseModel?
-          switch self.timelineParent {
-          case is Deliverable:
-            comparisonObject = storageManager.deliverables[unseenObject.deliverableId]
-          case is AgendaItem:
-            comparisonObject = storageManager.agendaItems[unseenObject.agendaItemId]
-          case is Conversation:
-            comparisonObject = storageManager.conversations[unseenObject.conversationId]
-          default:
-            comparisonObject = nil
-          }
 
-          if comparisonObject != nil && comparisonObject == self.timelineParent {
-            if unseenObject.createdAt.isEarlierThan(earliestDate) {
+          if let timelineId = unseenObject.timelineId {
+            if timelineId ==  self.timelineParent.id && unseenObject.createdAt.isEarlierThan(earliestDate) {
               // remove one second to guarantee sort order
               return unseenObject.createdAt.dateByAddingSeconds(-1)
             }
