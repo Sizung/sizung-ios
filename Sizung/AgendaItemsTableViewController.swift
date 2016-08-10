@@ -192,6 +192,26 @@ class AgendaItemsTableViewController: UITableViewController {
           cell.authorImageView.user = user
         }
 
+        let unresolvedActionItemListCount = self.storageManager!.deliverables.collection.reduce(0) { prev, deliverable in
+          if deliverable.parentId == agendaItem.id && !deliverable.isCompleted() {
+            return prev + 1
+          } else {
+            return prev
+          }
+        }
+
+        cell.agendaStatusLabel.backgroundColor = UIColor.whiteColor()
+        cell.agendaStatusLabel.layer.borderUIColor = Color.AGENDAITEM
+        cell.agendaStatusLabel.text = ""
+
+        if unresolvedActionItemListCount > 0 {
+          cell.agendaStatusLabel.layer.borderUIColor = Color.ACTION
+          cell.agendaStatusLabel.text = "\(unresolvedActionItemListCount)"
+        } else if agendaItem.isCompleted() {
+          cell.agendaStatusLabel.backgroundColor = Color.AGENDAITEM
+        }
+
+
         return cell
       } else {
         fatalError("Unknown cell type in \(self.dynamicType)")
