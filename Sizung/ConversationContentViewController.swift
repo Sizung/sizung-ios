@@ -131,7 +131,7 @@ FilesPickerDelegate {
 
     attachmentItem = addItemToFab("ATTACHMENT", color: Color.ATTACHMENT, icon: R.image.attachment()!, handler: createAttachment)
 
-    actionItem = addItemToFab("ACTION", color: Color.ACTION, icon: R.image.action()!, handler: createAction)
+    actionItem = addItemToFab("ACTION", color: Color.ACTION, icon: R.image.checkmark()!, handler: createAction)
 
     self.view.addSubview(floatingActionButton!)
   }

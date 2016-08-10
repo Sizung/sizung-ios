@@ -17,4 +17,6 @@ struct Color {
   static let ACTION = UIColor(red: 0.94, green: 0.46, blue: 0.45, alpha: 1)
   static let BACKGROUND = UIColor(red:0.10, green:0.11, blue:0.14, alpha:1.0)
   static let SEARCHBAR = UIColor(red:0.87, green:0.87, blue:0.85, alpha:1.0)
+  static let RED = UIColor(red:0.95, green:0.41, blue:0.36, alpha:1.0)
+  static let GREEN = UIColor(red:0.33, green:0.75, blue:0.59, alpha:1.0)
 }

@@ -240,7 +240,7 @@
         <scene sceneID="YnA-T3-up0">
             <objects>
                 <tableViewController storyboardIdentifier="ConversationDeliverablesTableViewController" id="Jck-9q-Vo5" customClass="DeliverablesTableViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ddk-s4-Wob">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ddk-s4-Wob">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -373,6 +373,6 @@
         <image name="bg_conversation_members" width="44" height="26"/>
         <image name="bg_conversation_small" width="27" height="26"/>
         <image name="bg_title" width="35" height="34"/>
-        <image name="close" width="32" height="32"/>
+        <image name="close" width="15" height="15"/>
     </resources>
 </document>

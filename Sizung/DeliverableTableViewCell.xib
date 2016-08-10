@@ -65,12 +65,16 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6O-O0-VES" customClass="AvatarImageView" customModule="Sizung" customModuleProvider="target">
+                        <rect key="frame" x="542" y="27" width="30" height="30"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="8i2-ut-hEs" firstAttribute="leading" secondItem="Zob-pi-Jjx" secondAttribute="trailing" constant="8" id="91k-4y-7bl"/>
                     <constraint firstItem="uBU-Xv-q9Y" firstAttribute="top" secondItem="q6O-Ze-FLG" secondAttribute="top" id="CmU-Np-0fg"/>
                     <constraint firstItem="sc2-Dw-Qfv" firstAttribute="leading" secondItem="uBU-Xv-q9Y" secondAttribute="trailing" constant="12" id="Eq6-2p-T1B"/>
                     <constraint firstItem="6mZ-H7-bse" firstAttribute="leading" secondItem="sc2-Dw-Qfv" secondAttribute="trailing" constant="20" id="GxL-WL-yPv"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="g6O-O0-VES" secondAttribute="trailing" constant="20" id="IHh-rI-jxJ"/>
                     <constraint firstItem="Zob-pi-Jjx" firstAttribute="leading" secondItem="6mZ-H7-bse" secondAttribute="leading" id="Kv9-m9-FpQ"/>
                     <constraint firstItem="sc2-Dw-Qfv" firstAttribute="top" secondItem="q6O-Ze-FLG" secondAttribute="top" constant="13" id="LGt-5U-Dqv"/>
                     <constraint firstItem="Zob-pi-Jjx" firstAttribute="top" secondItem="6mZ-H7-bse" secondAttribute="bottom" constant="8" id="V8s-8n-bYh"/>
@@ -79,12 +83,14 @@
                     <constraint firstItem="8i2-ut-hEs" firstAttribute="top" secondItem="6mZ-H7-bse" secondAttribute="bottom" constant="8" id="can-LN-D55"/>
                     <constraint firstItem="uBU-Xv-q9Y" firstAttribute="leading" secondItem="q6O-Ze-FLG" secondAttribute="leading" id="jeg-V2-qNx"/>
                     <constraint firstAttribute="bottomMargin" secondItem="8i2-ut-hEs" secondAttribute="bottom" constant="5" id="kSn-Fm-8Id"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="g6O-O0-VES" secondAttribute="bottom" constant="5" id="lej-Ri-a7W"/>
                     <constraint firstItem="6mZ-H7-bse" firstAttribute="top" secondItem="q6O-Ze-FLG" secondAttribute="topMargin" id="pLt-tL-8OP"/>
                     <constraint firstItem="6mZ-H7-bse" firstAttribute="trailing" secondItem="q6O-Ze-FLG" secondAttribute="trailingMargin" constant="-20" id="u4F-ra-yzu"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Zob-pi-Jjx" secondAttribute="bottom" constant="5" id="zn7-VV-O39"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="assigneeImageView" destination="g6O-O0-VES" id="uWa-bg-9QI"/>
                 <outlet property="conversationLabel" destination="8i2-ut-hEs" id="44I-bm-FqT"/>
                 <outlet property="statusLabel" destination="Zob-pi-Jjx" id="gEY-31-14P"/>
                 <outlet property="statusView" destination="sc2-Dw-Qfv" id="fi8-Ea-4iy"/>

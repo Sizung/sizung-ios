@@ -136,8 +136,6 @@ struct R: Rswift.Validatable {
   
   /// This `R.image` struct is generated, and contains static references to 32 images.
   struct image {
-    /// Image `action`.
-    static let action = ImageResource(bundle: _R.hostingBundle, name: "action")
     /// Image `action_title`.
     static let action_title = ImageResource(bundle: _R.hostingBundle, name: "action_title")
     /// Image `actions_filter_all`.
@@ -178,6 +176,8 @@ struct R: Rswift.Validatable {
     static let bg_search = ImageResource(bundle: _R.hostingBundle, name: "bg_search")
     /// Image `bg_title`.
     static let bg_title = ImageResource(bundle: _R.hostingBundle, name: "bg_title")
+    /// Image `checkmark`.
+    static let checkmark = ImageResource(bundle: _R.hostingBundle, name: "checkmark")
     /// Image `close`.
     static let close = ImageResource(bundle: _R.hostingBundle, name: "close")
     /// Image `cupcake`.
@@ -200,11 +200,6 @@ struct R: Rswift.Validatable {
     static let priority_color = ImageResource(bundle: _R.hostingBundle, name: "priority_color")
     /// Image `search`.
     static let search = ImageResource(bundle: _R.hostingBundle, name: "search")
-    
-    /// `UIImage(named: "action", bundle: ..., traitCollection: ...)`
-    static func action(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
-      return UIImage(resource: R.image.action, compatibleWithTraitCollection: traitCollection)
-    }
     
     /// `UIImage(named: "action_title", bundle: ..., traitCollection: ...)`
     static func action_title(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
@@ -304,6 +299,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "bg_title", bundle: ..., traitCollection: ...)`
     static func bg_title(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.bg_title, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "checkmark", bundle: ..., traitCollection: ...)`
+    static func checkmark(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.checkmark, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "close", bundle: ..., traitCollection: ...)`

@@ -60,7 +60,7 @@ class Deliverable: BaseModel {
       return false
     }
 
-    return dueOn.daysAgo() >= 0
+    return dueOn.daysAgo() > 0
   }
 
   func getStatus() -> String {

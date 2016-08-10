@@ -186,7 +186,7 @@ AgendaItemCreateDelegate {
 
     addItemToFab("ATTACHMENT", color: Color.ATTACHMENT, icon: R.image.attachment()!, handler: createAttachment)
 
-    addItemToFab("ACTION", color: Color.ACTION, icon: R.image.action()!, handler: createAction)
+    addItemToFab("ACTION", color: Color.ACTION, icon: R.image.checkmark()!, handler: createAction)
 
     self.view.addSubview(floatingActionButton!)
 
@@ -262,7 +262,7 @@ AgendaItemCreateDelegate {
         }
     }
   }
-  
+
   func agendaItemCreated(agendaItem: AgendaItem) {
     self.update()
     InAppMessage.showSuccessMessage("Updated agenda")
