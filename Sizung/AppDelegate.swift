@@ -135,7 +135,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
       StorageManager.sharedInstance.storageForOrganizationId(selectedOrganizationId)
         .onSuccess { storageManager in
           let organizationViewController = R.storyboard.organization.initialViewController()!
-          self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
+
+          organizationViewController.modalTransitionStyle = .CrossDissolve
+
+          self.window?.rootViewController?.presentViewController(organizationViewController, animated: true, completion: nil)
         }
         .onFailure { error in
           switch error {

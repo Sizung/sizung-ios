@@ -176,8 +176,11 @@ class AgendaItemsTableViewController: UITableViewController {
 
         cell.conversationLabel.text = ""
 
-        if let conversationTitle = storageManager?.conversations[agendaItem.conversationId]?.title {
-          cell.conversationLabel.text = conversationTitle
+        // only show if not filtered by conversation - redundant
+        if conversation == nil {
+          if let conversationTitle = storageManager?.conversations[agendaItem.conversationId]?.title {
+            cell.conversationLabel.text = conversationTitle
+          }
         }
 
         let unseenObjects = self.storageManager!.unseenObjects.collection
@@ -191,6 +194,26 @@ class AgendaItemsTableViewController: UITableViewController {
         if let user = storageManager?.users[agendaItem.ownerId] {
           cell.authorImageView.user = user
         }
+
+        let unresolvedActionItemListCount = self.storageManager!.deliverables.collection.reduce(0) { prev, deliverable in
+          if deliverable.parentId == agendaItem.id && !deliverable.isCompleted() {
+            return prev + 1
+          } else {
+            return prev
+          }
+        }
+
+        cell.agendaStatusLabel.backgroundColor = UIColor.whiteColor()
+        cell.agendaStatusLabel.layer.borderUIColor = Color.AGENDAITEM
+        cell.agendaStatusLabel.text = ""
+
+        if unresolvedActionItemListCount > 0 {
+          cell.agendaStatusLabel.layer.borderUIColor = Color.ACTION
+          cell.agendaStatusLabel.text = "\(unresolvedActionItemListCount)"
+        } else if agendaItem.isCompleted() {
+          cell.agendaStatusLabel.backgroundColor = Color.AGENDAITEM
+        }
+
 
         return cell
       } else {

@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ConversationViewController: UIViewController, UINavigationControllerDelegate {
+class ConversationViewController: UIViewController,
+UINavigationControllerDelegate,
+ConversationCreateDelegate {
 
   var conversation: Conversation!
 
@@ -21,6 +23,10 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
   @IBOutlet weak var leftTitleConstraint: NSLayoutConstraint!
 
   override func viewDidLoad() {
+    self.update()
+  }
+
+  func update() {
     self.titleButton.setTitle(self.conversation.title, forState: .Normal)
     self.conversationMemberButton.setTitle(String(self.conversation.members.count), forState: .Normal)
   }
@@ -33,9 +39,7 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
 
   @IBAction func titleClicked(sender: AnyObject) {
     if self.navController?.viewControllers.count == 1 {
-      let createConversationViewController = R.storyboard.conversations.create()!
-      createConversationViewController.conversation = conversation
-      self.presentViewController(createConversationViewController, animated: true, completion: nil)
+      self.editConversation(sender)
     } else {
 
       let transition = CATransition()
@@ -47,6 +51,18 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
 
       self.navController?.popToRootViewControllerAnimated(false)
     }
+  }
+
+  @IBAction func editConversation(sender: AnyObject) {
+    let createConversationViewController = R.storyboard.conversations.create()!
+    createConversationViewController.conversation = conversation
+    createConversationViewController.delegate = self
+    self.presentViewController(createConversationViewController, animated: true, completion: nil)
+  }
+
+  func conversationCreated(conversation: Conversation) {
+    self.conversation = conversation
+    self.update()
   }
 
   @IBAction func close(sender: AnyObject) {

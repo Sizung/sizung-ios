@@ -30,7 +30,7 @@
                                 <rect key="frame" x="0.0" y="30" width="600" height="34"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_title" translatesAutoresizingMaskIntoConstraints="NO" id="nja-wa-7fB">
-                                        <rect key="frame" x="40" y="0.0" width="508" height="34"/>
+                                        <rect key="frame" x="40" y="0.0" width="496" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="tVQ-LV-AkM"/>
                                         </constraints>
@@ -63,11 +63,11 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="titleClicked:" destination="eN5-b6-JVW" eventType="touchUpInside" id="Gp8-58-dW2"/>
+                                            <action selector="editConversation:" destination="eN5-b6-JVW" eventType="touchUpInside" id="woK-gR-sIE"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpD-n7-zcf" userLabel="I" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
-                                        <rect key="frame" x="558" y="1" width="32" height="32"/>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpD-n7-zcf" userLabel="I" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                                        <rect key="frame" x="546" y="-5" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="32" id="RzH-h7-ioL"/>
                                             <constraint firstAttribute="height" constant="32" id="sdo-jd-8Pq"/>
@@ -77,7 +77,9 @@
                                         <state key="normal" image="close"/>
                                         <variation key="default">
                                             <mask key="constraints">
+                                                <exclude reference="RzH-h7-ioL"/>
                                                 <exclude reference="sdo-jd-8Pq"/>
+                                                <exclude reference="ySS-Xf-aNW"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -238,7 +240,7 @@
         <scene sceneID="YnA-T3-up0">
             <objects>
                 <tableViewController storyboardIdentifier="ConversationDeliverablesTableViewController" id="Jck-9q-Vo5" customClass="DeliverablesTableViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ddk-s4-Wob">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ddk-s4-Wob">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -371,6 +373,6 @@
         <image name="bg_conversation_members" width="44" height="26"/>
         <image name="bg_conversation_small" width="27" height="26"/>
         <image name="bg_title" width="35" height="34"/>
-        <image name="close" width="32" height="32"/>
+        <image name="close" width="15" height="15"/>
     </resources>
 </document>
