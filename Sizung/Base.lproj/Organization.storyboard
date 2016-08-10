@@ -368,7 +368,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xue-Do-uYc" customClass="SizungSegmentedControl" customModule="Sizung" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="25"/>
+                                <rect key="frame" x="20" y="0.0" width="560" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="KoK-ma-tBY"/>
                                 </constraints>
@@ -383,9 +383,9 @@
                         <constraints>
                             <constraint firstItem="bRj-n1-3Eb" firstAttribute="top" secondItem="xue-Do-uYc" secondAttribute="bottom" constant="15" id="5mD-9L-uzD"/>
                             <constraint firstItem="xue-Do-uYc" firstAttribute="top" secondItem="jQ7-k2-10j" secondAttribute="top" id="95V-Z5-dSf"/>
-                            <constraint firstItem="xue-Do-uYc" firstAttribute="leading" secondItem="jQ7-k2-10j" secondAttribute="leading" id="Aoi-OT-p5W"/>
+                            <constraint firstItem="xue-Do-uYc" firstAttribute="leading" secondItem="jQ7-k2-10j" secondAttribute="leading" constant="20" id="Aoi-OT-p5W"/>
                             <constraint firstAttribute="trailing" secondItem="bRj-n1-3Eb" secondAttribute="trailing" id="IbG-de-Wq6"/>
-                            <constraint firstAttribute="trailing" secondItem="xue-Do-uYc" secondAttribute="trailing" id="JzI-7S-DTg"/>
+                            <constraint firstAttribute="trailing" secondItem="xue-Do-uYc" secondAttribute="trailing" constant="20" id="JzI-7S-DTg"/>
                             <constraint firstItem="bRj-n1-3Eb" firstAttribute="leading" secondItem="jQ7-k2-10j" secondAttribute="leading" id="Tdb-ne-dJC"/>
                             <constraint firstItem="Fcm-4H-mKP" firstAttribute="top" secondItem="bRj-n1-3Eb" secondAttribute="bottom" id="kYG-Jp-cdJ"/>
                         </constraints>

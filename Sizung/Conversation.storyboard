@@ -170,31 +170,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWK-9Z-OOn">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bTo-vm-Rna" customClass="SizungSegmentedControl" customModule="Sizung" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="15" width="560" height="25"/>
+                                        <rect key="frame" x="20" y="0.0" width="560" height="25"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="rXw-AF-Mei"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="unselectedLabelColor">
-                                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.83529412749999998" green="0.84705883260000003" blue="0.81960785390000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="bTo-vm-Rna" firstAttribute="leading" secondItem="oWK-9Z-OOn" secondAttribute="leading" constant="20" id="9CK-Ke-GNW"/>
                                     <constraint firstAttribute="bottom" secondItem="bTo-vm-Rna" secondAttribute="bottom" constant="15" id="HZW-Ng-tCl"/>
-                                    <constraint firstItem="bTo-vm-Rna" firstAttribute="top" secondItem="oWK-9Z-OOn" secondAttribute="top" constant="15" id="q01-2O-axc"/>
+                                    <constraint firstItem="bTo-vm-Rna" firstAttribute="top" secondItem="oWK-9Z-OOn" secondAttribute="top" id="q01-2O-axc"/>
                                     <constraint firstAttribute="trailing" secondItem="bTo-vm-Rna" secondAttribute="trailing" constant="20" id="v31-ud-SDE"/>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bVD-Gg-aU5">
-                                <rect key="frame" x="0.0" y="55" width="600" height="461"/>
+                                <rect key="frame" x="0.0" y="40" width="600" height="476"/>
                                 <connections>
                                     <segue destination="zzl-sP-kxf" kind="embed" identifier="embed" id="eaB-2n-pdt"/>
                                 </connections>
