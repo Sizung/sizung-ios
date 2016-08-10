@@ -176,8 +176,11 @@ class AgendaItemsTableViewController: UITableViewController {
 
         cell.conversationLabel.text = ""
 
-        if let conversationTitle = storageManager?.conversations[agendaItem.conversationId]?.title {
-          cell.conversationLabel.text = conversationTitle
+        // only show if not filtered by conversation - redundant
+        if conversation == nil {
+          if let conversationTitle = storageManager?.conversations[agendaItem.conversationId]?.title {
+            cell.conversationLabel.text = conversationTitle
+          }
         }
 
         let unseenObjects = self.storageManager!.unseenObjects.collection
