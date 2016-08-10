@@ -12,10 +12,6 @@ import SlackTextViewController
 import DateTools
 import ReactiveKit
 
-func == (lhs: TimelineObject, rhs: TimelineObject) -> Bool {
-  return lhs.hashValue == rhs.hashValue
-}
-
 class TimelineTableViewController: SLKTextViewController {
 
   var timelineParent: BaseModel!
