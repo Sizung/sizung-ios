@@ -264,6 +264,7 @@ AgendaItemCreateDelegate {
   }
 
   func agendaItemCreated(agendaItem: AgendaItem) {
+    self.agendaItem = agendaItem
     self.update()
     InAppMessage.showSuccessMessage("Updated agenda")
   }
