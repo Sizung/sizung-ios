@@ -33,8 +33,23 @@ ConversationCreateDelegate {
     self.conversationMemberButton.setTitle(String(self.conversation.members.count), forState: .Normal)
   }
 
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+
+
+    if let socket = StorageManager.sharedInstance.websocket {
+      socket.followConversation(conversation.id)
+    }
+  }
+
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
+
+
+    if let socket = StorageManager.sharedInstance.websocket {
+      socket.conversationWebsocketDelegates = [:]
+      socket.unfollowConversation(self.conversation.id)
+    }
 
     UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
   }
