@@ -17,9 +17,10 @@ class AgendaItem: BaseModel {
 
   var new = false
 
-  init(conversationId: String) {
+  init(conversationId: String, ownerId: String) {
     super.init(type: "agenda_items")
     self.conversationId = conversationId
+    self.ownerId = ownerId
     self.new = true
   }
 
