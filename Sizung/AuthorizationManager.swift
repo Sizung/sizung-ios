@@ -83,7 +83,7 @@ public class AuthorizationManager: Manager {
 
     self.isRefreshing = false
 
-    cachedTaskCopy.map { $0(nil, nil, nil) }
+    cachedTaskCopy.forEach { $0(nil, nil, nil) }
 
   }
 }

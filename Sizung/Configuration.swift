@@ -94,6 +94,7 @@ class Configuration: NSObject {
   }
 
   struct NotificationConstants {
+    static let kNotificationSessionTokenChanged = "NOTIFICATION_KEY_TOKEN_CHANGED"
     static let kNotificationKeyAuthError = "NOTIFICATION_KEY_AUTH_ERROR"
   }
 }

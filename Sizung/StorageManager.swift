@@ -6,7 +6,6 @@
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
-import Alamofire
 import ObjectMapper
 import ReactiveKit
 import BrightFutures
@@ -55,8 +54,6 @@ class StorageManager {
   static let sharedInstance = StorageManager()
   private init() {}
 
-  // networking queue
-  static let networkQueue = dispatch_queue_create("\(NSBundle.mainBundle().bundleIdentifier).networking-queue", DISPATCH_QUEUE_CONCURRENT)
 
   var websocket: Websocket?
 
@@ -64,70 +61,10 @@ class StorageManager {
     storages = [:]
   }
 
-  static func makeRequest<T: Mappable>(urlRequest: URLRequestConvertible) -> Future<T, StorageError> {
-    let promise = Promise<T, StorageError>()
-
-    let authManager = AuthorizationManager()
-
-    authManager.request(urlRequest)
-      .validate()
-      .responseJSON(queue: StorageManager.networkQueue) { response in
-        switch response.result {
-        case .Success(let JSON):
-          if let typedResponse = Mapper<T>().map(JSON) {
-            promise.success(typedResponse)
-          }
-        case .Failure
-          where response.response?.statusCode == 401:
-          NSNotificationCenter.defaultCenter().postNotificationName(Configuration.NotificationConstants.kNotificationKeyAuthError, object: nil)
-          promise.failure(.NotAuthenticated)
-        case .Failure
-          where response.response?.statusCode == 404:
-          promise.failure(.NotFound)
-        case .Failure
-          where response.response?.statusCode == 500:
-          promise.failure(.NonRecoverable)
-        case .Failure:
-          if let error = response.result.error {
-            switch error.code {
-            // only log certain errors
-            case -1001, // Timeout
-              -1003, // A server with the specified hostname could not be found
-              -1005, // The network connection was lost
-              -1009, // The Internet connection appears to be offline.
-              -1018: //  International roaming is currently off
-                Log.error(error, response.request?.URLString).send()
-            // report the rest
-            default:
-              var userInfo = error.userInfo
-
-              if let urlString = response.request?.URLString {
-                if let originalLocalizedDescription = userInfo[NSLocalizedDescriptionKey] {
-                  userInfo[NSLocalizedDescriptionKey] = "\(originalLocalizedDescription) url: \(urlString)"
-                } else {
-                  userInfo[NSLocalizedDescriptionKey] = "failed for url: \(urlString)"
-                }
-              } else {
-                fatalError()
-              }
-
-              let newError = NSError(domain: error.domain, code: error.code, userInfo: userInfo)
-              Error.log(newError)
-            }
-          } else {
-            Error.log("Something failed")
-          }
-          promise.failure(.Other)
-        }
-    }
-
-    return promise.future
-  }
-
   private static func initOrganizationStorageManager(organizationId: String) -> Future<OrganizationStorageManager, StorageError> {
     let promise = Promise<OrganizationStorageManager, StorageError>()
 
-    makeRequest(SizungHttpRouter.Organization(id: organizationId))
+    NetworkManager.makeRequest(SizungHttpRouter.Organization(id: organizationId))
       .onSuccess { (organizationResponse: OrganizationResponse) in
         let organizationStorageManager = OrganizationStorageManager(organization: organizationResponse.organization)
 
@@ -159,7 +96,7 @@ class StorageManager {
   func listOrganizations() -> Future<[Organization], StorageError> {
     let promise = Promise<[Organization], StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.Organizations())
+    NetworkManager.makeRequest(SizungHttpRouter.Organizations())
       .onSuccess { (organizationsResponse: OrganizationsResponse) in
         promise.success(organizationsResponse.organizations)
       }.onFailure { error in
@@ -173,7 +110,7 @@ class StorageManager {
   func listUnseenObjectsForUser(userId: String, page: Int) -> Future<UnseenObjectsResponse, StorageError> {
     let promise = Promise<UnseenObjectsResponse, StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.UnseenObjectsForUser(userId: userId, page: page))
+    NetworkManager.makeRequest(SizungHttpRouter.UnseenObjectsForUser(userId: userId, page: page))
       .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
         promise.success(unseenObjectsResponse)
       }.onFailure { error in
@@ -184,7 +121,7 @@ class StorageManager {
 
   func getAgendaItem(itemId: String) -> Future<AgendaItem, StorageError> {
     let promise = Promise<AgendaItem, StorageError>()
-    StorageManager.makeRequest(SizungHttpRouter.AgendaItem(id: itemId))
+    NetworkManager.makeRequest(SizungHttpRouter.AgendaItem(id: itemId))
       .onSuccess { (agendaItemResponse: AgendaItemResponse) in
         promise.success(agendaItemResponse.agendaItem)
       }.onFailure { error in
@@ -196,7 +133,7 @@ class StorageManager {
   func getDeliverable(itemId: String) -> Future<Deliverable, StorageError> {
     let promise = Promise<Deliverable, StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.Deliverable(id: itemId))
+    NetworkManager.makeRequest(SizungHttpRouter.Deliverable(id: itemId))
       .onSuccess { (deliverableResponse: DeliverableResponse) in
         promise.success(deliverableResponse.deliverable)
       }.onFailure { error in
@@ -209,7 +146,7 @@ class StorageManager {
   func getConversation(itemId: String) -> Future<Conversation, StorageError> {
     let promise = Promise<Conversation, StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.Conversation(id: itemId))
+    NetworkManager.makeRequest(SizungHttpRouter.Conversation(id: itemId))
       .onSuccess { (conversationResponse: ConversationResponse) in
         promise.success(conversationResponse.conversation)
       }.onFailure { error in
@@ -222,7 +159,7 @@ class StorageManager {
   func createOrganization(name: String) -> Future<Organization, StorageError> {
     let promise = Promise<Organization, StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.CreateOrganization(name: name))
+    NetworkManager.makeRequest(SizungHttpRouter.CreateOrganization(name: name))
       .onSuccess { (organizationResponse: OrganizationResponse) in
         promise.success(organizationResponse.organization)
       }.onFailure { error in
@@ -235,7 +172,7 @@ class StorageManager {
   func updateOrganization(organization: Organization) -> Future<Organization, StorageError> {
     let promise = Promise<Organization, StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.UpdateOrganization(organization: organization))
+    NetworkManager.makeRequest(SizungHttpRouter.UpdateOrganization(organization: organization))
       .onSuccess { (organizationResponse: OrganizationResponse) in
         promise.success(organizationResponse.organization)
       }.onFailure { error in

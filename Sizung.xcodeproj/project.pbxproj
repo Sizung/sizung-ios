@@ -121,6 +121,8 @@
 		5AC0E5E41CF0628200BBEF45 /* ConversationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0E5E31CF0628200BBEF45 /* ConversationsTableViewController.swift */; };
 		5AC0E5E61CF2F5C200BBEF45 /* TimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */; };
 		5AC0E5E81CF33C8300BBEF45 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0E5E71CF33C8300BBEF45 /* Comment.swift */; };
+		5AC31E6D1D5C653E006CFDE5 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC31E6C1D5C653E006CFDE5 /* AuthorizationManager.swift */; };
+		5AC31E6F1D5C6E40006CFDE5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC31E6E1D5C6E40006CFDE5 /* NetworkManager.swift */; };
 		5ACBA0BD1D2675D3007BC605 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACBA0BC1D2675D3007BC605 /* CalendarViewController.swift */; };
 		5ACBA0BF1D26A962007BC605 /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ACBA0BE1D26A962007BC605 /* CalendarViewController.xib */; };
 		5AD9AF6F1D4A085900867DF9 /* DeviceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9AF6E1D4A085900867DF9 /* DeviceResponse.swift */; };
@@ -304,6 +306,8 @@
 		5AC0E5E31CF0628200BBEF45 /* ConversationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsTableViewController.swift; sourceTree = "<group>"; };
 		5AC0E5E51CF2F5C200BBEF45 /* TimelineTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineTableViewController.swift; sourceTree = "<group>"; };
 		5AC0E5E71CF33C8300BBEF45 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		5AC31E6C1D5C653E006CFDE5 /* AuthorizationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
+		5AC31E6E1D5C6E40006CFDE5 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		5ACBA0BC1D2675D3007BC605 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		5ACBA0BE1D26A962007BC605 /* CalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
 		5AD9AF6E1D4A085900867DF9 /* DeviceResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceResponse.swift; sourceTree = "<group>"; };
@@ -624,8 +628,10 @@
 				5A7329F11D0592E0006531A5 /* Gravatar.swift */,
 				5A86B12D1CE5CF19001C2E7A /* AlamofireManagerExtension.swift */,
 				5A86B1301CE5D035001C2E7A /* SizungHttpRouter.swift */,
+				5AC31E6C1D5C653E006CFDE5 /* AuthorizationManager.swift */,
 				5ABA4FB71CFDCE5D00110030 /* responses */,
 				5ADD5D101D4FA993005FBA17 /* ConfirmationHandler.swift */,
+				5AC31E6E1D5C6E40006CFDE5 /* NetworkManager.swift */,
 			);
 			name = network;
 			sourceTree = "<group>";
@@ -877,6 +883,9 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = N7XA4D3XV9;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -1197,6 +1206,7 @@
 				5AD9F1B31CE9C09200455D98 /* Conversation.swift in Sources */,
 				5ADD5D0D1D4F2B49005FBA17 /* BorderView.swift in Sources */,
 				5A7B95A41CF8E58B00FE36CB /* MainPageViewController.swift in Sources */,
+				5AC31E6F1D5C6E40006CFDE5 /* NetworkManager.swift in Sources */,
 				5A6D37121D1E90DE00F00B87 /* DateSortable.swift in Sources */,
 				5AC0E5E11CF04D8D00BBEF45 /* OrganizationsTableViewController.swift in Sources */,
 				5ABE8E351CDB5AC9004537C6 /* LoginViewController.swift in Sources */,
@@ -1249,6 +1259,7 @@
 				5A68DBF71D3C064300687107 /* CreateConversationViewController.swift in Sources */,
 				5A3114251D534F72007535D1 /* OrganizationContentViewController.swift in Sources */,
 				5A29E0D61D2FA44A002A7840 /* OrganizationStorageManager.swift in Sources */,
+				5AC31E6D1D5C653E006CFDE5 /* AuthorizationManager.swift in Sources */,
 				5A7329F21D0592E0006531A5 /* Gravatar.swift in Sources */,
 				5A208E621D436BD100F765C9 /* StreamObjects.swift in Sources */,
 				5A304B3D1D1843DE009CBBAD /* UnseenObjectsResponse.swift in Sources */,
