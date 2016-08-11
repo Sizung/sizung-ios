@@ -16,4 +16,5 @@ class DeliverableTableViewCell: UITableViewCell {
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var statusLabel: UILabel!
   @IBOutlet weak var conversationLabel: UILabel!
+  @IBOutlet weak var assigneeImageView: AvatarImageView!
 }

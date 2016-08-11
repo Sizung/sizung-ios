@@ -135,7 +135,7 @@ class ConversationsTableViewController: UITableViewController, ConversationCreat
   }
 
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let selectedConversation = sortedCollection[indexPath.row]
+    let selectedConversation = filteredCollection[indexPath.row]
     delegate?.conversationSelected(selectedConversation)
   }
 

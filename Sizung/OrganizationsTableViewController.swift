@@ -78,6 +78,9 @@ class OrganizationsTableViewController: UITableViewController {
 
         cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
 
+        cell.editButton.tag = indexPath.row
+        cell.editButton.addTarget(self, action: #selector(self.editOrganization(_:)), forControlEvents: .TouchUpInside)
+
         if self.dragSourceIndexPath == indexPath {
           cell.hidden = true
         } else {
@@ -97,6 +100,15 @@ class OrganizationsTableViewController: UITableViewController {
 
   override func viewDidAppear(animated: Bool) {
     updateData()
+  }
+
+  func editOrganization(sender: UIButton) {
+    let indexPath = NSIndexPath(forRow: sender.tag, inSection: 0)
+    let organization = self.organizations[indexPath.row].organization
+
+    let createOrganizationViewController = R.storyboard.organizations.create()!
+    createOrganizationViewController.organization = organization
+    presentViewController(createOrganizationViewController, animated: true, completion: nil)
   }
 
   func updateData() {

@@ -17,8 +17,8 @@ class OrganizationContentViewController: UIViewController, MainPageViewControlle
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    segmentedControl.items = ["PRIORITY", "STREAM", "ACTION"]
-    segmentedControl.thumbColors = [Color.AGENDAITEM, Color.STREAM, Color.ACTION]
+    segmentedControl.items = ["AGENDA", "DISCUSSION", "ACTION"]
+    segmentedControl.thumbColors = [Color.AGENDAITEM, Color.DISCUSSION, Color.ACTION]
     segmentedControl.addTarget(
       self, action:
       #selector(self.segmentedControlDidChange),

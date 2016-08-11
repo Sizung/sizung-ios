@@ -458,6 +458,6 @@
         <image name="action_title" width="57" height="57"/>
         <image name="agenda_title" width="59" height="59"/>
         <image name="bg_actions" width="45" height="30"/>
-        <image name="close" width="32" height="32"/>
+        <image name="close" width="15" height="15"/>
     </resources>
 </document>

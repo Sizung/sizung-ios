@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ConversationViewController: UIViewController, UINavigationControllerDelegate {
+class ConversationViewController: UIViewController,
+UINavigationControllerDelegate,
+ConversationCreateDelegate {
 
   var conversation: Conversation!
 
@@ -19,17 +21,42 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
   @IBOutlet weak var titleButton: UIButton!
   @IBOutlet weak var conversationMemberButton: UIButton!
   @IBOutlet weak var leftTitleConstraint: NSLayoutConstraint!
+  @IBOutlet weak var closeButton: SizungButton!
+  @IBOutlet weak var closeButtonConstraint: NSLayoutConstraint!
 
   override func viewDidLoad() {
+    self.update()
+  }
+
+  func update() {
     self.titleButton.setTitle(self.conversation.title, forState: .Normal)
     self.conversationMemberButton.setTitle(String(self.conversation.members.count), forState: .Normal)
   }
 
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+
+
+    if let socket = StorageManager.sharedInstance.websocket {
+      socket.followConversation(conversation.id)
+    }
+  }
+
+  override func viewWillDisappear(animated: Bool) {
+    super.viewWillDisappear(animated)
+
+
+    if let socket = StorageManager.sharedInstance.websocket {
+      socket.conversationWebsocketDelegates = [:]
+      socket.unfollowConversation(self.conversation.id)
+    }
+
+    UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
+  }
+
   @IBAction func titleClicked(sender: AnyObject) {
     if self.navController?.viewControllers.count == 1 {
-      let createConversationViewController = R.storyboard.conversations.create()!
-      createConversationViewController.conversation = conversation
-      self.presentViewController(createConversationViewController, animated: true, completion: nil)
+      self.editConversation(sender)
     } else {
 
       let transition = CATransition()
@@ -41,6 +68,18 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
 
       self.navController?.popToRootViewControllerAnimated(false)
     }
+  }
+
+  @IBAction func editConversation(sender: AnyObject) {
+    let createConversationViewController = R.storyboard.conversations.create()!
+    createConversationViewController.conversation = conversation
+    createConversationViewController.delegate = self
+    self.presentViewController(createConversationViewController, animated: true, completion: nil)
+  }
+
+  func conversationCreated(conversation: Conversation) {
+    self.conversation = conversation
+    self.update()
   }
 
   @IBAction func close(sender: AnyObject) {
@@ -123,10 +162,16 @@ class ConversationViewController: UIViewController, UINavigationControllerDelega
     switch viewController {
     case is ConversationContentViewController:
       self.leftTitleConstraint.constant = 40
+      self.closeButtonConstraint.priority = UILayoutPriorityDefaultHigh - 1
+      closeButton.tintColor = UIColor.whiteColor()
       titleColor = Color.BACKGROUND
+      UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
     default:
       self.leftTitleConstraint.constant = 11
+      self.closeButtonConstraint.priority = UILayoutPriorityDefaultHigh + 1
+      closeButton.tintColor = UIColor.blackColor()
       titleColor = Color.SEARCHBAR
+      UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: true)
     }
 
     if openItem != nil {

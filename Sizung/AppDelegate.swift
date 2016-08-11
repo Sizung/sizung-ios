@@ -163,7 +163,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
       StorageManager.sharedInstance.storageForOrganizationId(selectedOrganizationId)
         .onSuccess { storageManager in
           let organizationViewController = R.storyboard.organization.initialViewController()!
-          self.window?.rootViewController?.showViewController(organizationViewController, sender: nil)
+
+          organizationViewController.modalTransitionStyle = .CrossDissolve
+
+          self.window?.rootViewController?.presentViewController(organizationViewController, animated: true, completion: nil)
         }
         .onFailure { error in
           switch error {
@@ -225,6 +228,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
       .onSuccess { _ in
         let websocket =  Websocket(authToken: authToken.data!)
         websocket.userWebsocketDelegate = self
+
+        if let oldSocket = StorageManager.sharedInstance.websocket {
+          websocket.conversationWebsocketDelegates = oldSocket.conversationWebsocketDelegates
+          websocket.willFollowConversationChannels = oldSocket.willFollowConversationChannels
+        }
+
         StorageManager.sharedInstance.websocket = websocket
 
         // subscribe to user channel for unseenobjects

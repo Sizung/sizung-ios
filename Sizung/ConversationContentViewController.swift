@@ -34,8 +34,8 @@ FilesPickerDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    segmentedControl.items = ["PRIORITIES", "CHAT", "ACTIONS"]
-    segmentedControl.thumbColors = [Color.AGENDAITEM, Color.CHAT, Color.ACTION]
+    segmentedControl.items = ["AGENDA", "DISCUSSION", "ACTION"]
+    segmentedControl.thumbColors = [Color.AGENDAITEM, Color.DISCUSSION, Color.ACTION]
     segmentedControl.addTarget(
       self,
       action: #selector(self.segmentedControlDidChange),
@@ -131,7 +131,7 @@ FilesPickerDelegate {
 
     attachmentItem = addItemToFab("ATTACHMENT", color: Color.ATTACHMENT, icon: R.image.attachment()!, handler: createAttachment)
 
-    actionItem = addItemToFab("ACTION", color: Color.ACTION, icon: R.image.action()!, handler: createAction)
+    actionItem = addItemToFab("ACTION", color: Color.ACTION, icon: R.image.checkmark()!, handler: createAction)
 
     self.view.addSubview(floatingActionButton!)
   }

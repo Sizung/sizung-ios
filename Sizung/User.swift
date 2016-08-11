@@ -23,6 +23,12 @@ class User: BaseModel {
     self.id = userId
   }
 
+  init(userId: String, email: String) {
+    super.init(type: "users")
+    self.id = userId
+    self.email = email
+  }
+
   required init?(_ map: Map) {
     super.init(map)
   }

@@ -11,8 +11,8 @@ import ImageFilesPicker
 import MRProgress
 
 class AgendaItemViewController: UIViewController,
-ActionCreateDelegate,
-FilesPickerDelegate,
+  ActionCreateDelegate,
+  FilesPickerDelegate,
 AgendaItemCreateDelegate {
 
   @IBOutlet weak var agendaOwnerAvatarView: AvatarImageView!
@@ -41,7 +41,7 @@ AgendaItemCreateDelegate {
         // listen for changes to deliverables
         storageManager.deliverables.observeNext { _ in
           self.update()
-        }.disposeIn(self.rBag)
+          }.disposeIn(self.rBag)
     }
   }
 
@@ -51,7 +51,7 @@ AgendaItemCreateDelegate {
 
     if let timelineTableViewController = segue.destinationViewController
       as? TimelineTableViewController {
-        timelineTableViewController.timelineParent = agendaItem
+      timelineTableViewController.timelineParent = agendaItem
     }
   }
 
@@ -80,9 +80,19 @@ AgendaItemCreateDelegate {
           }
         }
 
+        if actionItemListCount == 0 {
+          self.noActionItemsConstraint.priority = UILayoutPriorityDefaultHigh + 1
+          self.actionItemListButton.hidden = true
+        } else {
+          self.noActionItemsConstraint.priority = UILayoutPriorityDefaultHigh - 1
+          self.actionItemListButton.hidden = false
+        }
+
+        self.view.layoutIfNeeded()
+
         self.statusButton.hidden = unresolvedActionItemListCount > 0
 
-        self.actionItemListButton.setTitle("\(actionItemListCount)", forState: .Normal)
+        self.actionItemListButton.setTitle("\(unresolvedActionItemListCount)", forState: .Normal)
     }
 
     // update status text
@@ -105,28 +115,28 @@ AgendaItemCreateDelegate {
 
   @IBAction func showStatusPopover(sender: UIButton) {
 
-    if !agendaItem.isCompleted() {
+    let optionMenu = UIAlertController(title: nil, message: "Edit", preferredStyle: .ActionSheet)
 
-      let optionMenu = UIAlertController(title: nil, message: "Edit", preferredStyle: .ActionSheet)
+    if !agendaItem.isCompleted() {
 
       let completeAction = UIAlertAction(title: "Mark as complete", style: .Default, handler: { _ in
         self.agendaItem.setCompleted()
         self.updateAgendaItem()
       })
 
-      let archiveAction = UIAlertAction(title: "Archive", style: .Default, handler: { _ in
-        self.agendaItem.archived = true
-        self.updateAgendaItem()
-      })
-
-      let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-
       optionMenu.addAction(completeAction)
-      optionMenu.addAction(archiveAction)
-      optionMenu.addAction(cancelAction)
-
-      self.presentViewController(optionMenu, animated: true, completion: nil)
     }
+
+    let archiveAction = UIAlertAction(title: "Archive", style: .Default, handler: { _ in
+      self.agendaItem.archived = true
+      self.updateAgendaItem()
+    })
+    optionMenu.addAction(archiveAction)
+
+    let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+    optionMenu.addAction(cancelAction)
+
+    self.presentViewController(optionMenu, animated: true, completion: nil)
   }
 
   func updateAgendaItem() {
@@ -176,7 +186,7 @@ AgendaItemCreateDelegate {
 
     addItemToFab("ATTACHMENT", color: Color.ATTACHMENT, icon: R.image.attachment()!, handler: createAttachment)
 
-    addItemToFab("ACTION", color: Color.ACTION, icon: R.image.action()!, handler: createAction)
+    addItemToFab("ACTION", color: Color.ACTION, icon: R.image.checkmark()!, handler: createAction)
 
     self.view.addSubview(floatingActionButton!)
 
@@ -254,6 +264,7 @@ AgendaItemCreateDelegate {
   }
 
   func agendaItemCreated(agendaItem: AgendaItem) {
+    self.agendaItem = agendaItem
     self.update()
     InAppMessage.showSuccessMessage("Updated agenda")
   }

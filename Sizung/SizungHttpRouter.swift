@@ -23,6 +23,10 @@ enum SizungHttpRouter: URLRequestConvertible {
   case Logout()
   case Organizations()
   case Organization(id: String)
+  case CreateOrganization(name: String)
+  case UpdateOrganization(organization: Sizung.Organization)
+  case InviteOrganizationMember(email: String, organizationId: String)
+  case DeleteOrganizationMember(memberId: String)
   case Conversation(id: String)
   case CreateConversation(conversation: Sizung.Conversation)
   case UpdateConversation(conversation: Sizung.Conversation)
@@ -50,17 +54,21 @@ enum SizungHttpRouter: URLRequestConvertible {
          .GetLongLivedToken,
          .RegisterDevice,
          .Comments,
+         .CreateOrganization,
+         .InviteOrganizationMember,
          .CreateConversation,
          .CreateAgendaItem,
          .CreateDeliverable,
          .CreateAttachment:
       return .POST
     case .UpdateDevice,
+         .UpdateOrganization,
          .UpdateDeliverable,
          .UpdateAgendaItem,
          .UpdateConversation:
       return .PUT
     case .Logout,
+         .DeleteOrganizationMember,
          .DeleteUnseenObjects:
       return .DELETE
     default:
@@ -85,10 +93,17 @@ enum SizungHttpRouter: URLRequestConvertible {
       return "/devices"
     case .UpdateDevice(let deviceId, _):
       return "/devices/\(deviceId)"
-    case .Organizations:
+    case .Organizations,
+         .CreateOrganization:
       return "/organizations"
     case .Organization(let id):
       return "/organizations/\(id)"
+    case .UpdateOrganization(let organization):
+      return "/organizations/\(organization.id)"
+    case .InviteOrganizationMember:
+      return "/organization_members"
+    case .DeleteOrganizationMember(let memberId):
+      return "/organization_members/\(memberId)"
     case .Conversation(let id):
       return "/conversations/\(id)"
     case .CreateConversation:
@@ -184,6 +199,24 @@ enum SizungHttpRouter: URLRequestConvertible {
         "device": [
           "token": deviceToken
         ]
+      ]
+    case .CreateOrganization(let name):
+      return [
+        "organization": [
+          "name": name
+        ]
+      ]
+    case .UpdateOrganization(let organization):
+      return [
+        "organization": [
+          "id": organization.id,
+          "name": organization.name
+        ]
+      ]
+    case .InviteOrganizationMember(let email, let organizationId):
+      return [
+        "email": email,
+        "organization_id": organizationId
       ]
     case .CreateConversation(let conversation):
       let members = conversation.members.map {user in
@@ -360,6 +393,9 @@ enum SizungHttpRouter: URLRequestConvertible {
          .LoginWithToken,
          .RegisterDevice,
          .UpdateDevice,
+         .CreateOrganization,
+         .UpdateOrganization,
+         .InviteOrganizationMember,
          .CreateDeliverable,
          .UpdateDeliverable,
          .CreateAgendaItem,

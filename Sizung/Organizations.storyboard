@@ -9,6 +9,11 @@
         <mutableArray key="Brandon_med.otf">
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
+            <string>BrandonGrotesque-Medium</string>
         </mutableArray>
         <mutableArray key="Webdings.ttf">
             <string>Webdings</string>
@@ -132,5 +137,171 @@
             </objects>
             <point key="canvasLocation" x="-941" y="265.5"/>
         </scene>
+        <!--Create Organization View Controller-->
+        <scene sceneID="ISd-mt-Pgj">
+            <objects>
+                <viewController storyboardIdentifier="create" id="unn-BL-LA5" customClass="CreateOrganizationViewController" customModule="Sizung" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WJW-2A-gxT"/>
+                        <viewControllerLayoutGuide type="bottom" id="ulN-qE-R1G"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="30D-wg-Mxd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GnD-H0-XLf">
+                                <rect key="frame" x="0.0" y="20" width="600" height="60"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="New Organization" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ap-m5-o4z">
+                                        <rect key="frame" x="19" y="17" width="121" height="25"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                        <color key="textColor" red="0.82352941180000006" green="0.52941176469999995" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Si-Xd-ehg" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                                        <rect key="frame" x="548" y="8" width="44" height="44"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="close"/>
+                                        <connections>
+                                            <action selector="close:" destination="unn-BL-LA5" eventType="touchUpInside" id="u34-SA-j0w"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EYn-1W-BuP">
+                                        <rect key="frame" x="507" y="11" width="31" height="37"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="save:" destination="unn-BL-LA5" eventType="touchUpInside" id="w3d-9n-x7m"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="1Si-Xd-ehg" firstAttribute="centerY" secondItem="GnD-H0-XLf" secondAttribute="centerY" id="09h-Ae-TbC"/>
+                                    <constraint firstItem="EYn-1W-BuP" firstAttribute="centerY" secondItem="GnD-H0-XLf" secondAttribute="centerY" id="Tq8-vf-qnM"/>
+                                    <constraint firstItem="EYn-1W-BuP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7Ap-m5-o4z" secondAttribute="trailing" constant="20" id="VH2-ss-XCn"/>
+                                    <constraint firstItem="7Ap-m5-o4z" firstAttribute="leading" secondItem="GnD-H0-XLf" secondAttribute="leading" constant="19" id="d5W-Ew-p4j"/>
+                                    <constraint firstAttribute="height" constant="60" id="eDq-lt-a63"/>
+                                    <constraint firstItem="7Ap-m5-o4z" firstAttribute="centerY" secondItem="GnD-H0-XLf" secondAttribute="centerY" id="gbd-OV-kPe"/>
+                                    <constraint firstItem="1Si-Xd-ehg" firstAttribute="leading" secondItem="EYn-1W-BuP" secondAttribute="trailing" constant="10" id="rrF-ES-vsB"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="1Si-Xd-ehg" secondAttribute="trailing" id="xvW-8Q-tmL"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YUL-JX-tce">
+                                <rect key="frame" x="0.0" y="80" width="600" height="60"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a new organization name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MLi-De-7Jm">
+                                        <rect key="frame" x="20" y="18" width="560" height="25"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" red="0.82352941180000006" green="0.52941176469999995" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="MLi-De-7Jm" firstAttribute="centerY" secondItem="YUL-JX-tce" secondAttribute="centerY" id="1fc-P5-28R"/>
+                                    <constraint firstAttribute="height" constant="60" id="KeS-bB-BTH"/>
+                                    <constraint firstItem="MLi-De-7Jm" firstAttribute="leading" secondItem="YUL-JX-tce" secondAttribute="leading" constant="20" id="ZFU-eq-8A8"/>
+                                    <constraint firstAttribute="trailing" secondItem="MLi-De-7Jm" secondAttribute="trailing" constant="20" id="rMQ-sf-ro8"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h2s-Mh-0N9">
+                                <rect key="frame" x="0.0" y="140" width="600" height="460"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32c-sT-D1g">
+                                        <rect key="frame" x="20" y="20" width="560" height="50"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add Members" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gUZ-01-5jN">
+                                                <rect key="frame" x="15" y="13" width="530" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="73J-sR-X0F"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="73J-sR-X0F"/>
+                                                    </mask>
+                                                </variation>
+                                                <connections>
+                                                    <action selector="addMemberFieldChanged:" destination="unn-BL-LA5" eventType="editingChanged" id="Ycu-UZ-zvj"/>
+                                                    <outlet property="delegate" destination="unn-BL-LA5" id="hZw-NE-VZp"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="gUZ-01-5jN" secondAttribute="trailing" constant="15" id="Dv0-GS-lEb"/>
+                                            <constraint firstAttribute="height" constant="50" id="NQH-wm-z8s"/>
+                                            <constraint firstItem="gUZ-01-5jN" firstAttribute="leading" secondItem="32c-sT-D1g" secondAttribute="leading" constant="15" id="PDe-Xf-AHi"/>
+                                            <constraint firstItem="gUZ-01-5jN" firstAttribute="centerY" secondItem="32c-sT-D1g" secondAttribute="centerY" id="zKM-JC-0Jm"/>
+                                        </constraints>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ees-n0-zIP">
+                                        <rect key="frame" x="0.0" y="78" width="600" height="382"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="unn-BL-LA5" id="nxg-Dc-VmU"/>
+                                            <outlet property="delegate" destination="unn-BL-LA5" id="evz-aw-UsH"/>
+                                        </connections>
+                                    </tableView>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eaq-Je-eKe">
+                                        <rect key="frame" x="542" y="27" width="38" height="37"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                        <state key="normal" title="Invite">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="inviteMember:" destination="unn-BL-LA5" eventType="touchUpInside" id="88S-Lh-GDi"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="32c-sT-D1g" secondAttribute="trailing" priority="751" constant="20" id="681-KA-gyV"/>
+                                    <constraint firstItem="Ees-n0-zIP" firstAttribute="leading" secondItem="h2s-Mh-0N9" secondAttribute="leading" id="GhH-qP-ocn"/>
+                                    <constraint firstItem="32c-sT-D1g" firstAttribute="leading" secondItem="h2s-Mh-0N9" secondAttribute="leading" constant="20" id="JqR-5p-juN"/>
+                                    <constraint firstItem="32c-sT-D1g" firstAttribute="leading" secondItem="h2s-Mh-0N9" secondAttribute="leading" constant="20" id="Kg1-xb-SRa"/>
+                                    <constraint firstItem="Ees-n0-zIP" firstAttribute="top" secondItem="32c-sT-D1g" secondAttribute="bottom" constant="8" id="ODN-Za-wmg"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ees-n0-zIP" secondAttribute="bottom" id="U1G-G2-usY"/>
+                                    <constraint firstItem="Eaq-Je-eKe" firstAttribute="centerY" secondItem="32c-sT-D1g" secondAttribute="centerY" id="XlL-Ml-Re9"/>
+                                    <constraint firstAttribute="trailing" secondItem="Eaq-Je-eKe" secondAttribute="trailing" constant="20" id="ecF-aL-0ii"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ees-n0-zIP" secondAttribute="trailing" id="ffu-QT-ONZ"/>
+                                    <constraint firstItem="32c-sT-D1g" firstAttribute="top" secondItem="h2s-Mh-0N9" secondAttribute="top" constant="20" id="hQG-Bx-LE5"/>
+                                    <constraint firstItem="Eaq-Je-eKe" firstAttribute="leading" secondItem="32c-sT-D1g" secondAttribute="trailing" priority="750" constant="20" id="ify-xy-g5W"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1019607857" green="0.1137254909" blue="0.1411764771" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="YUL-JX-tce" firstAttribute="top" secondItem="GnD-H0-XLf" secondAttribute="bottom" id="2nU-BE-bTf"/>
+                            <constraint firstItem="h2s-Mh-0N9" firstAttribute="leading" secondItem="30D-wg-Mxd" secondAttribute="leading" id="2wC-kF-sUq"/>
+                            <constraint firstItem="YUL-JX-tce" firstAttribute="leading" secondItem="30D-wg-Mxd" secondAttribute="leading" id="9pj-U0-wQl"/>
+                            <constraint firstAttribute="trailing" secondItem="GnD-H0-XLf" secondAttribute="trailing" id="Lhg-HD-irD"/>
+                            <constraint firstItem="GnD-H0-XLf" firstAttribute="leading" secondItem="30D-wg-Mxd" secondAttribute="leading" id="NVe-cp-9Mh"/>
+                            <constraint firstAttribute="trailing" secondItem="h2s-Mh-0N9" secondAttribute="trailing" id="Q6p-FC-xPe"/>
+                            <constraint firstAttribute="trailing" secondItem="YUL-JX-tce" secondAttribute="trailing" id="RGJ-ve-2lS"/>
+                            <constraint firstItem="GnD-H0-XLf" firstAttribute="top" secondItem="WJW-2A-gxT" secondAttribute="bottom" id="ZaQ-t7-lg8"/>
+                            <constraint firstItem="ulN-qE-R1G" firstAttribute="top" secondItem="h2s-Mh-0N9" secondAttribute="bottom" id="icu-2i-9Te"/>
+                            <constraint firstItem="h2s-Mh-0N9" firstAttribute="top" secondItem="YUL-JX-tce" secondAttribute="bottom" id="w55-ck-OMb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addMemberContainer" destination="32c-sT-D1g" id="c8S-oW-843"/>
+                        <outlet property="addMemberTextField" destination="gUZ-01-5jN" id="u77-l3-VEk"/>
+                        <outlet property="inviteButton" destination="Eaq-Je-eKe" id="Nm6-u3-kkI"/>
+                        <outlet property="inviteButtonConstraint" destination="681-KA-gyV" id="WSO-R6-gZc"/>
+                        <outlet property="organizationNameTextField" destination="MLi-De-7Jm" id="SbQ-Fn-iin"/>
+                        <outlet property="tableView" destination="Ees-n0-zIP" id="QzF-Cl-Ott"/>
+                        <outlet property="titleButton" destination="7Ap-m5-o4z" id="GWL-o9-3ol"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="osL-gY-OnU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-955" y="932"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="close" width="15" height="15"/>
+    </resources>
 </document>

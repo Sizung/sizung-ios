@@ -73,6 +73,7 @@ class Configuration: NSObject {
 
   class func setSelectedOrganization(data: String) {
     NSUserDefaults.standardUserDefaults().setValue(data, forKey: Configuration.Settings.kSelectedOrganization)
+    NSUserDefaults.standardUserDefaults().synchronize()
   }
 
   class func getLoginEmail() -> String? {
@@ -81,6 +82,7 @@ class Configuration: NSObject {
 
   class func setLoginEmail(email: String) {
     NSUserDefaults.standardUserDefaults().setValue(email, forKey: Configuration.Settings.kLoginEmail)
+    NSUserDefaults.standardUserDefaults().synchronize()
   }
 
   private struct Settings {

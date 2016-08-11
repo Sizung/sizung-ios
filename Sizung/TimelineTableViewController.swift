@@ -12,10 +12,6 @@ import SlackTextViewController
 import DateTools
 import ReactiveKit
 
-func == (lhs: TimelineObject, rhs: TimelineObject) -> Bool {
-  return lhs.hashValue == rhs.hashValue
-}
-
 class TimelineTableViewController: SLKTextViewController {
 
   var timelineParent: BaseModel!
@@ -72,26 +68,15 @@ class TimelineTableViewController: SLKTextViewController {
       .onSuccess { storageManager in
         self.storageManager = storageManager
 
-        // to prevent missing items first connect to websocket, than fetch current state
-        StorageManager.sharedInstance.websocket!.conversationWebsocketDelegate = self
-        StorageManager.sharedInstance.websocket!.followConversation(self.getConversationId())
+        // to prevent missing items, first add as listener to websocket, than fetch current state
+        StorageManager.sharedInstance.websocket!.conversationWebsocketDelegates[self.timelineParent.id] = self
+        self.updateData()
 
         // calculate current unread count for comments
         let lastUnseenMessageDate: NSDate = storageManager.unseenObjects.collection.reduce(NSDate.distantFuture(), combine: { earliestDate, unseenObject in
-          var comparisonObject: BaseModel?
-          switch self.timelineParent {
-          case is Deliverable:
-            comparisonObject = storageManager.deliverables[unseenObject.deliverableId]
-          case is AgendaItem:
-            comparisonObject = storageManager.agendaItems[unseenObject.agendaItemId]
-          case is Conversation:
-            comparisonObject = storageManager.conversations[unseenObject.conversationId]
-          default:
-            comparisonObject = nil
-          }
 
-          if comparisonObject != nil && comparisonObject == self.timelineParent {
-            if unseenObject.createdAt.isEarlierThan(earliestDate) {
+          if let timelineId = unseenObject.timelineId {
+            if timelineId ==  self.timelineParent.id && unseenObject.createdAt.isEarlierThan(earliestDate) {
               // remove one second to guarantee sort order
               return unseenObject.createdAt.dateByAddingSeconds(-1)
             }
@@ -129,10 +114,6 @@ class TimelineTableViewController: SLKTextViewController {
               InAppMessage.showErrorMessage("There was an error marking everything as seen")
           }
         }
-    }
-
-    if let socket = StorageManager.sharedInstance.websocket {
-      socket.unfollowConversation(getConversationId())
     }
   }
 

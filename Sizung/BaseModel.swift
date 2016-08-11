@@ -72,6 +72,8 @@ class BaseModel: Mappable, Equatable, Hashable, DateSortable, CustomStringConver
         return UnseenObject(map)
       case "attachments":
         return Attachment(map)
+      case "organization_members":
+        return OrganizationMember(map)
       default:
         return nil
       }

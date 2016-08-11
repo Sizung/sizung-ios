@@ -136,8 +136,6 @@ struct R: Rswift.Validatable {
   
   /// This `R.image` struct is generated, and contains static references to 32 images.
   struct image {
-    /// Image `action`.
-    static let action = ImageResource(bundle: _R.hostingBundle, name: "action")
     /// Image `action_title`.
     static let action_title = ImageResource(bundle: _R.hostingBundle, name: "action_title")
     /// Image `actions_filter_all`.
@@ -178,6 +176,8 @@ struct R: Rswift.Validatable {
     static let bg_search = ImageResource(bundle: _R.hostingBundle, name: "bg_search")
     /// Image `bg_title`.
     static let bg_title = ImageResource(bundle: _R.hostingBundle, name: "bg_title")
+    /// Image `checkmark`.
+    static let checkmark = ImageResource(bundle: _R.hostingBundle, name: "checkmark")
     /// Image `close`.
     static let close = ImageResource(bundle: _R.hostingBundle, name: "close")
     /// Image `cupcake`.
@@ -200,11 +200,6 @@ struct R: Rswift.Validatable {
     static let priority_color = ImageResource(bundle: _R.hostingBundle, name: "priority_color")
     /// Image `search`.
     static let search = ImageResource(bundle: _R.hostingBundle, name: "search")
-    
-    /// `UIImage(named: "action", bundle: ..., traitCollection: ...)`
-    static func action(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
-      return UIImage(resource: R.image.action, compatibleWithTraitCollection: traitCollection)
-    }
     
     /// `UIImage(named: "action_title", bundle: ..., traitCollection: ...)`
     static func action_title(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
@@ -304,6 +299,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "bg_title", bundle: ..., traitCollection: ...)`
     static func bg_title(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.bg_title, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "checkmark", bundle: ..., traitCollection: ...)`
+    static func checkmark(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.checkmark, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "close", bundle: ..., traitCollection: ...)`
@@ -1051,6 +1051,7 @@ struct _R: Rswift.Validatable {
       try login.validate()
       try conversations.validate()
       try main.validate()
+      try organizations.validate()
     }
     
     struct agendaItem: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
@@ -1280,11 +1281,21 @@ struct _R: Rswift.Validatable {
       private init() {}
     }
     
-    struct organizations: StoryboardResourceWithInitialControllerType {
+    struct organizations: StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = OrganizationsViewController
       
       let bundle = _R.hostingBundle
+      let create = StoryboardViewControllerResource<CreateOrganizationViewController>(identifier: "create")
       let name = "Organizations"
+      
+      func create(_: Void) -> CreateOrganizationViewController? {
+        return UIStoryboard(resource: self).instantiateViewController(create)
+      }
+      
+      static func validate() throws {
+        if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Organizations', but couldn't be loaded.") }
+        if _R.storyboard.organizations().create() == nil { throw ValidationError(description:"[R.swift] ViewController with identifier 'create' could not be loaded from storyboard 'Organizations' as 'CreateOrganizationViewController'.") }
+      }
       
       private init() {}
     }

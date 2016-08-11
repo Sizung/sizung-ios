@@ -36,7 +36,7 @@ class TimelineObject: Hashable, DateSortable {
 
   var sortDate: NSDate {
     get {
-      if let date = model?.sortDate {
+      if let date = model?.createdAt {
         return date
       } else {
         return newMessagesDate!
@@ -44,3 +44,8 @@ class TimelineObject: Hashable, DateSortable {
     }
   }
 }
+
+func == (lhs: TimelineObject, rhs: TimelineObject) -> Bool {
+  return lhs.hashValue == rhs.hashValue
+}
+

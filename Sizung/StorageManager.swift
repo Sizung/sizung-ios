@@ -142,6 +142,8 @@ class StorageManager {
           switch include {
           case let user as User:
             organizationStorageManager.users.insertOrUpdate([user])
+          case let member as OrganizationMember:
+            organizationStorageManager.members.insertOrUpdate([member])
           default:
             break
           }
@@ -210,6 +212,32 @@ class StorageManager {
     StorageManager.makeRequest(SizungHttpRouter.Conversation(id: itemId))
       .onSuccess { (conversationResponse: ConversationResponse) in
         promise.success(conversationResponse.conversation)
+      }.onFailure { error in
+        promise.failure(error)
+    }
+
+    return promise.future
+  }
+
+  func createOrganization(name: String) -> Future<Organization, StorageError> {
+    let promise = Promise<Organization, StorageError>()
+
+    StorageManager.makeRequest(SizungHttpRouter.CreateOrganization(name: name))
+      .onSuccess { (organizationResponse: OrganizationResponse) in
+        promise.success(organizationResponse.organization)
+      }.onFailure { error in
+        promise.failure(error)
+    }
+
+    return promise.future
+  }
+
+  func updateOrganization(organization: Organization) -> Future<Organization, StorageError> {
+    let promise = Promise<Organization, StorageError>()
+
+    StorageManager.makeRequest(SizungHttpRouter.UpdateOrganization(organization: organization))
+      .onSuccess { (organizationResponse: OrganizationResponse) in
+        promise.success(organizationResponse.organization)
       }.onFailure { error in
         promise.failure(error)
     }
