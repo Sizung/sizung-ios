@@ -8,6 +8,7 @@
 
 import ReactiveKit
 import BrightFutures
+// for direct s3 upload
 import Alamofire
 
 class OrganizationStorageManager {
@@ -57,7 +58,7 @@ class OrganizationStorageManager {
     if let foundConversation = foundConversations.first {
       promise.success(foundConversation)
     } else {
-      StorageManager.makeRequest(SizungHttpRouter.Conversation(id: itemId))
+      NetworkManager.makeRequest(SizungHttpRouter.Conversation(id: itemId))
         .onSuccess { (conversationResponse: ConversationResponse) in
 
           let conversation = conversationResponse.conversation
@@ -78,7 +79,7 @@ class OrganizationStorageManager {
   func createConversation(conversation: Conversation) -> Future<Conversation, StorageError> {
     let promise = Promise<Conversation, StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.CreateConversation(conversation: conversation))
+    NetworkManager.makeRequest(SizungHttpRouter.CreateConversation(conversation: conversation))
       .onSuccess { (conversationResponse: ConversationResponse) in
 
         let conversation = conversationResponse.conversation
@@ -94,7 +95,7 @@ class OrganizationStorageManager {
   func updateConversation(conversation: Conversation) -> Future<Conversation, StorageError> {
     let promise = Promise<Conversation, StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.UpdateConversation(conversation: conversation))
+    NetworkManager.makeRequest(SizungHttpRouter.UpdateConversation(conversation: conversation))
       .onSuccess { (conversationResponse: ConversationResponse) in
 
         let conversation = conversationResponse.conversation
@@ -179,7 +180,7 @@ class OrganizationStorageManager {
 
   func listUsers() -> Future<[User], StorageError> {
     let promise = Promise<[User], StorageError>()
-    StorageManager.makeRequest(SizungHttpRouter.Organization(id: self.organization.id))
+    NetworkManager.makeRequest(SizungHttpRouter.Organization(id: self.organization.id))
       .onSuccess { (organizationResponse: OrganizationResponse) in
         let filteredItems = organizationResponse.included.filter { $0 is User }
 
@@ -198,7 +199,7 @@ class OrganizationStorageManager {
 
   func listAgendaItems() -> Future<[AgendaItem], StorageError> {
     let promise = Promise<[AgendaItem], StorageError>()
-    StorageManager.makeRequest(SizungHttpRouter.Organization(id: self.organization.id))
+    NetworkManager.makeRequest(SizungHttpRouter.Organization(id: self.organization.id))
       .onSuccess { (organizationResponse: OrganizationResponse) in
         let agendaItems = organizationResponse.agendaItemsResponse.agendaItems
 
@@ -214,7 +215,7 @@ class OrganizationStorageManager {
 
   func listDeliverables() -> Future<[Deliverable], StorageError> {
     let promise = Promise<[Deliverable], StorageError>()
-    StorageManager.makeRequest(SizungHttpRouter.Organization(id: self.organization.id))
+    NetworkManager.makeRequest(SizungHttpRouter.Organization(id: self.organization.id))
       .onSuccess { (organizationResponse: OrganizationResponse) in
 
         let newDeliverables = organizationResponse.deliverablesResponse.deliverables + organizationResponse.conversationDeliverablesResponse.deliverables
@@ -230,7 +231,7 @@ class OrganizationStorageManager {
 
   func listConversations() -> Future<[Conversation], StorageError> {
     let promise = Promise<[Conversation], StorageError>()
-    StorageManager.makeRequest(SizungHttpRouter.Organization(id: self.organization.id))
+    NetworkManager.makeRequest(SizungHttpRouter.Organization(id: self.organization.id))
       .onSuccess { (organizationResponse: OrganizationResponse) in
 
         let conversations = organizationResponse.conversationsResponse.conversations
@@ -249,7 +250,7 @@ class OrganizationStorageManager {
 
     let promise = Promise<([BaseModel], Int?), StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.ConversationObjects(parent: parent, page: page))
+    NetworkManager.makeRequest(SizungHttpRouter.ConversationObjects(parent: parent, page: page))
       .onSuccess { (conversationObjectsResponse: ConversationObjectsResponse) in
         promise.success((conversationObjectsResponse.conversationObjects, conversationObjectsResponse.nextPage))
       }.onFailure { error in
@@ -260,7 +261,7 @@ class OrganizationStorageManager {
 
   func createComment(comment: Comment) -> Future<Comment, StorageError> {
     let promise = Promise<Comment, StorageError>()
-    StorageManager.makeRequest(SizungHttpRouter.Comments(comment: comment))
+    NetworkManager.makeRequest(SizungHttpRouter.Comments(comment: comment))
       .onSuccess { (commentResponse: CommentResponse) in
         promise.success(commentResponse.comment)
       }.onFailure { error in
@@ -271,7 +272,7 @@ class OrganizationStorageManager {
 
   func createDeliverable(deliverable: Deliverable) -> Future<Deliverable, StorageError> {
     let promise = Promise<Deliverable, StorageError>()
-    StorageManager.makeRequest(SizungHttpRouter.CreateDeliverable(deliverable: deliverable))
+    NetworkManager.makeRequest(SizungHttpRouter.CreateDeliverable(deliverable: deliverable))
       .onSuccess { (deliverableResponse: DeliverableResponse) in
         self.deliverables.append(deliverableResponse.deliverable)
         promise.success(deliverableResponse.deliverable)
@@ -283,7 +284,7 @@ class OrganizationStorageManager {
 
   func updateDeliverable(deliverable: Deliverable) -> Future<Deliverable, StorageError> {
     let promise = Promise<Deliverable, StorageError>()
-    StorageManager.makeRequest(SizungHttpRouter.UpdateDeliverable(deliverable: deliverable))
+    NetworkManager.makeRequest(SizungHttpRouter.UpdateDeliverable(deliverable: deliverable))
       .onSuccess { (deliverableResponse: DeliverableResponse) in
 
         promise.success(deliverableResponse.deliverable)
@@ -295,7 +296,7 @@ class OrganizationStorageManager {
 
   func createAgendaItem(agendaItem: AgendaItem) -> Future<AgendaItem, StorageError> {
     let promise = Promise<AgendaItem, StorageError>()
-    StorageManager.makeRequest(SizungHttpRouter.CreateAgendaItem(agendaItem: agendaItem))
+    NetworkManager.makeRequest(SizungHttpRouter.CreateAgendaItem(agendaItem: agendaItem))
       .onSuccess { ( agendaItemResponse: AgendaItemResponse ) in
         self.agendaItems.append(agendaItemResponse.agendaItem)
         promise.success(agendaItemResponse.agendaItem)
@@ -307,7 +308,7 @@ class OrganizationStorageManager {
 
   func updateAgendaItem(agendaItem: AgendaItem) -> Future<AgendaItem, StorageError> {
     let promise = Promise<AgendaItem, StorageError>()
-    StorageManager.makeRequest(SizungHttpRouter.UpdateAgendaItem(agendaItem: agendaItem))
+    NetworkManager.makeRequest(SizungHttpRouter.UpdateAgendaItem(agendaItem: agendaItem))
       .onSuccess { ( agendaItemResponse: AgendaItemResponse ) in
         promise.success(agendaItemResponse.agendaItem)
       }.onFailure { error in
@@ -319,7 +320,7 @@ class OrganizationStorageManager {
   func uploadAttachment(attachment: Attachment, data: NSData, progress: (Float)->()) -> Future<Attachment, StorageError> {
     let promise = Promise<Attachment, StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.GetUploadAttachmentURL(attachment: attachment))
+    NetworkManager.makeRequest(SizungHttpRouter.GetUploadAttachmentURL(attachment: attachment))
       .onSuccess { ( getAttachmentUploadResponse: GetAttachmentUploadResponse) in
 
         attachment.fileUrl = getAttachmentUploadResponse.signedUrl
@@ -338,10 +339,10 @@ class OrganizationStorageManager {
             let progressVal = Float(totalBytesWritten)/Float(totalBytesExpectedToWrite)
             progress(progressVal)
           }
-          .responseData(queue: StorageManager.networkQueue) { response in
+          .responseData(queue: NetworkManager.networkQueue) { response in
             switch response.result {
             case .Success:
-              StorageManager.makeRequest(SizungHttpRouter.CreateAttachment(attachment: attachment))
+              NetworkManager.makeRequest(SizungHttpRouter.CreateAttachment(attachment: attachment))
                 .onSuccess { (attachmentResponse: AttachmentResponse) in
                   promise.success(attachmentResponse.attachment)
                 }.onFailure { error in
@@ -368,7 +369,7 @@ class OrganizationStorageManager {
       request = SizungHttpRouter.UnsubscribedUnseenObjectsForOrganization(organizationId: orgId, page: page)
     }
 
-    StorageManager.makeRequest(request)
+    NetworkManager.makeRequest(request)
       .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
         let unseenObjects = unseenObjectsResponse.unseenObjects.map { (unseenObject: UnseenObject) -> (UnseenObject) in
           unseenObject.target = unseenObjectsResponse.included.filter { include in
@@ -392,7 +393,7 @@ class OrganizationStorageManager {
   func sawTimeLineFor(object: BaseModel) -> Future<[UnseenObject], StorageError> {
     let promise = Promise<[UnseenObject], StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.DeleteUnseenObjects(type: object.type, id: object.id))
+    NetworkManager.makeRequest(SizungHttpRouter.DeleteUnseenObjects(type: object.type, id: object.id))
       .onSuccess { (unseenObjectsResponse: UnseenObjectsResponse) in
         // ignore returned objects for now - should be set over websocket
         promise.success(unseenObjectsResponse.unseenObjects)
@@ -405,7 +406,7 @@ class OrganizationStorageManager {
   func inviteOrganizationMember(email: String) -> Future<OrganizationMember, StorageError> {
     let promise = Promise<OrganizationMember, StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.InviteOrganizationMember(email: email, organizationId: self.organization.id))
+    NetworkManager.makeRequest(SizungHttpRouter.InviteOrganizationMember(email: email, organizationId: self.organization.id))
       .onSuccess { (organizationMemberResponse: OrganizationMemberResponse) in
         promise.success(organizationMemberResponse.member)
       }.onFailure { error in
@@ -418,7 +419,7 @@ class OrganizationStorageManager {
   func deleteOrganizationMember(memberId: String) -> Future<OrganizationMember, StorageError> {
     let promise = Promise<OrganizationMember, StorageError>()
 
-    StorageManager.makeRequest(SizungHttpRouter.DeleteOrganizationMember(memberId: memberId))
+    NetworkManager.makeRequest(SizungHttpRouter.DeleteOrganizationMember(memberId: memberId))
       .onSuccess { (organizationMemberResponse: OrganizationMemberResponse) in
         promise.success(organizationMemberResponse.member)
       }.onFailure { error in

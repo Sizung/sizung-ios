@@ -14,7 +14,7 @@ import MRProgress
 class StreamTableViewController: UITableViewController {
 
   var storageManager: OrganizationStorageManager?
-  let userId = AuthToken(data: Configuration.getAuthToken()).getUserId()!
+  let userId = AuthToken(data: Configuration.getSessionToken()).getUserId()!
 
   var filteredUnseenObjects = CollectionProperty<Array<UnseenObject>>([])
   var filteredUnseenObjectsDisposable: Disposable? = nil

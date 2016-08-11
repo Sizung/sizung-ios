@@ -6,8 +6,6 @@
 //  Copyright © 2016 Sizung. All rights reserved.
 //
 
-
-import Alamofire
 import AlamofireImage
 import UIKit
 

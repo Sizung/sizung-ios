@@ -48,4 +48,3 @@ class TimelineObject: Hashable, DateSortable {
 func == (lhs: TimelineObject, rhs: TimelineObject) -> Bool {
   return lhs.hashValue == rhs.hashValue
 }
-

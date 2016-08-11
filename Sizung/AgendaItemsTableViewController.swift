@@ -43,7 +43,7 @@ class AgendaItemsTableViewController: UITableViewController {
     )
 
     userId = AuthToken(
-      data: Configuration.getAuthToken()).getUserId()
+      data: Configuration.getSessionToken()).getUserId()
 
     self.initData()
 

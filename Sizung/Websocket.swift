@@ -28,7 +28,7 @@ class Websocket {
   var willFollowConversationChannels: Set<String> = []
   var willFollowUserChannels: Set<String> = []
 
-  var conversationWebsocketDelegate: WebsocketDelegate?
+  var conversationWebsocketDelegates: Dictionary<String, WebsocketDelegate> = [:]
   var userWebsocketDelegate: WebsocketDelegate?
 
   init(authToken: String) {
@@ -48,10 +48,10 @@ class Websocket {
 
       switch error!._code {
       case 2, 3:
-        self.conversationWebsocketDelegate?.onConnectFailed()
+        self.conversationWebsocketDelegates.forEach { $0.1.onConnectFailed() }
         self.userWebsocketDelegate?.onConnectFailed()
       default:
-        self.conversationWebsocketDelegate?.onDisconnected()
+        self.conversationWebsocketDelegates.forEach { $0.1.onDisconnected() }
         self.userWebsocketDelegate?.onDisconnected()
       }
     }
@@ -73,7 +73,7 @@ class Websocket {
              is Attachment,
              is Deliverable,
              is AgendaItem:
-          self.conversationWebsocketDelegate?.onReceived(websocketResponse.payload)
+          self.conversationWebsocketDelegates.forEach { $0.1.onReceived(websocketResponse.payload) }
         case let unseenObject as UnseenObject:
           unseenObject.target = websocketResponse.included.filter { include in
             return include.id == unseenObject.targetId
@@ -143,7 +143,7 @@ class Websocket {
       }
 
       dispatch_async(dispatch_get_main_queue(), {
-        self.conversationWebsocketDelegate?.onFollowSuccess(conversationId)
+        self.conversationWebsocketDelegates.forEach { $0.1.onFollowSuccess(conversationId) }
       })
     })
   }

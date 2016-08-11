@@ -68,9 +68,9 @@ class TimelineTableViewController: SLKTextViewController {
       .onSuccess { storageManager in
         self.storageManager = storageManager
 
-        // to prevent missing items first connect to websocket, than fetch current state
-        StorageManager.sharedInstance.websocket!.conversationWebsocketDelegate = self
-        StorageManager.sharedInstance.websocket!.followConversation(self.getConversationId())
+        // to prevent missing items, first add as listener to websocket, than fetch current state
+        StorageManager.sharedInstance.websocket!.conversationWebsocketDelegates[self.timelineParent.id] = self
+        self.updateData()
 
         // calculate current unread count for comments
         let lastUnseenMessageDate: NSDate = storageManager.unseenObjects.collection.reduce(NSDate.distantFuture(), combine: { earliestDate, unseenObject in
@@ -114,10 +114,6 @@ class TimelineTableViewController: SLKTextViewController {
               InAppMessage.showErrorMessage("There was an error marking everything as seen")
           }
         }
-    }
-
-    if let socket = StorageManager.sharedInstance.websocket {
-      socket.unfollowConversation(getConversationId())
     }
   }
 
@@ -266,7 +262,7 @@ class TimelineTableViewController: SLKTextViewController {
     // This little trick validates any pending auto-correction or auto-spelling just after hitting the 'Send' button
     self.textView.refreshFirstResponder()
 
-    let authToken = AuthToken(data: Configuration.getAuthToken())
+    let authToken = AuthToken(data: Configuration.getSessionToken())
 
     // parse mentions
     var fulltext = self.textView.text

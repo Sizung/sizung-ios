@@ -18,7 +18,6 @@ extension TimelineTableViewController: WebsocketDelegate {
   }
 
   func onFollowSuccess(itemId: String) {
-    self.updateData()
   }
 
   func onReceived(conversationObject: BaseModel) {

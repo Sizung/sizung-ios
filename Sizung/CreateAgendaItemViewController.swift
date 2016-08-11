@@ -21,7 +21,8 @@ class CreateAgendaItemViewController: UIViewController, UITextFieldDelegate {
     super.viewDidLoad()
 
     if agendaItem == nil {
-      agendaItem = AgendaItem(conversationId: conversation!.id)
+      let currentUser = AuthToken(data: Configuration.getSessionToken()!).getUserId()!
+      agendaItem = AgendaItem(conversationId: conversation!.id, ownerId: currentUser)
     }
 
     StorageManager.storageForSelectedOrganization()
