@@ -55,10 +55,10 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
 
           let token = AuthToken(data: JSON["token"] as? String)
 
-          token.validateAndStore()
+          token.validateAndStore(.Session)
             .onSuccess() { _ in
-              Configuration.setLoginEmail(email!)
-              self.loginDelegate?.loginSuccess(self)
+              self.getLongLivedToken(token.data!)
+
             }.onFailure() { error in
               let message = "login error: \(error)"
               Log.message(message)
@@ -76,7 +76,41 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
 
         MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
     }
+  }
 
+  func getLongLivedToken(token: String) {
+    Alamofire.request(SizungHttpRouter.GetLongLivedToken(sessionToken: token))
+      .validate()
+      .responseJSON { response in
+        switch response.result {
+        case .Success(let JSON)
+          where JSON.objectForKey("token") is String:
+
+          let token = AuthToken(data: JSON["token"] as? String)
+
+          token.validateAndStore(.LongLived)
+            .onSuccess() { _ in
+              self.loginSuccess()
+            }.onFailure() { error in
+              let message = "login error: \(error)"
+              Log.message(message)
+              self.showAlert("Something went wrong. Please try again")
+          }
+
+        case .Failure:
+          break
+        default:
+          let message = "login error: \(response.response)"
+          Error.log(message)
+          self.showAlert("Something went wrong")
+
+        }
+    }
+  }
+
+  func loginSuccess() {
+    Configuration.setLoginEmail(self.email!)
+    self.loginDelegate?.loginSuccess(self)
   }
 
   func showAlertForTextField(textField: UITextField, text: String) {

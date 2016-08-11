@@ -57,7 +57,7 @@ class OrganizationContentViewController: UIViewController, MainPageViewControlle
         let deliverablesTableViewController =
           R.storyboard.organization.userDeliverablesTableViewController()!
 
-        let token = AuthToken(data: Configuration.getAuthToken())
+        let token = AuthToken(data: Configuration.getSessionToken())
         let userId = token.getUserId()
 
         deliverablesTableViewController.userId = userId

@@ -44,20 +44,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
 
     setupReachability()
 
-    self.registerNotifications()
+    self.registerLocalAppNotifications()
 
-    if let authToken = Configuration.getAuthToken() {
-      let token = AuthToken(data: authToken)
-      token.validate()
-        .onSuccess { _ in
+    if Configuration.getSessionToken() != nil {
+      self.registerForPushNotifications()
 
-          self.registerForPushNotifications()
+      // schedule for weekly token update
+      UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(7*24*60*60)
 
-          self.loadInitialViewController()
-
-        }.onFailure { error in
-          self.showLogin()
-      }
+      self.loadInitialViewController()
     } else {
       self.showLogin()
     }
@@ -80,11 +75,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
     }
   }
 
-  func registerNotifications() {
+  func registerLocalAppNotifications() {
     NSNotificationCenter.defaultCenter().addObserver(
       self,
       selector: #selector(self.showLogin),
       name: Configuration.NotificationConstants.kNotificationKeyAuthError,
+      object: nil
+    )
+
+    NSNotificationCenter.defaultCenter().addObserver(
+      self,
+      selector: #selector(self.sessionTokenChanged),
+      name: Configuration.NotificationConstants.kNotificationSessionTokenChanged,
       object: nil
     )
   }
@@ -193,8 +195,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
     }
   }
 
+  func sessionTokenChanged() {
+    initWebsocketConnection()
+    NetworkManager.updateLongLivedToken()
+  }
+
   func initWebsocketConnection() {
-    let authToken = AuthToken(data: Configuration.getAuthToken())
+    let authToken = AuthToken(data: Configuration.getSessionToken())
 
     authToken.validate()
       .onSuccess { _ in
@@ -209,7 +216,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
         StorageManager.sharedInstance.websocket = websocket
 
         // subscribe to user channel for unseenobjects
-        if let userId = AuthToken(data: Configuration.getAuthToken()).getUserId() {
+        if let userId = authToken.getUserId() {
           if let websocket = StorageManager.sharedInstance.websocket {
             websocket.userWebsocketDelegate = self
             websocket.followUser(userId)
@@ -249,7 +256,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
       }
 
       // check if logged in
-      if let authToken = Configuration.getAuthToken() {
+      if let authToken = Configuration.getSessionToken() {
         let token = AuthToken(data: authToken)
         token.validate()
           .onSuccess { _ in
@@ -292,6 +299,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
     application.registerForRemoteNotifications()
   }
 
+  func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+
+    Log.event(.BACKGROUND_FETCH).send()
+
+    completionHandler(UIBackgroundFetchResult.NewData)
+
+    NetworkManager.updateLongLivedToken()
+  }
+
   func application(
     application: UIApplication,
     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
@@ -303,12 +319,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
     }
 
     if let deviceId = Configuration.getDeviceId() {
-      StorageManager.makeRequest(SizungHttpRouter.UpdateDevice(deviceId: deviceId, token: tokenString))
+      NetworkManager.makeRequest(SizungHttpRouter.UpdateDevice(deviceId: deviceId, token: tokenString))
         .onSuccess { (deviceResponse: DeviceResponse) in
           Configuration.setDeviceId(deviceResponse.deviceId)
       }
     } else {
-      StorageManager.makeRequest(SizungHttpRouter.RegisterDevice(token: tokenString))
+      NetworkManager.makeRequest(SizungHttpRouter.RegisterDevice(token: tokenString))
         .onSuccess { (deviceResponse: DeviceResponse) in
           Configuration.setDeviceId(deviceResponse.deviceId)
       }

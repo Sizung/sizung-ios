@@ -9,16 +9,22 @@
 import Crashlytics
 
 protocol SizungLog {
-  var attributes: Dictionary<String, AnyObject> { get }
+  var attributes: Dictionary<String, AnyObject>? { get }
+  var name: String { get }
   func send()
+}
+
+enum EventType: String {
+  case BACKGROUND_FETCH = "BACKGROUND_FETCH"
 }
 
 enum Log: SizungLog {
   case error(NSError, String?)
   case message(String)
+  case event(EventType)
 
 
-  var attributes: Dictionary<String, AnyObject> {
+  var attributes: Dictionary<String, AnyObject>? {
     switch self {
     case .error(let error, let additionalInfo):
       var attributes: Dictionary<String, AnyObject> = [
@@ -41,14 +47,26 @@ enum Log: SizungLog {
         "domain": "SizungErrorDomain",
         "message": message
       ]
+    case .event:
+      return nil
+    }
+  }
+
+  var name: String {
+    switch self {
+    case .error,
+         .message:
+      return "Error"
+    case .event(let type):
+      return type.rawValue
     }
   }
 
   func send() {
     #if RELEASE_VERSION
-      Answers.logCustomEventWithName("Error", customAttributes: self.attributes)
+      Answers.logCustomEventWithName(self.name, customAttributes: self.attributes)
     #else
-      print("log: \(self.attributes)")
+      print("log: \(self.name) \(self.attributes)")
     #endif
   }
 }

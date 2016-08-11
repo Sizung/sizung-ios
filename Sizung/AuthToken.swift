@@ -17,6 +17,11 @@ enum TokenError: ErrorType {
   case Expired
 }
 
+enum TokenType {
+  case LongLived
+  case Session
+}
+
 class AuthToken {
 
   var data: String?
@@ -53,12 +58,17 @@ class AuthToken {
     return promise.future
   }
 
-  func validateAndStore() -> Future<Void, TokenError> {
+  func validateAndStore(type: TokenType) -> Future<Void, TokenError> {
     let promise = Promise<Void, TokenError>()
 
     self.validate()
       .onSuccess() { userId in
-        Configuration.setAuthToken(self.data!)
+        switch type {
+        case .LongLived:
+          Configuration.setLongLivedToken(self.data!)
+        case .Session:
+          Configuration.setSessionToken(self.data!)
+        }
         promise.success()
       }.onFailure() { error in
         promise.failure(error)

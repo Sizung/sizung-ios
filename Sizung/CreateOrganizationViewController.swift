@@ -40,7 +40,7 @@ class CreateOrganizationViewController: UIViewController, UITableViewDelegate, U
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    let authToken = AuthToken(data: Configuration.getAuthToken())
+    let authToken = AuthToken(data: Configuration.getSessionToken())
 
     if self.organization == nil {
       self.organization = Organization(ownerId: authToken.getUserId()!)

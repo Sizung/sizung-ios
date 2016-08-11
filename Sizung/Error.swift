@@ -25,7 +25,7 @@ enum Error {
     #endif
   }
 
-  private static func getError(message: String) -> NSError {
+  static func getError(message: String) -> NSError {
 
     let userInfo = [
       NSLocalizedDescriptionKey: message

@@ -39,7 +39,8 @@ class Configuration: NSObject {
     let appDomain = NSBundle.mainBundle().bundleIdentifier
     NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain!)
     KeychainWrapper.removeObjectForKey(Configuration.Settings.kDeviceId)
-    KeychainWrapper.removeObjectForKey(Configuration.Settings.kAuthToken)
+    KeychainWrapper.removeObjectForKey(Configuration.Settings.kSessionToken)
+    KeychainWrapper.removeObjectForKey(Configuration.Settings.kLongLivedToken)
   }
 
   class func setDeviceId(deviceId: String) {
@@ -50,12 +51,20 @@ class Configuration: NSObject {
     return KeychainWrapper.stringForKey(Configuration.Settings.kDeviceId)
   }
 
-  class func getAuthToken() -> String? {
-    return KeychainWrapper.stringForKey(Configuration.Settings.kAuthToken)
+  class func getSessionToken() -> String? {
+    return KeychainWrapper.stringForKey(Configuration.Settings.kSessionToken)
   }
 
-  class func setAuthToken(data: String) {
-    KeychainWrapper.setString(data, forKey: Configuration.Settings.kAuthToken)
+  class func setSessionToken(data: String) {
+    KeychainWrapper.setString(data, forKey: Configuration.Settings.kSessionToken)
+  }
+
+  class func getLongLivedToken() -> String? {
+    return KeychainWrapper.stringForKey(Configuration.Settings.kLongLivedToken)
+  }
+
+  class func setLongLivedToken(data: String) {
+    KeychainWrapper.setString(data, forKey: Configuration.Settings.kLongLivedToken)
   }
 
   class func getSelectedOrganization() -> String? {
@@ -77,13 +86,15 @@ class Configuration: NSObject {
   }
 
   private struct Settings {
-    static let kAuthToken = "AUTH_TOKEN"
+    static let kSessionToken = "AUTH_TOKEN"
+    static let kLongLivedToken = "LONG_LIVED_TOKEN"
     static let kDeviceId = "V2::DEVICE_ID"
     static let kSelectedOrganization = "SELECTED_ORGANIZATION"
     static let kLoginEmail = "LOGIN_EMAIL"
   }
 
   struct NotificationConstants {
+    static let kNotificationSessionTokenChanged = "NOTIFICATION_KEY_TOKEN_CHANGED"
     static let kNotificationKeyAuthError = "NOTIFICATION_KEY_AUTH_ERROR"
   }
 }
