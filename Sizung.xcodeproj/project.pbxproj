@@ -1428,7 +1428,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sizung.app.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "debf1f82-6d75-4568-839a-16ab4a173af0";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sizung/Sizung-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1454,7 +1454,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D RELEASE_VERSION";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sizung.app.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "debf1f82-6d75-4568-839a-16ab4a173af0";
 				SWIFT_OBJC_BRIDGING_HEADER = "Sizung/Sizung-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
