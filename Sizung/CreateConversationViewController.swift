@@ -125,8 +125,10 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
         cell.deleteButton.hidden = false
         cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action: #selector(self.removeMember), forControlEvents: .TouchUpInside)
+        cell.selectionStyle = .None
       } else {
         cell.deleteButton.hidden = true
+        cell.selectionStyle = .Default
       }
 
       return cell
@@ -137,8 +139,10 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let user = collection[indexPath.row]
-    self.conversation.members.append(user)
-    self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
+    if !self.conversation.members.contains(user) {
+      self.conversation.members.append(user)
+      self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
+    }
   }
 
   @IBAction func close(sender: AnyObject) {

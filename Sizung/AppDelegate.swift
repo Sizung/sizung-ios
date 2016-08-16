@@ -149,7 +149,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
             let organizationsViewController = R.storyboard.organizations.initialViewController()!
             self.organizationsViewController = organizationsViewController
             organizationsViewController.organizationTableViewDelegate = self
-            self.window?.rootViewController?.showViewController(organizationsViewController, sender: nil)
+
+            let currentTopViewController = self.getPresentedViewController(self.window!.rootViewController!)
+
+            // make sure we are on main thread
+            dispatch_async(dispatch_get_main_queue()) {
+              currentTopViewController.showViewController(organizationsViewController, sender: nil)
+            }
+
             InAppMessage.showErrorMessage("The selected organization can't be found, please select one")
           default:
             InAppMessage.showErrorMessage("There seems to be a problem with the internet connection")
@@ -160,7 +167,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
       let organizationsViewController = R.storyboard.organizations.initialViewController()!
       organizationsViewController.organizationTableViewDelegate = self
       self.organizationsViewController = organizationsViewController
-      self.window?.rootViewController?.showViewController(organizationsViewController, sender: nil)
+
+      let currentTopViewController = self.getPresentedViewController(self.window!.rootViewController!)
+
+      // make sure we are on main thread
+      dispatch_async(dispatch_get_main_queue()) {
+        currentTopViewController.showViewController(organizationsViewController, sender: nil)
+      }
     }
   }
 

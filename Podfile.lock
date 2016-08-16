@@ -11,10 +11,10 @@ PODS:
   - BrightFutures (4.1.0):
     - Result (~> 2.0)
   - Bumblebee (1.0.1)
-  - Crashlytics (3.7.2):
+  - Crashlytics (3.7.3):
     - Fabric (~> 1.6.3)
   - DateTools (1.7.0)
-  - Fabric (1.6.7)
+  - Fabric (1.6.8)
   - ImageFilesPicker (0.1.8)
   - JVFloatLabeledTextField (1.1.0)
   - JWTDecode (1.0.0)
@@ -107,15 +107,15 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   ActionCableClient: a267d85d8eed1749f83cbc63596da3edf1e7945a
-  AKSegmentedControl: c076491ef773c0d70b70d03a8e5a0c04a9efbf08
+  AKSegmentedControl: c09751e41133b98bcb3c77b465fe7e119ac7e4f7
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
   AlamofireNetworkActivityIndicator: 49a6e39afb947136f7b1872bae2d684957c26697
   BrightFutures: e18b83fd6fa8562ceb9902ee609f0de23b0ee110
   Bumblebee: 0249c65d409431276ced68734f96a96708e2e9f2
-  Crashlytics: 130ab943f8c78cda7a814b434f270b2e2c8a3cba
+  Crashlytics: 76f6beaff70acf226139582c09c78461597c2b98
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
-  Fabric: caf7580c725e64db144f610ac65cd60956911dc7
+  Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
   ImageFilesPicker: 3d29153b7d009b3e7a967617d714d369a40ad351
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
   JWTDecode: d172edcb1607cc15aed85d58eceedcbb675a4534
