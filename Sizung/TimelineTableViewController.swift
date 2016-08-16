@@ -111,7 +111,7 @@ class TimelineTableViewController: SLKTextViewController {
         if self.timelineParent.archived != true {
           storageManager.sawTimeLineFor(self.timelineParent)
             .onFailure { error in
-              InAppMessage.showErrorMessage("There was an error marking everything as seen")
+              Log.message("unseen object error").send()
           }
         }
     }
