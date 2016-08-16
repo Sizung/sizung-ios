@@ -33,12 +33,6 @@ class DeliverablesTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-
-    StorageManager.storageForSelectedOrganization()
-      .onSuccess { storageManager in
-        self.storageManager = storageManager
-    }
-
     self.refreshControl?.addTarget(
       self,
       action: #selector(self.updateData),
@@ -98,6 +92,7 @@ class DeliverablesTableViewController: UITableViewController {
   func updateCollection() {
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
+
         self.collection = storageManager.deliverables.collection.filter { deliverable in
 
           if self.parent != nil && self.parent!.id != deliverable.parentId {
@@ -132,16 +127,19 @@ class DeliverablesTableViewController: UITableViewController {
           }
         }
 
-
         self.tableView.tableFooterView?.hidden = self.collection!.count > 0
 
         self.tableView.reloadData()
+
+        // hide filter after launch and after selection
+        self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.tableHeaderView!.frame.height), animated: true)
     }
   }
 
   func initData() {
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
+        self.storageManager = storageManager
 
         // listen to unseenObject changes
         storageManager.unseenObjects.observeNext { _ in
@@ -153,9 +151,7 @@ class DeliverablesTableViewController: UITableViewController {
           self.tableView.reloadData()
           }.disposeIn(self.rBag)
     }
-
     updateCollection()
-
   }
 
   override func viewDidAppear(animated: Bool) {
