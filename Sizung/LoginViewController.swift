@@ -57,6 +57,8 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
 
           token.validateAndStore(.Session)
             .onSuccess() { _ in
+
+              Configuration.setLoginEmail(email!)
               self.getLongLivedToken(token.data!)
 
             }.onFailure() { error in
@@ -109,7 +111,6 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
   }
 
   func loginSuccess() {
-    Configuration.setLoginEmail(self.email!)
     self.loginDelegate?.loginSuccess(self)
   }
 
