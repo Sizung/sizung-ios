@@ -175,7 +175,7 @@ class StreamTableViewController: UITableViewController {
             self.emptyView.removeGestureRecognizer(self.showUnsubscribedGestureRecognizer!)
           }
 
-          self.unseenObjectsLabel.text = "You’re all caught up.\n\nEat a cupcake!"
+          self.unseenObjectsLabel.text = "You’re all caught up."
 
         }
       }

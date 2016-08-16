@@ -46,7 +46,6 @@ class AgendaItemsTableViewController: UITableViewController {
       data: Configuration.getSessionToken()).getUserId()
 
     self.initData()
-
     self.initSegmentedControl()
   }
 
@@ -94,8 +93,6 @@ class AgendaItemsTableViewController: UITableViewController {
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
 
-        self.storageManager = storageManager
-
         self.collection = storageManager.agendaItems.collection
           .filter { agendaItem in
 
@@ -114,26 +111,26 @@ class AgendaItemsTableViewController: UITableViewController {
             }
         }
 
-
         //    sort by created at date
         self.collection!
           .sortInPlace { left, right in
             return left.createdAt.compare(right.createdAt) == NSComparisonResult.OrderedDescending
         }
 
-
         self.tableView.tableFooterView?.hidden = self.collection!.count > 0
 
         self.tableView.reloadData()
+
+        // hide filter after launch and after selection
+        self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.tableHeaderView!.frame.height), animated: true)
     }
-
-
   }
 
   func initData() {
 
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
+        self.storageManager = storageManager
 
         // listen to unseenObject changes
         storageManager.unseenObjects.observeNext { _ in
@@ -145,7 +142,6 @@ class AgendaItemsTableViewController: UITableViewController {
           self.tableView.reloadData()
           }.disposeIn(self.rBag)
     }
-
     updateCollection()
   }
 

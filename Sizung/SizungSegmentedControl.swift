@@ -113,6 +113,7 @@ import UIKit
     var selectFrame = self.bounds
     let newWidth = selectFrame.width / CGFloat(items.count)
     selectFrame.size.width = newWidth
+    selectFrame.origin.x = (self.bounds.width - selectFrame.width)/2
     thumbView.frame = selectFrame
     thumbView.layer.cornerRadius = thumbView.frame.height / 2
 

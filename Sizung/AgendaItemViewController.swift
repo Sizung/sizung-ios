@@ -92,7 +92,12 @@ AgendaItemCreateDelegate {
 
         self.statusButton.hidden = unresolvedActionItemListCount > 0
 
-        self.actionItemListButton.setTitle("\(unresolvedActionItemListCount)", forState: .Normal)
+        var actionItemListButtonText = ""
+        if unresolvedActionItemListCount > 0 {
+          actionItemListButtonText = "\(unresolvedActionItemListCount)"
+        }
+
+        self.actionItemListButton.setTitle(actionItemListButtonText, forState: .Normal)
     }
 
     // update status text
