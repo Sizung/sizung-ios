@@ -25,7 +25,7 @@ class ConversationsViewController: UIViewController, KCFloatingActionButtonDeleg
   func emptyKCFABSelected(fab: KCFloatingActionButton) {
     let createConversationViewController = R.storyboard.conversations.create()!
     createConversationViewController.delegate = self
-    self.showViewController(createConversationViewController, sender: nil)
+    self.presentViewController(createConversationViewController, animated: true, completion: nil)
   }
 
   func filterFor(filterString: String) {
