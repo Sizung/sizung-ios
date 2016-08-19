@@ -278,6 +278,10 @@ class StreamTableViewController: UITableViewController {
 
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
+    guard indexPath.row < self.streamObjects.count else {
+      Error.log("Index out of range \(indexPath.row)/\(self.streamObjects.count)")
+      return
+    }
 
     let streamObject = self.streamObjects[indexPath.row]
 
