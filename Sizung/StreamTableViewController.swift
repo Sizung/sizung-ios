@@ -22,8 +22,6 @@ class StreamTableViewController: UITableViewController {
 
   var finishedLoading = false
 
-  var showUnsubscribedGestureRecognizer: UITapGestureRecognizer?
-
   @IBOutlet weak var loadingView: UIStackView!
   @IBOutlet weak var logoView: UIImageView!
   @IBOutlet weak var emptyView: UIStackView!
@@ -40,8 +38,6 @@ class StreamTableViewController: UITableViewController {
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 100
 
-    showUnsubscribedGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.showUnsubscribed))
-
     initData()
 
     self.refreshControl?.addTarget(
@@ -49,6 +45,9 @@ class StreamTableViewController: UITableViewController {
       action: #selector(self.updateData),
       forControlEvents: UIControlEvents.ValueChanged
     )
+
+    self.tableView.backgroundView = self.tableView.tableFooterView
+    self.tableView.tableFooterView = nil
   }
 
   override func viewDidAppear(animated: Bool) {
@@ -63,25 +62,6 @@ class StreamTableViewController: UITableViewController {
       animations: {
         self.logoView.alpha = 1
       }, completion: nil)
-  }
-
-  // see http://collindonnell.com/2015/09/29/dynamically-sized-table-view-header-or-footer-using-auto-layout/
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-
-    // Dynamic sizing for the footer view
-    if let footerview = tableView.tableFooterView {
-      let height = self.tableView.frame.height
-      var footerFrame = footerview.frame
-
-      // If we don't have this check, viewDidLayoutSubviews() will get
-      // repeatedly, causing the app to hang.
-      if height != footerFrame.size.height {
-        footerFrame.size.height = height
-        footerview.frame = footerFrame
-        tableView.tableFooterView = footerview
-      }
-    }
   }
 
   func initData() {
@@ -99,7 +79,7 @@ class StreamTableViewController: UITableViewController {
             // calculate days
             let daySet: Set<StreamObject> = Set(reducedStreamObjects.map { object in
               return StreamDateObject(date: object.sortDate)
-            })
+              })
 
             // add day objects to array
             reducedStreamObjects.unionInPlace(daySet)
@@ -155,29 +135,16 @@ class StreamTableViewController: UITableViewController {
   }
 
   func hideLoadingView() {
-    self.tableView.tableFooterView?.hidden = self.streamObjects.count > 0
+
+    self.unseenObjectsLabel.hidden = self.streamObjects.count > 0
+
     if self.finishedLoading {
       self.refreshControl?.endRefreshing()
       self.logoView.stopAnimating()
+
       UIView.animateWithDuration(0.5) {
         self.loadingView.alpha = 0
         self.emptyView.alpha = 1
-
-        //        var unseenObjectText: String
-        if let unseenCount = self.storageManager?.unseenObjects.count {
-          if unseenCount > 0 {
-            //            unseenObjectText = "You have read your subscriptions.\nBut there is still something you haven't seen\n\nTouch here to show."
-            self.emptyView.userInteractionEnabled = true
-            self.emptyView.addGestureRecognizer(self.showUnsubscribedGestureRecognizer!)
-          } else {
-            //            unseenObjectText = "You’re all caught up.\n\nEat a cupcake!"
-            self.emptyView.userInteractionEnabled = false
-            self.emptyView.removeGestureRecognizer(self.showUnsubscribedGestureRecognizer!)
-          }
-
-          self.unseenObjectsLabel.text = "You’re all caught up."
-
-        }
       }
     }
   }
@@ -363,7 +330,7 @@ class StreamTableViewController: UITableViewController {
     let conversationController = R.storyboard.conversation.initialViewController()!
     conversationController.conversation = conversation
     conversationController.openItem = item
-
+    
     self.presentViewController(conversationController, animated: true, completion: nil)
   }
 }
