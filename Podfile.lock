@@ -85,9 +85,9 @@ DEPENDENCIES:
   - AlamofireNetworkActivityIndicator
   - BrightFutures (~> 4.0)
   - Bumblebee (~> 1.0)
-  - Crashlytics (~> 3.7)
+  - Crashlytics
   - DateTools (~> 1.0)
-  - Fabric (~> 1.6)
+  - Fabric
   - ImageFilesPicker
   - JVFloatLabeledTextField
   - JWTDecode (~> 1.0)
@@ -137,6 +137,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 2fcc583535c2529039193ed0e2ee2848f8546ee1
+PODFILE CHECKSUM: e2ce34c23f8f147399d9bcdb4cb0528c35ffbf0b
 
 COCOAPODS: 1.0.1
