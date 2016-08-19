@@ -219,6 +219,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
     authToken.validate()
       .onSuccess { _ in
         let websocket =  Websocket(authToken: authToken.data!)
+
+        StorageManager.sharedInstance.websocket = websocket
+
         websocket.userWebsocketDelegate = self
 
         if let oldSocket = StorageManager.sharedInstance.websocket {
@@ -226,14 +229,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
           websocket.willFollowConversationChannels = oldSocket.willFollowConversationChannels
         }
 
-        StorageManager.sharedInstance.websocket = websocket
-
         // subscribe to user channel for unseenobjects
         if let userId = authToken.getUserId() {
-          if let websocket = StorageManager.sharedInstance.websocket {
-            websocket.userWebsocketDelegate = self
-            websocket.followUser(userId)
-          }
+          websocket.userWebsocketDelegate = self
+          websocket.followUser(userId)
         }
     }
   }
