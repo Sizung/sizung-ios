@@ -14,6 +14,10 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
   @IBOutlet weak var conversationNameTextField: UITextField!
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var addMemberContainer: UIView!
+  @IBOutlet weak var addMemberTextField: UITextField!
+
+  @IBOutlet weak var inviteButton: UIButton!
+  @IBOutlet weak var inviteButtonConstraint: NSLayoutConstraint!
 
   var conversation = Conversation(organizationId: Configuration.getSelectedOrganization()!)
 
@@ -115,11 +119,7 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
       let user = collection[indexPath.row]
 
       cell.avatarImage.user = user
-      if let firstName = user.firstName, lastName = user.lastName {
-        cell.nameLabel.text = "\(firstName) \(lastName)"
-      } else {
-        cell.nameLabel.text = "unkown"
-      }
+      cell.nameLabel.text = user.fullName
 
       if self.conversation.members.contains(user) {
         cell.deleteButton.hidden = false
@@ -201,7 +201,53 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     return false
   }
 
+  @IBAction func inviteMember(sender: AnyObject) {
+    guard let newMemberEmail = filterString else {
+      return
+    }
+
+    guard newMemberEmail.characters.count > 2 && newMemberEmail.containsString("@") else {
+      InAppMessage.showErrorMessage("Please enter a valid email address")
+      return
+    }
+
+    storageManager?.inviteOrganizationMember(newMemberEmail)
+      .onSuccess { orgMember in
+        self.addMemberTextField.resignFirstResponder()
+        self.addMemberTextField.text = ""
+        self.addMemberFieldChanged(self.addMemberTextField)
+
+        let newUser = User(userId: orgMember.memberId, email: newMemberEmail)
+
+        self.storageManager!.users.append(newUser)
+        self.storageManager!.members.append(orgMember)
+
+        self.conversation.members.append(newUser)
+
+        self.tableView.reloadData()
+      }.onFailure { _ in
+        InAppMessage.showErrorMessage("Something went wrong - Please try again")
+    }
+  }
+
   @IBAction func addMemberFieldChanged(textField: UITextField) {
+
+    if textField.text!.characters.count > 2 && textField.text!.containsString("@") {
+      inviteButtonConstraint.priority = UILayoutPriorityDefaultHigh - 1
+      self.inviteButton.hidden = false
+      UIView.animateWithDuration(0.3) {
+        self.view.layoutIfNeeded()
+        self.inviteButton.alpha = 1
+      }
+    } else {
+      inviteButtonConstraint.priority = UILayoutPriorityDefaultHigh + 1
+      UIView.animateWithDuration(0.3, animations: {
+        self.view.layoutIfNeeded()
+        self.inviteButton.alpha = 0
+        }, completion: { _ in
+          self.inviteButton.hidden = true
+      })
+    }
 
     filterString = textField.text
     if filterString?.characters.count == 0 {

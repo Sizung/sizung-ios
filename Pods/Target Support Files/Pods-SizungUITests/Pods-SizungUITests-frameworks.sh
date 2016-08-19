@@ -91,3 +91,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Nimble/Nimble.framework"
   install_framework "$BUILT_PRODUCTS_DIR/OHHTTPStubs/OHHTTPStubs.framework"
 fi
+if [[ "$CONFIGURATION" == "Beta" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/Nimble/Nimble.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/OHHTTPStubs/OHHTTPStubs.framework"
+fi

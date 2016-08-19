@@ -66,7 +66,11 @@ enum Log: SizungLog {
     #if RELEASE_VERSION
       Answers.logCustomEventWithName(self.name, customAttributes: self.attributes)
     #else
-      print("log: \(self.name) \(self.attributes)")
+      if let attributes = self.attributes {
+        print("log: \(self.name) \(attributes)")
+      } else {
+        print("log: \(self.name)")
+      }
     #endif
   }
 }

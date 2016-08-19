@@ -30,8 +30,8 @@ target 'Sizung' do
   
   pod 'R.swift', '~> 2.3'
 
-  pod 'Fabric', '~> 1.6'
-  pod 'Crashlytics', '~> 3.7'
+  pod 'Fabric'
+  pod 'Crashlytics'
 
   target 'SizungTests' do
     inherit! :search_paths
