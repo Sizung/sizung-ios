@@ -22,6 +22,8 @@ class AgendaItemsTableViewController: UITableViewController {
 
   @IBOutlet weak var segmentedControl: AKSegmentedControl!
 
+  var emptyView: UIView?
+
   enum Filter {
     case Mine
     case All
@@ -41,6 +43,9 @@ class AgendaItemsTableViewController: UITableViewController {
       R.nib.agendaItemTableViewCell(),
       forCellReuseIdentifier: R.nib.agendaItemTableViewCell.identifier
     )
+
+    self.emptyView = self.tableView.tableFooterView
+    self.tableView.tableFooterView = nil
 
     userId = AuthToken(
       data: Configuration.getSessionToken()).getUserId()
@@ -117,7 +122,11 @@ class AgendaItemsTableViewController: UITableViewController {
             return left.createdAt.compare(right.createdAt) == NSComparisonResult.OrderedDescending
         }
 
-        self.tableView.tableFooterView?.hidden = self.collection!.count > 0
+        if self.collection!.count > 0 {
+          self.tableView.backgroundView = nil
+        } else {
+          self.tableView.backgroundView = self.emptyView
+        }
 
         self.tableView.reloadData()
 
