@@ -239,6 +239,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
 
   private func loadUrl(url: NSURL) -> Bool {
     if let pathComponents = url.pathComponents {
+
+      // check for root link
+      if pathComponents.count == 1 {
+        Log.message("link to unknown: \(url)").send()
+        return false
+      }
+
       guard pathComponents.count == 3 else {
 
         let message = "loadURL wrong number of path components: \(url)"
@@ -259,6 +266,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
 
       let type = pathComponents[1]
       let itemId = pathComponents[2]
+
+      // blacklist/ignore some links
+      guard !["users"].contains(type) else {
+        Log.message("link to unknown type \(type) with id: \(itemId)").send()
+        return false
+      }
 
       // check for known types only
       guard ["agenda_items", "deliverables", "conversations", "attachments", "organizations"].contains(type) else {
