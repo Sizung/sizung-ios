@@ -789,7 +789,7 @@ struct R: Rswift.Validatable {
 
 struct _R: Rswift.Validatable {
   static let applicationLocale = hostingBundle.preferredLocalizations.first.flatMap(NSLocale.init) ?? NSLocale.currentLocale()
-  static let hostingBundle = NSBundle(identifier: "com.sizung.app.ios") ?? NSBundle.mainBundle()
+  static let hostingBundle = NSBundle(identifier: "com.sizung.app.ios.dev") ?? NSBundle.mainBundle()
   
   static func validate() throws {
     try storyboard.validate()
