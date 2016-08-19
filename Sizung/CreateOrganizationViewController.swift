@@ -103,11 +103,7 @@ class CreateOrganizationViewController: UIViewController, UITableViewDelegate, U
       let user = collection[indexPath.row]
 
       cell.avatarImage.user = user
-      if user.firstName != nil && user.lastName != nil {
-        cell.nameLabel.text = user.fullName
-      } else {
-        cell.nameLabel.text = user.email
-      }
+      cell.nameLabel.text = user.fullName
 
       cell.deleteButton.hidden = false
       cell.deleteButton.tag = indexPath.row
@@ -246,6 +242,7 @@ class CreateOrganizationViewController: UIViewController, UITableViewDelegate, U
       self.inviteButton.hidden = false
       UIView.animateWithDuration(0.3) {
         self.view.layoutIfNeeded()
+        self.addMemberTextField.layoutIfNeeded()
         self.inviteButton.alpha = 1
       }
     } else {

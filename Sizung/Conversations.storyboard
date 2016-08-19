@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MWY-fV-Qqd">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Brandon_med.otf">
+            <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
             <string>BrandonGrotesque-Medium</string>
@@ -195,14 +195,27 @@
                                             <outlet property="delegate" destination="JUQ-KH-sRP" id="ISl-oH-OIF"/>
                                         </connections>
                                     </tableView>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9i7-2y-9dO">
+                                        <rect key="frame" x="542" y="26" width="38" height="37"/>
+                                        <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
+                                        <state key="normal" title="Invite">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="inviteMember:" destination="JUQ-KH-sRP" eventType="touchUpInside" id="O40-dY-t2T"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Q3n-xc-5fn" firstAttribute="leading" secondItem="doH-ar-Lp3" secondAttribute="leading" constant="20" id="AgN-d1-xBk"/>
                                     <constraint firstItem="Q3n-xc-5fn" firstAttribute="top" secondItem="doH-ar-Lp3" secondAttribute="top" constant="20" id="BI9-PS-JQu"/>
+                                    <constraint firstAttribute="trailing" secondItem="9i7-2y-9dO" secondAttribute="trailing" constant="20" id="CsD-ng-81y"/>
+                                    <constraint firstItem="9i7-2y-9dO" firstAttribute="centerY" secondItem="Q3n-xc-5fn" secondAttribute="centerY" id="D1g-Rl-9dh"/>
                                     <constraint firstAttribute="trailing" secondItem="kin-uQ-IfM" secondAttribute="trailing" id="NKX-ZF-9cl"/>
                                     <constraint firstItem="kin-uQ-IfM" firstAttribute="top" secondItem="Q3n-xc-5fn" secondAttribute="bottom" constant="8" id="Yhi-v2-E6B"/>
-                                    <constraint firstAttribute="trailing" secondItem="Q3n-xc-5fn" secondAttribute="trailing" constant="20" id="Yow-0P-AM8"/>
+                                    <constraint firstAttribute="trailing" secondItem="Q3n-xc-5fn" secondAttribute="trailing" priority="751" constant="20" id="Yow-0P-AM8"/>
+                                    <constraint firstItem="9i7-2y-9dO" firstAttribute="leading" secondItem="Q3n-xc-5fn" secondAttribute="trailing" priority="750" constant="20" id="a0N-Y5-5mL"/>
                                     <constraint firstAttribute="bottom" secondItem="kin-uQ-IfM" secondAttribute="bottom" id="kGC-un-TaI"/>
                                     <constraint firstItem="kin-uQ-IfM" firstAttribute="leading" secondItem="doH-ar-Lp3" secondAttribute="leading" id="wWb-2V-VA3"/>
                                 </constraints>
@@ -224,7 +237,10 @@
                     </view>
                     <connections>
                         <outlet property="addMemberContainer" destination="Q3n-xc-5fn" id="o5O-gk-Sjm"/>
+                        <outlet property="addMemberTextField" destination="8Y6-Xx-O3Y" id="Lya-2h-ee6"/>
                         <outlet property="conversationNameTextField" destination="0OH-yE-3kS" id="PH6-3g-97Q"/>
+                        <outlet property="inviteButton" destination="9i7-2y-9dO" id="eNJ-RG-6nz"/>
+                        <outlet property="inviteButtonConstraint" destination="Yow-0P-AM8" id="Eem-dq-Puc"/>
                         <outlet property="tableView" destination="kin-uQ-IfM" id="tzO-cm-JqW"/>
                         <outlet property="titleButton" destination="zjd-zW-dNY" id="3jn-mP-Rgu"/>
                     </connections>
@@ -245,7 +261,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Haven't found what your looking for? Create a Conversation" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ol-Ql-eVK">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Haven't found what your looking for? Create a Conversation" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ol-Ql-eVK">
                                     <rect key="frame" x="177" y="25" width="246" height="49"/>
                                     <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                     <color key="textColor" red="0.66666668653488159" green="0.45882353186607361" blue="0.27450981736183167" alpha="1" colorSpace="calibratedRGB"/>
@@ -283,6 +299,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="close" width="32" height="32"/>
+        <image name="close" width="15" height="15"/>
     </resources>
 </document>

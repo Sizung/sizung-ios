@@ -40,8 +40,10 @@ class User: BaseModel {
   var fullName: String {
     if let firstName = firstName, lastName = lastName {
       return "\(firstName) \(lastName)"
+    } else if let email = email {
+      return email
     } else {
-      return "??"
+      return "unkown"
     }
   }
 
