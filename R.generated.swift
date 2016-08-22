@@ -789,7 +789,7 @@ struct R: Rswift.Validatable {
 
 struct _R: Rswift.Validatable {
   static let applicationLocale = hostingBundle.preferredLocalizations.first.flatMap(NSLocale.init) ?? NSLocale.currentLocale()
-  static let hostingBundle = NSBundle(identifier: "com.sizung.app.ios") ?? NSBundle.mainBundle()
+  static let hostingBundle = NSBundle(identifier: "com.sizung.app.ios.dev") ?? NSBundle.mainBundle()
   
   static func validate() throws {
     try storyboard.validate()
@@ -1265,7 +1265,6 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
-        if UIImage(named: "organization_fallback") == nil { throw ValidationError(description: "[R.swift] Image named 'organization_fallback' is used in storyboard 'Organization', but couldn't be loaded.") }
         if UIImage(named: "bg_search") == nil { throw ValidationError(description: "[R.swift] Image named 'bg_search' is used in storyboard 'Organization', but couldn't be loaded.") }
         if UIImage(named: "close") == nil { throw ValidationError(description: "[R.swift] Image named 'close' is used in storyboard 'Organization', but couldn't be loaded.") }
         if UIImage(named: "logo") == nil { throw ValidationError(description: "[R.swift] Image named 'logo' is used in storyboard 'Organization', but couldn't be loaded.") }

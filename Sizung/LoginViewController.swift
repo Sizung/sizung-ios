@@ -151,6 +151,11 @@ public class LoginViewController: UIViewController, UITextFieldDelegate {
     return true
   }
 
+  @IBAction func forgotPassword(sender: AnyObject) {
+    let forgotPasswordUrl = NSURL(string: "\(Configuration.BaseURL())/users/password/new")!
+    UIApplication.sharedApplication().openURL(forgotPasswordUrl)
+  }
+
   @IBAction func logout(sender: AnyObject) {
     Configuration.reset()
     StorageManager.sharedInstance.reset()

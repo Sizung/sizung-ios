@@ -28,4 +28,12 @@ class Organization: BaseModel {
     name <- map["attributes.name"]
     ownerId <- map["relationships.owner.data.id"]
   }
+
+  func getInitial() -> String {
+    if let firstCharacter = name.characters.first {
+      return String(firstCharacter).uppercaseString
+    } else {
+      return ""
+    }
+  }
 }
