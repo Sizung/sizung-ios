@@ -8,12 +8,10 @@
 
 
 #if RELEASE_VERSION
-let kServerUrl = "https://app.sizung.com/api"
-let kWebSocketOriginUrl = "https://app.sizung.com"
+let kBaseURL = "https://app.sizung.com"
 let kWebsocketUrl = "wss://app.sizung.com/websocket"
 #else
-let kServerUrl = "https://staging-sizung.herokuapp.com/api"
-let kWebSocketOriginUrl = "https://staging-sizung.herokuapp.com"
+let kBaseURL = "https://staging-sizung.herokuapp.com"
 let kWebsocketUrl = "wss://staging-sizung.herokuapp.com/websocket"
 #endif
 
@@ -23,8 +21,12 @@ import SwiftKeychainWrapper
 
 class Configuration: NSObject {
 
+  class func BaseURL() -> String {
+    return kBaseURL
+  }
+
   class func APIEndpoint() -> String {
-    return kServerUrl
+    return "\(kBaseURL)/api"
   }
 
   class func websocketEndpoint() -> String {
@@ -32,7 +34,7 @@ class Configuration: NSObject {
   }
 
   class func websocketOrigin() -> String {
-    return kWebSocketOriginUrl
+    return kBaseURL
   }
 
   class func reset() {
