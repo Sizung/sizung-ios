@@ -18,7 +18,7 @@ class StreamTableViewController: UITableViewController {
 
   var filteredUnseenObjects = CollectionProperty<Array<UnseenObject>>([])
   var filteredUnseenObjectsDisposable: Disposable? = nil
-  var streamObjects = CollectionProperty<Array<StreamObject>>([])
+  var streamObjects: [StreamObject] = []
 
   var finishedLoading = false
 
@@ -74,29 +74,28 @@ class StreamTableViewController: UITableViewController {
           let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
           dispatch_async(dispatch_get_global_queue(priority, 0)) {
 
-            var reducedStreamObjects: Set<StreamObject> = self.filteredUnseenObjects.collection.reduce(Set(), combine: self.reduceUnseenObjectsToStreamObjects)
+            let reducedStreamObjects: Dictionary<String, StreamObject> = self.filteredUnseenObjects.collection.reduce([:], combine: self.reduceUnseenObjectsToStreamObjects)
 
             // calculate days
-            let daySet: Set<StreamObject> = Set(reducedStreamObjects.map { object in
-              return StreamDateObject(date: object.sortDate)
+            let daySet: Set<StreamObject> = Set(reducedStreamObjects.map { (timeLineId, streamObject) in
+              return StreamDateObject(date: streamObject.sortDate)
               })
 
-            // add day objects to array
-            reducedStreamObjects.unionInPlace(daySet)
+            // merge day seperator objects and streamobjects
+            let streamAndDayObjects = daySet.union(reducedStreamObjects.values)
 
-            let sortedObjects = reducedStreamObjects.sort {
+            let sortedObjects = streamAndDayObjects.sort {
               $0.0.sortDate.isLaterThan($0.1.sortDate)
             }
 
-            self.streamObjects.replace(sortedObjects, performDiff: true)
+            self.streamObjects = sortedObjects
 
             dispatch_async(dispatch_get_main_queue()) {
+              self.tableView.reloadData()
               self.hideLoadingView()
             }
           }
           }.disposeIn(self.rBag)
-
-        self.streamObjects.bindTo(self.tableView, animated: true, createCell: self.cellForRow)
 
         self.showSubscribed()
         self.updateData()
@@ -165,12 +164,10 @@ class StreamTableViewController: UITableViewController {
       }.bindTo(self.filteredUnseenObjects)
   }
 
-  func reduceUnseenObjectsToStreamObjects(prev: Set<StreamBaseObject>, unseenObject: UnseenObject) -> Set<StreamBaseObject> {
+  func reduceUnseenObjectsToStreamObjects(prev: Dictionary<String, StreamBaseObject>, unseenObject: UnseenObject) -> Dictionary<String, StreamBaseObject> {
     var next = prev
 
-    var streamObject = prev.filter { streamObject in
-      return streamObject.subject.id == unseenObject.timelineId
-      }.first
+    var streamObject = prev[unseenObject.timelineId!]
 
     if streamObject == nil {
       switch unseenObject.timeline {
@@ -194,7 +191,7 @@ class StreamTableViewController: UITableViewController {
         return next
       }
 
-      next.insert(streamObject!)
+      next[unseenObject.timelineId!] = streamObject
     }
 
     // update last actiondate
@@ -234,7 +231,11 @@ class StreamTableViewController: UITableViewController {
     }
   }
 
-  func cellForRow(indexPath: NSIndexPath, streamObjects: [StreamObject], tableView: UITableView) -> UITableViewCell {
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return streamObjects.count
+  }
+
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
     let streamObject = streamObjects[indexPath.row]
 
@@ -334,7 +335,7 @@ class StreamTableViewController: UITableViewController {
     let conversationController = R.storyboard.conversation.initialViewController()!
     conversationController.conversation = conversation
     conversationController.openItem = item
-    
+
     self.presentViewController(conversationController, animated: true, completion: nil)
   }
 }
