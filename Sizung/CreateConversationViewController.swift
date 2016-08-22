@@ -46,7 +46,7 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
   var collection: [User] {
     get {
-      guard storageManager != nil else {
+      guard storageManager != nil && conversation.members != nil else {
         return []
       }
 
