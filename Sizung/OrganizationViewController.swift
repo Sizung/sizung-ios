@@ -47,7 +47,7 @@ class OrganizationViewController: UIViewController, OrganizationTableViewDelegat
           self.showViewController(conversationViewController, sender: nil)
           self.conversationViewController = nil
         }
-        self.titleButton.setTitle(storageManager.organization.name, forState: .Normal)
+        self.titleButton.setTitle(storageManager.organization.getInitial(), forState: .Normal)
     }
   }
 
