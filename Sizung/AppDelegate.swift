@@ -220,8 +220,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
       .onSuccess { _ in
         let websocket =  Websocket(authToken: authToken.data!)
 
-        StorageManager.sharedInstance.websocket = websocket
-
         websocket.userWebsocketDelegate = self
 
         if let oldSocket = StorageManager.sharedInstance.websocket {
@@ -234,6 +232,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, OrganizationTableViewDele
           websocket.userWebsocketDelegate = self
           websocket.followUser(userId)
         }
+
+        StorageManager.sharedInstance.websocket = websocket
     }
   }
 
