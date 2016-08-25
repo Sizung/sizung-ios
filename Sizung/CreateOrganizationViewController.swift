@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MRProgress
 
 class CreateOrganizationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
@@ -155,12 +156,16 @@ class CreateOrganizationViewController: UIViewController, UITableViewDelegate, U
         self.dismissViewControllerAnimated(true, completion: nil)
         delegate?.organizationCreated(self.organization!)
       }
+      MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
     }
 
     func errorFunc(error: StorageError) {
       InAppMessage.showErrorMessage("There has been an error saving your organization - Please try again")
       sender.enabled = true
+      MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
     }
+    
+    MRProgressOverlayView.showOverlayAddedTo(self.view, title: "Saving", mode: .Indeterminate, animated: true)
 
     // save conversation
     if organization!.new {

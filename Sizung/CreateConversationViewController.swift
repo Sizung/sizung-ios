@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MRProgress
 
 class CreateConversationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
@@ -147,12 +148,16 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     func successFunc(conversation: Conversation) {
       self.dismissViewControllerAnimated(true, completion: nil)
       delegate?.conversationCreated(conversation)
+      MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
     }
 
     func errorFunc(error: StorageError) {
       InAppMessage.showErrorMessage("There has been an error saving your conversation - Please try again")
+      MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
       sender.enabled = true
     }
+
+    MRProgressOverlayView.showOverlayAddedTo(self.view, title: "Saving", mode: .Indeterminate, animated: true)
 
     // save conversation
     if conversation.new {
