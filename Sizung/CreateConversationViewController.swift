@@ -27,35 +27,17 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
   var delegate: ConversationCreateDelegate?
 
-  var possibleMembers: [User] {
-    get {
-      let conversationMembers = conversation.members.map {user in
-        return storageManager!.users[user.id]!
-      }
-      let diff = Set(storageManager!.users.collection).subtract(conversationMembers)
-      if let filterString = filterString {
-        return Array(diff).filter { user in
-          return user.fullName.lowercaseString.containsString(filterString.lowercaseString)        }
-      } else {
-        return Array(diff)
-      }
-    }
-  }
-
-  var addMode = false
-
   var collection: [User] {
     get {
-      guard storageManager != nil && conversation.members != nil else {
-        return []
-      }
-
-      if addMode {
-        return possibleMembers
-      } else {
-        return conversation.members.map {user in
-          return (storageManager?.users[user.id])!
+      if let storageManager = storageManager {
+        if let filterString = filterString {
+          return storageManager.users.collection.filter { user in
+            return user.fullName.lowercaseString.containsString(filterString.lowercaseString)        }
+        } else {
+          return storageManager.users.collection
         }
+      } else {
+        return []
       }
     }
   }
@@ -88,8 +70,6 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     } else {
       self.addMemberTextField.placeholder = "Select User Below or Enter Email"
     }
-
-    addMode = self.conversation.new
 
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
@@ -144,7 +124,7 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     let user = collection[indexPath.row]
     if !self.conversation.members.contains(user) {
       self.conversation.members.append(user)
-      self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
+      self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     }
   }
 
@@ -186,20 +166,19 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
     let buttonPosition = sender.convertPoint(CGPoint.zero, toView: self.tableView)
     if let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition) {
-      self.conversation.members.removeAtIndex(indexPath.row)
-      self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Right)
+      let user = self.collection[indexPath.row]
+      self.conversation.members.removeAtIndex(self.conversation.members.indexOf(user)!)
+      self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     } else {
       fatalError()
     }
   }
 
   func textFieldDidBeginEditing(textField: UITextField) {
-    addMode = true
     self.tableView.reloadData()
   }
 
   func textFieldDidEndEditing(textField: UITextField) {
-    addMode = false
     self.tableView.reloadData()
   }
 
