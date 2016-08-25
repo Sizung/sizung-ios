@@ -125,7 +125,6 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
       if self.conversation.members.contains(user) {
         cell.deleteButton.hidden = false
-        cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action: #selector(self.removeMember), forControlEvents: .TouchUpInside)
         cell.selectionStyle = .None
       } else {
@@ -182,9 +181,14 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
   }
 
   func removeMember(sender: UIButton) {
-    let indexPath = NSIndexPath(forRow: sender.tag, inSection: 0)
-    self.conversation.members.removeAtIndex(indexPath.row)
-    self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+
+    let buttonPosition = sender.convertPoint(CGPoint.zero, toView: self.tableView)
+    if let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition) {
+      self.conversation.members.removeAtIndex(indexPath.row)
+      self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Right)
+    } else {
+      fatalError()
+    }
   }
 
   func textFieldDidBeginEditing(textField: UITextField) {

@@ -106,7 +106,6 @@ class CreateOrganizationViewController: UIViewController, UITableViewDelegate, U
       cell.nameLabel.text = user.fullName
 
       cell.deleteButton.hidden = false
-      cell.deleteButton.tag = indexPath.row
       cell.deleteButton.addTarget(self, action: #selector(self.removeMember), forControlEvents: .TouchUpInside)
 
       return cell
@@ -200,24 +199,28 @@ class CreateOrganizationViewController: UIViewController, UITableViewDelegate, U
     let alertController = UIAlertController(title: "Remove Member?", message:nil, preferredStyle: UIAlertControllerStyle.Alert)
     alertController.addAction(UIAlertAction(title: "Remove", style: .Destructive, handler: { _ in
 
-      let indexPath = NSIndexPath(forRow: sender.tag, inSection: 0)
-      let user = self.collection[indexPath.row]
+      let buttonPosition = sender.convertPoint(CGPoint.zero, toView: self.tableView)
+      if let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition) {
+        let user = self.collection[indexPath.row]
 
-      if let member = self.storageManager!.getOrganizationMember(user.id) {
+        if let member = self.storageManager!.getOrganizationMember(user.id) {
 
-        self.storageManager!.deleteOrganizationMember(member.id)
-          .onSuccess { _ in
-            InAppMessage.showSuccessMessage("Member removed")
+          self.storageManager!.deleteOrganizationMember(member.id)
+            .onSuccess { _ in
+              InAppMessage.showSuccessMessage("Member removed")
 
-            if let userIndex = self.storageManager?.users.indexOf(user) {
-              self.storageManager?.users.removeAtIndex(userIndex)
-            }
-            if let memberIndex = self.storageManager?.members.indexOf(member) {
-              self.storageManager?.members.removeAtIndex(memberIndex)
-            }
-            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
-          }.onFailure { _ in
-            InAppMessage.showErrorMessage("Something went wrong - Please try again")
+              if let userIndex = self.storageManager?.users.indexOf(user) {
+                self.storageManager?.users.removeAtIndex(userIndex)
+              }
+              if let memberIndex = self.storageManager?.members.indexOf(member) {
+                self.storageManager?.members.removeAtIndex(memberIndex)
+              }
+              self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+            }.onFailure { _ in
+              InAppMessage.showErrorMessage("Something went wrong - Please try again")
+          }
+        } else {
+          fatalError()
         }
       } else {
         fatalError()
