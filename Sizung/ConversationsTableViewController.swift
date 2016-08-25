@@ -103,10 +103,6 @@ class ConversationsTableViewController: UITableViewController, ConversationCreat
         }
       }
     }
-
-    filteredCollection.observeNext { _ in
-      self.tableView.tableFooterView?.hidden = self.filteredCollection.count > 0
-    }.disposeIn(rBag)
   }
 
   func filterFor(filterString: String) {

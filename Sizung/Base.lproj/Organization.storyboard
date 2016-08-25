@@ -241,7 +241,7 @@
                                             <action selector="showOrganizations:" destination="zbj-sK-a1Q" eventType="touchUpInside" id="QVV-Tt-SNO"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Who do you want to talk to?" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" background="bg_search" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Qaa-Mh-6hu">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Conversations" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" background="bg_search" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Qaa-Mh-6hu">
                                         <rect key="frame" x="60" y="4" width="510" height="30"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>

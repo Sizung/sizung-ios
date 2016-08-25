@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MRProgress
 
 class CreateConversationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
@@ -27,35 +28,17 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
   var delegate: ConversationCreateDelegate?
 
-  var possibleMembers: [User] {
-    get {
-      let conversationMembers = conversation.members.map {user in
-        return storageManager!.users[user.id]!
-      }
-      let diff = Set(storageManager!.users.collection).subtract(conversationMembers)
-      if let filterString = filterString {
-        return Array(diff).filter { user in
-          return user.fullName.lowercaseString.containsString(filterString.lowercaseString)        }
-      } else {
-        return Array(diff)
-      }
-    }
-  }
-
-  var addMode = false
-
   var collection: [User] {
     get {
-      guard storageManager != nil && conversation.members != nil else {
-        return []
-      }
-
-      if addMode {
-        return possibleMembers
-      } else {
-        return conversation.members.map {user in
-          return (storageManager?.users[user.id])!
+      if let storageManager = storageManager {
+        if let filterString = filterString {
+          return storageManager.users.collection.filter { user in
+            return user.fullName.lowercaseString.containsString(filterString.lowercaseString)        }
+        } else {
+          return storageManager.users.collection
         }
+      } else {
+        return []
       }
     }
   }
@@ -85,6 +68,8 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
     if !conversation.new {
       titleButton.text = "Edit '\(conversation.title)'"
+    } else {
+      self.addMemberTextField.placeholder = "Select User Below or Enter Email"
     }
 
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
@@ -123,7 +108,6 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
       if self.conversation.members.contains(user) {
         cell.deleteButton.hidden = false
-        cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action: #selector(self.removeMember), forControlEvents: .TouchUpInside)
         cell.selectionStyle = .None
       } else {
@@ -141,7 +125,7 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     let user = collection[indexPath.row]
     if !self.conversation.members.contains(user) {
       self.conversation.members.append(user)
-      self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
+      self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     }
   }
 
@@ -164,12 +148,16 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
     func successFunc(conversation: Conversation) {
       self.dismissViewControllerAnimated(true, completion: nil)
       delegate?.conversationCreated(conversation)
+      MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
     }
 
     func errorFunc(error: StorageError) {
       InAppMessage.showErrorMessage("There has been an error saving your conversation - Please try again")
+      MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
       sender.enabled = true
     }
+
+    MRProgressOverlayView.showOverlayAddedTo(self.view, title: "Saving", mode: .Indeterminate, animated: true)
 
     // save conversation
     if conversation.new {
@@ -180,18 +168,22 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
   }
 
   func removeMember(sender: UIButton) {
-    let indexPath = NSIndexPath(forRow: sender.tag, inSection: 0)
-    self.conversation.members.removeAtIndex(indexPath.row)
-    self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+
+    let buttonPosition = sender.convertPoint(CGPoint.zero, toView: self.tableView)
+    if let indexPath = self.tableView.indexPathForRowAtPoint(buttonPosition) {
+      let user = self.collection[indexPath.row]
+      self.conversation.members.removeAtIndex(self.conversation.members.indexOf(user)!)
+      self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    } else {
+      fatalError()
+    }
   }
 
   func textFieldDidBeginEditing(textField: UITextField) {
-    addMode = true
     self.tableView.reloadData()
   }
 
   func textFieldDidEndEditing(textField: UITextField) {
-    addMode = false
     self.tableView.reloadData()
   }
 
