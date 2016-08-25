@@ -87,6 +87,8 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
       titleButton.text = "Edit '\(conversation.title)'"
     }
 
+    addMode = self.conversation.new
+
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
   }
