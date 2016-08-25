@@ -18,6 +18,7 @@ extension TimelineTableViewController: WebsocketDelegate {
   }
 
   func onFollowSuccess(itemId: String) {
+    InAppMessage.showSuccessMessage("Reconnected to sizung")
   }
 
   func onReceived(conversationObject: BaseModel) {
