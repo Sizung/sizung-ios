@@ -85,6 +85,8 @@ class CreateConversationViewController: UIViewController, UITableViewDelegate, U
 
     if !conversation.new {
       titleButton.text = "Edit '\(conversation.title)'"
+    } else {
+      self.addMemberTextField.placeholder = "Select User Below or Enter Email"
     }
 
     addMode = self.conversation.new
