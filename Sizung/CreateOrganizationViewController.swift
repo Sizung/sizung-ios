@@ -164,7 +164,7 @@ class CreateOrganizationViewController: UIViewController, UITableViewDelegate, U
       sender.enabled = true
       MRProgressOverlayView.dismissOverlayForView(self.view, animated: true)
     }
-    
+
     MRProgressOverlayView.showOverlayAddedTo(self.view, title: "Saving", mode: .Indeterminate, animated: true)
 
     // save conversation
