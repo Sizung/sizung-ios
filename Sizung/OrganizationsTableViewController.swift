@@ -35,8 +35,6 @@ class OrganizationsTableViewController: UITableViewController {
 
   var organizationTableViewDelegate: OrganizationTableViewDelegate?
 
-  var userId: String?
-
   var dragView: UIView? = nil
   var dragSourceIndexPath: NSIndexPath? = nil
 
@@ -55,8 +53,6 @@ class OrganizationsTableViewController: UITableViewController {
       R.nib.organizationTableViewCell(),
       forCellReuseIdentifier: R.nib.organizationTableViewCell.identifier
     )
-
-    userId = AuthToken(data: Configuration.getSessionToken()).getUserId()
 
     self.initData()
   }
@@ -81,8 +77,6 @@ class OrganizationsTableViewController: UITableViewController {
         }
 
         cell.unreadStatusView.alpha = hasUnseenObject ? 1 : 0
-
-        cell.editButton.hidden = organization.ownerId != self.userId
 
         cell.editButton.tag = indexPath.row
         cell.editButton.addTarget(self, action: #selector(self.editOrganization(_:)), forControlEvents: .TouchUpInside)
