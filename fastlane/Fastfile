@@ -34,8 +34,10 @@ platform :ios do
   desc "This will also make sure the profile is up to date"
   lane :beta do
     cert
-    sigh
-    gym(scheme: "SizungStaging") # Build your app - more options available
+    sigh(adhoc:true)
+    gym(
+      scheme: "SizungStaging"
+    )
     crashlytics(
       api_token: secrets['crashlytics']['api_token'],
       build_secret: secrets['crashlytics']['build_secret'],
@@ -47,8 +49,8 @@ platform :ios do
     # You can also use other beta testing services here (run `fastlane actions`)
   end
 
-  desc "Deploy a new version to the App Store"
-  lane :appstore do
+  desc "Release a new version to the App Store"
+  lane :release do
     # match(type: "appstore")
     # snapshot
     gym(scheme: "Sizung") # Build your app - more options available

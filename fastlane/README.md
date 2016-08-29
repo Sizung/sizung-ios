@@ -18,11 +18,11 @@ fastlane ios beta
 Submit a new Beta Build to Crashlytics
 
 This will also make sure the profile is up to date
-### ios appstore
+### ios release
 ```
-fastlane ios appstore
+fastlane ios release
 ```
-Deploy a new version to the App Store
+Release a new version to the App Store
 
 ----
 

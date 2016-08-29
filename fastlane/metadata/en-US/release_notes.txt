@@ -1,3 +1,4 @@
-Add new users from conversation
-Visual improvements
-Stability improvements
+New app icon
+Improved conversation member handling
+General visual improvements
+Fix timeline reconnection issue
