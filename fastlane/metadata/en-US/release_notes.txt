@@ -1,0 +1,4 @@
+New app icon
+Improved conversation member handling
+General visual improvements
+Fix timeline reconnection issue
