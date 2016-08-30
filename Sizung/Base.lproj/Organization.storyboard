@@ -163,7 +163,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ojd-fT-4s6" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ojd-fT-4s6" customClass="SizungButton" customModule="Sizung" customModuleProvider="target">
                                 <rect key="frame" x="278" y="278" width="44" height="44"/>
                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="15"/>
                                 <state key="normal" title="Logout">
@@ -181,7 +181,7 @@
                                     <action selector="close:" destination="60j-uB-VEk" eventType="touchUpInside" id="E40-Hv-3ud"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iN9-kd-sHh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iN9-kd-sHh">
                                 <rect key="frame" x="559" y="577" width="21" height="15"/>
                                 <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="10"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -545,8 +545,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Z2K-XU-bkk">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tHf-in-uHc" customClass="AKSegmentedControl">
+                                    <rect key="frame" x="200" y="11" width="200" height="23"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="200" id="8mc-6S-v0n"/>
+                                        <constraint firstAttribute="height" constant="23" id="wqx-Tx-0cs"/>
+                                    </constraints>
+                                    <connections>
+                                        <action selector="filterData:" destination="tFd-BB-9yw" eventType="valueChanged" id="Jr3-gk-2IY"/>
+                                    </connections>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="tHf-in-uHc" firstAttribute="centerY" secondItem="Z2K-XU-bkk" secondAttribute="centerY" id="L9z-WE-AJn"/>
+                                <constraint firstItem="tHf-in-uHc" firstAttribute="centerX" secondItem="Z2K-XU-bkk" secondAttribute="centerX" id="fbQ-LW-UDA"/>
+                            </constraints>
+                        </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="7Xd-Pn-aNx">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="601"/>
+                            <rect key="frame" x="0.0" y="44" width="600" height="601"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ce4-kB-xvX">
@@ -560,14 +582,14 @@
                                         </label>
                                     </subviews>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="0Lv-v1-Epb">
-                                    <rect key="frame" x="186" y="164" width="229" height="274"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="0Lv-v1-Epb">
+                                    <rect key="frame" x="186" y="164" width="156" height="159"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="OSC-k1-EDF">
-                                            <rect key="frame" x="0.0" y="0.0" width="229" height="229"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="156" height="114"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your stream is loading…" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwA-7P-zng">
-                                            <rect key="frame" x="0.0" y="249" width="229" height="25"/>
+                                            <rect key="frame" x="0.0" y="134" width="156" height="25"/>
                                             <fontDescription key="fontDescription" name="BrandonGrotesque-Medium" family="Brandon Grotesque" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -595,6 +617,7 @@
                         <outlet property="emptyView" destination="ce4-kB-xvX" id="Nas-g4-Fyw"/>
                         <outlet property="loadingView" destination="0Lv-v1-Epb" id="Cwi-xC-I10"/>
                         <outlet property="logoView" destination="OSC-k1-EDF" id="xk4-h8-94x"/>
+                        <outlet property="segmentedControl" destination="tHf-in-uHc" id="7Ra-oI-fx3"/>
                         <outlet property="unseenObjectsLabel" destination="lRr-eX-SII" id="Qew-pA-2bX"/>
                     </connections>
                 </tableViewController>
@@ -606,7 +629,7 @@
     <resources>
         <image name="bg_search" width="27" height="30"/>
         <image name="close" width="15" height="15"/>
-        <image name="logo" width="229" height="229"/>
+        <image name="logo" width="114" height="114"/>
         <image name="priority" width="30" height="20"/>
     </resources>
 </document>

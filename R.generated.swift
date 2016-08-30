@@ -134,7 +134,7 @@ struct R: Rswift.Validatable {
     private init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 32 images.
+  /// This `R.image` struct is generated, and contains static references to 36 images.
   struct image {
     /// Image `action_title`.
     static let action_title = ImageResource(bundle: _R.hostingBundle, name: "action_title")
@@ -186,6 +186,14 @@ struct R: Rswift.Validatable {
     static let default_avatar = ImageResource(bundle: _R.hostingBundle, name: "default_avatar")
     /// Image `delete`.
     static let delete = ImageResource(bundle: _R.hostingBundle, name: "delete")
+    /// Image `discussions_filter_all`.
+    static let discussions_filter_all = ImageResource(bundle: _R.hostingBundle, name: "discussions_filter_all")
+    /// Image `discussions_filter_all_selected`.
+    static let discussions_filter_all_selected = ImageResource(bundle: _R.hostingBundle, name: "discussions_filter_all_selected")
+    /// Image `discussions_filter_mine`.
+    static let discussions_filter_mine = ImageResource(bundle: _R.hostingBundle, name: "discussions_filter_mine")
+    /// Image `discussions_filter_mine_selected`.
+    static let discussions_filter_mine_selected = ImageResource(bundle: _R.hostingBundle, name: "discussions_filter_mine_selected")
     /// Image `group`.
     static let group = ImageResource(bundle: _R.hostingBundle, name: "group")
     /// Image `group_list`.
@@ -324,6 +332,26 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "delete", bundle: ..., traitCollection: ...)`
     static func delete(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
       return UIImage(resource: R.image.delete, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "discussions_filter_all", bundle: ..., traitCollection: ...)`
+    static func discussions_filter_all(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.discussions_filter_all, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "discussions_filter_all_selected", bundle: ..., traitCollection: ...)`
+    static func discussions_filter_all_selected(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.discussions_filter_all_selected, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "discussions_filter_mine", bundle: ..., traitCollection: ...)`
+    static func discussions_filter_mine(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.discussions_filter_mine, compatibleWithTraitCollection: traitCollection)
+    }
+    
+    /// `UIImage(named: "discussions_filter_mine_selected", bundle: ..., traitCollection: ...)`
+    static func discussions_filter_mine_selected(compatibleWithTraitCollection traitCollection: UITraitCollection? = nil) -> UIImage? {
+      return UIImage(resource: R.image.discussions_filter_mine_selected, compatibleWithTraitCollection: traitCollection)
     }
     
     /// `UIImage(named: "group", bundle: ..., traitCollection: ...)`
@@ -789,7 +817,7 @@ struct R: Rswift.Validatable {
 
 struct _R: Rswift.Validatable {
   static let applicationLocale = hostingBundle.preferredLocalizations.first.flatMap(NSLocale.init) ?? NSLocale.currentLocale()
-  static let hostingBundle = NSBundle(identifier: "com.sizung.app.ios") ?? NSBundle.mainBundle()
+  static let hostingBundle = NSBundle(identifier: "com.sizung.app.ios.dev") ?? NSBundle.mainBundle()
   
   static func validate() throws {
     try storyboard.validate()
