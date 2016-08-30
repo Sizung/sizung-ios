@@ -84,7 +84,13 @@ extension TimelineTableViewController: ExpandingTransitionPresentingViewControll
     if let cell = tableView.dequeueReusableCellWithIdentifier(R.nib.timelineDeliverableTableViewCell.identifier) as? TimelineDeliverableTableViewCell {
 
       cell.titleLabel.setTitle(deliverable.title, forState: .Normal)
-      cell.dueDateLabel.text = deliverable.dueOn?.timeAgoSinceNow()
+
+      if deliverable.dueOn != nil && !deliverable.isCompleted() {
+        cell.dueDateLabel.text = DueDateHelper.getDueDateString(deliverable.dueOn!)
+      } else {
+        cell.dueDateLabel.text = ""
+      }
+
       cell.dateLabel.text = deliverable.createdAt?.timeAgoSinceNow()
 
       if let author = storageManager.users[deliverable.ownerId] {
