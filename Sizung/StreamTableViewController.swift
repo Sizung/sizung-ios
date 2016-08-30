@@ -10,6 +10,7 @@ import UIKit
 import ReactiveKit
 import Rswift
 import MRProgress
+import AKSegmentedControl
 
 class StreamTableViewController: UITableViewController {
 
@@ -26,6 +27,15 @@ class StreamTableViewController: UITableViewController {
   @IBOutlet weak var logoView: UIImageView!
   @IBOutlet weak var emptyView: UIStackView!
   @IBOutlet weak var unseenObjectsLabel: UILabel!
+
+  @IBOutlet weak var segmentedControl: AKSegmentedControl!
+
+  var filter: Filter = .Mine
+
+  enum Filter {
+    case Mine
+    case All
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -48,6 +58,34 @@ class StreamTableViewController: UITableViewController {
 
     self.tableView.backgroundView = self.tableView.tableFooterView
     self.tableView.tableFooterView = nil
+    self.initSegmentedControl()
+  }
+
+  func initSegmentedControl() {
+    let allButton = UIButton()
+    allButton.setBackgroundImage(R.image.discussions_filter_all(), forState: .Normal)
+    allButton.setBackgroundImage(R.image.discussions_filter_all_selected(), forState: .Selected)
+    allButton.titleLabel?.font = R.font.brandonGrotesqueMedium(size: 15)
+    allButton.setTitleColor(Color.DISCUSSION, forState: .Normal)
+    allButton.setTitleColor(UIColor.whiteColor(), forState: .Selected)
+    allButton.setTitle("All", forState: .Normal)
+
+    let myButton = UIButton()
+    myButton.setBackgroundImage(R.image.discussions_filter_mine(), forState: .Normal)
+    myButton.setBackgroundImage(R.image.discussions_filter_mine_selected(), forState: .Selected)
+    myButton.titleLabel?.font = R.font.brandonGrotesqueMedium(size: 15)
+    myButton.setTitleColor(Color.DISCUSSION, forState: .Normal)
+    myButton.setTitleColor(UIColor.whiteColor(), forState: .Selected)
+    myButton.setTitle("My", forState: .Normal)
+
+    segmentedControl.buttonsArray = [allButton, myButton]
+
+    switch self.filter {
+    case .All:
+      segmentedControl.setSelectedIndex(0)
+    case .Mine:
+      segmentedControl.setSelectedIndex(1)
+    }
   }
 
   override func viewDidAppear(animated: Bool) {
@@ -97,13 +135,29 @@ class StreamTableViewController: UITableViewController {
           }
           }.disposeIn(self.rBag)
 
-        self.showSubscribed()
         self.updateData()
     }
   }
 
+  @IBAction func filterData(sender: AKSegmentedControl) {
+    switch sender.selectedIndexes.firstIndex {
+    case 0:
+      self.filter = .All
+    case 1:
+      self.filter = .Mine
+    default:
+      break
+    }
+
+    switch filter {
+    case .All:
+      showUnsubscribed()
+    case .Mine:
+      showSubscribed()
+    }
+  }
+
   func updateData() {
-    showSubscribed()
     self.finishedLoading = false
     self.fetchUnseenObjectsPage(0, subscribed: true)
   }
