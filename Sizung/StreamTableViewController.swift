@@ -131,10 +131,16 @@ class StreamTableViewController: UITableViewController {
             dispatch_async(dispatch_get_main_queue()) {
               self.tableView.reloadData()
               self.hideLoadingView()
+
+              if self.filter == .Mine {
+                // use reduced stream objects
+                UIApplication.sharedApplication().applicationIconBadgeNumber = reducedStreamObjects.count
+              }
             }
           }
           }.disposeIn(self.rBag)
 
+        self.showSubscribed()
         self.updateData()
     }
   }
