@@ -1,1 +1,4 @@
-Only allow organization edit if user is owner
+Add All/Mine filter to stream
+Show unseen activity on app icon
+Fix date formatting issues
+Stability improvements

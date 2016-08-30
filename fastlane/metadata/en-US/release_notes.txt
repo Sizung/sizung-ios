@@ -1,4 +1,4 @@
-New app icon
-Improved conversation member handling
-General visual improvements
-Fix timeline reconnection issue
+Add All/Mine filter to stream
+Show unseen activity on app icon
+Fix date formatting issues
+Stability improvements
