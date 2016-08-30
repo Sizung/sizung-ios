@@ -136,6 +136,9 @@ class StreamTableViewController: UITableViewController {
                 // use reduced stream objects
                 UIApplication.sharedApplication().applicationIconBadgeNumber = reducedStreamObjects.count
               }
+
+              // hide filter after launch and after selection
+              self.tableView.setContentOffset(CGPoint(x: 0, y: self.tableView.tableHeaderView!.frame.height), animated: true)
             }
           }
           }.disposeIn(self.rBag)
