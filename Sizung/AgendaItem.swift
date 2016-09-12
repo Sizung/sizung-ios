@@ -17,6 +17,13 @@ class AgendaItem: BaseModel {
 
   var new = false
 
+  var number: Int? {
+    guard let firstComponent = title.componentsSeparatedByString(" ").first else {
+      return nil
+    }
+    return Int(firstComponent)
+  }
+
   init(conversationId: String, ownerId: String) {
     super.init(type: "agenda_items")
     self.conversationId = conversationId
@@ -36,6 +43,10 @@ class AgendaItem: BaseModel {
     return "resolved" == self.status
   }
 
+  func isOpen() -> Bool {
+    return "open" == self.status
+  }
+
   func getStatus() -> String {
     return self.status.capitalizedString
   }
@@ -46,5 +57,9 @@ class AgendaItem: BaseModel {
     status <- map["attributes.status"]
     conversationId <- map["relationships.conversation.data.id"]
     ownerId <- map["relationships.owner.data.id"]
+  }
+
+  func isNumbered() -> Bool {
+    return number != nil
   }
 }

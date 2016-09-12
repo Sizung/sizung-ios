@@ -98,7 +98,7 @@ class AgendaItemsTableViewController: UITableViewController {
     StorageManager.storageForSelectedOrganization()
       .onSuccess { storageManager in
 
-        self.collection = storageManager.agendaItems.collection
+        let filteredCollection = storageManager.agendaItems.collection
           .filter { agendaItem in
 
             if self.conversation != nil && self.conversation!.id != agendaItem.conversationId {
@@ -116,11 +116,23 @@ class AgendaItemsTableViewController: UITableViewController {
             }
         }
 
-        //    sort by created at date
-        self.collection!
-          .sortInPlace { left, right in
-            return left.createdAt.compare(right.createdAt) == NSComparisonResult.OrderedDescending
+        // first, handle open, numbered items
+        self.collection = filteredCollection.filter { $0.isOpen() && $0.isNumbered() }
+          .sort { left, right in
+            return left.number < right.number
         }
+
+        // second, handle open, unnumbered items
+        self.collection?.appendContentsOf(filteredCollection.filter { $0.isOpen() && !$0.isNumbered() }
+          .sort { left, right in
+            return left.updatedAt.compare(right.updatedAt) == NSComparisonResult.OrderedDescending
+        })
+
+        // third, handle resolved items
+        self.collection?.appendContentsOf(filteredCollection.filter { $0.isResolved() }
+          .sort { left, right in
+            return left.updatedAt.compare(right.updatedAt) == NSComparisonResult.OrderedDescending
+          })
 
         if self.collection!.count > 0 {
           self.tableView.backgroundView = nil
