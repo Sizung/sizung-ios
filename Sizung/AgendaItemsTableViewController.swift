@@ -215,7 +215,7 @@ class AgendaItemsTableViewController: UITableViewController {
         if unresolvedActionItemListCount > 0 {
           cell.agendaStatusLabel.layer.borderUIColor = Color.ACTION
           cell.agendaStatusLabel.text = "\(unresolvedActionItemListCount)"
-        } else if agendaItem.isCompleted() {
+        } else if agendaItem.isResolved() {
           cell.agendaStatusLabel.backgroundColor = Color.AGENDAITEM
         }
 

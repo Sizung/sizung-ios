@@ -28,11 +28,11 @@ class AgendaItem: BaseModel {
     super.init(map)
   }
 
-  func setCompleted() {
+  func setResolved() {
     self.status = "resolved"
   }
 
-  func isCompleted() -> Bool {
+  func isResolved() -> Bool {
     return "resolved" == self.status
   }
 
