@@ -234,7 +234,7 @@ class AgendaItemsTableViewController: UITableViewController {
 
         return cell
       } else {
-        fatalError("Unknown cell type in \(self.dynamicType)")
+        fatalError("Unknown cell type in \(type(of: self))")
       }
   }
 

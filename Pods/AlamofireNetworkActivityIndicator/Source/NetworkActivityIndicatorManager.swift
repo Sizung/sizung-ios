@@ -1,24 +1,26 @@
-// NetworkActivityIndicatorManager.swift
 //
-// Copyright (c) 2016 Alamofire Software Foundation (http://alamofire.org/)
+//  NetworkActivityIndicatorManager.swift
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Copyright (c) 2016 Alamofire Software Foundation (http://alamofire.org/)
 //
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 
 import Alamofire
 import Foundation
@@ -29,14 +31,14 @@ import UIKit
     enabled, it will listen for notifications indicating that a URL session task has started or completed and start
     animating the indicator accordingly. The indicator will continue to animate while the internal activity count is
     greater than zero.
- 
+
     To use the `NetworkActivityIndicatorManager`, the `sharedManager` should be enabled in the
     `application:didFinishLaunchingWithOptions:` method in the `AppDelegate`. This can be done with the following:
- 
+
         NetworkActivityIndicatorManager.sharedManager.isEnabled = true
- 
+
     By setting the `isEnabled` property to `true` for the `sharedManager`, the network activity indicator will show and
-    hide automatically as Alamofire requests start and complete. You should not ever need to call 
+    hide automatically as Alamofire requests start and complete. You should not ever need to call
     `incrementActivityCount` and `decrementActivityCount` yourself.
 */
 public class NetworkActivityIndicatorManager {
@@ -78,7 +80,7 @@ public class NetworkActivityIndicatorManager {
     /// A closure executed when the network activity indicator visibility changes.
     public var networkActivityIndicatorVisibilityChanged: (Bool -> Void)?
 
-    /// A time interval indicating the minimum duration of networking activity that should occur before the activity 
+    /// A time interval indicating the minimum duration of networking activity that should occur before the activity
     /// indicator is displayed. Defaults to `1.0` second.
     public var startDelay: NSTimeInterval = 1.0
 
@@ -131,7 +133,7 @@ public class NetworkActivityIndicatorManager {
     /**
         Increments the number of active network requests.
 
-        If this number was zero before incrementing, the network activity indicator will start spinning after 
+        If this number was zero before incrementing, the network activity indicator will start spinning after
         the `startDelay`.
 
         Generally, this method should not need to be used directly.
@@ -146,7 +148,7 @@ public class NetworkActivityIndicatorManager {
     /**
         Decrements the number of active network requests.
 
-        If the number of active requests is zero after calling this method, the network activity indicator will stop 
+        If the number of active requests is zero after calling this method, the network activity indicator will stop
         spinning after the `completionDelay`.
 
         Generally, this method should not need to be used directly.

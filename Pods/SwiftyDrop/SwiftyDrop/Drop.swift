@@ -68,13 +68,14 @@ public final class Drop: UIView {
 
     private var action: DropAction?
 
-    convenience init(duration: Double) {
+    convenience init(duration: Double, action: DropAction?) {
         self.init(frame: CGRect.zero)
         self.duration = duration
+        self.action = action
         
         scheduleUpTimer(duration)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidEnterBackground:", name: UIApplicationDidEnterBackgroundNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceOrientationDidChange:", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.applicationDidEnterBackground(_:)), name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.deviceOrientationDidChange(_:)), name: UIDeviceOrientationDidChangeNotification, object: nil)
     }
     
     override init(frame: CGRect) {
@@ -115,7 +116,7 @@ public final class Drop: UIView {
     
     private func scheduleUpTimer(after: Double, interval: Double) {
         stopUpTimer()
-        upTimer = NSTimer.scheduledTimerWithTimeInterval(after, target: self, selector: "upFromTimer:", userInfo: interval, repeats: false)
+        upTimer = NSTimer.scheduledTimerWithTimeInterval(after, target: self, selector: #selector(self.upFromTimer(_:)), userInfo: interval, repeats: false)
     }
     
     private func stopUpTimer() {
@@ -145,7 +146,7 @@ extension Drop {
 
     private class func show(status: String, state: DropStatable, duration: Double, action: DropAction?) {
         self.upAll()
-        let drop = Drop(duration: duration)
+        let drop = Drop(duration: duration, action: action)
         UIApplication.sharedApplication().keyWindow?.addSubview(drop)
         guard let window = drop.window else { return }
 
@@ -165,7 +166,6 @@ extension Drop {
         )
 
         drop.setup(status, state: state)
-        drop.action = action
         drop.updateHeight()
 
         topConstraint.constant = 0.0
@@ -270,8 +270,8 @@ extension Drop {
         self.statusLabel = statusLabel
         
         self.layoutIfNeeded()
-        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "up:"))
-        self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "pan:"))
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.up(_:))))
+        self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.pan(_:))))
     }
 }
 
