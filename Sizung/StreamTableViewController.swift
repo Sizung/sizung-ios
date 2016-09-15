@@ -112,15 +112,29 @@ class StreamTableViewController: UITableViewController {
           let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
           dispatch_async(dispatch_get_global_queue(priority, 0)) {
 
-            let reducedStreamObjects: Dictionary<String, StreamObject> = self.filteredUnseenObjects.collection.reduce([:], combine: self.reduceUnseenObjectsToStreamObjects)
+            // convert unseenobjects to streamobjects
+            let reducedStreamObjects: [StreamObject] =
+              self.filteredUnseenObjects.collection.reduce([:], combine: self.reduceUnseenObjectsToStreamObjects)
+                // convert to array
+                .map { _, streamObject in
+                  return streamObject
+                }
+                // filter for empty streamobjects
+                .filter { streamObject in
+                  guard let streamBaseObject = streamObject as? StreamBaseObject else {
+                    return false
+                  }
+
+                  return !streamBaseObject.isEmpty
+                }
 
             // calculate days
-            let daySet: Set<StreamObject> = Set(reducedStreamObjects.map { (timeLineId, streamObject) in
+            let daySet: Set<StreamObject> = Set(reducedStreamObjects.map { streamObject in
               return StreamDateObject(date: streamObject.sortDate)
               })
 
             // merge day seperator objects and streamobjects
-            let streamAndDayObjects = daySet.union(reducedStreamObjects.values)
+            let streamAndDayObjects = daySet.union(reducedStreamObjects)
 
             let sortedObjects = streamAndDayObjects.sort {
               $0.0.sortDate.isLaterThan($0.1.sortDate)
