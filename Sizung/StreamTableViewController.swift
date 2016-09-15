@@ -269,12 +269,12 @@ class StreamTableViewController: UITableViewController {
     switch unseenObject.target {
     case let comment as Comment:
       if let user = storageManager!.users[comment.authorId] {
-        // comments
-        streamObject.commentAuthors.insert(user)
-
         // mentions
         if comment.body.containsString(userId) {
           streamObject.mentionAuthors.insert(user)
+        } else {
+          // only add as commentAuthor if not a mention
+          streamObject.commentAuthors.insert(user)
         }
       }
     case is Conversation:
