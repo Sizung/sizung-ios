@@ -333,6 +333,8 @@ class StreamTableViewController: UITableViewController {
         cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamAgendaTableViewCell, forIndexPath: indexPath)!
       case is Deliverable:
         cell = tableView.dequeueReusableCellWithIdentifier(R.nib.streamActionTableViewCell, forIndexPath: indexPath)!
+      case nil:
+        fatalError("nil streamobject subject \(streamBaseObject)")
       default:
         fatalError("unkown streamobject \(streamBaseObject.subject)")
       }
