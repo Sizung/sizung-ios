@@ -3,22 +3,22 @@ PODS:
     - Starscream (~> 1.1.2)
     - SwiftyJSON (~> 2.3.1)
   - AKSegmentedControl (1.0.4)
-  - Alamofire (3.4.1)
-  - AlamofireImage (2.4.0):
+  - Alamofire (3.5.0)
+  - AlamofireImage (2.5.0):
+    - Alamofire (~> 3.5)
+  - AlamofireNetworkActivityIndicator (1.1.0):
     - Alamofire (~> 3.3)
-  - AlamofireNetworkActivityIndicator (1.0.1):
-    - Alamofire (~> 3.3)
-  - BrightFutures (4.1.0):
+  - BrightFutures (4.1.1):
     - Result (~> 2.0)
   - Bumblebee (1.0.1)
-  - Crashlytics (3.7.3):
+  - Crashlytics (3.8.1):
     - Fabric (~> 1.6.3)
   - DateTools (1.7.0)
   - Fabric (1.6.8)
-  - ImageFilesPicker (0.1.8)
-  - JVFloatLabeledTextField (1.1.0)
-  - JWTDecode (1.0.0)
-  - KCFloatingActionButton (1.3.4)
+  - ImageFilesPicker (0.2.1)
+  - JVFloatLabeledTextField (1.1.1)
+  - JWTDecode (1.2.0)
+  - KCFloatingActionButton (1.4.4)
   - MRProgress (0.8.3):
     - MRProgress/ActivityIndicator (= 0.8.3)
     - MRProgress/Blur (= 0.8.3)
@@ -48,32 +48,32 @@ PODS:
   - MRProgress/Stopable (0.8.3):
     - MRProgress/Helper
   - Nimble (4.1.0)
-  - ObjectMapper (1.3.0)
-  - OHHTTPStubs (5.1.0):
-    - OHHTTPStubs/Default (= 5.1.0)
-  - OHHTTPStubs/Core (5.1.0)
-  - OHHTTPStubs/Default (5.1.0):
+  - ObjectMapper (1.4.0)
+  - OHHTTPStubs (5.2.1):
+    - OHHTTPStubs/Default (= 5.2.1)
+  - OHHTTPStubs/Core (5.2.1)
+  - OHHTTPStubs/Default (5.2.1):
     - OHHTTPStubs/Core
     - OHHTTPStubs/JSON
     - OHHTTPStubs/NSURLSession
     - OHHTTPStubs/OHPathHelpers
-  - OHHTTPStubs/JSON (5.1.0):
+  - OHHTTPStubs/JSON (5.2.1):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/NSURLSession (5.1.0):
+  - OHHTTPStubs/NSURLSession (5.2.1):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/OHPathHelpers (5.1.0)
-  - R.swift (2.4.0):
-    - R.swift.Library (~> 2.2.0)
-  - R.swift.Library (2.2.0)
-  - ReactiveKit (2.1.0)
+  - OHHTTPStubs/OHPathHelpers (5.2.1)
+  - R.swift (2.5.0):
+    - R.swift.Library (~> 2.3.0)
+  - R.swift.Library (2.3.0)
+  - ReactiveKit (2.1.1)
   - ReactiveUIKit (2.0.1):
     - ReactiveKit (~> 2.0)
-  - Result (2.1.1)
-  - RSDayFlow (1.5.1)
-  - SlackTextViewController (1.9.3)
+  - Result (2.1.3)
+  - RSDayFlow (1.5.3)
+  - SlackTextViewController (1.9.4)
   - Starscream (1.1.3)
   - SwiftKeychainWrapper (1.0.11)
-  - SwiftyDrop (2.4.1)
+  - SwiftyDrop (2.4.2)
   - SwiftyJSON (2.3.2)
   - TTTAttributedLabel (2.0.0)
 
@@ -108,32 +108,32 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   ActionCableClient: a267d85d8eed1749f83cbc63596da3edf1e7945a
   AKSegmentedControl: c09751e41133b98bcb3c77b465fe7e119ac7e4f7
-  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
-  AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
-  AlamofireNetworkActivityIndicator: 49a6e39afb947136f7b1872bae2d684957c26697
-  BrightFutures: e18b83fd6fa8562ceb9902ee609f0de23b0ee110
+  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
+  AlamofireImage: 2d34936e5201270bb17a316a786e90e83b4a249d
+  AlamofireNetworkActivityIndicator: 36340ebf8d70241b2ebadc3dea38e8fbb95f5127
+  BrightFutures: 2b9f317ca249be86025f5747a76e72c9a0b4f4d2
   Bumblebee: 0249c65d409431276ced68734f96a96708e2e9f2
-  Crashlytics: 76f6beaff70acf226139582c09c78461597c2b98
+  Crashlytics: 4391d8df0b125345e9f209c5db6e7f40a6a8435d
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Fabric: 5755268d0171435ab167e3d0878a28a777deaf10
-  ImageFilesPicker: 3d29153b7d009b3e7a967617d714d369a40ad351
-  JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
-  JWTDecode: d172edcb1607cc15aed85d58eceedcbb675a4534
-  KCFloatingActionButton: 7a2974b7e30fa3dd80a476b401a5b5f44cf5440a
+  ImageFilesPicker: 63d777724e69b18fc80b39a92f0fdbba660daac6
+  JVFloatLabeledTextField: 0e5524b097f102036214dd8279edc8ecf08b5e18
+  JWTDecode: ad85e373ff5835d029174dc277ede56a72c0c05b
+  KCFloatingActionButton: 410c5bf4255da4d21c8708069cf128d436d64cf7
   MRProgress: 16de7cc9f347e8846797a770db102a323fe7ef09
   Nimble: 97a0a4cae5124c117115634b2d055d8c97d0af19
-  ObjectMapper: 4eb08a726e9791a93b2632049951b56a7c17e471
-  OHHTTPStubs: 592f74439d2d72615115cf99a954237a3fbe26e5
-  R.swift: 0ef9c42dc6c94ac44a3c78a7639c73f855a8e159
-  R.swift.Library: 31a487b65381f37a7d203a6f1f935b43c9be35b0
-  ReactiveKit: fe3c5d480ed904ce6d6d99cc94ccf568d5c48c5c
+  ObjectMapper: a07ad0462c5adf014adc0f89ef04c29b626e855e
+  OHHTTPStubs: 3a42f25c00563b71355ac73112ba2324e9e6cef4
+  R.swift: 01b9966e8dbe587a11ca2f65a1834dac2fa7b247
+  R.swift.Library: 75df6abfd22492c852136c4d7b6a9ca21664772a
+  ReactiveKit: 93374d66000dc629896472541d22157d6083bf30
   ReactiveUIKit: af6e401a61d196502267ff216b7ac6f4c37c0dc5
-  Result: 822c879f145943320cc80a9a8372378e3d699fe4
-  RSDayFlow: dac09ceeef8a37badc403779875017d4953c6a5a
-  SlackTextViewController: bd2a34c188d4f7dec93cf42388f38551263fac82
+  Result: 18e1a7597fbcca5923c565b40a25a98afafdee02
+  RSDayFlow: a41e1d2c9dcf665be3d79b91af763ef24bc54afd
+  SlackTextViewController: d490f354dba963bc469a6b9ce3213978eaed67a5
   Starscream: d662732354b40dd19ed1ece3e3c44c80b536b83c
   SwiftKeychainWrapper: 011a6946923948ffa49708014dd691164d7621d1
-  SwiftyDrop: 54a30c4edd51be9863429c3ad2ad4108eb7b7814
+  SwiftyDrop: e65d61c9f416fd5daa80b53cf89ccce572756336
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 

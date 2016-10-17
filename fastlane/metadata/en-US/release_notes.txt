@@ -1,4 +1,2 @@
-Add All/Mine filter to stream
-Show unseen activity on app icon
-Fix date formatting issues
-Stability improvements
+Improve Agenda sort order
+Visual improvements

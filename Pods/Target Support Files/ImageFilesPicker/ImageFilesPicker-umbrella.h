@@ -1,6 +1,11 @@
 #import <UIKit/UIKit.h>
 
-#import "AppDelegate.h"
+#import "EXTScope.h"
+#import "LLSimpleCamera.h"
+#import "metamacros.h"
+#import "UIBlockButton.h"
+#import "UIImage+FixOrientation.h"
+#import "UIImagePickerController+Block.h"
 #import "JVTActionSheetAction.h"
 #import "JVTActionSheetView.h"
 #import "JVTCameraAccesebility.h"
@@ -18,13 +23,6 @@
 #import "JVTTransitionOpenViewFullScreenDismiss.h"
 #import "JVTTransitionOpenViewFullScreenPresentation.h"
 #import "JVTWorker.h"
-#import "ViewController.h"
-#import "EXTScope.h"
-#import "LLSimpleCamera.h"
-#import "metamacros.h"
-#import "UIBlockButton.h"
-#import "UIImage+FixOrientation.h"
-#import "UIImagePickerController+Block.h"
 
 FOUNDATION_EXPORT double ImageFilesPickerVersionNumber;
 FOUNDATION_EXPORT const unsigned char ImageFilesPickerVersionString[];

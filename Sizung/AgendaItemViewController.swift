@@ -101,7 +101,7 @@ AgendaItemCreateDelegate {
     }
 
     // update status text
-    if agendaItem.isCompleted() {
+    if agendaItem.isResolved() {
       self.statusButton.setTitle("✓", forState: .Normal)
       self.statusButton.backgroundColor = Color.AGENDAITEM
     } else {
@@ -122,10 +122,10 @@ AgendaItemCreateDelegate {
 
     let optionMenu = UIAlertController(title: nil, message: "Edit", preferredStyle: .ActionSheet)
 
-    if !agendaItem.isCompleted() {
+    if !agendaItem.isResolved() {
 
       let completeAction = UIAlertAction(title: "Mark as complete", style: .Default, handler: { _ in
-        self.agendaItem.setCompleted()
+        self.agendaItem.setResolved()
         self.updateAgendaItem()
       })
 

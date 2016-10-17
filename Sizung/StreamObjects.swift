@@ -40,6 +40,10 @@ class StreamBaseObject: StreamObject, StreamBaseObjectProtocol {
   override var sortDate: NSDate { return date }
   override var hashValue: Int { return subject.id.hashValue }
 
+  var isEmpty: Bool {
+    return mentionAuthors.isEmpty && commentAuthors.isEmpty
+  }
+
 }
 
 class StreamDateObject: StreamObject {
